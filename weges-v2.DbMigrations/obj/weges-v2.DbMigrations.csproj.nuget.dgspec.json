@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/home/marcio/Documentos/repo/weges-v2.DbMigrations/weges-v2.DbMigrations.csproj": {}
+    "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.DbMigrations\\weges-v2.DbMigrations.csproj": {}
   },
   "projects": {
-    "/home/marcio/Documentos/repo/weges-v2.ApiModel/weges-v2.ApiModel.csproj": {
+    "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.ApiModel\\weges-v2.ApiModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/marcio/Documentos/repo/weges-v2.ApiModel/weges-v2.ApiModel.csproj",
+        "projectUniqueName": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.ApiModel\\weges-v2.ApiModel.csproj",
         "projectName": "weges-v2.ApiModel",
-        "projectPath": "/home/marcio/Documentos/repo/weges-v2.ApiModel/weges-v2.ApiModel.csproj",
-        "packagesPath": "/home/marcio/.nuget/packages/",
-        "outputPath": "/home/marcio/Documentos/repo/weges-v2.ApiModel/obj/",
+        "projectPath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.ApiModel\\weges-v2.ApiModel.csproj",
+        "packagesPath": "C:\\Users\\marcio\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.ApiModel\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/marcio/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\marcio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,9 +50,9 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
-            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[*, )"
+              "version": "[8.0.0, )"
             }
           },
           "imports": [
@@ -65,37 +71,43 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/marcio/Documentos/repo/weges-v2.DbMigrations/weges-v2.DbMigrations.csproj": {
+    "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.DbMigrations\\weges-v2.DbMigrations.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/marcio/Documentos/repo/weges-v2.DbMigrations/weges-v2.DbMigrations.csproj",
+        "projectUniqueName": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.DbMigrations\\weges-v2.DbMigrations.csproj",
         "projectName": "weges-v2.DbMigrations",
-        "projectPath": "/home/marcio/Documentos/repo/weges-v2.DbMigrations/weges-v2.DbMigrations.csproj",
-        "packagesPath": "/home/marcio/.nuget/packages/",
-        "outputPath": "/home/marcio/Documentos/repo/weges-v2.DbMigrations/obj/",
+        "projectPath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.DbMigrations\\weges-v2.DbMigrations.csproj",
+        "packagesPath": "C:\\Users\\marcio\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.DbMigrations\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/marcio/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\marcio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "/home/marcio/Documentos/repo/weges-v2.ApiModel/weges-v2.ApiModel.csproj": {
-                "projectPath": "/home/marcio/Documentos/repo/weges-v2.ApiModel/weges-v2.ApiModel.csproj"
+              "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.ApiModel\\weges-v2.ApiModel.csproj": {
+                "projectPath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.ApiModel\\weges-v2.ApiModel.csproj"
               },
-              "/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/weges-v2.ServiceDefaults.csproj": {
-                "projectPath": "/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/weges-v2.ServiceDefaults.csproj"
+              "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.ServiceDefaults\\weges-v2.ServiceDefaults.csproj": {
+                "projectPath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.ServiceDefaults\\weges-v2.ServiceDefaults.csproj"
               }
             }
           }
@@ -118,19 +130,23 @@
           "dependencies": {
             "Aspire.Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
-              "version": "[*, )"
+              "version": "[8.2.2, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
-              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[*, )"
+              "version": "[8.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[*, )"
+              "version": "[8.0.0, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.10, )"
             }
           },
           "imports": [
@@ -149,26 +165,32 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/weges-v2.ServiceDefaults.csproj": {
+    "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.ServiceDefaults\\weges-v2.ServiceDefaults.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/weges-v2.ServiceDefaults.csproj",
+        "projectUniqueName": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.ServiceDefaults\\weges-v2.ServiceDefaults.csproj",
         "projectName": "weges-v2.ServiceDefaults",
-        "projectPath": "/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/weges-v2.ServiceDefaults.csproj",
-        "packagesPath": "/home/marcio/.nuget/packages/",
-        "outputPath": "/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/obj/",
+        "projectPath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.ServiceDefaults\\weges-v2.ServiceDefaults.csproj",
+        "packagesPath": "C:\\Users\\marcio\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.ServiceDefaults\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/marcio/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\marcio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -241,7 +263,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

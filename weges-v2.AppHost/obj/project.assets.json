@@ -2,15 +2,15 @@
   "version": 3,
   "targets": {
     "net9.0": {
-      "Aspire.Dashboard.Sdk.linux-x64/9.0.0": {
+      "Aspire.Dashboard.Sdk.win-x64/9.0.0": {
         "type": "package",
         "build": {
-          "buildTransitive/Aspire.Dashboard.Sdk.linux-x64.props": {},
-          "buildTransitive/Aspire.Dashboard.Sdk.linux-x64.targets": {}
+          "buildTransitive/Aspire.Dashboard.Sdk.win-x64.props": {},
+          "buildTransitive/Aspire.Dashboard.Sdk.win-x64.targets": {}
         },
         "buildMultiTargeting": {
-          "buildMultiTargeting/Aspire.Dashboard.Sdk.linux-x64.props": {},
-          "buildMultiTargeting/Aspire.Dashboard.Sdk.linux-x64.targets": {}
+          "buildMultiTargeting/Aspire.Dashboard.Sdk.win-x64.props": {},
+          "buildMultiTargeting/Aspire.Dashboard.Sdk.win-x64.targets": {}
         }
       },
       "Aspire.Hosting/9.0.0": {
@@ -131,39 +131,19 @@
           "buildMultiTargeting/Aspire.Hosting.AppHost.targets": {}
         }
       },
-      "Aspire.Hosting.Orchestration.linux-x64/9.0.0": {
+      "Aspire.Hosting.Orchestration.win-x64/9.0.0": {
         "type": "package",
         "build": {
-          "buildTransitive/Aspire.Hosting.Orchestration.linux-x64.targets": {}
+          "buildTransitive/Aspire.Hosting.Orchestration.win-x64.targets": {}
         },
         "buildMultiTargeting": {
-          "buildMultiTargeting/Aspire.Hosting.Orchestration.linux-x64.targets": {}
+          "buildMultiTargeting/Aspire.Hosting.Orchestration.win-x64.targets": {}
         }
       },
-      "Aspire.Hosting.PostgreSQL/9.0.0": {
+      "Aspire.Hosting.PostgreSQL/8.0.0": {
         "type": "package",
         "dependencies": {
-          "AspNetCore.HealthChecks.NpgSql": "8.0.2",
-          "AspNetCore.HealthChecks.Uris": "8.0.1",
-          "Aspire.Hosting": "9.0.0",
-          "Google.Protobuf": "3.28.2",
-          "Grpc.AspNetCore": "2.66.0",
-          "Grpc.Net.ClientFactory": "2.66.0",
-          "Grpc.Tools": "2.67.0",
-          "Humanizer.Core": "2.14.1",
-          "JsonPatch.Net": "3.1.1",
-          "KubernetesClient": "15.0.1",
-          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
-          "Microsoft.Extensions.Configuration.Binder": "8.0.2",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2",
-          "Microsoft.Extensions.Diagnostics.HealthChecks": "8.0.11",
-          "Microsoft.Extensions.Hosting": "8.0.1",
-          "Microsoft.Extensions.Hosting.Abstractions": "8.0.1",
-          "Microsoft.Extensions.Http": "8.0.1",
-          "Microsoft.Extensions.Logging.Abstractions": "8.0.2",
-          "Microsoft.Extensions.Options": "8.0.2",
-          "Microsoft.Extensions.Primitives": "8.0.0",
-          "Polly.Core": "8.4.2"
+          "Aspire.Hosting": "8.0.0"
         },
         "compile": {
           "lib/net8.0/Aspire.Hosting.PostgreSQL.dll": {
@@ -209,23 +189,6 @@
         },
         "runtime": {
           "lib/net8.0/Aspire.Hosting.Redis.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "AspNetCore.HealthChecks.NpgSql/8.0.2": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Diagnostics.HealthChecks": "8.0.0",
-          "Npgsql": "8.0.3"
-        },
-        "compile": {
-          "lib/net8.0/HealthChecks.NpgSql.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/HealthChecks.NpgSql.dll": {
             "related": ".xml"
           }
         }
@@ -1213,22 +1176,6 @@
           }
         }
       },
-      "Npgsql/8.0.3": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "8.0.0"
-        },
-        "compile": {
-          "lib/net8.0/Npgsql.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/Npgsql.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Pipelines.Sockets.Unofficial/2.2.8": {
         "type": "package",
         "dependencies": {
@@ -1347,28 +1294,27 @@
     }
   },
   "libraries": {
-    "Aspire.Dashboard.Sdk.linux-x64/9.0.0": {
-      "sha512": "H/EmpV4ERya0dm1kmzu2qQzuL6HIiX4aT/foXvi6ynlqEUX9nl2zAYYjVnrkRwHoBev4ScXhx41b5FjhsiktTA==",
+    "Aspire.Dashboard.Sdk.win-x64/9.0.0": {
+      "sha512": "ulspusO89H3sVbJHRK3V6JzB0H8hBcXmVVVDYxUWcEiAIxzOaJgneJDx3oJdQ3mhAfeap/K9s1p4ZH6GCIm+Ow==",
       "type": "package",
-      "path": "aspire.dashboard.sdk.linux-x64/9.0.0",
+      "path": "aspire.dashboard.sdk.win-x64/9.0.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "THIRD-PARTY-NOTICES.TXT",
-        "aspire.dashboard.sdk.linux-x64.9.0.0.nupkg.sha512",
-        "aspire.dashboard.sdk.linux-x64.nuspec",
-        "build/Aspire.Dashboard.Sdk.linux-x64.props",
-        "build/Aspire.Dashboard.Sdk.linux-x64.targets",
-        "buildMultiTargeting/Aspire.Dashboard.Sdk.linux-x64.props",
-        "buildMultiTargeting/Aspire.Dashboard.Sdk.linux-x64.targets",
-        "buildTransitive/Aspire.Dashboard.Sdk.linux-x64.props",
-        "buildTransitive/Aspire.Dashboard.Sdk.linux-x64.targets",
-        "data/UnixFilePermissions.xml",
-        "tools/Aspire.Dashboard",
+        "aspire.dashboard.sdk.win-x64.9.0.0.nupkg.sha512",
+        "aspire.dashboard.sdk.win-x64.nuspec",
+        "build/Aspire.Dashboard.Sdk.win-x64.props",
+        "build/Aspire.Dashboard.Sdk.win-x64.targets",
+        "buildMultiTargeting/Aspire.Dashboard.Sdk.win-x64.props",
+        "buildMultiTargeting/Aspire.Dashboard.Sdk.win-x64.targets",
+        "buildTransitive/Aspire.Dashboard.Sdk.win-x64.props",
+        "buildTransitive/Aspire.Dashboard.Sdk.win-x64.targets",
         "tools/Aspire.Dashboard.deps.json",
         "tools/Aspire.Dashboard.dll",
+        "tools/Aspire.Dashboard.exe",
         "tools/Aspire.Dashboard.runtimeconfig.json",
         "tools/Aspire.Dashboard.staticwebassets.endpoints.json",
         "tools/Aspire.Dashboard.xml",
@@ -1421,6 +1367,7 @@
         "tools/pt-BR/Aspire.Dashboard.resources.dll",
         "tools/ru/Aspire.Dashboard.resources.dll",
         "tools/tr/Aspire.Dashboard.resources.dll",
+        "tools/web.config",
         "tools/wwwroot/Aspire.Dashboard.modules.json",
         "tools/wwwroot/Aspire.Dashboard.styles.css",
         "tools/wwwroot/Components/Controls/Chart/MetricTable.razor.js",
@@ -1526,40 +1473,39 @@
         "lib/net9.0/Aspire.Hosting.AppHost.xml"
       ]
     },
-    "Aspire.Hosting.Orchestration.linux-x64/9.0.0": {
-      "sha512": "4MBl+WGzgk5OR3FOGI8SILaDu7im5ZFMeUcZe4dsRNGATp6SUdO+dDR3AzbXKCEOVE5xI80dJRiUi5Necwq/2Q==",
+    "Aspire.Hosting.Orchestration.win-x64/9.0.0": {
+      "sha512": "EffdkYWjOdd9IRlNujCXVkHdPJVAJgsb0SWo5kbshNGaHaiKXX6B7Y23VoATlYgG4iv7xeOgVdjcF7kf5lZy9Q==",
       "type": "package",
-      "path": "aspire.hosting.orchestration.linux-x64/9.0.0",
+      "path": "aspire.hosting.orchestration.win-x64/9.0.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "THIRD-PARTY-NOTICES.TXT",
-        "aspire.hosting.orchestration.linux-x64.9.0.0.nupkg.sha512",
-        "aspire.hosting.orchestration.linux-x64.nuspec",
-        "build/Aspire.Hosting.Orchestration.linux-x64.targets",
-        "buildMultiTargeting/Aspire.Hosting.Orchestration.linux-x64.targets",
-        "buildTransitive/Aspire.Hosting.Orchestration.linux-x64.targets",
-        "data/UnixFilePermissions.xml",
+        "aspire.hosting.orchestration.win-x64.9.0.0.nupkg.sha512",
+        "aspire.hosting.orchestration.win-x64.nuspec",
+        "build/Aspire.Hosting.Orchestration.win-x64.targets",
+        "buildMultiTargeting/Aspire.Hosting.Orchestration.win-x64.targets",
+        "buildTransitive/Aspire.Hosting.Orchestration.win-x64.targets",
         "tools/EULA.rtf",
         "tools/NOTICE",
-        "tools/dcp",
-        "tools/ext/bin/dcpproc",
-        "tools/ext/dcpctrl"
+        "tools/dcp.exe",
+        "tools/ext/bin/dcpproc.exe",
+        "tools/ext/dcpctrl.exe"
       ]
     },
-    "Aspire.Hosting.PostgreSQL/9.0.0": {
-      "sha512": "rG+FiTae+nsbukGflVLJXNcmVsCOkusPAVxbAUGT9Soe4OIoDdES2fP8t6arY24ivigz2ZBtfFHUv6q0bB25rA==",
+    "Aspire.Hosting.PostgreSQL/8.0.0": {
+      "sha512": "ftrKe+V0qlTWxeg51zLVJXJ6Lhi2QJ01K51eZGaaHoLwP9dVsmUNg7/uVrQuLSKsJ6laoHeBB+YH58CTKj4RBg==",
       "type": "package",
-      "path": "aspire.hosting.postgresql/9.0.0",
+      "path": "aspire.hosting.postgresql/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "README.md",
         "THIRD-PARTY-NOTICES.TXT",
-        "aspire.hosting.postgresql.9.0.0.nupkg.sha512",
+        "aspire.hosting.postgresql.8.0.0.nupkg.sha512",
         "aspire.hosting.postgresql.nuspec",
         "lib/net8.0/Aspire.Hosting.PostgreSQL.dll",
         "lib/net8.0/Aspire.Hosting.PostgreSQL.xml"
@@ -1579,25 +1525,6 @@
         "aspire.hosting.redis.nuspec",
         "lib/net8.0/Aspire.Hosting.Redis.dll",
         "lib/net8.0/Aspire.Hosting.Redis.xml"
-      ]
-    },
-    "AspNetCore.HealthChecks.NpgSql/8.0.2": {
-      "sha512": "1R0JGr80PkUd0I2HWaunAFcaMPJDhD1qMLYWEIVBkFRdSXrw7KkI5ooJ1hePqk0p/a2IWaqW3+CuxN3qv+yhQA==",
-      "type": "package",
-      "path": "aspnetcore.healthchecks.npgsql/8.0.2",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "aspnetcore.healthchecks.npgsql.8.0.2.nupkg.sha512",
-        "aspnetcore.healthchecks.npgsql.nuspec",
-        "icon.png",
-        "lib/net7.0/HealthChecks.NpgSql.dll",
-        "lib/net7.0/HealthChecks.NpgSql.xml",
-        "lib/net8.0/HealthChecks.NpgSql.dll",
-        "lib/net8.0/HealthChecks.NpgSql.xml",
-        "lib/netstandard2.0/HealthChecks.NpgSql.dll",
-        "lib/netstandard2.0/HealthChecks.NpgSql.xml"
       ]
     },
     "AspNetCore.HealthChecks.Redis/8.0.1": {
@@ -3020,29 +2947,6 @@
         "microsoft.identitymodel.tokens.nuspec"
       ]
     },
-    "Npgsql/8.0.3": {
-      "sha512": "6WEmzsQJCZAlUG1pThKg/RmeF6V+I0DmBBBE/8YzpRtEzhyZzKcK7ulMANDm5CkxrALBEC8H+5plxHWtIL7xnA==",
-      "type": "package",
-      "path": "npgsql/8.0.3",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "lib/net6.0/Npgsql.dll",
-        "lib/net6.0/Npgsql.xml",
-        "lib/net7.0/Npgsql.dll",
-        "lib/net7.0/Npgsql.xml",
-        "lib/net8.0/Npgsql.dll",
-        "lib/net8.0/Npgsql.xml",
-        "lib/netstandard2.0/Npgsql.dll",
-        "lib/netstandard2.0/Npgsql.xml",
-        "lib/netstandard2.1/Npgsql.dll",
-        "lib/netstandard2.1/Npgsql.xml",
-        "npgsql.8.0.3.nupkg.sha512",
-        "npgsql.nuspec",
-        "postgresql.png"
-      ]
-    },
     "Pipelines.Sockets.Unofficial/2.2.8": {
       "sha512": "zG2FApP5zxSx6OcdJQLbZDk2AVlN2BNQD6MorwIfV6gVj0RRxWPEp2LXAxqDGZqeNV1Zp0BNPcNaey/GXmTdvQ==",
       "type": "package",
@@ -3225,32 +3129,39 @@
   },
   "projectFileDependencyGroups": {
     "net9.0": [
-      "Aspire.Dashboard.Sdk.linux-x64 >= 9.0.0",
+      "Aspire.Dashboard.Sdk.win-x64 >= 9.0.0",
       "Aspire.Hosting.AppHost >= 9.0.0",
-      "Aspire.Hosting.Orchestration.linux-x64 >= 9.0.0",
-      "Aspire.Hosting.PostgreSQL >= *",
+      "Aspire.Hosting.Orchestration.win-x64 >= 9.0.0",
+      "Aspire.Hosting.PostgreSQL >= 8.0.0",
       "Aspire.Hosting.Redis >= 9.0.0"
     ]
   },
   "packageFolders": {
-    "/home/marcio/.nuget/packages/": {}
+    "C:\\Users\\marcio\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/marcio/Documentos/repo/weges-v2.AppHost/weges-v2.AppHost.csproj",
+      "projectUniqueName": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.AppHost\\weges-v2.AppHost.csproj",
       "projectName": "weges-v2.AppHost",
-      "projectPath": "/home/marcio/Documentos/repo/weges-v2.AppHost/weges-v2.AppHost.csproj",
-      "packagesPath": "/home/marcio/.nuget/packages/",
-      "outputPath": "/home/marcio/Documentos/repo/weges-v2.AppHost/obj/",
+      "projectPath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.AppHost\\weges-v2.AppHost.csproj",
+      "packagesPath": "C:\\Users\\marcio\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.AppHost\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/marcio/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\marcio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3275,7 +3186,7 @@
       "net9.0": {
         "targetAlias": "net9.0",
         "dependencies": {
-          "Aspire.Dashboard.Sdk.linux-x64": {
+          "Aspire.Dashboard.Sdk.win-x64": {
             "target": "Package",
             "version": "[9.0.0, )",
             "autoReferenced": true
@@ -3284,14 +3195,14 @@
             "target": "Package",
             "version": "[9.0.0, )"
           },
-          "Aspire.Hosting.Orchestration.linux-x64": {
+          "Aspire.Hosting.Orchestration.win-x64": {
             "target": "Package",
             "version": "[9.0.0, )",
             "autoReferenced": true
           },
           "Aspire.Hosting.PostgreSQL": {
             "target": "Package",
-            "version": "[*, )"
+            "version": "[8.0.0, )"
           },
           "Aspire.Hosting.Redis": {
             "target": "Package",
@@ -3314,7 +3225,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

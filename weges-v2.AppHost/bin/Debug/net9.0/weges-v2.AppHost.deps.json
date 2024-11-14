@@ -8,17 +8,17 @@
     ".NETCoreApp,Version=v9.0": {
       "weges-v2.AppHost/1.0.0": {
         "dependencies": {
-          "Aspire.Dashboard.Sdk.linux-x64": "9.0.0",
+          "Aspire.Dashboard.Sdk.win-x64": "9.0.0",
           "Aspire.Hosting.AppHost": "9.0.0",
-          "Aspire.Hosting.Orchestration.linux-x64": "9.0.0",
-          "Aspire.Hosting.PostgreSQL": "9.0.0",
+          "Aspire.Hosting.Orchestration.win-x64": "9.0.0",
+          "Aspire.Hosting.PostgreSQL": "8.0.0",
           "Aspire.Hosting.Redis": "9.0.0"
         },
         "runtime": {
           "weges-v2.AppHost.dll": {}
         }
       },
-      "Aspire.Dashboard.Sdk.linux-x64/9.0.0": {},
+      "Aspire.Dashboard.Sdk.win-x64/9.0.0": {},
       "Aspire.Hosting/9.0.0": {
         "dependencies": {
           "AspNetCore.HealthChecks.Uris": "8.0.1",
@@ -119,35 +119,15 @@
           }
         }
       },
-      "Aspire.Hosting.Orchestration.linux-x64/9.0.0": {},
-      "Aspire.Hosting.PostgreSQL/9.0.0": {
+      "Aspire.Hosting.Orchestration.win-x64/9.0.0": {},
+      "Aspire.Hosting.PostgreSQL/8.0.0": {
         "dependencies": {
-          "AspNetCore.HealthChecks.NpgSql": "8.0.2",
-          "AspNetCore.HealthChecks.Uris": "8.0.1",
-          "Aspire.Hosting": "9.0.0",
-          "Google.Protobuf": "3.28.2",
-          "Grpc.AspNetCore": "2.66.0",
-          "Grpc.Net.ClientFactory": "2.66.0",
-          "Grpc.Tools": "2.67.0",
-          "Humanizer.Core": "2.14.1",
-          "JsonPatch.Net": "3.1.1",
-          "KubernetesClient": "15.0.1",
-          "Microsoft.Extensions.Configuration.Abstractions": "9.0.0",
-          "Microsoft.Extensions.Configuration.Binder": "9.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0",
-          "Microsoft.Extensions.Diagnostics.HealthChecks": "9.0.0",
-          "Microsoft.Extensions.Hosting": "9.0.0",
-          "Microsoft.Extensions.Hosting.Abstractions": "9.0.0",
-          "Microsoft.Extensions.Http": "9.0.0",
-          "Microsoft.Extensions.Logging.Abstractions": "9.0.0",
-          "Microsoft.Extensions.Options": "9.0.0",
-          "Microsoft.Extensions.Primitives": "9.0.0",
-          "Polly.Core": "8.4.2"
+          "Aspire.Hosting": "9.0.0"
         },
         "runtime": {
           "lib/net8.0/Aspire.Hosting.PostgreSQL.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.24.55103"
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.24.25802"
           }
         }
       },
@@ -180,18 +160,6 @@
           "lib/net8.0/Aspire.Hosting.Redis.dll": {
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.24.55103"
-          }
-        }
-      },
-      "AspNetCore.HealthChecks.NpgSql/8.0.2": {
-        "dependencies": {
-          "Microsoft.Extensions.Diagnostics.HealthChecks": "9.0.0",
-          "Npgsql": "8.0.3"
-        },
-        "runtime": {
-          "lib/net8.0/HealthChecks.NpgSql.dll": {
-            "assemblyVersion": "8.0.2.0",
-            "fileVersion": "8.0.2.0"
           }
         }
       },
@@ -636,17 +604,6 @@
           }
         }
       },
-      "Npgsql/8.0.3": {
-        "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "9.0.0"
-        },
-        "runtime": {
-          "lib/net8.0/Npgsql.dll": {
-            "assemblyVersion": "8.0.3.0",
-            "fileVersion": "8.0.3.0"
-          }
-        }
-      },
       "Pipelines.Sockets.Unofficial/2.2.8": {
         "dependencies": {
           "System.IO.Pipelines": "5.0.1"
@@ -678,16 +635,7 @@
           }
         }
       },
-      "System.Diagnostics.EventLog/9.0.0": {
-        "runtimeTargets": {
-          "runtimes/win/lib/net9.0/System.Diagnostics.EventLog.Messages.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.24.52809"
-          }
-        }
-      },
+      "System.Diagnostics.EventLog/9.0.0": {},
       "System.IdentityModel.Tokens.Jwt/7.1.2": {
         "dependencies": {
           "Microsoft.IdentityModel.JsonWebTokens": "7.1.2",
@@ -717,12 +665,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Aspire.Dashboard.Sdk.linux-x64/9.0.0": {
+    "Aspire.Dashboard.Sdk.win-x64/9.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-H/EmpV4ERya0dm1kmzu2qQzuL6HIiX4aT/foXvi6ynlqEUX9nl2zAYYjVnrkRwHoBev4ScXhx41b5FjhsiktTA==",
-      "path": "aspire.dashboard.sdk.linux-x64/9.0.0",
-      "hashPath": "aspire.dashboard.sdk.linux-x64.9.0.0.nupkg.sha512"
+      "sha512": "sha512-ulspusO89H3sVbJHRK3V6JzB0H8hBcXmVVVDYxUWcEiAIxzOaJgneJDx3oJdQ3mhAfeap/K9s1p4ZH6GCIm+Ow==",
+      "path": "aspire.dashboard.sdk.win-x64/9.0.0",
+      "hashPath": "aspire.dashboard.sdk.win-x64.9.0.0.nupkg.sha512"
     },
     "Aspire.Hosting/9.0.0": {
       "type": "package",
@@ -738,19 +686,19 @@
       "path": "aspire.hosting.apphost/9.0.0",
       "hashPath": "aspire.hosting.apphost.9.0.0.nupkg.sha512"
     },
-    "Aspire.Hosting.Orchestration.linux-x64/9.0.0": {
+    "Aspire.Hosting.Orchestration.win-x64/9.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-4MBl+WGzgk5OR3FOGI8SILaDu7im5ZFMeUcZe4dsRNGATp6SUdO+dDR3AzbXKCEOVE5xI80dJRiUi5Necwq/2Q==",
-      "path": "aspire.hosting.orchestration.linux-x64/9.0.0",
-      "hashPath": "aspire.hosting.orchestration.linux-x64.9.0.0.nupkg.sha512"
+      "sha512": "sha512-EffdkYWjOdd9IRlNujCXVkHdPJVAJgsb0SWo5kbshNGaHaiKXX6B7Y23VoATlYgG4iv7xeOgVdjcF7kf5lZy9Q==",
+      "path": "aspire.hosting.orchestration.win-x64/9.0.0",
+      "hashPath": "aspire.hosting.orchestration.win-x64.9.0.0.nupkg.sha512"
     },
-    "Aspire.Hosting.PostgreSQL/9.0.0": {
+    "Aspire.Hosting.PostgreSQL/8.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rG+FiTae+nsbukGflVLJXNcmVsCOkusPAVxbAUGT9Soe4OIoDdES2fP8t6arY24ivigz2ZBtfFHUv6q0bB25rA==",
-      "path": "aspire.hosting.postgresql/9.0.0",
-      "hashPath": "aspire.hosting.postgresql.9.0.0.nupkg.sha512"
+      "sha512": "sha512-ftrKe+V0qlTWxeg51zLVJXJ6Lhi2QJ01K51eZGaaHoLwP9dVsmUNg7/uVrQuLSKsJ6laoHeBB+YH58CTKj4RBg==",
+      "path": "aspire.hosting.postgresql/8.0.0",
+      "hashPath": "aspire.hosting.postgresql.8.0.0.nupkg.sha512"
     },
     "Aspire.Hosting.Redis/9.0.0": {
       "type": "package",
@@ -758,13 +706,6 @@
       "sha512": "sha512-2UqN1zPydvgUJspPDAOnMkHdr0ZaQ4JbK3Ch+NMaudWQqpIBWzkzmSAB9qGj5n57SYWqa1ycovQUeGNcYu/sxg==",
       "path": "aspire.hosting.redis/9.0.0",
       "hashPath": "aspire.hosting.redis.9.0.0.nupkg.sha512"
-    },
-    "AspNetCore.HealthChecks.NpgSql/8.0.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1R0JGr80PkUd0I2HWaunAFcaMPJDhD1qMLYWEIVBkFRdSXrw7KkI5ooJ1hePqk0p/a2IWaqW3+CuxN3qv+yhQA==",
-      "path": "aspnetcore.healthchecks.npgsql/8.0.2",
-      "hashPath": "aspnetcore.healthchecks.npgsql.8.0.2.nupkg.sha512"
     },
     "AspNetCore.HealthChecks.Redis/8.0.1": {
       "type": "package",
@@ -1136,13 +1077,6 @@
       "sha512": "sha512-oICJMqr3aNEDZOwnH5SK49bR6Z4aX0zEAnOLuhloumOSuqnNq+GWBdQyrgILnlcT5xj09xKCP/7Y7gJYB+ls/g==",
       "path": "microsoft.identitymodel.tokens/7.1.2",
       "hashPath": "microsoft.identitymodel.tokens.7.1.2.nupkg.sha512"
-    },
-    "Npgsql/8.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-6WEmzsQJCZAlUG1pThKg/RmeF6V+I0DmBBBE/8YzpRtEzhyZzKcK7ulMANDm5CkxrALBEC8H+5plxHWtIL7xnA==",
-      "path": "npgsql/8.0.3",
-      "hashPath": "npgsql.8.0.3.nupkg.sha512"
     },
     "Pipelines.Sockets.Unofficial/2.2.8": {
       "type": "package",

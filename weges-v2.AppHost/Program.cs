@@ -4,14 +4,17 @@ var cache = builder.AddRedis("cache");
 
 var postgres = builder.AddPostgres("postgres")
                       .WithPgAdmin();
+
+
 var db = postgres.AddDatabase("weges");
 
-var apiService = builder.AddProject<Projects.weges_v2_ApiService>("apiservice")
-                        .WithReference(db);
+var migrationService = builder.AddProject<Projects.weges_v2_DbMigrations>("migration")
+    .WithReference(db)
+    .WaitFor(db);
 
-// var migrationService = builder.AddProject<Projects.DatabaseMigrations_MigrationService>("migration")
-//     .WithReference(db1)
-//     .WaitFor(db1);
+var apiService = builder.AddProject<Projects.weges_v2_ApiService>("apiservice")
+                    .WithReference(db)
+                    .WaitFor(migrationService);
 
 builder.AddProject<Projects.weges_v2_Web>("webfrontend")
     .WithExternalHttpEndpoints()

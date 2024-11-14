@@ -1,7 +1,5 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
@@ -10,17 +8,14 @@
     <IsAspireHost>true</IsAspireHost>
     <UserSecretsId>e9dd4888-65c9-4786-a44a-29e8691e9018</UserSecretsId>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\weges-v2.ApiService\weges-v2.ApiService.csproj" />
     <ProjectReference Include="..\weges-v2.DbMigrations\weges-v2.DbMigrations.csproj" />
     <ProjectReference Include="..\weges-v2.Web\weges-v2.Web.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="8.0.0" />
     <PackageReference Include="Aspire.Hosting.Redis" Version="9.0.0" />
-    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="*" />
   </ItemGroup>
-
 </Project>

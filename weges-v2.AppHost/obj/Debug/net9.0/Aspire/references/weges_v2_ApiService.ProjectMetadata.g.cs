@@ -7,5 +7,5 @@ namespace Projects;
 [global::System.Diagnostics.DebuggerDisplay("Type = {GetType().Name,nq}, ProjectPath = {ProjectPath}")]
 public class weges_v2_ApiService : global::Aspire.Hosting.IProjectMetadata
 {
-    public string ProjectPath => """/home/marcio/Documentos/repo/weges-v2.ApiService/weges-v2.ApiService.csproj""";
+    public string ProjectPath => """C:\Users\marcio\weges-v2\weges-v2\weges-v2.ApiService\weges-v2.ApiService.csproj""";
 }

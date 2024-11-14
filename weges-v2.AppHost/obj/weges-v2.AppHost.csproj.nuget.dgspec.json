@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "/home/marcio/Documentos/repo/weges-v2.AppHost/weges-v2.AppHost.csproj": {}
+    "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.AppHost\\weges-v2.AppHost.csproj": {}
   },
   "projects": {
-    "/home/marcio/Documentos/repo/weges-v2.AppHost/weges-v2.AppHost.csproj": {
+    "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.AppHost\\weges-v2.AppHost.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/marcio/Documentos/repo/weges-v2.AppHost/weges-v2.AppHost.csproj",
+        "projectUniqueName": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.AppHost\\weges-v2.AppHost.csproj",
         "projectName": "weges-v2.AppHost",
-        "projectPath": "/home/marcio/Documentos/repo/weges-v2.AppHost/weges-v2.AppHost.csproj",
-        "packagesPath": "/home/marcio/.nuget/packages/",
-        "outputPath": "/home/marcio/Documentos/repo/weges-v2.AppHost/obj/",
+        "projectPath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.AppHost\\weges-v2.AppHost.csproj",
+        "packagesPath": "C:\\Users\\marcio\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.AppHost\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/marcio/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\marcio\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,7 +50,7 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
-            "Aspire.Dashboard.Sdk.linux-x64": {
+            "Aspire.Dashboard.Sdk.win-x64": {
               "target": "Package",
               "version": "[9.0.0, )",
               "autoReferenced": true
@@ -53,14 +59,14 @@
               "target": "Package",
               "version": "[9.0.0, )"
             },
-            "Aspire.Hosting.Orchestration.linux-x64": {
+            "Aspire.Hosting.Orchestration.win-x64": {
               "target": "Package",
               "version": "[9.0.0, )",
               "autoReferenced": true
             },
             "Aspire.Hosting.PostgreSQL": {
               "target": "Package",
-              "version": "[*, )"
+              "version": "[8.0.0, )"
             },
             "Aspire.Hosting.Redis": {
               "target": "Package",
@@ -83,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

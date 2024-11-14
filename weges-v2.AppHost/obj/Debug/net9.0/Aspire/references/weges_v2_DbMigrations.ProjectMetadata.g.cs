@@ -7,5 +7,5 @@ namespace Projects;
 [global::System.Diagnostics.DebuggerDisplay("Type = {GetType().Name,nq}, ProjectPath = {ProjectPath}")]
 public class weges_v2_DbMigrations : global::Aspire.Hosting.IProjectMetadata
 {
-    public string ProjectPath => """/home/marcio/Documentos/repo/weges-v2.DbMigrations/weges-v2.DbMigrations.csproj""";
+    public string ProjectPath => """C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\weges-v2.DbMigrations.csproj""";
 }

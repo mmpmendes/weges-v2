@@ -8,5 +8,5 @@ namespace Projects;
 public class weges_v2_AppHost
 {
     private weges_v2_AppHost() { }
-    public static string ProjectPath => """/home/marcio/Documentos/repo/weges-v2.AppHost""";
+    public static string ProjectPath => """C:\Users\marcio\weges-v2\weges-v2\weges-v2.AppHost""";
 }

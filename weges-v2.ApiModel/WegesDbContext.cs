@@ -7,5 +7,5 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
     }
-    public DbSet<Estabelecimento> estabelecimentos { get; set; }
+    public DbSet<Estabelecimento> Estabelecimentos { get; set; }
 }
