@@ -1,0 +1,12 @@
+/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/bin/Debug/net9.0/weges-v2.ServiceDefaults.deps.json
+/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/bin/Debug/net9.0/weges-v2.ServiceDefaults.dll
+/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/bin/Debug/net9.0/weges-v2.ServiceDefaults.pdb
+/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/obj/Debug/net9.0/weges-v2.ServiceDefaults.csproj.AssemblyReference.cache
+/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/obj/Debug/net9.0/weges-v2.ServiceDefaults.GeneratedMSBuildEditorConfig.editorconfig
+/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/obj/Debug/net9.0/weges-v2.ServiceDefaults.AssemblyInfoInputs.cache
+/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/obj/Debug/net9.0/weges-v2.ServiceDefaults.AssemblyInfo.cs
+/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/obj/Debug/net9.0/weges-v2.ServiceDefaults.csproj.CoreCompileInputs.cache
+/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/obj/Debug/net9.0/weges-v2.ServiceDefaults.dll
+/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/obj/Debug/net9.0/refint/weges-v2.ServiceDefaults.dll
+/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/obj/Debug/net9.0/weges-v2.ServiceDefaults.pdb
+/home/marcio/Documentos/repo/weges-v2.ServiceDefaults/obj/Debug/net9.0/ref/weges-v2.ServiceDefaults.dll

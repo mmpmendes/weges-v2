@@ -1,0 +1,12 @@
+/home/marcio/Documentos/repo/weges-v2.ApiModel/bin/Debug/net9.0/weges-v2.ApiModel.deps.json
+/home/marcio/Documentos/repo/weges-v2.ApiModel/bin/Debug/net9.0/weges-v2.ApiModel.dll
+/home/marcio/Documentos/repo/weges-v2.ApiModel/bin/Debug/net9.0/weges-v2.ApiModel.pdb
+/home/marcio/Documentos/repo/weges-v2.ApiModel/obj/Debug/net9.0/weges-v2.ApiModel.GeneratedMSBuildEditorConfig.editorconfig
+/home/marcio/Documentos/repo/weges-v2.ApiModel/obj/Debug/net9.0/weges-v2.ApiModel.AssemblyInfoInputs.cache
+/home/marcio/Documentos/repo/weges-v2.ApiModel/obj/Debug/net9.0/weges-v2.ApiModel.AssemblyInfo.cs
+/home/marcio/Documentos/repo/weges-v2.ApiModel/obj/Debug/net9.0/weges-v2.ApiModel.csproj.CoreCompileInputs.cache
+/home/marcio/Documentos/repo/weges-v2.ApiModel/obj/Debug/net9.0/weges-v2.ApiModel.dll
+/home/marcio/Documentos/repo/weges-v2.ApiModel/obj/Debug/net9.0/refint/weges-v2.ApiModel.dll
+/home/marcio/Documentos/repo/weges-v2.ApiModel/obj/Debug/net9.0/weges-v2.ApiModel.pdb
+/home/marcio/Documentos/repo/weges-v2.ApiModel/obj/Debug/net9.0/ref/weges-v2.ApiModel.dll
+/home/marcio/Documentos/repo/weges-v2.ApiModel/obj/Debug/net9.0/weges-v2.ApiModel.csproj.AssemblyReference.cache
