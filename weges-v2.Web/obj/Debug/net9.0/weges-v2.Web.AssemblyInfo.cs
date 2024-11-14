@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("weges-v2.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b0bfd4359b6613e9551b6221abc276fb73562158")]
 [assembly: System.Reflection.AssemblyProductAttribute("weges-v2.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("weges-v2.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
