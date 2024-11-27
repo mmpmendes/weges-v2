@@ -15,7 +15,9 @@ builder.Services.AddDbContextPool<WegesDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("weges"),
         b => b.MigrationsAssembly("weges-v2.DbMigrations")));
-builder.EnrichNpgsqlDbContext<WegesDbContext>();
+builder.EnrichNpgsqlDbContext<WegesDbContext>(settings =>
+    // Disable Aspire default retries as we're using a custom execution strategy
+    settings.DisableRetry = true);
 
 var app = builder.Build();
 

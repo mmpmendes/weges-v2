@@ -22,7 +22,112 @@ namespace weges_v2.DbMigrations.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("weges_v2.ApiModel.Estabelecimento", b =>
+            modelBuilder.Entity("CodCaeEntidade", b =>
+                {
+                    b.Property<long>("CodCaesId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("EntidadesId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("CodCaesId", "EntidadesId");
+
+                    b.HasIndex("EntidadesId");
+
+                    b.ToTable("CodCaeEntidade");
+                });
+
+            modelBuilder.Entity("weges_v2.ApiModel.Models.CodCae", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Designacao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Modified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CodCaes");
+                });
+
+            modelBuilder.Entity("weges_v2.ApiModel.Models.Entidade", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Denominacao")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("EmailNotificacoesERS")
+                        .HasColumnType("text");
+
+                    b.Property<string>("EmailNotificacoesGerais")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Modified")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Morada")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NifNipc")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("NrERS")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Sigla")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Telefone")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Entidades");
+                });
+
+            modelBuilder.Entity("weges_v2.ApiModel.Models.Estabelecimento", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,8 +147,10 @@ namespace weges_v2.DbMigrations.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateOnly>("InicioAtividade")
+                        .HasColumnType("date");
 
                     b.Property<DateTime>("Modified")
                         .HasColumnType("timestamp with time zone");
@@ -53,24 +160,35 @@ namespace weges_v2.DbMigrations.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Morada")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Sigla")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Telefone")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("TipoPrestador")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Estabelecimentos");
+                });
+
+            modelBuilder.Entity("CodCaeEntidade", b =>
+                {
+                    b.HasOne("weges_v2.ApiModel.Models.CodCae", null)
+                        .WithMany()
+                        .HasForeignKey("CodCaesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("weges_v2.ApiModel.Models.Entidade", null)
+                        .WithMany()
+                        .HasForeignKey("EntidadesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,7 +1,9 @@
-using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
+
+using System.Diagnostics;
+
 using weges_v2.ApiModel;
 
 namespace weges_v2.DbMigrations;

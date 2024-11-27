@@ -1,12 +1,12 @@
-namespace weges_v2.ApiModel;
+namespace weges_v2.ApiModel.Models;
 
-public class Estabelecimento : Entidade<long>
+public class Estabelecimento : Entity<long>
 {
-    public string Sigla { get; private set; }
-    public string Denominacao { get; private set; }
-    public string Morada { get; private set; }
-    public string Email { get; private set; }
-    public string Telefone { get; private set; }
-    //TODO: eventualmente suponho que isto vá passar a ser a sua própria tabela
-    public string TipoPrestador { get; private set; }
+    public required string Denominacao { get; set; }
+    public string? Morada { get; set; }
+    public DateOnly InicioAtividade { get; set; }
+    public string? Email { get; set; }
+    public string? Telefone { get; set; }
+    public string? TipoPrestador { get; set; }
+    public string? Sigla { get; set; }
 }

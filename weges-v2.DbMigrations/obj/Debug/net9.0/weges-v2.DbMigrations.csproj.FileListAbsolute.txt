@@ -139,6 +139,12 @@
 /home/marcio/Documentos/repo/weges-v2.DbMigrations/obj/Debug/net9.0/weges-v2.DbMigrations.pdb
 /home/marcio/Documentos/repo/weges-v2.DbMigrations/obj/Debug/net9.0/weges-v2.DbMigrations.genruntimeconfig.cache
 /home/marcio/Documentos/repo/weges-v2.DbMigrations/obj/Debug/net9.0/ref/weges-v2.DbMigrations.dll
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.csproj.AssemblyReference.cache
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.AssemblyInfoInputs.cache
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.AssemblyInfo.cs
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.csproj.CoreCompileInputs.cache
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.sourcelink.json
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\bin\Debug\net9.0\appsettings.json
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\bin\Debug\net9.0\weges-v2.DbMigrations.exe
@@ -253,12 +259,6 @@ C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\bin\Debug\net9.0\weges-v
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\bin\Debug\net9.0\weges-v2.ServiceDefaults.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\bin\Debug\net9.0\weges-v2.ApiModel.pdb
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\bin\Debug\net9.0\weges-v2.ServiceDefaults.pdb
-C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.csproj.AssemblyReference.cache
-C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.AssemblyInfoInputs.cache
-C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.AssemblyInfo.cs
-C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.csproj.CoreCompileInputs.cache
-C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.sourcelink.json
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.D07EDE65.Up2Date
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\weges-v2.DbMigrations.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.DbMigrations\obj\Debug\net9.0\refint\weges-v2.DbMigrations.dll

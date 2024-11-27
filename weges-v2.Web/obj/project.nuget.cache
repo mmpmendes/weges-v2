@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "A0SyESxXggk=",
+  "dgSpecHash": "F3F0hrnbe7I=",
   "success": true,
   "projectFilePath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.Web\\weges-v2.Web.csproj",
   "expectedPackageFiles": [
@@ -13,6 +13,8 @@
     "C:\\Users\\marcio\\.nuget\\packages\\grpc.net.common\\2.52.0\\grpc.net.common.2.52.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.aspnetcore.outputcaching.stackexchangeredis\\8.0.11\\microsoft.aspnetcore.outputcaching.stackexchangeredis.8.0.11.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.ambientmetadata.application\\9.0.0\\microsoft.extensions.ambientmetadata.application.9.0.0.nupkg.sha512",
+    "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\8.0.0\\microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.caching.memory\\8.0.1\\microsoft.extensions.caching.memory.8.0.1.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.compliance.abstractions\\9.0.0\\microsoft.extensions.compliance.abstractions.9.0.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.configuration\\9.0.0\\microsoft.extensions.configuration.9.0.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\9.0.0\\microsoft.extensions.configuration.abstractions.9.0.0.nupkg.sha512",

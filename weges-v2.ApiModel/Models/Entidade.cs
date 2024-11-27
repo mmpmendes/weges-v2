@@ -1,10 +1,14 @@
-namespace weges_v2.ApiModel;
-
-public abstract class Entidade<T>
+﻿namespace weges_v2.ApiModel.Models;
+public class Entidade : Entity<long>
 {
-    public T Id { get; private set; }
-    public DateTime Created { get; private set; }
-    public string CreatedBy { get; private set; }
-    public DateTime Modified { get; private set; }
-    public string ModifiedBy { get; private set; }
+    public string? Denominacao { get; set; }
+    public string? Morada { get; set; }
+    public required string NifNipc { get; set; }
+    public string? Telefone { get; set; }
+    public string? Email { get; set; }
+    public string? Sigla { get; set; }
+    public int NrERS { get; set; }
+    public string? EmailNotificacoesERS { get; set; }
+    public string? EmailNotificacoesGerais { get; set; }
+    public List<CodCae>? CodCaes { get; set; }
 }

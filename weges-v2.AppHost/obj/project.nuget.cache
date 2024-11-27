@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "33ieBb6V6o8=",
+  "dgSpecHash": "R66Eaw39UHQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.AppHost\\weges-v2.AppHost.csproj",
   "expectedPackageFiles": [
@@ -29,6 +29,8 @@
     "C:\\Users\\marcio\\.nuget\\packages\\jsonpatch.net\\3.1.1\\jsonpatch.net.3.1.1.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\jsonpointer.net\\5.0.2\\jsonpointer.net.5.0.2.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\kubernetesclient\\15.0.1\\kubernetesclient.15.0.1.nupkg.sha512",
+    "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\8.0.0\\microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.caching.memory\\8.0.1\\microsoft.extensions.caching.memory.8.0.1.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.configuration\\9.0.0\\microsoft.extensions.configuration.9.0.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\9.0.0\\microsoft.extensions.configuration.abstractions.9.0.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.configuration.binder\\9.0.0\\microsoft.extensions.configuration.binder.9.0.0.nupkg.sha512",

@@ -14,7 +14,7 @@ var migrationService = builder.AddProject<Projects.weges_v2_DbMigrations>("migra
 
 var apiService = builder.AddProject<Projects.weges_v2_ApiService>("apiservice")
                     .WithReference(db)
-                    .WaitFor(migrationService);
+                    .WaitForCompletion(migrationService);
 
 builder.AddProject<Projects.weges_v2_Web>("webfrontend")
     .WithExternalHttpEndpoints()

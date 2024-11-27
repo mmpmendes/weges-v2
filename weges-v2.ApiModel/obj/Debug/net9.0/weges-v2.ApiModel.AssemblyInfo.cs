@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("weges-v2.ApiModel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e913bf0af0b8c77c0d09a9d1d04974a44fb39218")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+00104276cdd3052817e0c850d94d7b07691dbce9")]
 [assembly: System.Reflection.AssemblyProductAttribute("weges-v2.ApiModel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("weges-v2.ApiModel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
