@@ -1,0 +1,31 @@
+﻿@using weges_v2.ApiModel.Models
+
+@page "/entidades"
+@inject NavigationManager NavigationManager
+<PageTitle>Entidades</PageTitle>
+
+<h3>Entidades</h3>
+
+<TemplatedTable Items="Entidades" Context="entidade" TItem="Entidade" Titles="GridTitles">
+    <TableHeader>
+    </TableHeader>
+    <RowTemplate>
+        <td>
+            @* <a class="nav-link" onclick="@NavigateToEntidade(entidade.Id)"> *@
+                @entidade.Sigla
+            @* </a> *@
+        </td>
+        <td>@entidade.Denominacao</td>
+        <td>@entidade.NifNipc</td>
+        <td>@entidade.Email</td>
+    </RowTemplate>
+</TemplatedTable>
+
+@code
+{
+    private object NavigateToEntidade(long id)
+    {
+        NavigationManager.NavigateTo(String.Concat(["entidade/",id]));
+        return null;
+    }
+}

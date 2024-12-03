@@ -1,0 +1,46 @@
+﻿@typeparam TItem
+
+<table class="table table-striped table-secondary">
+    <thead>
+        @if (Titles is not null && Titles.Count > 0)
+        {
+            <tr>
+                @foreach (var title in Titles)
+                {
+                    <td>@title</td>
+                }
+            </tr>
+        }
+        else
+        {
+            <tr><td></td></tr>
+        }
+    </thead>
+    <tbody>
+        @if (Items is not null && Items.Count > 0)
+        {
+            @foreach (var item in Items)
+            {
+                <tr @key="@item">@RowTemplate(item)</tr>
+            }
+        }
+        else
+        {
+            <tr>Sem dados</tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public RenderFragment? TableHeader { get; set; }
+
+    [Parameter, EditorRequired]
+    public RenderFragment<TItem> RowTemplate { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public IReadOnlyList<TItem> Items { get; set; } = default!;
+
+    [Parameter, EditorRequired]
+    public IReadOnlyList<string> Titles { get; set; } = default!;
+}

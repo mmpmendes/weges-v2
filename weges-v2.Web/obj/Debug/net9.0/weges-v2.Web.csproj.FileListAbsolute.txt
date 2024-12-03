@@ -131,6 +131,9 @@ C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Grpc.Core.Api.dl
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Grpc.Net.Client.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Grpc.Net.Common.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Microsoft.AspNetCore.OutputCaching.StackExchangeRedis.dll
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Microsoft.Extensions.AmbientMetadata.Application.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Microsoft.Extensions.Compliance.Abstractions.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Microsoft.Extensions.DependencyInjection.AutoActivation.dll
@@ -143,6 +146,8 @@ C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Microsoft.Extens
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Microsoft.Extensions.Telemetry.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Microsoft.Extensions.Telemetry.Abstractions.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Microsoft.IO.RecyclableMemoryStream.dll
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Npgsql.dll
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\OpenTelemetry.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\OpenTelemetry.Api.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\OpenTelemetry.Api.ProviderBuilderExtensions.dll
@@ -156,7 +161,9 @@ C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Polly.Core.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Polly.Extensions.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\Polly.RateLimiting.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\StackExchange.Redis.dll
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\weges-v2.ApiModel.dll
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\weges-v2.ServiceDefaults.dll
+C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\weges-v2.ApiModel.pdb
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\bin\Debug\net9.0\weges-v2.ServiceDefaults.pdb
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\obj\Debug\net9.0\weges-v2.Web.csproj.AssemblyReference.cache
 C:\Users\marcio\weges-v2\weges-v2\weges-v2.Web\obj\Debug\net9.0\weges-v2.Web.GeneratedMSBuildEditorConfig.editorconfig

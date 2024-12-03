@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "F3F0hrnbe7I=",
+  "dgSpecHash": "heqg+ZSXzqA=",
   "success": true,
   "projectFilePath": "C:\\Users\\marcio\\weges-v2\\weges-v2\\weges-v2.Web\\weges-v2.Web.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,10 @@
     "C:\\Users\\marcio\\.nuget\\packages\\grpc.net.client\\2.52.0\\grpc.net.client.2.52.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\grpc.net.common\\2.52.0\\grpc.net.common.2.52.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.aspnetcore.outputcaching.stackexchangeredis\\8.0.11\\microsoft.aspnetcore.outputcaching.stackexchangeredis.8.0.11.nupkg.sha512",
+    "C:\\Users\\marcio\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.11\\microsoft.entityframeworkcore.8.0.11.nupkg.sha512",
+    "C:\\Users\\marcio\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.11\\microsoft.entityframeworkcore.abstractions.8.0.11.nupkg.sha512",
+    "C:\\Users\\marcio\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.11\\microsoft.entityframeworkcore.analyzers.8.0.11.nupkg.sha512",
+    "C:\\Users\\marcio\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\8.0.11\\microsoft.entityframeworkcore.relational.8.0.11.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.ambientmetadata.application\\9.0.0\\microsoft.extensions.ambientmetadata.application.9.0.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\8.0.0\\microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.caching.memory\\8.0.1\\microsoft.extensions.caching.memory.8.0.1.nupkg.sha512",
@@ -46,6 +50,8 @@
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.telemetry\\9.0.0\\microsoft.extensions.telemetry.9.0.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.extensions.telemetry.abstractions\\9.0.0\\microsoft.extensions.telemetry.abstractions.9.0.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\microsoft.io.recyclablememorystream\\3.0.0\\microsoft.io.recyclablememorystream.3.0.0.nupkg.sha512",
+    "C:\\Users\\marcio\\.nuget\\packages\\npgsql\\8.0.6\\npgsql.8.0.6.nupkg.sha512",
+    "C:\\Users\\marcio\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.11\\npgsql.entityframeworkcore.postgresql.8.0.11.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\opentelemetry\\1.10.0\\opentelemetry.1.10.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\opentelemetry.api\\1.10.0\\opentelemetry.api.1.10.0.nupkg.sha512",
     "C:\\Users\\marcio\\.nuget\\packages\\opentelemetry.api.providerbuilderextensions\\1.10.0\\opentelemetry.api.providerbuilderextensions.1.10.0.nupkg.sha512",

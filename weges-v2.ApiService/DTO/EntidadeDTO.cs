@@ -9,7 +9,7 @@ public class EntidadeDTO
     public string? Telefone { get; set; }
     public string? Email { get; set; }
     public string? Sigla { get; set; }
-    public int NrERS { get; set; }
+    public string? NrERS { get; set; }
     public string? EmailNotificacoesERS { get; set; }
     public string? EmailNotificacoesGerais { get; set; }
     public string? CodCaeId { get; set; }

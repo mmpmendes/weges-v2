@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("weges-v2.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+00104276cdd3052817e0c850d94d7b07691dbce9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5c9a682423e6ce657093cf4c1067e78e5e99a65f")]
 [assembly: System.Reflection.AssemblyProductAttribute("weges-v2.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("weges-v2.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
