@@ -396,3 +396,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/weges-v2.ApiModel/bin/Debug/net9.0/weges-v2.ApiModel.deps.json
+/weges-v2.ApiModel/bin/Debug/net9.0/weges-v2.ApiModel.dll
+/weges-v2.ApiModel/bin/Debug/net9.0/weges-v2.ApiModel.pdb
+/weges-v2.ApiModel/obj/Debug/net9.0/ref/weges-v2.ApiModel.dll
+/weges-v2.ApiModel/obj/Debug/net9.0/refint/weges-v2.ApiModel.dll
