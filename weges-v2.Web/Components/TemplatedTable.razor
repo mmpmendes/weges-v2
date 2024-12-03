@@ -1,13 +1,13 @@
 ﻿@typeparam TItem
 
-<table class="table table-striped table-secondary">
+<table class="table table-light table-secondary">
     <thead>
         @if (Titles is not null && Titles.Count > 0)
         {
             <tr>
                 @foreach (var title in Titles)
                 {
-                    <td>@title</td>
+                    <td><strong>@title</strong></td>
                 }
             </tr>
         }

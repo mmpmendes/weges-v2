@@ -1,5 +1,5 @@
+using weges_v2.Services;
 using weges_v2.Web.Components;
-using weges_v2.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 

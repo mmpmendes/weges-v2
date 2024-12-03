@@ -8,13 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\weges-v2.ApiModel\weges-v2.ApiModel.csproj" />
+    <ProjectReference Include="..\SharedKernel\weges-v2.SharedKernel.csproj" />
     <ProjectReference Include="..\weges-v2.ServiceDefaults\weges-v2.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\weges-v2.Services\weges-v2.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" Version="9.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

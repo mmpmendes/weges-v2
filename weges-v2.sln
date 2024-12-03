@@ -20,7 +20,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D6094000-7200-44D3-A030-20B0E1793CB5}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.gitignore = .gitignore
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "weges-v2.SharedKernel", "SharedKernel\weges-v2.SharedKernel.csproj", "{4F1114BF-5FED-47C4-9221-CB01F44A0746}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "weges-v2.Services", "weges-v2.Services\weges-v2.Services.csproj", "{6E778464-FFCE-4170-AEAB-847004D8F09F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,6 +61,14 @@ Global
 		{56455937-C934-43D2-BD64-C613A43F14F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56455937-C934-43D2-BD64-C613A43F14F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56455937-C934-43D2-BD64-C613A43F14F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F1114BF-5FED-47C4-9221-CB01F44A0746}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F1114BF-5FED-47C4-9221-CB01F44A0746}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F1114BF-5FED-47C4-9221-CB01F44A0746}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F1114BF-5FED-47C4-9221-CB01F44A0746}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E778464-FFCE-4170-AEAB-847004D8F09F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E778464-FFCE-4170-AEAB-847004D8F09F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E778464-FFCE-4170-AEAB-847004D8F09F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E778464-FFCE-4170-AEAB-847004D8F09F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

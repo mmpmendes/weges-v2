@@ -1,4 +1,4 @@
-﻿namespace weges_v2.ApiService.DTO;
+﻿namespace weges_v2.SharedKernel.DTO;
 
 public class CodCaeDTO
 {

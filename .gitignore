@@ -396,25 +396,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/weges-v2.ApiModel/bin/Debug/net9.0/weges-v2.ApiModel.deps.json
-/weges-v2.ApiModel/bin/Debug/net9.0/weges-v2.ApiModel.dll
-/weges-v2.ApiModel/bin/Debug/net9.0/weges-v2.ApiModel.pdb
-/weges-v2.ApiModel/obj/Debug/net9.0/ref/weges-v2.ApiModel.dll
-/weges-v2.ApiModel/obj/Debug/net9.0/refint/weges-v2.ApiModel.dll
-/weges-v2.ApiService/obj/Debug/net9.0/ref/weges-v2.ApiService.dll
-/weges-v2.ApiService/obj/Debug/net9.0/refint/weges-v2.ApiService.dll
-/weges-v2.AppHost/bin/Debug/net9.0/weges-v2.AppHost.dll
-/weges-v2.AppHost/bin/Debug/net9.0/weges-v2.AppHost.pdb
-/weges-v2.AppHost/obj/Debug/net9.0/ref/weges-v2.AppHost.dll
-/weges-v2.AppHost/obj/Debug/net9.0/refint/weges-v2.AppHost.dll
-/weges-v2.DbMigrations/obj/Debug/net9.0/ref/weges-v2.DbMigrations.dll
-/weges-v2.DbMigrations/obj/Debug/net9.0/refint/weges-v2.DbMigrations.dll
-/weges-v2.ServiceDefaults/obj/Debug/net9.0/ref/weges-v2.ServiceDefaults.dll
-/weges-v2.ServiceDefaults/obj/Debug/net9.0/refint/weges-v2.ServiceDefaults.dll
-/weges-v2.ServiceDefaults/bin/Debug/net9.0/weges-v2.ServiceDefaults.dll
-/weges-v2.ServiceDefaults/bin/Debug/net9.0/weges-v2.ServiceDefaults.pdb
-/weges-v2.Tests/bin/Debug/net9.0/.msCoverageSourceRootsMapping_weges-v2.Tests
-/weges-v2.Tests/bin/Debug/net9.0/CoverletSourceRootsMapping_weges-v2.Tests
-/weges-v2.Web/obj/Debug/net9.0/ref/weges-v2.Web.dll
-/weges-v2.Web/obj/Debug/net9.0/refint/weges-v2.Web.dll
-/weges-v2.Web/obj/Debug/net9.0/staticwebassets/msbuild.weges-v2.Web.Microsoft.AspNetCore.StaticWebAssetEndpoints.props

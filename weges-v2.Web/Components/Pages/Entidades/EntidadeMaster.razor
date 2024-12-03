@@ -1,4 +1,4 @@
-﻿@using weges_v2.ApiModel.Models
+﻿@using weges_v2.SharedKernel.DTO
 
 @page "/entidades"
 @inject NavigationManager NavigationManager
@@ -6,7 +6,7 @@
 
 <h3>Entidades</h3>
 
-<TemplatedTable Items="Entidades" Context="entidade" TItem="Entidade" Titles="GridTitles">
+<TemplatedTable Items="Entidades" Context="entidade" TItem="EntidadeDTO" Titles="GridTitles">
     <TableHeader>
     </TableHeader>
     <RowTemplate>

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-using weges_v2.ApiModel.Models;
-using weges_v2.Web.Services;
+using weges_v2.Services;
+using weges_v2.SharedKernel.DTO;
 
 namespace weges_v2.Web.Components.Pages.Entidades;
 
 public partial class EntidadeMaster
 {
-    private List<Entidade>? Entidades { get; set; }
+    private List<EntidadeDTO>? Entidades { get; set; }
     private readonly List<string> GridTitles =
     [
         "Sigla",
@@ -21,7 +21,7 @@ public partial class EntidadeMaster
 
     protected override async Task OnParametersSetAsync()
     {
-        Entidades = (await EntidadeCli.GetEntidadesAsync()).ToList();
+        Entidades = await EntidadeCli.GetEntidadesAsync();
     }
 
 }

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using weges_v2.ApiModel.Models;
 using weges_v2.ApiService.Data;
-using weges_v2.ApiService.DTO;
+using weges_v2.SharedKernel.DTO;
 
 namespace weges_v2.ApiService.Controllers;
 

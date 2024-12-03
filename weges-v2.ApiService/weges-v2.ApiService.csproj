@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SharedKernel\weges-v2.SharedKernel.csproj" />
     <ProjectReference Include="..\weges-v2.ApiModel\weges-v2.ApiModel.csproj" />
     <ProjectReference Include="..\weges-v2.ServiceDefaults\weges-v2.ServiceDefaults.csproj" />
   </ItemGroup>
