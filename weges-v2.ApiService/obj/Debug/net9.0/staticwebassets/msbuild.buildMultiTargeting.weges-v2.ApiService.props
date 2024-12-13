@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\weges-v2.ApiService.props" />
-</Project>

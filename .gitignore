@@ -396,3 +396,9 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/weges-v2.ApiService/obj/**
+/weges-v2.AppHost/obj/**
+/weges-v2.DbMigrations/obj/**
+/weges-v2.Tests/obj/**
+/weges-v2.ServiceDefaults/obj/**
+/weges-v2.Web/obj/**

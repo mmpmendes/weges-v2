@@ -1,0 +1,27 @@
+﻿.tab-group {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.tab-headers {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+    .tab-headers button {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        background: #f9f9f9;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        .tab-headers button.active {
+            background: #ddd;
+            font-weight: bold;
+        }
+
+.tab-content {
+    padding: 15px;
+}

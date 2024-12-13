@@ -26,21 +26,13 @@ public class EntidadeController(
         return Results.Ok(_mapper.Map<IEnumerable<EntidadeDTO>>(_entidadeRepo.GetAll()));
     }
 
-    [HttpGet("id")]
-    public async Task<IResult> Get(long Id)
+    [HttpGet("{Id}")]
+    public async Task<IResult> GetById(long Id)
     {
         var entidade = await _entidadeRepo.GetById(Id);
         if (entidade == null) return Results.BadRequest("Entidade não encontrada");
         EntidadeDTO toReturn = _mapper.Map<EntidadeDTO>(entidade);
-        //if (toReturn != null)
-        //{
-        //    if (toReturn.CodCaeId != null)
-        //    {
-        //        toReturn.CodCae = _mapper.Map<CodCaeDTO>(await _codCaeRepo.GetByIdString(toReturn.CodCaeId));
-        //    }
 
-        //    toReturn.CaesSecundarios = _mapper.Map<IEnumerable<CodCaeDTO>>(await _codCaeRepo.GetCaesSecundariosByEntidadeId(Id));
-        //}
         return Results.Ok(toReturn);
     }
 }

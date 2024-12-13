@@ -10,6 +10,7 @@ public partial class EntidadeMaster
     private List<EntidadeDTO>? Entidades { get; set; }
     private readonly List<string> GridTitles =
     [
+        "",
         "Sigla",
         "Denominação",
         "NIF/NIPC",
@@ -19,9 +20,16 @@ public partial class EntidadeMaster
     [Inject]
     public required EntidadeApiService EntidadeCli { get; set; }
 
-    protected override async Task OnParametersSetAsync()
+    [Inject]
+    public required NavigationManager NavigationManager { get; set; }
+
+    protected async override Task OnInitializedAsync()
     {
         Entidades = await EntidadeCli.GetEntidadesAsync();
     }
 
+    private void NavigateToDetails(long entidadeId)
+    {
+        NavigationManager.NavigateTo($"/entidade/{entidadeId}");
+    }
 }

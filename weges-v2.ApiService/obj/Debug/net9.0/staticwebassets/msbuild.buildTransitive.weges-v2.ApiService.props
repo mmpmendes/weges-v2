@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\weges-v2.ApiService.props" />
-</Project>

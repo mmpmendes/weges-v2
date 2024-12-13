@@ -1,4 +1,25 @@
-﻿@page "/entidade/{Id}"
+﻿@page "/entidade/{Id:long}"
 
-<PageTitle>Entidade #@Id</PageTitle>
+<PageTitle>Entidade</PageTitle>
 
+<h3>@entidade?.Denominacao</h3>
+
+<TabGroup>
+    <ChildContent>
+        <Tab Title="Tab 1">
+            <ChildContent>
+                <p>Content for Tab 1</p>
+            </ChildContent>
+        </Tab>
+        <Tab Title="Tab 2">
+            <ChildContent>
+                <p>Content for Tab 2</p>
+            </ChildContent>
+        </Tab>
+        <Tab Title="Tab 3">
+            <ChildContent>
+                <p>Content for Tab 3</p>
+            </ChildContent>
+        </Tab>
+    </ChildContent>
+</TabGroup>

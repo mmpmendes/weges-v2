@@ -1,0 +1,24 @@
+﻿<div class="tab-panel" style="display: @(IsActive ? "block" : "none")">
+    @ChildContent
+</div>
+
+@code {
+    [CascadingParameter]
+    private TabGroup? ParentTabGroup { get; set; }
+
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    public bool IsActive { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (ParentTabGroup is not null)
+        {
+            ParentTabGroup.AddTab(this);
+        }
+    }
+}

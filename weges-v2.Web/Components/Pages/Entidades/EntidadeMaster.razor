@@ -1,7 +1,12 @@
-﻿@using weges_v2.SharedKernel.DTO
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.Identity.Abstractions
+@using Microsoft.Identity.Web
+@using System.Text.Json
+@using weges_v2.SharedKernel.DTO
+@rendermode InteractiveServer
 
 @page "/entidades"
-@inject NavigationManager NavigationManager
+
 <PageTitle>Entidades</PageTitle>
 
 <h3>Entidades</h3>
@@ -11,21 +16,11 @@
     </TableHeader>
     <RowTemplate>
         <td>
-            @* <a class="nav-link" onclick="@NavigateToEntidade(entidade.Id)"> *@
-                @entidade.Sigla
-            @* </a> *@
+            <button class="btn btn-dark" @onclick="@(() => NavigateToDetails(entidade.Id))">Selecionar</button>
         </td>
+        <td>@entidade.Sigla</td>
         <td>@entidade.Denominacao</td>
         <td>@entidade.NifNipc</td>
         <td>@entidade.Email</td>
     </RowTemplate>
 </TemplatedTable>
-
-@code
-{
-    private object NavigateToEntidade(long id)
-    {
-        NavigationManager.NavigateTo(String.Concat(["entidade/",id]));
-        return null;
-    }
-}
