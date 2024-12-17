@@ -14,6 +14,9 @@ builder.Services.AddRazorComponents()
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 
+
+builder.Services.AddBlazorBootstrap();
+
 builder.Services.AddHttpClient<EntidadeApiService>(client =>
     {
         // This URL uses "https+http://" to indicate HTTPS is preferred over HTTP.

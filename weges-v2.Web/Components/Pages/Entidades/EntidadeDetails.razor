@@ -2,24 +2,50 @@
 
 <PageTitle>Entidade</PageTitle>
 
-<h3>@entidade?.Denominacao</h3>
-
-<TabGroup>
-    <ChildContent>
-        <Tab Title="Tab 1">
-            <ChildContent>
-                <p>Content for Tab 1</p>
-            </ChildContent>
-        </Tab>
-        <Tab Title="Tab 2">
-            <ChildContent>
-                <p>Content for Tab 2</p>
-            </ChildContent>
-        </Tab>
-        <Tab Title="Tab 3">
-            <ChildContent>
-                <p>Content for Tab 3</p>
-            </ChildContent>
-        </Tab>
-    </ChildContent>
-</TabGroup>
+<Tabs EnableFadeEffect="true">
+    <Tab Title="Dados" Active="true">
+        <Content>
+            <div class="row">
+                <div class="col-md-7">
+                    <label>Denominação</label>
+                    <p>@entidade?.Denominacao</p>
+                </div>
+                <div class="col-md-5">
+                    <label>NIF/NIPC</label>
+                    <p>@entidade?.NifNipc</p>
+                </div>
+                <div class="col-md-7">
+                    <label>Morada</label>
+                    <p>@entidade?.Morada</p>
+                </div>
+                <div class="col-md-5">
+                    <label>Nº de registo ERS</label>
+                    <p>@entidade?.NrERS</p>
+                </div>
+                <div class="col-md-7">
+                    <label>Contato telefónico</label>
+                    <p>@entidade?.Telefone</p>
+                </div>
+                <div class="col-md-5">
+                    <label>Endereço de email</label>
+                    <p>@entidade?.Email</p>
+                </div>
+                
+                <div >
+                    <label>Sigla</label>
+                    <p>@entidade?.Sigla</p>
+                </div>
+            </div>
+        </Content>
+    </Tab>
+    <Tab Title="Administração">
+        <Content>
+            <p>Content for Tab 1</p>
+        </Content>
+    </Tab>
+    <Tab Title="Acessos">
+        <Content>
+            <p>Content for Tab 1</p>
+        </Content>
+    </Tab>
+</Tabs>

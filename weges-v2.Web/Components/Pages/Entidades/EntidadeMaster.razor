@@ -3,7 +3,6 @@
 @using Microsoft.Identity.Web
 @using System.Text.Json
 @using weges_v2.SharedKernel.DTO
-@rendermode InteractiveServer
 
 @page "/entidades"
 
@@ -11,16 +10,32 @@
 
 <h3>Entidades</h3>
 
-<TemplatedTable Items="Entidades" Context="entidade" TItem="EntidadeDTO" Titles="GridTitles">
-    <TableHeader>
-    </TableHeader>
-    <RowTemplate>
-        <td>
-            <button class="btn btn-dark" @onclick="@(() => NavigateToDetails(entidade.Id))">Selecionar</button>
-        </td>
-        <td>@entidade.Sigla</td>
-        <td>@entidade.Denominacao</td>
-        <td>@entidade.NifNipc</td>
-        <td>@entidade.Email</td>
-    </RowTemplate>
-</TemplatedTable>
+<Grid TItem="EntidadeDTO"
+      Class="table table-hover table-bordered table-striped"
+      DataProvider="EntidadesDataProvider"
+      AllowFiltering="true"
+      AllowPaging="true"
+      PageSize="10"
+      AllowSorting="true"
+      SelectionMode="GridSelectionMode.Multiple"
+      SelectedItemsChanged="OnSelectedItemsChanged"
+      Responsive="true">
+
+    <GridColumns>
+        <GridColumn TItem="EntidadeDTO" HeaderText="" PropertyName="Id" Filterable="false">
+                <Button Class="btn btn-dark" @onclick="() => NavigateToDetails(context.Id)">Selecionar</Button>
+        </GridColumn>
+        <GridColumn TItem="EntidadeDTO" HeaderText="Sigla" PropertyName="Sigla" SortKeySelector="item => item.Sigla">
+            @context.Sigla
+        </GridColumn>
+        <GridColumn TItem="EntidadeDTO" HeaderText="Denominação" PropertyName="Denominacao" SortKeySelector="item => item.Denominacao">
+            @context.Denominacao
+        </GridColumn>
+        <GridColumn TItem="EntidadeDTO" HeaderText="Nif" PropertyName="NifNipc" SortKeySelector="item => item.NifNipc">
+            @context.NifNipc
+        </GridColumn>
+        <GridColumn TItem="EntidadeDTO" HeaderText="Email" PropertyName="Email" SortKeySelector="item => item.Email">
+            @context.Email
+        </GridColumn>
+    </GridColumns>
+</Grid>

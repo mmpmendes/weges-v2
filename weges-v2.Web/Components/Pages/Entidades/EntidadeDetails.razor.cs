@@ -15,7 +15,7 @@ public partial class EntidadeDetails
     [Inject]
     public required EntidadeApiService EntidadeCli { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         entidade = await EntidadeCli.GetEntidadeByIdAsync(Id);
     }

@@ -39,8 +39,8 @@
     public RenderFragment<TItem> RowTemplate { get; set; } = default!;
 
     [Parameter, EditorRequired]
-    public IReadOnlyList<TItem> Items { get; set; } = default!;
+    public IList<TItem> Items { get; set; } = default!;
 
     [Parameter, EditorRequired]
-    public IReadOnlyList<string> Titles { get; set; } = default!;
+    public IList<string> Titles { get; set; } = default!;
 }

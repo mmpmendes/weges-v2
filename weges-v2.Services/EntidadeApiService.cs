@@ -6,7 +6,7 @@ namespace weges_v2.Services;
 
 public class EntidadeApiService(HttpClient httpClient)
 {
-    public async Task<List<EntidadeDTO>?> GetEntidadesAsync(int maxItems = 10, CancellationToken cancellationToken = default)
+    public async Task<IList<EntidadeDTO>?> GetEntidadesAsync(int maxItems = 10, CancellationToken cancellationToken = default)
     {
         List<EntidadeDTO>? entidades = null;
 
