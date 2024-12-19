@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -21,9 +22,14 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Services.AddIdentityCore<WegesUser>()
+                .AddEntityFrameworkStores<WegesDbContext>()
+                .AddApiEndpoints();
+
 builder.Services.AddDbContextPool<WegesDbContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("weges"))
     );
+
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 // Add service defaults & Aspire client integrations.
@@ -31,6 +37,14 @@ builder.AddServiceDefaults();
 
 builder.Services.AddScoped<ISimpleRepository<Entidade>, SimpleRepository<Entidade>>();
 builder.Services.AddScoped<ISimpleRepository<Estabelecimento>, SimpleRepository<Estabelecimento>>();
+
+
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication()
+                .AddCookie(IdentityConstants.ApplicationScheme)
+                .AddBearerToken(IdentityConstants.BearerScheme);
+
+
 
 
 // Add services to the container.
@@ -60,5 +74,6 @@ if (app.Environment.IsDevelopment())
 
 //app.MapDefaultEndpoints();
 app.MapControllers();
+app.MapIdentityApi<WegesUser>();
 
 app.Run();

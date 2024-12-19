@@ -1,10 +1,9 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-var cache = builder.AddRedis("cache");
+var cache = builder.AddRedis("cache").WithLifetime(ContainerLifetime.Persistent).WithContainerName("weges-cache");
 
 var postgres = builder.AddPostgres("postgres")
-                      .WithPgAdmin();
-
+                      .WithContainerName("weges-postgres").WithLifetime(ContainerLifetime.Persistent);
 
 var db = postgres.AddDatabase("weges");
 

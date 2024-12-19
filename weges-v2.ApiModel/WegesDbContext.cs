@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 using weges_v2.ApiModel.Models;
 
 namespace weges_v2.ApiModel;
 
-public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContext(options)
+public class WegesDbContext(DbContextOptions<WegesDbContext> options) : IdentityDbContext<WegesUser>(options)
 {
 
     public DbSet<Estabelecimento> Estabelecimentos { get; set; }
@@ -13,6 +14,10 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder);
+
+        //modelBuilder.HasDefaultSchema("weges");
+
         modelBuilder.Entity<Entidade>(entidade =>
         {
             //auto increment Id
