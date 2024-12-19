@@ -32,4 +32,18 @@ public class EntidadeApiService(HttpClient httpClient)
 
         return entidade;
     }
+
+    public async Task<bool> SaveEntidadeAsync(EntidadeDTO entidade, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PostAsJsonAsync($"/api/Entidade", entidade, cancellationToken);
+
+        return response.IsSuccessStatusCode;
+    }
+
+    public async Task<bool> UpdateEntidadeAsync(EntidadeDTO entidade, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PatchAsJsonAsync($"/api/Entidade", entidade, cancellationToken);
+
+        return response.IsSuccessStatusCode;
+    }
 }

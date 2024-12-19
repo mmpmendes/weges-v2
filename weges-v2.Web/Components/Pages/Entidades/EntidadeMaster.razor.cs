@@ -10,16 +10,7 @@ namespace weges_v2.Web.Components.Pages.Entidades;
 public partial class EntidadeMaster
 {
     private IList<EntidadeDTO>? Entidades = default!;
-    private HashSet<EntidadeDTO> EntidadesSelecionadas = new();
-
-    private readonly List<string> GridTitles =
-    [
-        "",
-        "Sigla",
-        "Denominação",
-        "NIF/NIPC",
-        "Email"
-    ];
+    private Grid<EntidadeDTO> EntidadesGV = default!;
 
     [Inject]
     public required EntidadeApiService EntidadeCli { get; set; }
@@ -45,9 +36,8 @@ public partial class EntidadeMaster
         return await Task.FromResult(request.ApplyTo(Entidades));
     }
 
-    private Task OnSelectedItemsChanged(HashSet<EntidadeDTO> entidades)
+    private async void AddEntidade(Microsoft.AspNetCore.Components.Web.MouseEventArgs e)
     {
-        EntidadesSelecionadas = entidades is not null && entidades.Count == 0 ? entidades : new();
-        return Task.CompletedTask;
+        NavigateToDetails(-1);
     }
 }

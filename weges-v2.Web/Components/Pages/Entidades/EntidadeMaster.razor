@@ -9,8 +9,11 @@
 <PageTitle>Entidades</PageTitle>
 
 <h3>Entidades</h3>
-
-<Grid TItem="EntidadeDTO"
+<div>
+    <Button Type="ButtonType.Button" Color="ButtonColor.Primary" @onclick="AddEntidade"> Adicionar Entidade </Button>
+</div>
+<Grid @ref="EntidadesGV" 
+    TItem="EntidadeDTO"
       Class="table table-hover table-bordered table-striped"
       DataProvider="EntidadesDataProvider"
       AllowFiltering="true"
@@ -18,7 +21,6 @@
       PageSize="10"
       AllowSorting="true"
       SelectionMode="GridSelectionMode.Multiple"
-      SelectedItemsChanged="OnSelectedItemsChanged"
       Responsive="true">
 
     <GridColumns>
