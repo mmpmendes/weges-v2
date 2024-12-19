@@ -13,14 +13,14 @@ public partial class EntidadeMaster
     private Grid<EntidadeDTO> EntidadesGV = default!;
 
     [Inject]
-    public required EntidadeApiService EntidadeCli { get; set; }
+    public required EntidadeApiService EntidadeApiService { get; set; }
 
     [Inject]
     public required NavigationManager NavigationManager { get; set; }
 
     protected async override Task OnInitializedAsync()
     {
-        Entidades = await EntidadeCli.GetEntidadesAsync();
+        Entidades = await EntidadeApiService.GetEntidadesAsync();
     }
 
     private void NavigateToDetails(long entidadeId)
@@ -31,12 +31,12 @@ public partial class EntidadeMaster
     private async Task<GridDataProviderResult<EntidadeDTO>> EntidadesDataProvider(GridDataProviderRequest<EntidadeDTO> request)
     {
         if (Entidades is null)
-            Entidades = await EntidadeCli.GetEntidadesAsync();
+            Entidades = await EntidadeApiService.GetEntidadesAsync();
 
         return await Task.FromResult(request.ApplyTo(Entidades));
     }
 
-    private async void AddEntidade(Microsoft.AspNetCore.Components.Web.MouseEventArgs e)
+    private void AddEntidade(Microsoft.AspNetCore.Components.Web.MouseEventArgs e)
     {
         NavigateToDetails(-1);
     }

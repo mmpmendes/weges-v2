@@ -30,6 +30,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.AddServiceDefaults();
 
 builder.Services.AddScoped<ISimpleRepository<Entidade>, SimpleRepository<Entidade>>();
+builder.Services.AddScoped<ISimpleRepository<Estabelecimento>, SimpleRepository<Estabelecimento>>();
 
 
 // Add services to the container.

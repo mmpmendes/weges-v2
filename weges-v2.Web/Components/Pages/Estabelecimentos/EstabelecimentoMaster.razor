@@ -1,5 +1,43 @@
-﻿<h3>EstabelecimentoMaster</h3>
+﻿@page "/estabelecimentos"
+@using weges_v2.SharedKernel.DTO
 
-@code {
+<PageTitle>Estabelecimentos</PageTitle>
 
-}
+<h3>Estabelecimentos</h3>
+<div>
+    <Button Type="ButtonType.Button" Color="ButtonColor.Primary" @onclick="AddEstabelecimento"> Adicionar Estabelecimento </Button>
+</div>
+<Grid @ref="EstabelecimentosGrid" 
+    TItem="EstabelecimentoDTO"
+      Class="table table-hover table-bordered table-striped"
+      DataProvider="EstabelecimentosDataProvider"
+      AllowFiltering="true"
+      AllowPaging="true"
+      PageSize="10"
+      AllowSorting="true"
+      Responsive="true">
+
+    <GridColumns>
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="" PropertyName="Id" Filterable="false">
+                <Button Class="btn btn-dark" @onclick="() => NavigateToDetails(context.Id)">Selecionar</Button>
+        </GridColumn>
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Sigla" PropertyName="Sigla" SortKeySelector="item => item.Sigla">
+            @context.Sigla
+        </GridColumn>
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Denominação" PropertyName="Denominacao" SortKeySelector="item => item.Denominacao">
+            @context.Denominacao
+        </GridColumn>
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Morada" PropertyName="Morada" SortKeySelector="item => item.Morada">
+            @context.Morada
+        </GridColumn>
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Email" PropertyName="Email" SortKeySelector="item => item.Email">
+            @context.Email
+        </GridColumn>
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Tipo Prestador" PropertyName="Tipo Prestador" SortKeySelector="item => item.TipoPrestador">
+            @context.Email
+        </GridColumn>
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Telefone" PropertyName="Telefone" SortKeySelector="item => item.Telefone">
+            @context.Telefone
+        </GridColumn>
+    </GridColumns>
+</Grid>

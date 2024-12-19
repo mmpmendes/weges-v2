@@ -1,0 +1,43 @@
+﻿@page "/estabelecimento/{Id:long}"
+
+<PageTitle>Estabelecimento</PageTitle>
+
+<Tabs EnableFadeEffect="true" NavStyle="NavStyle.Pills">
+    <Tab Title="Dados" Active="true">
+        <Content>
+            <div class="tab-padded">
+                <div class="form-floating mb-3">
+                    <input id="denominacao" class="form-control" type="text" @bind="Estabelecimento.Denominacao" />
+                    <label class="form-label" for="denominacao">Denominação</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" @bind="Estabelecimento.Morada" id="morada" class="form-control" />
+                    <label class="form-label" for="morada">Morada</label>
+                </div>
+                
+                <div class="form-floating mb-3">
+                    <input id="inicioatividade" class="form-control" type="date" @bind="Estabelecimento.InicioAtividade" />
+                    <label class="form-label" for="inicioatividade">Início de Atividade</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="email" class="form-control" type="email" @bind="Estabelecimento.Email" />
+                    <label class="form-label" for="email">Endereço de email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="tlf" class="form-control" type="tel" @bind="Estabelecimento.Telefone" />
+                    <label class="form-label" for="tlf">Contato telefónico</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="sigla" class="form-control" type="text" @bind="Estabelecimento.Sigla" />
+                    <label class="form-label" for="sigla">Sigla</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="tipoprestador" class="form-control" type="text" @bind="Estabelecimento.TipoPrestador" />
+                    <label class="form-label" for="tipoprestador">Tipo de Prestador</label>
+                </div>
+                <Button Class="btn btn-success" @onclick="SaveEstabelecimento">Guardar</Button>
+                <Button Class="btn btn-danger" @onclick="GoBackToEstabelecimentos">Cancelar</Button>
+            </div>
+        </Content>
+    </Tab>
+</Tabs>
