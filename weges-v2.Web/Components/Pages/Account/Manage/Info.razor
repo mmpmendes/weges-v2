@@ -1,4 +1,5 @@
 ﻿@page "/manage/info"
+@using weges_v2.SharedKernel.Models
 
 <h3>Manage Info</h3>
 <EditForm Model="_manageInfoModel" OnValidSubmit="UpdateInfo">
@@ -74,24 +75,5 @@
         {
             // Handle error (e.g., display error message)
         }
-    }
-
-    public class RegisterModel
-    {
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-    }
-
-    public class LoginModel
-    {
-        public string Email { get; set; } = string.Empty;
-        public string Password { get; set; } = string.Empty;
-    }
-
-    public class ManageInfoModel
-    {
-        public string FirstName { get; set; } = string.Empty;
-        public string LastName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
     }
 }

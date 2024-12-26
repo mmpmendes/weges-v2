@@ -1,7 +1,13 @@
 ﻿@page "/login"
+@using Microsoft.AspNetCore.Components.Authorization
+@using weges_v2.Services
+@using weges_v2.SharedKernel.Models
 
-<h3>Login</h3>
-<EditForm Model="_loginModel" OnValidSubmit="LoginUser">
+@inject UserManagementService userService;
+@inject NavigationManager navigationManager;
+
+<h3>Entrar</h3>
+<EditForm Model="_loginModel" OnValidSubmit="LoginCall">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -11,9 +17,34 @@
     </div>
 
     <div>
-        <label>Password:</label>
+        <label>Palavra-passe:</label>
         <InputText type="password" @bind-Value="_loginModel.Password" />
     </div>
 
     <button type="submit">Login</button>
 </EditForm>
+
+<label>Se ainda não tem conta por favor registe-se <a href="/register">aqui</a></label>
+
+@code {
+    private LoginModel _loginModel = new LoginModel();
+    // [Inject]
+    // private CustomAuthenticationStateProvider authStateProvider { get; set; }
+    // [CascadingParameter] 
+    // public Task<AuthenticationState> AuthTask { get; set; }
+
+    private async Task LoginCall()
+    {
+        // Call the login service
+        var response = await userService.LoginUserAsync(_loginModel);
+        if (response.IsSuccessStatusCode)
+        {
+            // Redirect to the home page
+            // navigationManager.NavigateTo("/");
+
+            // Assuming API returns a token or user info
+            var userInfo = await response.Content.ReadFromJsonAsync<UserInfo>();
+            // authStateProvider.SetAuthenticatedUser(userInfo.Email, userInfo.Role);
+        }
+    }
+}

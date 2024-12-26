@@ -13,6 +13,8 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddAuthorization();
+builder.Services.AddCascadingAuthenticationState();
 
 
 builder.Services.AddBlazorBootstrap();
@@ -26,6 +28,14 @@ builder.Services.AddHttpClient<EstabelecimentoApiService>(client =>
 {
     client.BaseAddress = new("https+http://apiservice");
 });
+
+builder.Services.AddHttpClient<UserManagementService>(client =>
+{
+    client.BaseAddress = new("https+http://apiservice");
+});
+
+
+//builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
 
 var app = builder.Build();
 
