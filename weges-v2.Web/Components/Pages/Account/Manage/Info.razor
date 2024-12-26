@@ -1,0 +1,97 @@
+﻿@page "/manage/info"
+
+<h3>Manage Info</h3>
+<EditForm Model="_manageInfoModel" OnValidSubmit="UpdateInfo">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>First Name:</label>
+        <InputText @bind-Value="_manageInfoModel.FirstName" />
+    </div>
+
+    <div>
+        <label>Last Name:</label>
+        <InputText @bind-Value="_manageInfoModel.LastName" />
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <InputText @bind-Value="_manageInfoModel.Email" />
+    </div>
+
+    <button type="submit">Update Info</button>
+</EditForm>
+
+@code {
+    private HttpClient _httpClient;
+    private RegisterModel _registerModel = new RegisterModel();
+    private LoginModel _loginModel = new LoginModel();
+    private ManageInfoModel _manageInfoModel = new ManageInfoModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _httpClient = new HttpClient();
+    }
+
+    private async Task RegisterUser()
+    {
+        var response = await _httpClient.PostAsJsonAsync("/api/register", _registerModel);
+
+        if (response.IsSuccessStatusCode)
+        {
+            // Handle success (e.g., navigate to login page or display success message)
+        }
+        else
+        {
+            // Handle error (e.g., display error message)
+        }
+    }
+
+    private async Task LoginUser()
+    {
+        var response = await _httpClient.PostAsJsonAsync("/api/login", _loginModel);
+
+        if (response.IsSuccessStatusCode)
+        {
+            // Handle success (e.g., store token, navigate to another page)
+        }
+        else
+        {
+            // Handle error (e.g., display error message)
+        }
+    }
+
+    private async Task UpdateInfo()
+    {
+        var response = await _httpClient.PostAsJsonAsync("/api/manage/info", _manageInfoModel);
+
+        if (response.IsSuccessStatusCode)
+        {
+            // Handle success (e.g., display success message)
+        }
+        else
+        {
+            // Handle error (e.g., display error message)
+        }
+    }
+
+    public class RegisterModel
+    {
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+    }
+
+    public class LoginModel
+    {
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+    }
+
+    public class ManageInfoModel
+    {
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+    }
+}
