@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using weges_v2.ApiModel;
 using weges_v2.ApiModel.Models;
 using weges_v2.ApiService.Data;
+using weges_v2.SharedKernel.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddIdentityCore<WegesUser>()
                 .AddEntityFrameworkStores<WegesDbContext>()
-                .AddApiEndpoints();
+                .AddApiEndpoints()
+                .AddErrorDescriber<PortugueseIdentityErrorDescriber>(); // Add this line;
 
 builder.Services.AddDbContextPool<WegesDbContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("weges"))

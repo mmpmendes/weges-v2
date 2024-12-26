@@ -23,16 +23,23 @@
 
     <button type="submit">Login</button>
 </EditForm>
-
+<br />
+@if (!string.IsNullOrEmpty(message))
+{
+    <div class="alert alert-danger" role="alert">
+        @message
+    </div>
+}
 <label>Se ainda não tem conta por favor registe-se <a href="/register">aqui</a></label>
 
 @code {
     private LoginModel _loginModel = new LoginModel();
+    private string message { get; set; } = string.Empty;
+    private AccessTokenResponse userInfo { get; set; }
     // [Inject]
     // private CustomAuthenticationStateProvider authStateProvider { get; set; }
     // [CascadingParameter] 
     // public Task<AuthenticationState> AuthTask { get; set; }
-
     private async Task LoginCall()
     {
         // Call the login service
@@ -43,8 +50,12 @@
             // navigationManager.NavigateTo("/");
 
             // Assuming API returns a token or user info
-            var userInfo = await response.Content.ReadFromJsonAsync<UserInfo>();
+            userInfo = await response.Content.ReadFromJsonAsync<AccessTokenResponse>();
             // authStateProvider.SetAuthenticatedUser(userInfo.Email, userInfo.Role);
+
+        }
+        else{
+            message = "Credenciais Inválidas.";
         }
     }
 }
