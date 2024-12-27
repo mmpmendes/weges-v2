@@ -14,8 +14,24 @@ builder.AddServiceDefaults();
 builder.Services.AddDbContextPool<WegesDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("weges"),
-        b => b.MigrationsAssembly("weges-v2.DbMigrations")));
+        b =>
+        {
+            b.MigrationsAssembly("weges-v2.DbMigrations");
+            b.MigrationsHistoryTable("__EFMigrationsHistory_Weges");
+        }))
+    .AddDbContextPool<UtilizadoresDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("weges"),
+        b =>
+        {
+            b.MigrationsAssembly("weges-v2.DbMigrations");
+            b.MigrationsHistoryTable("__EFMigrationsHistory_Utilizadores");
+        }));
+
 builder.EnrichNpgsqlDbContext<WegesDbContext>(settings =>
+    // Disable Aspire default retries as we're using a custom execution strategy
+    settings.DisableRetry = true);
+builder.EnrichNpgsqlDbContext<UtilizadoresDbContext>(settings =>
     // Disable Aspire default retries as we're using a custom execution strategy
     settings.DisableRetry = true);
 

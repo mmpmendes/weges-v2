@@ -13,8 +13,8 @@
     <ValidationSummary />
 
     <div>
-        <label>Email:</label>
-        <InputText @bind-Value="_registerModel.Email" />
+        <label for="email">Email:</label>
+        <InputText id="email" @bind-Value="_registerModel.Email" />
     </div>
 
     <div>
@@ -24,13 +24,19 @@
 
     <button type="submit">Registar</button>
 </EditForm>
-<label>@message</label>
+@if (showErrors)
+{
+    <br />
+    <label @ref="myLabel" class="alert alert-danger">@message</label>
+}
 
 @code {
     private RegisterModel _registerModel = new RegisterModel();
     [Inject]
     private UserManagementService userManagementService { get; set; }
     private string message { get; set; } = string.Empty;
+    private ElementReference myLabel;
+    private bool showErrors = false;
 
     private async Task RegisterUser()
     {
@@ -39,12 +45,17 @@
         if (response.IsSuccessStatusCode)
         {
             message = "Utilizador registado com sucesso.";
-            await Task.Delay(3000);
             navigationManager.NavigateTo("/");
         }
         else
         {
-            message = await response.Content.ReadAsStringAsync();
+            var validationDetails = await response.Content.ReadFromJsonAsync<ValidationDetails>();
+            if(validationDetails is not null){
+                List<string> errors = validationDetails.Errors.Values.SelectMany(v => v).ToList();
+                message = string.Join(' ', errors);
+
+                showErrors = true;
+            }
         }
     }
 }

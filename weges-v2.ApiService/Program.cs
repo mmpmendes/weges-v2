@@ -26,11 +26,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddIdentityCore<WegesUser>()
                 .AddEntityFrameworkStores<WegesDbContext>()
                 .AddApiEndpoints()
-                .AddErrorDescriber<PortugueseIdentityErrorDescriber>(); // Add this line;
+                .AddErrorDescriber<PortugueseIdentityErrorDescriber>();
 
-builder.Services.AddDbContextPool<WegesDbContext>(
-    options => options.UseNpgsql(builder.Configuration.GetConnectionString("weges"))
-    );
+builder.Services.AddDbContextPool<WegesDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("weges")));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

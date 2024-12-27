@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 using weges_v2.ApiModel.Models;
 
 namespace weges_v2.ApiModel;
 
-public class WegesDbContext(DbContextOptions<WegesDbContext> options) : IdentityDbContext<WegesUser>(options)
+public class WegesDbContext : DbContext
 {
+
+    public WegesDbContext(DbContextOptions<WegesDbContext> options) : base(options)
+    {
+
+    }
 
     public DbSet<Estabelecimento> Estabelecimentos { get; set; }
     public DbSet<Entidade> Entidades { get; set; }
@@ -14,9 +18,9 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : Identity
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
 
-        //modelBuilder.HasDefaultSchema("weges");
+
+        modelBuilder.HasDefaultSchema("weges");
 
         modelBuilder.Entity<Entidade>(entidade =>
         {
@@ -40,5 +44,7 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : Identity
             new Entidade { Id = 1, Denominacao = "Teste 1", Morada = "Rua do Teste 1", NifNipc = "123123123", Telefone = "921111111", Email = "emailteste@email.email", Sigla = "TsT1", NrERS = "A-1234", EmailNotificacoesERS = "emailnotificacoes@email.email", EmailNotificacoesGerais = "emailnotificacoes@email.email" },
             new Entidade { Id = 2, Denominacao = "Teste 2", Morada = "Rua do Teste 2", NifNipc = "123123123", Telefone = "921111111", Email = "emailteste@email.email", Sigla = "TsT2", NrERS = "A-1234", EmailNotificacoesERS = "emailnotificacoes@email.email", EmailNotificacoesGerais = "emailnotificacoes@email.email" }
             );
+
+        base.OnModelCreating(modelBuilder);
     }
 }

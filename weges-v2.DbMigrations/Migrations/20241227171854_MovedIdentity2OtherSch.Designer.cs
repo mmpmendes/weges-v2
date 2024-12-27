@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using weges_v2.ApiModel;
@@ -11,9 +12,11 @@ using weges_v2.ApiModel;
 namespace weges_v2.DbMigrations.Migrations
 {
     [DbContext(typeof(WegesDbContext))]
-    partial class WegesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241227171854_MovedIdentity2OtherSch")]
+    partial class MovedIdentity2OtherSch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
