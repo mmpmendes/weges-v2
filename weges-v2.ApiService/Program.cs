@@ -42,7 +42,7 @@ builder.Services.AddScoped<ISimpleRepository<Estabelecimento>, SimpleRepository<
 
 
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication()
+builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
                 .AddCookie(IdentityConstants.ApplicationScheme)
                 .AddBearerToken(IdentityConstants.BearerScheme);
 

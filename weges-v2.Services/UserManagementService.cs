@@ -23,11 +23,11 @@ public class UserManagementService(HttpClient httpClient)
         return response;
     }
 
-    public async Task<HttpResponseMessage> ConfirmEmailAsync(string userId, string code, string changedEmail, CancellationToken cancellationToken = default)
-    {
-        var response = await httpClient.GetFromJsonAsync("/confirmEmail", new { userId, code, changedEmail }, cancellationToken);
-        return response;
-    }
+    //public async Task<HttpResponseMessage> ConfirmEmailAsync(ConfirmationModel confirmationModel, CancellationToken cancellationToken = default)
+    //{
+    //    var response = await httpClient.GetFromJsonAsync<ConfirmationModel>("/confirmEmail", { confirmationModel }, cancellationToken);
+    //    return response;
+    //}
 
     public async Task<HttpResponseMessage> ResendConfirmationEmail(string email, string token, CancellationToken cancellationToken = default)
     {
@@ -35,9 +35,9 @@ public class UserManagementService(HttpClient httpClient)
         return response;
     }
 
-    public async Task<HttpResponseMessage> GetUserInfoAsync(string accessToken, CancellationToken cancellationToken = default)
+    public async Task<UserInfo?> GetUserInfoAsync(string accessToken, CancellationToken cancellationToken = default)
     {
-        var response = await httpClient.PostAsJsonAsync("/user-info", new { accessToken }, cancellationToken);
+        var response = await httpClient.GetFromJsonAsync<UserInfo>("/manage/info", cancellationToken);
         return response;
     }
 

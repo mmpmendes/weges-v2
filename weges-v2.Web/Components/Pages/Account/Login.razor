@@ -1,5 +1,8 @@
 ﻿@page "/login"
 @using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Newtonsoft.Json
+@using System.Security.Claims
 @using weges_v2.Services
 @using weges_v2.SharedKernel.Models
 
@@ -35,26 +38,27 @@
 @code {
     private LoginModel _loginModel = new LoginModel();
     private string message { get; set; } = string.Empty;
-    private AccessTokenResponse userInfo { get; set; }
-    // [Inject]
-    // private CustomAuthenticationStateProvider authStateProvider { get; set; }
-    // [CascadingParameter] 
-    // public Task<AuthenticationState> AuthTask { get; set; }
+
     private async Task LoginCall()
     {
-        // Call the login service
         var response = await userService.LoginUserAsync(_loginModel);
         if (response.IsSuccessStatusCode)
         {
-            // Redirect to the home page
-            // navigationManager.NavigateTo("/");
-
-            // Assuming API returns a token or user info
-            userInfo = await response.Content.ReadFromJsonAsync<AccessTokenResponse>();
-            // authStateProvider.SetAuthenticatedUser(userInfo.Email, userInfo.Role);
-
+            var content = await response.Content.ReadAsStringAsync();
+            var tokens = JsonConvert.DeserializeObject<AccessTokenResponse>(content);
+            if (tokens is not null)
+            {
+                var info = await userService.GetUserInfoAsync(tokens.AccessToken);
+                message = info is not null ? info.Email : "Não Logado";
+            }
+            else
+            {
+                // Handle error getting user information
+                message = "Impossível encontrar a informação do utilizador.";
+            }
         }
-        else{
+        else
+        {
             message = "Credenciais Inválidas.";
         }
     }
