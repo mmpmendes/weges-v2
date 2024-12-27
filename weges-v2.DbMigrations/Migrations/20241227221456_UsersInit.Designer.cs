@@ -12,8 +12,8 @@ using weges_v2.ApiModel;
 namespace weges_v2.DbMigrations.Migrations
 {
     [DbContext(typeof(WegesDbContext))]
-    [Migration("20241227171854_MovedIdentity2OtherSch")]
-    partial class MovedIdentity2OtherSch
+    [Migration("20241227221456_UsersInit")]
+    partial class UsersInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

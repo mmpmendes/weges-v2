@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace weges_v2.DbMigrations.Migrations
 {
     /// <inheritdoc />
-    public partial class MovedIdentity2OtherSch : Migration
+    public partial class UsersInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -9,18 +9,18 @@ using weges_v2.ApiModel;
 
 #nullable disable
 
-namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
+namespace weges_v2.UsersMigrations.Migrations
 {
     [DbContext(typeof(UtilizadoresDbContext))]
-    [Migration("20241227171826_MovedIdentity2OtherSch")]
-    partial class MovedIdentity2OtherSch
+    [Migration("20241227221110_UsersInit")]
+    partial class UsersInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("users")
+                .HasDefaultSchema("weges_users")
                 .HasAnnotation("ProductVersion", "8.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -49,7 +49,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
                         .IsUnique()
                         .HasDatabaseName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles", "users");
+                    b.ToTable("AspNetRoles", "weges_users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -74,7 +74,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", "users");
+                    b.ToTable("AspNetRoleClaims", "weges_users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -99,7 +99,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", "users");
+                    b.ToTable("AspNetUserClaims", "weges_users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -121,7 +121,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", "users");
+                    b.ToTable("AspNetUserLogins", "weges_users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -136,7 +136,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", "users");
+                    b.ToTable("AspNetUserRoles", "weges_users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -155,7 +155,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", "users");
+                    b.ToTable("AspNetUserTokens", "weges_users");
                 });
 
             modelBuilder.Entity("weges_v2.ApiModel.Models.WegesUser", b =>
@@ -219,7 +219,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers", "users");
+                    b.ToTable("AspNetUsers", "weges_users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
