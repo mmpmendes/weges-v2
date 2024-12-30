@@ -41,9 +41,56 @@ public class WegesDbContext : DbContext
         });
 
         modelBuilder.Entity<Entidade>().HasData(
-            new Entidade { Id = 1, Denominacao = "Teste 1", Morada = "Rua do Teste 1", NifNipc = "123123123", Telefone = "921111111", Email = "emailteste@email.email", Sigla = "TsT1", NrERS = "A-1234", EmailNotificacoesERS = "emailnotificacoes@email.email", EmailNotificacoesGerais = "emailnotificacoes@email.email" },
-            new Entidade { Id = 2, Denominacao = "Teste 2", Morada = "Rua do Teste 2", NifNipc = "123123123", Telefone = "921111111", Email = "emailteste@email.email", Sigla = "TsT2", NrERS = "A-1234", EmailNotificacoesERS = "emailnotificacoes@email.email", EmailNotificacoesGerais = "emailnotificacoes@email.email" }
-            );
+            new Entidade
+            {
+                Id = 1,
+                Denominacao = "Entidade 1",
+                Morada = "Rua do Teste 1",
+                NifNipc = "123123123",
+                Telefone = "921111111",
+                Email = "emailteste@email.email",
+                Sigla = "ent1",
+                NrERS = "A-1234",
+                EmailNotificacoesERS = "emailnotificacoes@email.email",
+                EmailNotificacoesGerais = "emailnotificacoes@email.email"
+            },
+            new Entidade
+            {
+                Id = 2,
+                Denominacao = "Entidade 2",
+                Morada = "Rua do Teste 2",
+                NifNipc = "123123123",
+                Telefone = "921111111",
+                Email = "emailteste@email.email",
+                Sigla = "ent2",
+                NrERS = "A-1234",
+                EmailNotificacoesERS = "emailnotificacoes@email.email",
+                EmailNotificacoesGerais = "emailnotificacoes@email.email"
+            });
+
+        modelBuilder.Entity<Estabelecimento>().HasData(
+            new Estabelecimento
+            {
+                Id = 1,
+                Denominacao = "Estabelecimento 1",
+                Email = "email@email.email",
+                InicioAtividade = new DateOnly(2020, 02, 20),
+                Morada = "estab 1 morada",
+                Sigla = "estab1",
+                Telefone = "291111111",
+                TipoPrestador = "Tipo de Prestador"
+            },
+            new Estabelecimento
+            {
+                Id = 2,
+                Denominacao = "Estabelecimento 2",
+                Email = "email@email.email",
+                InicioAtividade = new DateOnly(2023, 02, 20),
+                Morada = "estab 2 morada",
+                Sigla = "estab2",
+                Telefone = "291111112",
+                TipoPrestador = "Tipo de Prestador"
+            });
 
         base.OnModelCreating(modelBuilder);
     }
