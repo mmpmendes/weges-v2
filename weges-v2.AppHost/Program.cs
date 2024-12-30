@@ -8,7 +8,11 @@ var postgres = builder.AddPostgres("postgres-server")
 
 var db = postgres.AddDatabase("weges");
 
-var migrationService = builder.AddProject<Projects.weges_v2_DbMigrations>("migration")
+var migrationService = builder.AddProject<Projects.weges_v2_DbMigrations>("weges-migration")
+    .WithReference(db)
+    .WaitFor(db);
+
+var usersMigrationService = builder.AddProject<Projects.weges_v2_UsersMigrations>("users-migration")
     .WithReference(db)
     .WaitFor(db);
 

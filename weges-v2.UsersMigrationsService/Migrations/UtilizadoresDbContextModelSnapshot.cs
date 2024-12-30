@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using weges_v2.ApiModel;
 
 #nullable disable
 
-namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
+namespace weges_v2.UsersMigrations.Migrations
 {
     [DbContext(typeof(UtilizadoresDbContext))]
-    [Migration("20241227173647_RenameSchema")]
-    partial class RenameSchema
+    partial class UtilizadoresDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

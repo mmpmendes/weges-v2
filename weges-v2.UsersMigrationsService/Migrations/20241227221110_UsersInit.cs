@@ -4,20 +4,20 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
+namespace weges_v2.UsersMigrations.Migrations
 {
     /// <inheritdoc />
-    public partial class MovedIdentity2OtherSch : Migration
+    public partial class UsersInit : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "users");
+                name: "weges_users");
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
-                schema: "users",
+                schema: "weges_users",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
@@ -32,7 +32,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
 
             migrationBuilder.CreateTable(
                 name: "AspNetUsers",
-                schema: "users",
+                schema: "weges_users",
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
@@ -58,7 +58,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
-                schema: "users",
+                schema: "weges_users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -73,7 +73,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
                     table.ForeignKey(
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
-                        principalSchema: "users",
+                        principalSchema: "weges_users",
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -81,7 +81,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
-                schema: "users",
+                schema: "weges_users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -96,7 +96,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
                     table.ForeignKey(
                         name: "FK_AspNetUserClaims_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalSchema: "users",
+                        principalSchema: "weges_users",
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -104,7 +104,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserLogins",
-                schema: "users",
+                schema: "weges_users",
                 columns: table => new
                 {
                     LoginProvider = table.Column<string>(type: "text", nullable: false),
@@ -118,7 +118,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
                     table.ForeignKey(
                         name: "FK_AspNetUserLogins_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalSchema: "users",
+                        principalSchema: "weges_users",
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -126,7 +126,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserRoles",
-                schema: "users",
+                schema: "weges_users",
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "text", nullable: false),
@@ -138,14 +138,14 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
                         column: x => x.RoleId,
-                        principalSchema: "users",
+                        principalSchema: "weges_users",
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalSchema: "users",
+                        principalSchema: "weges_users",
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -153,7 +153,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserTokens",
-                schema: "users",
+                schema: "weges_users",
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "text", nullable: false),
@@ -167,7 +167,7 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
                     table.ForeignKey(
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
-                        principalSchema: "users",
+                        principalSchema: "weges_users",
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -175,44 +175,44 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
-                schema: "users",
+                schema: "weges_users",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
-                schema: "users",
+                schema: "weges_users",
                 table: "AspNetRoles",
                 column: "NormalizedName",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
-                schema: "users",
+                schema: "weges_users",
                 table: "AspNetUserClaims",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserLogins_UserId",
-                schema: "users",
+                schema: "weges_users",
                 table: "AspNetUserLogins",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserRoles_RoleId",
-                schema: "users",
+                schema: "weges_users",
                 table: "AspNetUserRoles",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
-                schema: "users",
+                schema: "weges_users",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
-                schema: "users",
+                schema: "weges_users",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
@@ -223,31 +223,31 @@ namespace weges_v2.DbMigrations.Migrations.UtilizadoresDb
         {
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims",
-                schema: "users");
+                schema: "weges_users");
 
             migrationBuilder.DropTable(
                 name: "AspNetUserClaims",
-                schema: "users");
+                schema: "weges_users");
 
             migrationBuilder.DropTable(
                 name: "AspNetUserLogins",
-                schema: "users");
+                schema: "weges_users");
 
             migrationBuilder.DropTable(
                 name: "AspNetUserRoles",
-                schema: "users");
+                schema: "weges_users");
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens",
-                schema: "users");
+                schema: "weges_users");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles",
-                schema: "users");
+                schema: "weges_users");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers",
-                schema: "users");
+                schema: "weges_users");
         }
     }
 }
