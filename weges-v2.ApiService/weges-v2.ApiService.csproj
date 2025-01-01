@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\**" />
+    <Content Remove="Services\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Services\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SharedKernel\weges-v2.SharedKernel.csproj" />
     <ProjectReference Include="..\weges-v2.ApiModel\weges-v2.ApiModel.csproj" />
     <ProjectReference Include="..\weges-v2.ServiceDefaults\weges-v2.ServiceDefaults.csproj" />
@@ -22,10 +29,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.2.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
