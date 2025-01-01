@@ -12,7 +12,9 @@ public class WegesProfile : Profile
         CreateMap<CodCae, CodCaeDTO>().ReverseMap();
         //ENTIDADE
         CreateMap<Entidade, EntidadeDTO>().ReverseMap();
-
+        CreateMap<Estabelecimento, EstabelecimentoDTO>().ReverseMap();
+        CreateMap<DirecaoClinica, DirecaoClinicaDTO>().ReverseMap();
+        CreateMap<Servico, ServicoDTO>().ReverseMap();
     }
 }
 

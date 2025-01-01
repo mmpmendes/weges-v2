@@ -15,6 +15,8 @@ public class WegesDbContext : DbContext
     public DbSet<Estabelecimento> Estabelecimentos { get; set; }
     public DbSet<Entidade> Entidades { get; set; }
     public DbSet<CodCae> CodCaes { get; set; }
+    public DbSet<DirecaoClinica> DirecoesClinicas { get; set; }
+    public DbSet<Servico> Servicos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -68,6 +70,16 @@ public class WegesDbContext : DbContext
                 EmailNotificacoesGerais = "emailnotificacoes@email.email"
             });
 
+        modelBuilder.Entity<Estabelecimento>(estabelecimento =>
+        {
+            //auto increment Id
+            estabelecimento.Property(e => e.Id).ValueGeneratedOnAdd();
+            estabelecimento.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            estabelecimento.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            estabelecimento.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            estabelecimento.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+
         modelBuilder.Entity<Estabelecimento>().HasData(
             new Estabelecimento
             {
@@ -91,6 +103,87 @@ public class WegesDbContext : DbContext
                 Telefone = "291111112",
                 TipoPrestador = "Tipo de Prestador"
             });
+
+        modelBuilder.Entity<DirecaoClinica>(dirclinica =>
+        {
+            //auto increment Id
+            dirclinica.Property(e => e.Id).ValueGeneratedOnAdd();
+            dirclinica.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            dirclinica.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            dirclinica.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            dirclinica.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+
+        modelBuilder.Entity<DirecaoClinica>().HasData(
+            new DirecaoClinica
+            {
+                Id = 1,
+                Nome = "Nome 1",
+                Cargo = "Cargo 1",
+                Identificacao = "Identificacao 1",
+                ValidadeIdentificacao = new DateOnly(2023, 02, 20),
+                Cedula = "Cedula 1",
+                Ordem = "Ordem 1",
+                Especialidade = "Especialidade 1",
+                EspecialidadeId = 1,
+                Observacoes = "Observacoes 1",
+                EstabelecimentoId = 1,
+                TipologiaId = 1,
+                Tipologia = "Tipologia 1"
+            },
+            new DirecaoClinica
+            {
+                Id = 2,
+                Nome = "Nome 2",
+                Cargo = "Cargo 2",
+                Identificacao = "Identificacao 2",
+                ValidadeIdentificacao = new DateOnly(2023, 02, 20),
+                Cedula = "Cedula 2",
+                Ordem = "Ordem 2",
+                Especialidade = "Especialidade 2",
+                EspecialidadeId = 2,
+                Observacoes = "Observacoes 2",
+                EstabelecimentoId = 2,
+                TipologiaId = 2,
+                Tipologia = "Tipologia 2"
+            });
+
+        modelBuilder.Entity<Servico>(servico =>
+        {
+            //auto increment Id
+            servico.Property(e => e.Id).ValueGeneratedOnAdd();
+            servico.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            servico.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            servico.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            servico.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+
+        modelBuilder.Entity<Servico>().HasData(
+            new Servico
+            {
+                Id = 1,
+                Nome = "Servico 1",
+                DataInicio = new DateOnly(2023, 02, 20),
+                Responsavel = "Responsavel 1",
+                TipologiaId = 1,
+                Horario = "Horario 1",
+                Observacoes = "Observacoes 1",
+                EstabelecimentoId = 1,
+                Tipologia = "Tipologia 1"
+            },
+            new Servico
+            {
+                Id = 2,
+                Nome = "Servico 2",
+                DataInicio = new DateOnly(2023, 02, 20),
+                Responsavel = "Responsavel 2",
+                TipologiaId = 2,
+                Horario = "Horario 2",
+                Observacoes = "Observacoes 2",
+                EstabelecimentoId = 2,
+                Tipologia = "Tipologia 2"
+            });
+
 
         base.OnModelCreating(modelBuilder);
     }

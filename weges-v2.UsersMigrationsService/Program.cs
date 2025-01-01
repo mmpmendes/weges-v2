@@ -21,6 +21,7 @@ builder.Services
         b =>
         {
             b.MigrationsAssembly("weges-v2.UsersMigrations");
+            b.MigrationsHistoryTable("__EFMigrationsHistory_Weges_Users");
         }));
 
 builder.EnrichNpgsqlDbContext<UtilizadoresDbContext>(settings =>

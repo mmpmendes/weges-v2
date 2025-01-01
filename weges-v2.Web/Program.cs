@@ -39,6 +39,16 @@ builder.Services.AddHttpClient<EstabelecimentoApiService>(client =>
     client.BaseAddress = new("https+http://apiservice");
 });
 
+builder.Services.AddHttpClient<DirecaoClinicaApiService>(client =>
+{
+    client.BaseAddress = new("https+http://apiservice");
+});
+
+builder.Services.AddHttpClient<ServicosApiService>(client =>
+{
+    client.BaseAddress = new("https+http://apiservice");
+});
+
 builder.Services.AddHttpClient<UserManagementService>(client =>
 {
     client.BaseAddress = new("https+http://apiservice");

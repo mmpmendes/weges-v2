@@ -37,7 +37,8 @@ builder.AddServiceDefaults();
 
 builder.Services.AddScoped<ISimpleRepository<Entidade>, SimpleRepository<Entidade>>();
 builder.Services.AddScoped<ISimpleRepository<Estabelecimento>, SimpleRepository<Estabelecimento>>();
-
+builder.Services.AddScoped<ISimpleRepository<DirecaoClinica>, SimpleRepository<DirecaoClinica>>();
+builder.Services.AddScoped<ISimpleRepository<Servico>, SimpleRepository<Servico>>();
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)

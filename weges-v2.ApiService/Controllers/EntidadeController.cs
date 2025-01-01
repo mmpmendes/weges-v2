@@ -12,7 +12,6 @@ namespace weges_v2.ApiService.Controllers;
 [ApiController]
 public class EntidadeController(
         ISimpleRepository<Entidade> entidadeRepo
-        //, ICodCaeRepository codCaeRepo
         , IMapper mapper
         ) : ControllerBase
 {

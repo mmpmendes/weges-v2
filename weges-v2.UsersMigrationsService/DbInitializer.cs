@@ -49,7 +49,14 @@ public class DBInitializer(
             // Do this first so there is then a database to start a transaction against.
             if (!await dbCreator.ExistsAsync(cancellationToken))
             {
-                await dbCreator.CreateAsync(cancellationToken);
+                try
+                {
+                    await dbCreator.CreateAsync(cancellationToken);
+                }
+                catch (Exception)
+                {
+                    //Console.WriteLine(ex.Message);
+                }
             }
         });
     }

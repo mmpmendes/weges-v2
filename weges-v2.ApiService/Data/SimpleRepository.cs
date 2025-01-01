@@ -42,7 +42,7 @@ public class SimpleRepository<T>(WegesDbContext dbContext) : ISimpleRepository<T
 
         if (entity == null)
         {
-            throw new KeyNotFoundException($"Entity with id {id} was not found.");
+            throw new KeyNotFoundException($"Entidade com o id {id} não foi encontrada.");
         }
         return entity;
     }

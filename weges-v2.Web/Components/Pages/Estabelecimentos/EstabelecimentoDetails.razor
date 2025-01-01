@@ -1,4 +1,5 @@
 ﻿@page "/estabelecimento/{Id:long}"
+@using weges_v2.SharedKernel.DTO
 
 <PageTitle>Estabelecimento</PageTitle>
 
@@ -38,6 +39,91 @@
                 <Button Class="btn btn-success" @onclick="SaveEstabelecimento">Guardar</Button>
                 <Button Class="btn btn-danger" @onclick="GoBackToEstabelecimentos">Cancelar</Button>
             </div>
+        </Content>
+    </Tab>
+    <Tab Title="Direção Clínica">
+        <Content>
+            <Grid TItem="DirecaoClinicaDTO"
+                  Class="table table-hover table-bordered table-striped"
+                  DataProvider="DirecoesClinicasDataProvider"
+                  AllowFiltering="true"
+                  AllowPaging="true"
+                  PageSize="10"
+                  AllowSorting="true"
+                  Responsive="true">
+
+                <GridColumns>
+                    <GridColumn 
+                        TItem="DirecaoClinicaDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                        @context.Nome
+                    </GridColumn>
+                    <GridColumn 
+                        TItem="DirecaoClinicaDTO" HeaderText="Cargo" PropertyName="Cargo" SortKeySelector="item => item.Cargo">
+                        @context.Cargo
+                    </GridColumn>
+                    <GridColumn 
+                        TItem="DirecaoClinicaDTO" HeaderText="Identificação" PropertyName="Identificacao" SortKeySelector="item => item.Identificacao">
+                        @context.Identificacao
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="ValidadeIdentificacao" PropertyName="ValidadeIdentificacao" SortKeySelector="item => item.ValidadeIdentificacao">
+                        @context.ValidadeIdentificacao
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Cedula" PropertyName="Cedula" SortKeySelector="item => item.Cedula">
+                        @context.Cedula
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Ordem" PropertyName="Ordem" SortKeySelector="item => item.Ordem">
+                        @context.Ordem
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Especialidade" PropertyName="Especialidade" SortKeySelector="item => item.Especialidade">
+                        @context.Especialidade
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Tipologia" PropertyName="Tipologia" SortKeySelector="item => item.Tipologia">
+                        @context.Tipologia
+                    </GridColumn>
+                </GridColumns>
+            </Grid>
+        </Content>
+    </Tab>
+    <Tab Title="Dados Serviço">
+        <Content>
+            <Grid TItem="ServicoDTO"
+                  Class="table table-hover table-bordered table-striped"
+                  DataProvider="ServicosDataProvider"
+                  AllowFiltering="true"
+                  AllowPaging="true"
+                  PageSize="10"
+                  AllowSorting="true"
+                  Responsive="true">
+
+                <GridColumns>
+                    <GridColumn 
+                        TItem="ServicoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                        @context.Nome
+                    </GridColumn>
+                    <GridColumn 
+                        TItem="ServicoDTO" HeaderText="Início" PropertyName="Início" SortKeySelector="item => item.DataInicio">
+                        @context.DataInicio
+                    </GridColumn>
+                    <GridColumn 
+                        TItem="ServicoDTO" HeaderText="Responsável" PropertyName="Responsavel" SortKeySelector="item => item.Responsavel">
+                        @context.Responsavel
+                    </GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Tipologia" PropertyName="Tipologia" SortKeySelector="item => item.Tipologia">
+                        @context.Tipologia
+                    </GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Horário" PropertyName="Horario" SortKeySelector="item => item.Horario">
+                        @context.Horario
+                    </GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Observações" PropertyName="Observacoes" SortKeySelector="item => item.Observacoes">
+                        @context.Observacoes
+                    </GridColumn>
+                </GridColumns>
+            </Grid>
+        </Content>
+    </Tab>
+    <Tab Title="Certificados e Licenças">
+        <Content>
+
         </Content>
     </Tab>
 </Tabs>

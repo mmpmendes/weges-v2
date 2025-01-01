@@ -14,16 +14,14 @@ var migrationService = builder.AddProject<Projects.weges_v2_DbMigrations>("weges
 
 var usersMigrationService = builder.AddProject<Projects.weges_v2_UsersMigrations>("users-migration")
     .WithReference(db)
-    .WaitFor(db);
+    .WaitFor(db)
+    .WaitFor(migrationService);
 
 var apiService = builder.AddProject<Projects.weges_v2_ApiService>("apiservice")
                     .WithReference(db);
-//.WaitForCompletion(migrationService);
 
 builder.AddProject<Projects.weges_v2_Web>("webfrontend")
     .WithExternalHttpEndpoints()
-    //.WithReference(cache)
-    //.WaitFor(cache)
     .WithReference(apiService)
     .WaitFor(apiService);
 
