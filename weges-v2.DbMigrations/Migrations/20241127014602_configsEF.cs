@@ -1,9 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace weges_v2.DbMigrations.Migrations
+namespace DbMigrations.Migrations
 {
     /// <inheritdoc />
     public partial class configsEF : Migration

@@ -1,4 +1,4 @@
-﻿namespace weges_v2.SharedKernel.Models;
+﻿namespace SharedKernel.Models;
 public class ResetPasswordModel
 {
     public string NewPassword { get; set; } = string.Empty;

@@ -1,11 +1,13 @@
 ﻿using BlazorBootstrap;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
-using weges_v2.Services;
-using weges_v2.SharedKernel.DTO;
+using Services;
 
-namespace weges_v2.Web.Components.Pages.Entidades;
+using SharedKernel.DTO;
+
+namespace Web.Components.Pages.Entidades;
 
 public partial class EntidadeMaster
 {
@@ -36,7 +38,7 @@ public partial class EntidadeMaster
         return await Task.FromResult(request.ApplyTo(Entidades));
     }
 
-    private void AddEntidade(Microsoft.AspNetCore.Components.Web.MouseEventArgs e)
+    private void AddEntidade(MouseEventArgs e)
     {
         NavigateToDetails(-1);
     }

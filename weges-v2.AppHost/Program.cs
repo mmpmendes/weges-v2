@@ -3,24 +3,27 @@ var builder = DistributedApplication.CreateBuilder(args);
 //var cache = builder.AddRedis("cache")//.WithLifetime(ContainerLifetime.Persistent)
 //    .WithContainerName("weges-cache");
 
-var postgres = builder.AddPostgres("postgres-server")
-                      .WithContainerName("weges-postgres-container").WithPgAdmin();//.WithLifetime(ContainerLifetime.Persistent);
+var postgres = builder.AddPostgres("pgserver")
+                      .WithContainerName("pgserver").WithPgAdmin();//.WithLifetime(ContainerLifetime.Persistent);
 
 var db = postgres.AddDatabase("weges");
+var apiService = builder.AddProject<Projects.ApiService>("apiservice")
+                    .WithReference(db)
+                    .WaitFor(db);
 
-var migrationService = builder.AddProject<Projects.weges_v2_DbMigrations>("weges-migration")
-    .WithReference(db)
-    .WaitFor(db);
-
-var usersMigrationService = builder.AddProject<Projects.weges_v2_UsersMigrations>("users-migration")
+var migrationService = builder.AddProject<Projects.DbMigrations>("weges-migration")
     .WithReference(db)
     .WaitFor(db)
-    .WaitFor(migrationService);
+    .WaitFor(apiService);
 
-var apiService = builder.AddProject<Projects.weges_v2_ApiService>("apiservice")
-                    .WithReference(db);
+//var usersMigrationService = builder.AddProject<Projects._UsersMigrations>("users-migration")
+//    .WithReference(db)
+//    .WaitFor(db)
+//    .WaitFor(migrationService);
 
-builder.AddProject<Projects.weges_v2_Web>("webfrontend")
+
+
+builder.AddProject<Projects.Web>("webfrontend")
     .WithExternalHttpEndpoints()
     .WithReference(apiService)
     .WaitFor(apiService);

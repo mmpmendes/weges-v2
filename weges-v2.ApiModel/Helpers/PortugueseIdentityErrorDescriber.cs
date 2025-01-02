@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace weges_v2.SharedKernel.Models;
+namespace SharedKernel.Models;
 public class PortugueseIdentityErrorDescriber : IdentityErrorDescriber
 {
     public override IdentityError DefaultError() { return new IdentityError { Code = nameof(DefaultError), Description = $"Ocorreu um erro desconhecido." }; }

@@ -1,8 +1,8 @@
-﻿using System.Net.Http.Json;
+﻿using SharedKernel.DTO;
 
-using weges_v2.SharedKernel.DTO;
+using System.Net.Http.Json;
 
-namespace weges_v2.Services;
+namespace Services;
 public class ServicosApiService(HttpClient httpClient)
 {
     public async Task<IList<ServicoDTO>?> GetServicosAsync(int maxItems = 10, CancellationToken cancellationToken = default)

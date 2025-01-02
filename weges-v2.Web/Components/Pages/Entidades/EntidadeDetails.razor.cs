@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
-using weges_v2.Services;
-using weges_v2.SharedKernel.DTO;
+using Services;
 
-namespace weges_v2.Web.Components.Pages.Entidades;
+using SharedKernel.DTO;
+
+namespace Web.Components.Pages.Entidades;
 
 public partial class EntidadeDetails
 {

@@ -1,8 +1,8 @@
-﻿using System.Net.Http.Json;
+﻿using SharedKernel.DTO;
 
-using weges_v2.SharedKernel.DTO;
+using System.Net.Http.Json;
 
-namespace weges_v2.Services;
+namespace Services;
 public class EstabelecimentoApiService(HttpClient httpClient)
 {
     public async Task<IList<EstabelecimentoDTO>?> GetEstabelecimentosAsync(int maxItems = 10, CancellationToken cancellationToken = default)

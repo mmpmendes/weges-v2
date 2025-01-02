@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using weges_v2.ApiModel;
+using ApiModel;
 
 #nullable disable
 
-namespace weges_v2.DbMigrations.Migrations
+namespace DbMigrations.Migrations
 {
     [DbContext(typeof(WegesDbContext))]
     [Migration("20241126234442_entidadeECodCae")]
@@ -40,7 +40,7 @@ namespace weges_v2.DbMigrations.Migrations
                     b.ToTable("CodCaeEntidade");
                 });
 
-            modelBuilder.Entity("weges_v2.ApiModel.Models.CodCae", b =>
+            modelBuilder.Entity("ApiModel.Models.CodCae", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,7 +75,7 @@ namespace weges_v2.DbMigrations.Migrations
                     b.ToTable("CodCaes");
                 });
 
-            modelBuilder.Entity("weges_v2.ApiModel.Models.Entidade", b =>
+            modelBuilder.Entity("ApiModel.Models.Entidade", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -130,7 +130,7 @@ namespace weges_v2.DbMigrations.Migrations
                     b.ToTable("Entidades");
                 });
 
-            modelBuilder.Entity("weges_v2.ApiModel.Models.Estabelecimento", b =>
+            modelBuilder.Entity("ApiModel.Models.Estabelecimento", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -181,13 +181,13 @@ namespace weges_v2.DbMigrations.Migrations
 
             modelBuilder.Entity("CodCaeEntidade", b =>
                 {
-                    b.HasOne("weges_v2.ApiModel.Models.CodCae", null)
+                    b.HasOne("ApiModel.Models.CodCae", null)
                         .WithMany()
                         .HasForeignKey("CodCaesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("weges_v2.ApiModel.Models.Entidade", null)
+                    b.HasOne("ApiModel.Models.Entidade", null)
                         .WithMany()
                         .HasForeignKey("EntidadesId")
                         .OnDelete(DeleteBehavior.Cascade)

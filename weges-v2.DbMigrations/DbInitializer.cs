@@ -4,14 +4,12 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 using System.Diagnostics;
 
-using weges_v2.ApiModel;
+namespace DbMigrations;
 
-namespace weges_v2.DbMigrations;
-
-public class DBInitializer(
+public class DBInitializer<T>(
     IServiceProvider serviceProvider,
     IHostEnvironment hostEnvironment,
-    IHostApplicationLifetime hostApplicationLifetime) : BackgroundService
+    IHostApplicationLifetime hostApplicationLifetime) : BackgroundService where T : DbContext
 {
     private readonly ActivitySource _activitySource = new(hostEnvironment.ApplicationName);
 
@@ -22,7 +20,7 @@ public class DBInitializer(
         try
         {
             using var scope = serviceProvider.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<WegesDbContext>();
+            var dbContext = scope.ServiceProvider.GetRequiredService<T>();
 
             await EnsureDatabaseAsync(dbContext, cancellationToken);
             await RunMigrationAsync(dbContext, cancellationToken);
@@ -36,7 +34,7 @@ public class DBInitializer(
         hostApplicationLifetime.StopApplication();
     }
 
-    private static async Task EnsureDatabaseAsync(WegesDbContext dbContext, CancellationToken cancellationToken)
+    private static async Task EnsureDatabaseAsync(T dbContext, CancellationToken cancellationToken)
     {
         var dbCreator = dbContext.GetService<IRelationalDatabaseCreator>();
 
@@ -52,7 +50,7 @@ public class DBInitializer(
         });
     }
 
-    private static async Task RunMigrationAsync(WegesDbContext dbContext, CancellationToken cancellationToken)
+    private static async Task RunMigrationAsync(T dbContext, CancellationToken cancellationToken)
     {
         var strategy = dbContext.Database.CreateExecutionStrategy();
         await strategy.ExecuteAsync(async () =>

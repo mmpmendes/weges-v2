@@ -2,12 +2,12 @@
 
 using Microsoft.AspNetCore.Mvc;
 
-using weges_v2.ApiModel.Models;
+using ApiModel.Models;
 
-using weges_v2.ApiService.Data;
-using weges_v2.SharedKernel.DTO;
+using ApiService.Data;
+using SharedKernel.DTO;
 
-namespace weges_v2.ApiService.Controllers;
+namespace ApiService.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <RootNamespace>weges_v2.ApiService</RootNamespace>
+    <RootNamespace>ApiService</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -15,12 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SharedKernel\weges-v2.SharedKernel.csproj" />
-    <ProjectReference Include="..\weges-v2.ApiModel\weges-v2.ApiModel.csproj" />
-    <ProjectReference Include="..\weges-v2.ServiceDefaults\weges-v2.ServiceDefaults.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
@@ -29,6 +23,12 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="7.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.2.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SharedKernel\SharedKernel.csproj" />
+    <ProjectReference Include="..\weges-v2.ApiModel\ApiModel.csproj" />
+    <ProjectReference Include="..\weges-v2.ServiceDefaults\ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

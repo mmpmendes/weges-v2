@@ -1,4 +1,4 @@
-﻿namespace weges_v2.SharedKernel.Models;
+﻿namespace SharedKernel.Models;
 public class ValidationDetails
 {
     public string Type { get; set; } = string.Empty;

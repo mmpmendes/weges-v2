@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-using weges_v2.ApiModel;
-using weges_v2.ApiModel.Models;
+using ApiModel;
+using ApiModel.Models;
 
 
-namespace weges_v2.ApiService.Data;
+namespace ApiService.Data;
 
 public class SimpleRepository<T>(WegesDbContext dbContext) : ISimpleRepository<T> where T : class, IEntity<long>
 {

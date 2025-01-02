@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
 
-namespace weges_v2.ApiModel.Models;
+namespace ApiModel.Models;
 public class WegesUser : IdentityUser
 {
 }

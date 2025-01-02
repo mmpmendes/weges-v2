@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
-    <RootNamespace>weges_v2.UsersMigrations</RootNamespace>
+    <RootNamespace>UsersMigrations</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UserSecretsId>242e61ae-e3d4-4d44-94a9-a7f969c0ab4f</UserSecretsId>
@@ -28,8 +28,8 @@
 
   
   <ItemGroup>
-    <ProjectReference Include="..\weges-v2.ApiModel\weges-v2.ApiModel.csproj" />
-    <ProjectReference Include="..\weges-v2.ServiceDefaults\weges-v2.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\weges-v2.ApiModel\ApiModel.csproj" />
+    <ProjectReference Include="..\weges-v2.ServiceDefaults\ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

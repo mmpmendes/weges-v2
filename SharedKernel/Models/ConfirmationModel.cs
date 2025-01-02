@@ -1,4 +1,4 @@
-﻿namespace weges_v2.SharedKernel.Models;
+﻿namespace SharedKernel.Models;
 public class ConfirmationModel
 {
     public string UserId { get; set; } = string.Empty;

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using weges_v2.ApiModel;
+using ApiModel;
 
 #nullable disable
 
-namespace weges_v2.DbMigrations.Migrations
+namespace DbMigrations.Migrations
 {
     [DbContext(typeof(WegesDbContext))]
     [Migration("20241114043245_init-mig")]
@@ -25,7 +25,7 @@ namespace weges_v2.DbMigrations.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("weges_v2.ApiModel.Estabelecimento", b =>
+            modelBuilder.Entity("ApiModel.Estabelecimento", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()

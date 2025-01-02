@@ -1,4 +1,4 @@
-﻿namespace weges_v2.SharedKernel.Models;
+﻿namespace SharedKernel.Models;
 public class ManageInfoModel
 {
     public string FirstName { get; set; } = string.Empty;

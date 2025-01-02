@@ -1,13 +1,15 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using ApiModel;
+
+using DbMigrations;
+
 using Microsoft.EntityFrameworkCore;
 
-using weges_v2.ApiModel;
-using weges_v2.DbMigrations;
-
 var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddHostedService<DBInitializer>();
+builder.Services.AddHostedService<DBInitializer<WegesDbContext>>();
+builder.Services.AddHostedService<DBInitializer<UtilizadoresDbContext>>();
 
 builder.AddServiceDefaults();
 
@@ -16,13 +18,19 @@ builder.Services.AddDbContextPool<WegesDbContext>(options =>
         builder.Configuration.GetConnectionString("weges"),
         b =>
         {
-            b.MigrationsAssembly("weges-v2.DbMigrations");
+            b.MigrationsAssembly("DbMigrations");
             b.MigrationsHistoryTable("__EFMigrationsHistory_Weges");
         }));
 
-builder.EnrichNpgsqlDbContext<WegesDbContext>(settings =>
-    // Disable Aspire default retries as we're using a custom execution strategy
-    settings.DisableRetry = true);
+builder.Services
+    .AddDbContextPool<UtilizadoresDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("weges"),
+        b =>
+        {
+            b.MigrationsAssembly("UsersMigrations");
+            b.MigrationsHistoryTable("__EFMigrationsHistory_Weges_Users");
+        }));
 
 var app = builder.Build();
 

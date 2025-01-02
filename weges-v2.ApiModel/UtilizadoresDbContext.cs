@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ApiModel.Models;
+
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-using weges_v2.ApiModel.Models;
-
-namespace weges_v2.ApiModel;
+namespace ApiModel;
 public class UtilizadoresDbContext(DbContextOptions<UtilizadoresDbContext> options) : IdentityDbContext<WegesUser>(options)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)

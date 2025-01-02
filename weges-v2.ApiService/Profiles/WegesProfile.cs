@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 
-using weges_v2.ApiModel.Models;
-using weges_v2.SharedKernel.DTO;
+using ApiModel.Models;
+using SharedKernel.DTO;
 
-namespace weges_v2.ApiService.Profiles;
+namespace ApiService.Profiles;
 public class WegesProfile : Profile
 {
     public WegesProfile()

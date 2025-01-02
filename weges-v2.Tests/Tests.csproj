@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\weges-v2.AppHost\weges-v2.AppHost.csproj" />
+    <ProjectReference Include="..\weges-v2.AppHost\AppHost.csproj" />
   </ItemGroup>
 
   <ItemGroup>

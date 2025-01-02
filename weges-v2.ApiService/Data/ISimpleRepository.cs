@@ -1,6 +1,6 @@
-﻿using weges_v2.ApiModel.Models;
+﻿using ApiModel.Models;
 
-namespace weges_v2.ApiService.Data;
+namespace ApiService.Data;
 
 public interface ISimpleRepository<TEntity>
     where TEntity : class, IEntity<long>

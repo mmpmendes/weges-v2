@@ -1,4 +1,4 @@
-﻿namespace weges_v2.ApiModel.Models;
+﻿namespace ApiModel.Models;
 public class CodCae : Entity<long>
 {
     public string Codigo { get; set; } = string.Empty;

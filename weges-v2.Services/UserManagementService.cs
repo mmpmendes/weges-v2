@@ -1,8 +1,8 @@
-﻿using System.Net.Http.Json;
+﻿using SharedKernel.Models;
 
-using weges_v2.SharedKernel.Models;
+using System.Net.Http.Json;
 
-namespace weges_v2.Services;
+namespace Services;
 public class UserManagementService(HttpClient httpClient)
 {
     public async Task<HttpResponseMessage> RegisterUserAsync(RegisterModel userRegister, CancellationToken cancellationToken = default)

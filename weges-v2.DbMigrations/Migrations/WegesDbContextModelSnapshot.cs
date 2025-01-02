@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using weges_v2.ApiModel;
+using ApiModel;
 
 #nullable disable
 
-namespace weges_v2.DbMigrations.Migrations
+namespace DbMigrations.Migrations
 {
     [DbContext(typeof(WegesDbContext))]
     partial class WegesDbContextModelSnapshot : ModelSnapshot
@@ -38,7 +38,7 @@ namespace weges_v2.DbMigrations.Migrations
                     b.ToTable("CodCaeEntidade", "weges");
                 });
 
-            modelBuilder.Entity("weges_v2.ApiModel.Models.CodCae", b =>
+            modelBuilder.Entity("ApiModel.Models.CodCae", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,7 +71,7 @@ namespace weges_v2.DbMigrations.Migrations
                     b.ToTable("CodCaes", "weges");
                 });
 
-            modelBuilder.Entity("weges_v2.ApiModel.Models.DirecaoClinica", b =>
+            modelBuilder.Entity("ApiModel.Models.DirecaoClinica", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -170,7 +170,7 @@ namespace weges_v2.DbMigrations.Migrations
                         });
                 });
 
-            modelBuilder.Entity("weges_v2.ApiModel.Models.Entidade", b =>
+            modelBuilder.Entity("ApiModel.Models.Entidade", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -271,7 +271,7 @@ namespace weges_v2.DbMigrations.Migrations
                         });
                 });
 
-            modelBuilder.Entity("weges_v2.ApiModel.Models.Estabelecimento", b =>
+            modelBuilder.Entity("ApiModel.Models.Estabelecimento", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -346,7 +346,7 @@ namespace weges_v2.DbMigrations.Migrations
                         });
                 });
 
-            modelBuilder.Entity("weges_v2.ApiModel.Models.Servico", b =>
+            modelBuilder.Entity("ApiModel.Models.Servico", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -427,13 +427,13 @@ namespace weges_v2.DbMigrations.Migrations
 
             modelBuilder.Entity("CodCaeEntidade", b =>
                 {
-                    b.HasOne("weges_v2.ApiModel.Models.CodCae", null)
+                    b.HasOne("ApiModel.Models.CodCae", null)
                         .WithMany()
                         .HasForeignKey("CodCaesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("weges_v2.ApiModel.Models.Entidade", null)
+                    b.HasOne("ApiModel.Models.Entidade", null)
                         .WithMany()
                         .HasForeignKey("EntidadesId")
                         .OnDelete(DeleteBehavior.Cascade)

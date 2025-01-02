@@ -1,8 +1,8 @@
-﻿using System.Net.Http.Json;
+﻿using SharedKernel.DTO;
 
-using weges_v2.SharedKernel.DTO;
+using System.Net.Http.Json;
 
-namespace weges_v2.Services;
+namespace Services;
 public class DirecaoClinicaApiService(HttpClient httpClient)
 {
     public async Task<IList<DirecaoClinicaDTO>?> GetDirecoesClinicasAsync(int maxItems = 10, CancellationToken cancellationToken = default)

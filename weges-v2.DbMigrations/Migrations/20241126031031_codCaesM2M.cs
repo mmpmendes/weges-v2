@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace weges_v2.DbMigrations.Migrations
+namespace DbMigrations.Migrations
 {
     /// <inheritdoc />
     public partial class codCaesM2M : Migration

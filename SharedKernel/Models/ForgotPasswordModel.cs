@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace weges_v2.SharedKernel.Models;
+namespace SharedKernel.Models;
 public class ForgotPasswordModel
 {
     [Required]

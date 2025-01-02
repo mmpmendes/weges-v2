@@ -1,4 +1,4 @@
-﻿namespace weges_v2.ApiModel.Models;
+﻿namespace ApiModel.Models;
 public class DirecaoClinica : Entity<long>
 {
     public string? Nome { get; set; }

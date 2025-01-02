@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ApiModel.Models;
 
-using weges_v2.ApiModel.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace weges_v2.ApiModel;
+namespace ApiModel;
 
 public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContext(options)
 {

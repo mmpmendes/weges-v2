@@ -1,4 +1,4 @@
-﻿namespace weges_v2.SharedKernel.DTO;
+﻿namespace SharedKernel.DTO;
 public class DirecaoClinicaDTO
 {
     public long Id { get; set; }

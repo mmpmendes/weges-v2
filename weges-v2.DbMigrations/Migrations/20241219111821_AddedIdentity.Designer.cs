@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using weges_v2.ApiModel;
+using ApiModel;
 
 #nullable disable
 
-namespace weges_v2.DbMigrations.Migrations
+namespace DbMigrations.Migrations
 {
     [DbContext(typeof(WegesDbContext))]
     [Migration("20241219111821_AddedIdentity")]
@@ -172,7 +172,7 @@ namespace weges_v2.DbMigrations.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("weges_v2.ApiModel.Models.CodCae", b =>
+            modelBuilder.Entity("ApiModel.Models.CodCae", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -205,7 +205,7 @@ namespace weges_v2.DbMigrations.Migrations
                     b.ToTable("CodCaes");
                 });
 
-            modelBuilder.Entity("weges_v2.ApiModel.Models.Entidade", b =>
+            modelBuilder.Entity("ApiModel.Models.Entidade", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -306,7 +306,7 @@ namespace weges_v2.DbMigrations.Migrations
                         });
                 });
 
-            modelBuilder.Entity("weges_v2.ApiModel.Models.Estabelecimento", b =>
+            modelBuilder.Entity("ApiModel.Models.Estabelecimento", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -353,7 +353,7 @@ namespace weges_v2.DbMigrations.Migrations
                     b.ToTable("Estabelecimentos");
                 });
 
-            modelBuilder.Entity("weges_v2.ApiModel.Models.WegesUser", b =>
+            modelBuilder.Entity("ApiModel.Models.WegesUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -419,13 +419,13 @@ namespace weges_v2.DbMigrations.Migrations
 
             modelBuilder.Entity("CodCaeEntidade", b =>
                 {
-                    b.HasOne("weges_v2.ApiModel.Models.CodCae", null)
+                    b.HasOne("ApiModel.Models.CodCae", null)
                         .WithMany()
                         .HasForeignKey("CodCaesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("weges_v2.ApiModel.Models.Entidade", null)
+                    b.HasOne("ApiModel.Models.Entidade", null)
                         .WithMany()
                         .HasForeignKey("EntidadesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -443,7 +443,7 @@ namespace weges_v2.DbMigrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("weges_v2.ApiModel.Models.WegesUser", null)
+                    b.HasOne("ApiModel.Models.WegesUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -452,7 +452,7 @@ namespace weges_v2.DbMigrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("weges_v2.ApiModel.Models.WegesUser", null)
+                    b.HasOne("ApiModel.Models.WegesUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -467,7 +467,7 @@ namespace weges_v2.DbMigrations.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("weges_v2.ApiModel.Models.WegesUser", null)
+                    b.HasOne("ApiModel.Models.WegesUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -476,7 +476,7 @@ namespace weges_v2.DbMigrations.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("weges_v2.ApiModel.Models.WegesUser", null)
+                    b.HasOne("ApiModel.Models.WegesUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -1,4 +1,4 @@
-﻿namespace weges_v2.SharedKernel.Models;
+﻿namespace SharedKernel.Models;
 public class LoginModel
 {
     public string Email { get; set; } = string.Empty;

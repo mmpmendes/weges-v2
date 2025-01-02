@@ -1,3 +1,5 @@
+using ApiModel;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -6,9 +8,7 @@ using Microsoft.Extensions.Hosting;
 
 using System.Diagnostics;
 
-using weges_v2.ApiModel;
-
-namespace weges_v2.UsersMigrations;
+namespace UsersMigrations;
 
 public class DBInitializer(
     IServiceProvider serviceProvider,

@@ -3,10 +3,10 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
-using weges_v2.Services;
-using weges_v2.SharedKernel.DTO;
+using Services;
+using SharedKernel.DTO;
 
-namespace weges_v2.Web.Components.Pages.Estabelecimentos;
+namespace Web.Components.Pages.Estabelecimentos;
 
 public partial class EstabelecimentoDetails
 {

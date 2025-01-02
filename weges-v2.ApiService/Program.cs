@@ -1,11 +1,13 @@
+using ApiModel;
+using ApiModel.Models;
+
+using ApiService.Data;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
-using weges_v2.ApiModel;
-using weges_v2.ApiModel.Models;
-using weges_v2.ApiService.Data;
-using weges_v2.SharedKernel.Models;
+using SharedKernel.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +30,14 @@ builder.Services.AddIdentityCore<WegesUser>()
                 .AddApiEndpoints()
                 .AddErrorDescriber<PortugueseIdentityErrorDescriber>();
 
-builder.Services.AddDbContextPool<WegesDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("weges")));
+builder.Services.AddDbContextPool<WegesDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("weges")));
+
+builder.Services
+    .AddDbContextPool<UtilizadoresDbContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("weges")));
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
