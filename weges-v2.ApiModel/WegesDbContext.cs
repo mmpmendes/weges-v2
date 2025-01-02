@@ -4,14 +4,8 @@ using weges_v2.ApiModel.Models;
 
 namespace weges_v2.ApiModel;
 
-public class WegesDbContext : DbContext
+public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContext(options)
 {
-
-    public WegesDbContext(DbContextOptions<WegesDbContext> options) : base(options)
-    {
-
-    }
-
     public DbSet<Estabelecimento> Estabelecimentos { get; set; }
     public DbSet<Entidade> Entidades { get; set; }
     public DbSet<CodCae> CodCaes { get; set; }
@@ -20,7 +14,6 @@ public class WegesDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
 
         modelBuilder.HasDefaultSchema("weges");
 
@@ -40,6 +33,34 @@ public class WegesDbContext : DbContext
             entidade.Property(e => e.Sigla).HasMaxLength(8);
             entidade.Property(e => e.EmailNotificacoesGerais).HasMaxLength(50);
             entidade.Property(e => e.EmailNotificacoesERS).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<Estabelecimento>(estabelecimento =>
+        {
+            //auto increment Id
+            estabelecimento.Property(e => e.Id).ValueGeneratedOnAdd();
+            estabelecimento.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            estabelecimento.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            estabelecimento.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            estabelecimento.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+        modelBuilder.Entity<DirecaoClinica>(dirclinica =>
+        {
+            //auto increment Id
+            dirclinica.Property(e => e.Id).ValueGeneratedOnAdd();
+            dirclinica.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            dirclinica.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            dirclinica.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            dirclinica.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+        modelBuilder.Entity<Servico>(servico =>
+        {
+            //auto increment Id
+            servico.Property(e => e.Id).ValueGeneratedOnAdd();
+            servico.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            servico.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            servico.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            servico.Property(e => e.Created).HasDefaultValueSql("NOW()");
         });
 
         modelBuilder.Entity<Entidade>().HasData(
@@ -70,16 +91,6 @@ public class WegesDbContext : DbContext
                 EmailNotificacoesGerais = "emailnotificacoes@email.email"
             });
 
-        modelBuilder.Entity<Estabelecimento>(estabelecimento =>
-        {
-            //auto increment Id
-            estabelecimento.Property(e => e.Id).ValueGeneratedOnAdd();
-            estabelecimento.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            estabelecimento.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            estabelecimento.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            estabelecimento.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
-
         modelBuilder.Entity<Estabelecimento>().HasData(
             new Estabelecimento
             {
@@ -103,16 +114,6 @@ public class WegesDbContext : DbContext
                 Telefone = "291111112",
                 TipoPrestador = "Tipo de Prestador"
             });
-
-        modelBuilder.Entity<DirecaoClinica>(dirclinica =>
-        {
-            //auto increment Id
-            dirclinica.Property(e => e.Id).ValueGeneratedOnAdd();
-            dirclinica.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            dirclinica.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            dirclinica.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            dirclinica.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
 
         modelBuilder.Entity<DirecaoClinica>().HasData(
             new DirecaoClinica
@@ -147,16 +148,6 @@ public class WegesDbContext : DbContext
                 TipologiaId = 2,
                 Tipologia = "Tipologia 2"
             });
-
-        modelBuilder.Entity<Servico>(servico =>
-        {
-            //auto increment Id
-            servico.Property(e => e.Id).ValueGeneratedOnAdd();
-            servico.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            servico.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            servico.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            servico.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
 
         modelBuilder.Entity<Servico>().HasData(
             new Servico
