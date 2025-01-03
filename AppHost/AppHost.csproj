@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApiService\ApiService.csproj" />
-    <ProjectReference Include="..\DbMigrations\BaseDbMigrations.csproj" />
+    <ProjectReference Include="..\BaseDbMigrations\BaseDbMigrations.csproj" />
     <ProjectReference Include="..\UsersMigrationsService\IdentityMigrations.csproj" />
     <ProjectReference Include="..\Web\Web.csproj" />
   </ItemGroup>

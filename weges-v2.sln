@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiModel", "ApiModel\ApiModel.csproj", "{6B337A8E-8089-498A-87AF-1AB648351817}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseDbMigrations", "DbMigrations\BaseDbMigrations.csproj", "{56455937-C934-43D2-BD64-C613A43F14F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseDbMigrations", "BaseDbMigrations\BaseDbMigrations.csproj", "{56455937-C934-43D2-BD64-C613A43F14F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D6094000-7200-44D3-A030-20B0E1793CB5}"
 	ProjectSection(SolutionItems) = preProject

@@ -11,7 +11,7 @@ var apiService = builder.AddProject<Projects.ApiService>("apiservice")
                     .WithReference(db)
                     .WaitFor(db);
 
-var migrationService = builder.AddProject<Projects.DbMigrations>("weges-migration")
+var migrationService = builder.AddProject<Projects.BaseDbMigrations>("weges-migration")
     .WithReference(db)
     .WaitFor(db)
     .WaitFor(apiService);
