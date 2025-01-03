@@ -18,7 +18,7 @@ builder.Services.AddDbContextPool<WegesDbContext>(options =>
         builder.Configuration.GetConnectionString("weges"),
         b =>
         {
-            b.MigrationsAssembly("DbMigrations");
+            b.MigrationsAssembly("BaseDbMigrations");
             b.MigrationsHistoryTable("__EFMigrationsHistory_Weges");
         }));
 
@@ -28,7 +28,7 @@ builder.Services
         builder.Configuration.GetConnectionString("weges"),
         b =>
         {
-            b.MigrationsAssembly("UsersMigrations");
+            b.MigrationsAssembly("IdentityMigrations");
             b.MigrationsHistoryTable("__EFMigrationsHistory_Weges_Users");
         }));
 

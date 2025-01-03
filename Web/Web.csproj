@@ -9,8 +9,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SharedKernel\SharedKernel.csproj" />
-    <ProjectReference Include="..\weges-v2.ServiceDefaults\ServiceDefaults.csproj" />
-    <ProjectReference Include="..\weges-v2.Services\Services.csproj" />
+    <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppHost", "weges-v2.AppHost\AppHost.csproj", "{341E0127-01CF-4E00-BE6E-9290A667D416}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppHost", "AppHost\AppHost.csproj", "{341E0127-01CF-4E00-BE6E-9290A667D416}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDefaults", "weges-v2.ServiceDefaults\ServiceDefaults.csproj", "{11929FF5-FE58-4EE4-8563-9AB09C639777}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceDefaults", "ServiceDefaults\ServiceDefaults.csproj", "{11929FF5-FE58-4EE4-8563-9AB09C639777}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiService", "weges-v2.ApiService\ApiService.csproj", "{837A314D-042B-4D14-8E7C-2BEF7269E305}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiService", "ApiService\ApiService.csproj", "{837A314D-042B-4D14-8E7C-2BEF7269E305}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "weges-v2.Web\Web.csproj", "{FE1A8E53-0084-4B19-844B-321E2039CFF0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{FE1A8E53-0084-4B19-844B-321E2039CFF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "weges-v2.Tests\Tests.csproj", "{BE0E6090-9106-4D9D-880D-A68E295867ED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{BE0E6090-9106-4D9D-880D-A68E295867ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiModel", "weges-v2.ApiModel\ApiModel.csproj", "{6B337A8E-8089-498A-87AF-1AB648351817}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiModel", "ApiModel\ApiModel.csproj", "{6B337A8E-8089-498A-87AF-1AB648351817}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbMigrations", "weges-v2.DbMigrations\DbMigrations.csproj", "{56455937-C934-43D2-BD64-C613A43F14F2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseDbMigrations", "DbMigrations\BaseDbMigrations.csproj", "{56455937-C934-43D2-BD64-C613A43F14F2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D6094000-7200-44D3-A030-20B0E1793CB5}"
 	ProjectSection(SolutionItems) = preProject
@@ -25,9 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "SharedKernel\SharedKernel.csproj", "{4F1114BF-5FED-47C4-9221-CB01F44A0746}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "weges-v2.Services\Services.csproj", "{6E778464-FFCE-4170-AEAB-847004D8F09F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{6E778464-FFCE-4170-AEAB-847004D8F09F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersMigrations", "weges-v2.UsersMigrationsService\UsersMigrations.csproj", "{895373AE-E0EC-4E83-A264-DCD2D809291D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityMigrations", "UsersMigrationsService\IdentityMigrations.csproj", "{895373AE-E0EC-4E83-A264-DCD2D809291D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

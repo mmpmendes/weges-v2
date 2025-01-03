@@ -27,8 +27,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SharedKernel\SharedKernel.csproj" />
-    <ProjectReference Include="..\weges-v2.ApiModel\ApiModel.csproj" />
-    <ProjectReference Include="..\weges-v2.ServiceDefaults\ServiceDefaults.csproj" />
+    <ProjectReference Include="..\ApiModel\ApiModel.csproj" />
+    <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>
