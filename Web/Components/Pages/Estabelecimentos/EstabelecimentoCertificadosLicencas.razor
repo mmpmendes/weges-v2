@@ -1,0 +1,5 @@
+﻿<div class="mb-3">
+    <label for="fileInput" class="form-label">Upload File</label>
+    <input type="file" class="form-control" id="fileInput" @onchange="HandleFileSelected" />
+</div>
+<button class="btn btn-primary" @onclick="UploadFile" disabled="@(!IsFileSelected)">Upload</button>

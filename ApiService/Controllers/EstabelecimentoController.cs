@@ -1,10 +1,12 @@
-﻿using AutoMapper;
+﻿using ApiModel.Models;
+
+using ApiService.Data;
+using ApiService.Services;
+
+using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
-using ApiModel.Models;
-
-using ApiService.Data;
 using SharedKernel.DTO;
 
 namespace ApiService.Controllers;
@@ -12,12 +14,17 @@ namespace ApiService.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class EstabelecimentoController(
-    ISimpleRepository<Estabelecimento> estabelecimentoRepo
+        ISimpleRepository<Estabelecimento> estabelecimentoRepo
+        , IConfiguration config
+        , IFileService servFile
         , IMapper mapper
         ) : ControllerBase
 {
     private readonly ISimpleRepository<Estabelecimento> _estabelecimentoRepo = estabelecimentoRepo;
     private readonly IMapper _mapper = mapper;
+    private const string UPLOADPATH = "paths:upload-path";
+    private readonly IFileService _servFile = servFile;
+    private readonly IConfiguration _config = config;
 
     /// <summary>
     /// Retorna a lista de todos os estabelecimentos
@@ -83,5 +90,20 @@ public class EstabelecimentoController(
         {
             return Results.InternalServerError("Erro a atualizar estabelecimento.");
         }
+    }
+
+    [HttpPost("SaveCertificadoData")]
+    public async Task<IResult> SaveCertificadoData([FromBody] EstabelecimentoDTO estabelecimentoModel)
+    {
+
+        return Results.Ok();
+    }
+
+    [HttpPost("UploadCertificado")]
+    public async Task<IResult> UploadCertificado(IFormFile file, [FromForm] string folder)
+    {
+        string fileLocationAndName = await _servFile.SaveFileToFileSystem(file, folder, _config[UPLOADPATH]);
+
+        return Results.Ok(fileLocationAndName);
     }
 }
