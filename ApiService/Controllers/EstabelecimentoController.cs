@@ -14,13 +14,17 @@ namespace ApiService.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class EstabelecimentoController(
-        ISimpleRepository<Estabelecimento> estabelecimentoRepo
+        ISimpleRepository<Estabelecimento> estabelecimentoRepo,
+        ISimpleRepository<CertificadoERS> repoCertificadoRepo,
+        ISimpleRepository<LicencaERS> repoLicencaRepo
         , IConfiguration config
         , IFileService servFile
         , IMapper mapper
         ) : ControllerBase
 {
     private readonly ISimpleRepository<Estabelecimento> _estabelecimentoRepo = estabelecimentoRepo;
+    private readonly ISimpleRepository<CertificadoERS> _repoCertificadoRepo = repoCertificadoRepo;
+    private readonly ISimpleRepository<LicencaERS> _repoLicencaRepo = repoLicencaRepo;
     private readonly IMapper _mapper = mapper;
     private const string UPLOADPATH = "paths:upload-path";
     private readonly IFileService _servFile = servFile;
@@ -52,7 +56,7 @@ public class EstabelecimentoController(
     }
 
     /// <summary>
-    /// Cria uma entidade com base
+    /// Cria um estabelecimmento
     /// </summary>
     /// <param name="estabelecimentoModel"></param>
     /// <returns></returns>
@@ -72,6 +76,11 @@ public class EstabelecimentoController(
         }
     }
 
+    /// <summary>
+    /// Atualiza um estabelecimento
+    /// </summary>
+    /// <param name="estabelecimentoModel"></param>
+    /// <returns></returns>
     [HttpPatch]
     public async Task<IResult> AtualizaEstabelecimento([FromBody] EstabelecimentoDTO estabelecimentoModel)
     {
@@ -92,18 +101,90 @@ public class EstabelecimentoController(
         }
     }
 
+    ///FICHEIROS
+
+    /// <summary>
+    /// Grava os dados do certificado
+    /// </summary>
+    /// <param name="estabelecimentoModel"></param>
+    /// <returns></returns>
     [HttpPost("SaveCertificadoData")]
     public async Task<IResult> SaveCertificadoData([FromBody] EstabelecimentoDTO estabelecimentoModel)
     {
-
+        // TODO: Gravar os dados do certificado
         return Results.Ok();
     }
 
+    /// <summary>
+    /// Faz o upload de um ficheiro para o sistema de ficheiros
+    /// </summary>
+    /// <param name="file"></param>
+    /// <param name="folder"></param>
+    /// <returns></returns>
     [HttpPost("UploadCertificado")]
     public async Task<IResult> UploadCertificado(IFormFile file, [FromForm] string folder)
     {
         string fileLocationAndName = await _servFile.SaveFileToFileSystem(file, folder, _config[UPLOADPATH]);
 
         return Results.Ok(fileLocationAndName);
+    }
+
+    /// <summary>
+    /// Grava o ficheiro de licença
+    /// </summary>
+    /// <param name="file"></param>
+    /// <param name="folder"></param>
+    /// <returns></returns>
+    [HttpPost("UploadLicenca")]
+    public async Task<IResult> UploadLicenca(IFormFile file, [FromForm] string folder)
+    {
+        string fileLocationAndName = await _servFile.SaveFileToFileSystem(file, folder, _config[UPLOADPATH]);
+
+        return Results.Ok(fileLocationAndName);
+    }
+
+
+    [HttpGet("DownloadCertificadoByCertificadoId")]
+    public async Task<IActionResult> DownloadCertificado(long certificadoId)
+    {
+        CertificadoERS? certificado = await _repoCertificadoRepo.GetById(certificadoId);
+
+        if (certificado == null)
+        {
+            return NotFound("Ficheiro não encontrado na base de dados.");
+        }
+
+        string certificadoPath = Path.Combine(_config[UPLOADPATH], certificado.Localizacao);
+
+        if (!System.IO.File.Exists(certificadoPath))
+        {
+            return NotFound("Ficheiro não encontrado no sistema de ficheiros.");
+        }
+
+        var ficheiro = _servFile.GetFileAsByteArray(certificadoPath);
+
+        return File(ficheiro, _servFile.GetContentType(certificadoPath), certificado.NomeFicheiro);
+    }
+
+    [HttpGet("DownloadLicencaByLicencaId")]
+    public async Task<IActionResult> DownloadLicenca(long licencaId)
+    {
+        LicencaERS? licenca = await _repoLicencaRepo.GetById(licencaId);
+
+        if (licenca == null)
+        {
+            return NotFound("Ficheiro não encontrado na base de dados.");
+        }
+
+        string licencaPath = Path.Combine(_config[UPLOADPATH], licenca.Localizacao);
+
+        if (!System.IO.File.Exists(licencaPath))
+        {
+            return NotFound("Ficheiro não encontrado no sistema de ficheiros.");
+        }
+
+        var ficheiro = _servFile.GetFileAsByteArray(licencaPath);
+
+        return File(ficheiro, _servFile.GetContentType(licencaPath), licenca.NomeFicheiro);
     }
 }

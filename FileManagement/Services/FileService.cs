@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.StaticFiles;
+﻿using ApiService.Services;
 
-namespace ApiService.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.StaticFiles;
+
+namespace FileManagement.Services;
 
 public class FileService : IFileService
 {
-    private Stream GetFileAsStream(string path) => new MemoryStream(ConvertFileToByteArray(path));
-
     public byte[] GetFileAsByteArray(string path) => ConvertFileToByteArray(path);
 
     private byte[] ConvertFileToByteArray(string path)
     {
-        return System.IO.File.ReadAllBytes(path);
+        return File.ReadAllBytes(path);
     }
 
     public string GetContentType(string path)

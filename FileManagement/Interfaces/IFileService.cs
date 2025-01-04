@@ -1,4 +1,6 @@
-﻿namespace ApiService.Services;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace ApiService.Services;
 
 public interface IFileService
 {

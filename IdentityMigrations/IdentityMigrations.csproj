@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Library</OutputType>
     <TargetFramework>net9.0</TargetFramework>
-    <RootNamespace>UsersMigrations</RootNamespace>
+    <RootNamespace>IdentityMigrations</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <UserSecretsId>242e61ae-e3d4-4d44-94a9-a7f969c0ab4f</UserSecretsId>
