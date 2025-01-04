@@ -26,6 +26,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ApiModel\ApiModel.csproj" />
     <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
-    <ProjectReference Include="..\UsersMigrationsService\IdentityMigrations.csproj" />
+    <ProjectReference Include="..\IdentityMigrations\IdentityMigrations.csproj" />
   </ItemGroup>
 </Project>

@@ -11,6 +11,9 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
     public DbSet<CodCae> CodCaes { get; set; }
     public DbSet<DirecaoClinica> DirecoesClinicas { get; set; }
     public DbSet<Servico> Servicos { get; set; }
+    public DbSet<Ficheiro> Ficheiros { get; set; }
+    public DbSet<CertificadoERS> CertificadosERS { get; set; }
+    public DbSet<LicencaERS> LicencasERS { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -35,32 +38,59 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
             entidade.Property(e => e.EmailNotificacoesERS).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<Estabelecimento>(estabelecimento =>
+        modelBuilder.Entity<Estabelecimento>(ent =>
         {
             //auto increment Id
-            estabelecimento.Property(e => e.Id).ValueGeneratedOnAdd();
-            estabelecimento.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            estabelecimento.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            estabelecimento.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            estabelecimento.Property(e => e.Created).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
         });
-        modelBuilder.Entity<DirecaoClinica>(dirclinica =>
+        modelBuilder.Entity<DirecaoClinica>(ent =>
         {
             //auto increment Id
-            dirclinica.Property(e => e.Id).ValueGeneratedOnAdd();
-            dirclinica.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            dirclinica.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            dirclinica.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            dirclinica.Property(e => e.Created).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
         });
-        modelBuilder.Entity<Servico>(servico =>
+        modelBuilder.Entity<Servico>(ent =>
         {
             //auto increment Id
-            servico.Property(e => e.Id).ValueGeneratedOnAdd();
-            servico.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            servico.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            servico.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            servico.Property(e => e.Created).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+        modelBuilder.Entity<Ficheiro>(ent =>
+        {
+            //auto increment Id
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+        modelBuilder.Entity<LicencaERS>(ent =>
+        {
+            //auto increment Id
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+        modelBuilder.Entity<CertificadoERS>(ent =>
+        {
+            //auto increment Id
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
         });
 
         base.OnModelCreating(modelBuilder);
