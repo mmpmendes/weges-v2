@@ -53,8 +53,10 @@ public class EstabelecimentoApiService(HttpClient httpClient)
         return response.IsSuccessStatusCode;
     }
 
-    public async Task UploadLicencaAsync(MultipartFormDataContent formData)
+    public async Task<bool> UploadLicencaAsync(MultipartFormDataContent data, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = await httpClient.PostAsync($"/api/Estabelecimento/UploadCertificado", data, cancellationToken);
+
+        return response.IsSuccessStatusCode;
     }
 }

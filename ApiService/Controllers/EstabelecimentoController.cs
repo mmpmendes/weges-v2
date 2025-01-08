@@ -208,25 +208,25 @@ public class EstabelecimentoController(
     public async Task<IResult> UploadCertificado([FromForm] IFormFile file)
     {
 
-        string fileLocationAndName = await _servFile.SaveFileToFileSystem(file, "shift", _config[UPLOADPATH]);
+        string fileLocationAndName = await _servFile.SaveFileToFileSystem(file, "certificados", _config[UPLOADPATH]);
 
         return Results.Ok(fileLocationAndName);
         //return Results.Ok();
     }
 
-    ///// <summary>
-    ///// Grava o ficheiro de licença
-    ///// </summary>
-    ///// <param name="file"></param>
-    ///// <param name="folder"></param>
-    ///// <returns></returns>
-    //[HttpPost("UploadLicenca")]
-    //public async Task<IResult> UploadLicenca(IFormFile file, [FromForm] string folder)
-    //{
-    //    string fileLocationAndName = await _servFile.SaveFileToFileSystem(file, folder, _config[UPLOADPATH]);
+    /// <summary>
+    /// Grava o ficheiro de licença
+    /// </summary>
+    /// <param name="file"></param>
+    /// <param name="folder"></param>
+    /// <returns></returns>
+    [HttpPost("UploadLicenca")]
+    public async Task<IResult> UploadLicenca(IFormFile file, [FromForm] string folder)
+    {
+        string fileLocationAndName = await _servFile.SaveFileToFileSystem(file, "licencas", _config[UPLOADPATH]);
 
-    //    return Results.Ok(fileLocationAndName);
-    //}
+        return Results.Ok(fileLocationAndName);
+    }
 
 
     //[HttpGet("DownloadCertificadoByCertificadoId")]
