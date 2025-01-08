@@ -1,63 +1,86 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
+using Services;
+
+using System.Net.Http.Headers;
+
 namespace Web.Components.Pages.Estabelecimentos;
 
 public partial class EstabelecimentoCertificadosLicencas
 {
     [Parameter]
     public long Id { get; set; }
+    [Inject]
+    private EstabelecimentoApiService EstabelecimentoApiService { get; set; } = default!;
+    public IBrowserFile? selectedCertificadoFile = default!;
+    public IBrowserFile? selectedLicencaFile = default!;
+    private bool IsFileSelected { get; set; }
+    private readonly long maxFileSize = 1024 * 1024 * 5;
 
-    private IBrowserFile? SelectedFile;
-    private bool IsFileSelected = false;
-    private bool IsUploading = false;
-    private int ProgressValue = 0;
-    private string? UploadMessage;
 
-    private async Task HandleFileSelected(ChangeEventArgs e)
+    #region Certificado
+    private async Task UploadCertificado()
     {
-        if (e.Value is not null && e.Value is IBrowserFile file)
+        if (selectedCertificadoFile is null) return;
+
+        using var formData = new MultipartFormDataContent();
+
+        var stream = new StreamContent(selectedCertificadoFile.OpenReadStream(maxFileSize));
+        stream.Headers.ContentType = new MediaTypeHeaderValue(selectedCertificadoFile.ContentType);
+
+        formData.Add(stream, "file", selectedCertificadoFile.Name);
+
+        await EstabelecimentoApiService.UploadCertificadoAsync(formData);
+
+        IsFileSelected = false;
+    }
+
+    private void OnCertificadoFileSelected(IBrowserFile? file)
+    {
+        selectedCertificadoFile = file;
+
+        if (selectedCertificadoFile is not null)
         {
-            SelectedFile = file;
             IsFileSelected = true;
         }
-    }
-
-    private async Task UploadFile()
-    {
-        if (SelectedFile is null)
+        else
         {
-            return;
-        }
-
-        IsUploading = true;
-
-        try
-        {
-            using var content = new MultipartFormDataContent();
-            var fileContent = new StreamContent(SelectedFile.OpenReadStream());
-            fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(SelectedFile.ContentType);
-            content.Add(fileContent, "file", SelectedFile.Name);
-
-            //var response = await HttpClient.PostAsync("api/upload", content);
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    UploadMessage = "File uploaded successfully!";
-            //}
-            //else
-            //{
-            //    UploadMessage = "File upload failed!";
-            //}
-        }
-        catch (Exception ex)
-        {
-            UploadMessage = $"An error occurred: {ex.Message}";
-        }
-        finally
-        {
-            IsUploading = false;
             IsFileSelected = false;
-            ProgressValue = 0;
         }
     }
+    #endregion
+
+    #region Licenca
+    private async Task UploadLicenca()
+    {
+        if (selectedLicencaFile is null) return;
+
+        using var formData = new MultipartFormDataContent();
+
+        var stream = new StreamContent(selectedLicencaFile.OpenReadStream(maxFileSize));
+        stream.Headers.ContentType = new MediaTypeHeaderValue(selectedLicencaFile.ContentType);
+
+        formData.Add(stream, "file", selectedLicencaFile.Name);
+
+        await EstabelecimentoApiService.UploadLicencaAsync(formData);
+
+        IsFileSelected = false;
+    }
+
+    private void OnLicencaFileSelected(IBrowserFile? file)
+    {
+        selectedLicencaFile = file;
+
+        if (selectedLicencaFile is not null)
+        {
+            IsFileSelected = true;
+        }
+        else
+        {
+            IsFileSelected = false;
+        }
+    }
+
+    #endregion
 }

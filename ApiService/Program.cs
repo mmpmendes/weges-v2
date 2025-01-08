@@ -2,6 +2,9 @@ using ApiModel;
 using ApiModel.Models;
 
 using ApiService.Data;
+using ApiService.Services;
+
+using FileManagement.Services;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +51,12 @@ builder.Services.AddScoped<ISimpleRepository<Entidade>, SimpleRepository<Entidad
 builder.Services.AddScoped<ISimpleRepository<Estabelecimento>, SimpleRepository<Estabelecimento>>();
 builder.Services.AddScoped<ISimpleRepository<DirecaoClinica>, SimpleRepository<DirecaoClinica>>();
 builder.Services.AddScoped<ISimpleRepository<Servico>, SimpleRepository<Servico>>();
+builder.Services.AddScoped<ISimpleRepository<CertificadoERS>, SimpleRepository<CertificadoERS>>();
+builder.Services.AddScoped<ISimpleRepository<CertificadoERS>, SimpleRepository<CertificadoERS>>();
+builder.Services.AddScoped<ISimpleRepository<LicencaERS>, SimpleRepository<LicencaERS>>();
+builder.Services.AddScoped<ISimpleRepository<Ficheiro>, SimpleRepository<Ficheiro>>();
+builder.Services.AddScoped<IFileService, FileService>();
+
 
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)

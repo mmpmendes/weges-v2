@@ -5,6 +5,7 @@
     <RootNamespace>ApiService</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <UserSecretsId>dde07752-4f27-43d5-84e9-998663ebd3e8</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

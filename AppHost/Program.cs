@@ -1,7 +1,6 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-//var cache = builder.AddRedis("cache")//.WithLifetime(ContainerLifetime.Persistent)
-//    .WithContainerName("weges-cache");
+var cache = builder.AddRedis("cache");
 
 var postgres = builder.AddPostgres("pgserver")
                       .WithContainerName("pgserver").WithPgAdmin();//.WithLifetime(ContainerLifetime.Persistent);
@@ -15,13 +14,6 @@ var migrationService = builder.AddProject<Projects.BaseDbMigrations>("weges-migr
     .WithReference(db)
     .WaitFor(db)
     .WaitFor(apiService);
-
-//var usersMigrationService = builder.AddProject<Projects._UsersMigrations>("users-migration")
-//    .WithReference(db)
-//    .WaitFor(db)
-//    .WaitFor(migrationService);
-
-
 
 builder.AddProject<Projects.Web>("webfrontend")
     .WithExternalHttpEndpoints()

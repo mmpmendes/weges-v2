@@ -1,0 +1,43 @@
+﻿@inject IJSRuntime JSRuntime
+
+<div class="mb-3">
+    <InputFile id="fileInput" onchange="HandleFileSelected" hidden="true" />
+    <button class="btn btn-primary" @onclick="SelectFile">@Label</button>
+</div>
+
+<script>
+    function triggerFileInputClick(inputFileId) {
+    document.getElementById(inputFileId).click();
+    }
+</script>
+
+@code {
+
+    [Parameter]
+    public IBrowserFile? SelectedFile { get; set; }
+    [Parameter]
+    public EventCallback<IBrowserFile?> SelectedFileChanged { get; set; }
+    [Parameter]
+    public bool IsFileSelected { get; set; } = false;
+    [Parameter]
+    public string Label { get; set; } = "Carregar Ficheiro";
+    private int maxAllowedFiles = 1;
+
+
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        if (e.File is not null)
+        {
+            SelectedFile = e.GetMultipleFiles(maxAllowedFiles)?.FirstOrDefault();
+            IsFileSelected = true;
+            await SelectedFileChanged.InvokeAsync(SelectedFile);
+        }
+
+    }
+    private async Task SelectFile(Microsoft.AspNetCore.Components.Web.MouseEventArgs e)
+    {
+        // Use JavaScript interop to trigger the click event on the hidden InputFile element
+        await JSRuntime.InvokeVoidAsync("triggerFileInputClick", "fileInput");
+    }
+}
