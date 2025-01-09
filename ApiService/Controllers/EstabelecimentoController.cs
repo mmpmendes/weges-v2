@@ -16,7 +16,9 @@ namespace ApiService.Controllers;
 public class EstabelecimentoController(
         ISimpleRepository<Estabelecimento> estabelecimentoRepo,
         ISimpleRepository<CertificadoERS> repoCertificadoRepo,
-        ISimpleRepository<LicencaERS> repoLicencaRepo
+        ISimpleRepository<LicencaERS> repoLicencaRepo,
+        ISimpleRepository<Servico> _servicoRepo,
+        ISimpleRepository<DirecaoClinica> _direcaoClinicaRepo
         , IConfiguration config
         , IFileService servFile
         , IMapper mapper
@@ -41,7 +43,7 @@ public class EstabelecimentoController(
     }
 
     /// <summary>
-    /// Retorna o estabelecimetno com o <param name="Id"></param>
+    /// Retorna o estabelecimetno com o Id</param>
     /// </summary>
     /// <param name="Id"></param>
     /// <returns></returns>
@@ -103,100 +105,139 @@ public class EstabelecimentoController(
 
     ///FICHEIROS
 
-    ///// <summary>
-    ///// Grava os dados do certificado
-    ///// </summary>
-    ///// <param name="estabelecimentoModel"></param>
-    ///// <returns></returns>
-    //[HttpPost("SaveCertificadoData")]
-    //public async Task<IResult> SaveCertificadoData([FromBody] CertificadoErsDTO certificadoErsDTO)
-    //{
-    //    if (certificadoErsDTO == null)
-    //    {
-    //        return Results.BadRequest("Erro, dados inválidos");
-    //    }
+    /// <summary>
+    /// Retorna o certificado do estabelecimento com o <param name="id"></param>
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("{id}/CertificadoErs")]
+    public IResult GetCertificadoErsByEstabelecimentoId(long id)
+    {
+        var certificados = _certificadoRepo.GetAll().Where(c => c.EstabelecimentoId == id);
+        if (!certificados.Any()) return Results.NotFound("Certificados não encontrados para o estabelecimento.");
 
-    //    try
-    //    {
-    //        if (certificadoErsDTO.Id > -1)
-    //        {
+        var certificadosDto = _mapper.Map<IEnumerable<CertificadoErsDTO>>(certificados);
+        return Results.Ok(certificadosDto);
+    }
 
-    //            var existingCertificado = await _certificadoRepo.GetById(certificadoErsDTO.Id);
+    /// <summary>
+    /// Retorna o certificado do estabelecimento com o <param name="id"></param>
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("{id}/LicencaErs")]
+    public IResult GetLicencaErsByEstabelecimentoId(long id)
+    {
+        var licencas = _licencaRepo.GetAll().Where(c => c.EstabelecimentoId == id);
+        if (!licencas.Any()) return Results.NotFound("Licencas não encontradas para o estabelecimento.");
 
-    //            if (existingCertificado == null)
-    //            {
-    //                return Results.NotFound();
-    //            }
+        var licencasDto = _mapper.Map<IEnumerable<LicencaErsDTO>>(licencas);
+        return Results.Ok(licencasDto);
+    }
 
-    //            _mapper.Map(certificadoErsDTO, existingCertificado);
+    /// <summary>
+    /// Cria um CertificadoERS para um estabelecimento
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="certificadoModel"></param>
+    /// <returns></returns>
+    [HttpPost("{id}/CertificadoErs")]
+    public async Task<IResult> CreateCertificadoErs(long id, [FromBody] CertificadoErsDTO certificadoModel)
+    {
+        if (certificadoModel == null) return Results.BadRequest("Certificado inválido.");
 
-    //            if (certificadoErsDTO.FicheiroId == -1)
-    //            {
-    //                existingCertificado.FicheiroId = -1;
-    //                existingCertificado.NomeFicheiro = certificadoErsDTO.NomeFicheiro;
-    //                existingCertificado.Localizacao = certificadoErsDTO.Localizacao;
-    //            }
+        try
+        {
+            var certificado = _mapper.Map<CertificadoERS>(certificadoModel);
+            certificado.EstabelecimentoId = id;
+            await _certificadoRepo.Create(certificado);
+            return Results.Created($"/api/Estabelecimento/{id}/CertificadoErs/{certificado.Id}", certificado);
+        }
+        catch (Exception)
+        {
+            return Results.InternalServerError("Erro ao gravar Certificado.");
+        }
+    }
 
-    //            await _certificadoRepo.Update(existingCertificado.Id, existingCertificado);
-    //        }
-    //        else
-    //        {
-    //            var mapped = _mapper.Map<CertificadoERS>(certificadoErsDTO);
-    //            await _certificadoRepo.Create(mapped);
-    //        }
-    //    }
-    //    catch (Exception)
-    //    {
-    //        return Results.BadRequest("Certificado não criado");
-    //    }
+    /// <summary>
+    /// Cria uma LicencaERS para um estabelecimento
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="licencaModel"></param>
+    /// <returns></returns>
+    [HttpPost("{id}/LicencaErs")]
+    public async Task<IResult> CreateLicencaErs(long id, [FromBody] LicencaErsDTO licencaModel)
+    {
+        if (licencaModel == null) return Results.BadRequest("Licença inválida.");
 
+        try
+        {
+            var licenca = _mapper.Map<LicencaERS>(licencaModel);
+            licenca.EstabelecimentoId = id;
+            await _licencaRepo.Create(licenca);
+            return Results.Created($"/api/Estabelecimento/{id}/LicencaErs/{licenca.Id}", licenca);
+        }
+        catch (Exception)
+        {
+            return Results.InternalServerError("Erro ao gravar Licença.");
+        }
+    }
 
-    //    return Results.Ok();
-    //}
+    /// <summary>
+    /// Atualiza um CertificadoERS para um estabelecimento
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="certificadoModel"></param>
+    /// <returns></returns>
+    [HttpPut("{id}/CertificadoErs")]
+    public async Task<IResult> UpdateCertificadoErs(long id, [FromBody] CertificadoErsDTO certificadoModel)
+    {
+        if (certificadoModel == null) return Results.BadRequest("Certificado inválido.");
 
-    //[HttpPost("SaveLicencaData")]
-    //public async Task<IResult> SaveLicencaData(long estabelecimentoId, [FromBody] LicencaErsDTO licencaErsDTO)
-    //{
+        var certificadoExistente = await _certificadoRepo.GetById(certificadoModel.Id);
+        if (certificadoExistente == null || certificadoExistente.EstabelecimentoId != id)
+            return Results.NotFound("Certificado não encontrado para o estabelecimento.");
 
-    //    if (licencaErsDTO == null)
-    //    {
-    //        return Results.BadRequest("Erro, dados inválidos");
-    //    }
+        _mapper.Map(certificadoModel, certificadoExistente);
 
-    //    try
-    //    {
-    //        if (licencaErsDTO.Id > -1)
-    //        {
-    //            var existingLicenca = await _licencaRepo.GetById(licencaErsDTO.Id);
+        try
+        {
+            await _certificadoRepo.Update(certificadoModel.Id, certificadoExistente);
+            return Results.Ok(certificadoExistente);
+        }
+        catch (Exception)
+        {
+            return Results.InternalServerError("Erro ao atualizar Certificado.");
+        }
+    }
 
-    //            if (existingLicenca == null)
-    //            {
-    //                return Results.NotFound();
-    //            }
+    /// <summary>
+    /// Atualiza uma LicencaERS para um estabelecimento
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="licencaModel"></param>
+    /// <returns></returns>
+    [HttpPut("{id}/LicencaErs")]
+    public async Task<IResult> UpdateLicencaErs(long id, [FromBody] LicencaErsDTO licencaModel)
+    {
+        if (licencaModel == null) return Results.BadRequest("Licença inválida.");
 
-    //            _mapper.Map(licencaErsDTO, existingLicenca);
+        var licencaExistente = await _licencaRepo.GetById(licencaModel.Id);
+        if (licencaExistente == null || licencaExistente.EstabelecimentoId != id)
+            return Results.NotFound("Licença não encontrada para o estabelecimento.");
 
-    //            if (licencaErsDTO.FicheiroId == -1)
-    //            {
-    //                existingLicenca.FicheiroId = -1;
-    //                existingLicenca.NomeFicheiro = licencaErsDTO.NomeFicheiro;
-    //                existingLicenca.Localizacao = licencaErsDTO.Localizacao;
-    //            }
+        _mapper.Map(licencaModel, licencaExistente);
 
-    //            await _licencaRepo.Update(licencaErsDTO.Id, existingLicenca);
-    //        }
-    //        else
-    //        {
-    //            await _licencaRepo.Create(_mapper.Map<LicencaERS>(licencaErsDTO));
-    //        }
-    //    }
-    //    catch (Exception)
-    //    {
-    //        return Results.BadRequest("Licença não criado");
-    //    }
-
-    //    return Results.Ok();
-    //}
+        try
+        {
+            await _licencaRepo.Update(licencaModel.Id, licencaExistente);
+            return Results.Ok(licencaExistente);
+        }
+        catch (Exception)
+        {
+            return Results.InternalServerError("Erro ao atualizar Licença.");
+        }
+    }
 
     /// <summary>
     /// Faz o upload de um ficheiro para o sistema de ficheiros
@@ -205,7 +246,7 @@ public class EstabelecimentoController(
     /// <param name="folder"></param>
     /// <returns></returns>
     [HttpPost("UploadCertificado")]
-    public async Task<IResult> UploadCertificado([FromForm] IFormFile file)
+    public async Task<IResult> UploadCertificado(IFormFile file)
     {
 
         string fileLocationAndName = await _servFile.SaveFileToFileSystem(file, "certificados", _config[UPLOADPATH]);
@@ -221,55 +262,34 @@ public class EstabelecimentoController(
     /// <param name="folder"></param>
     /// <returns></returns>
     [HttpPost("UploadLicenca")]
-    public async Task<IResult> UploadLicenca(IFormFile file, [FromForm] string folder)
+    public async Task<IResult> UploadLicenca(IFormFile file)
     {
         string fileLocationAndName = await _servFile.SaveFileToFileSystem(file, "licencas", _config[UPLOADPATH]);
 
         return Results.Ok(fileLocationAndName);
     }
 
+    /// <summary>
+    /// Retorna os serviços de um estabelecimento
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet("{id}/Servicos")]
+    public IResult GetServicosByEstabelecimentoId(long id)
+    {
+        var servicos = _servicoRepo.GetAll().Where(c => c.EstabelecimentoId == id);
+        if (!servicos.Any()) return Results.Ok(servicos);
+        var servicosDto = _mapper.Map<IEnumerable<ServicoDTO>>(servicos);
+        return Results.Ok(servicosDto);
+    }
 
-    //[HttpGet("DownloadCertificadoByCertificadoId")]
-    //public async Task<IActionResult> DownloadCertificado(long certificadoId)
-    //{
-    //    CertificadoERS? certificado = await _certificadoRepo.GetById(certificadoId);
-
-    //    if (certificado == null)
-    //    {
-    //        return NotFound("Ficheiro não encontrado na base de dados.");
-    //    }
-
-    //    string certificadoPath = Path.Combine(_config[UPLOADPATH], certificado.Localizacao);
-
-    //    if (!System.IO.File.Exists(certificadoPath))
-    //    {
-    //        return NotFound("Ficheiro não encontrado no sistema de ficheiros.");
-    //    }
-
-    //    var ficheiro = _servFile.GetFileAsByteArray(certificadoPath);
-
-    //    return File(ficheiro, _servFile.GetContentType(certificadoPath), certificado.NomeFicheiro);
-    //}
-
-    //[HttpGet("DownloadLicencaByLicencaId")]
-    //public async Task<IActionResult> DownloadLicenca(long licencaId)
-    //{
-    //    LicencaERS? licenca = await _licencaRepo.GetById(licencaId);
-
-    //    if (licenca == null)
-    //    {
-    //        return NotFound("Ficheiro não encontrado na base de dados.");
-    //    }
-
-    //    string licencaPath = Path.Combine(_config[UPLOADPATH], licenca.Localizacao);
-
-    //    if (!System.IO.File.Exists(licencaPath))
-    //    {
-    //        return NotFound("Ficheiro não encontrado no sistema de ficheiros.");
-    //    }
-
-    //    var ficheiro = _servFile.GetFileAsByteArray(licencaPath);
-
-    //    return File(ficheiro, _servFile.GetContentType(licencaPath), licenca.NomeFicheiro);
-    //}
+    // Get api/Estabelecimento/{id}/DirecoesClinicas
+    [HttpGet("{id}/DirecoesClinicas")]
+    public IResult GetDirecoesClinicasByEstabelecimentoId(long id)
+    {
+        var direcoesClinicas = _direcaoClinicaRepo.GetAll().Where(c => c.EstabelecimentoId == id);
+        if (!direcoesClinicas.Any()) return Results.Ok(direcoesClinicas);
+        var direcoesClinicasDto = _mapper.Map<IEnumerable<DirecaoClinicaDTO>>(direcoesClinicas);
+        return Results.Ok(direcoesClinicasDto);
+    }
 }

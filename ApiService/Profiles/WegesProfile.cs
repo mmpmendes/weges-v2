@@ -1,6 +1,7 @@
-﻿using AutoMapper;
+﻿using ApiModel.Models;
 
-using ApiModel.Models;
+using AutoMapper;
+
 using SharedKernel.DTO;
 
 namespace ApiService.Profiles;
@@ -15,6 +16,8 @@ public class WegesProfile : Profile
         CreateMap<Estabelecimento, EstabelecimentoDTO>().ReverseMap();
         CreateMap<DirecaoClinica, DirecaoClinicaDTO>().ReverseMap();
         CreateMap<Servico, ServicoDTO>().ReverseMap();
+        CreateMap<CertificadoERS, CertificadoErsDTO>().ReverseMap();
+        CreateMap<LicencaERS, LicencaErsDTO>().ReverseMap();
     }
 }
 

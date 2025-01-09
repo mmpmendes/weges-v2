@@ -12,8 +12,10 @@
     <Tab Title="Direção Clínica">
         <Content>
             <Grid TItem="DirecaoClinicaDTO"
+                  @ref="DirecoesClinicasGrid"
                   Class="table table-hover table-bordered table-striped"
                   DataProvider="DirecoesClinicasDataProvider"
+                  OnRowDoubleClick="OnDirecoesClinicasRowClick"
                   AllowFiltering="true"
                   AllowPaging="true"
                   PageSize="10"
@@ -50,13 +52,18 @@
                     </GridColumn>
                 </GridColumns>
             </Grid>
+            <div>
+                <Button Type="ButtonType.Button" Color="ButtonColor.Primary" @onclick="AddDirecaoClinica">Adicionar</Button>
+            </div>
         </Content>
     </Tab>
     <Tab Title="Dados Serviço">
         <Content>
             <Grid TItem="ServicoDTO"
+                  @ref="ServicosGrid"
                   Class="table table-hover table-bordered table-striped"
                   DataProvider="ServicosDataProvider"
+                  OnRowDoubleClick="OnServicosRowClick"
                   AllowFiltering="true"
                   AllowPaging="true"
                   PageSize="10"
@@ -87,6 +94,9 @@
                     </GridColumn>
                 </GridColumns>
             </Grid>
+            <div>
+                <Button Type="ButtonType.Button" Color="ButtonColor.Primary" @onclick="AddServico">Adicionar</Button>
+            </div>
         </Content>
     </Tab>
     <Tab Title="Certificados e Licenças">

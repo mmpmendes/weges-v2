@@ -4,18 +4,17 @@
 <PageTitle>Estabelecimentos</PageTitle>
 
 <h3>Estabelecimentos</h3>
-<div>
-    <Button Type="ButtonType.Button" Color="ButtonColor.Primary" @onclick="AddEstabelecimento"> Adicionar Estabelecimento </Button>
-</div>
+
 <Grid @ref="EstabelecimentosGrid" 
     TItem="EstabelecimentoDTO"
       Class="table table-hover table-bordered table-striped"
       DataProvider="EstabelecimentosDataProvider"
+      FiltersTranslationProvider="GridFiltersTranslationProvider"
       AllowFiltering="true"
       AllowPaging="true"
       PageSize="10"
-      AllowSorting="true"
-      Responsive="true">
+      Responsive="true"
+      EmptyText="Sem dados para apresentar">
 
     <GridColumns>
         <GridColumn TItem="EstabelecimentoDTO" HeaderText="" PropertyName="Id" Filterable="false">
@@ -41,3 +40,6 @@
         </GridColumn>
     </GridColumns>
 </Grid>
+<div>
+    <Button Type="ButtonType.Button" Color="ButtonColor.Primary" @onclick="AddEstabelecimento">Adicionar</Button>
+</div>

@@ -1,6 +1,7 @@
 ﻿using BlazorBootstrap;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 using Services;
 
@@ -14,40 +15,64 @@ public partial class EstabelecimentoDetails
     public long Id { get; set; }
 
     [Inject]
-    public required DirecaoClinicaApiService DirecaoClinicaApiService { get; set; }
-    private IList<DirecaoClinicaDTO>? DirecoesClinicas = default!;
-
+    public required EstabelecimentoApiService EstabelecimentoApiService { get; set; }
     [Inject]
-    public required ServicosApiService ServicosApiService { get; set; }
+    public required NavigationManager NavigationManager { get; set; }
+
     private IList<ServicoDTO>? Servicos = default!;
+    private IList<DirecaoClinicaDTO>? DirecoesClinicas = default!;
+    private Grid<ServicoDTO>? ServicosGrid;
+    private Grid<DirecaoClinicaDTO>? DirecoesClinicasGrid;
 
     private async Task<GridDataProviderResult<DirecaoClinicaDTO>> DirecoesClinicasDataProvider(GridDataProviderRequest<DirecaoClinicaDTO> request)
     {
+        if (Id > -1)
+        {
+            DirecoesClinicas = await EstabelecimentoApiService.GetEstabelecimentoDirecoesClinicasAsync(Id);
+        }
+
         if (DirecoesClinicas is null)
         {
-            DirecoesClinicas = await DirecaoClinicaApiService.GetDirecoesClinicasAsync();
-            if (DirecoesClinicas is not null)
-                return await Task.FromResult(request.ApplyTo(DirecoesClinicas));
+            return new GridDataProviderResult<DirecaoClinicaDTO>()
+            {
+                Data = [],
+                TotalCount = 0
+            };
         }
-        return new GridDataProviderResult<DirecaoClinicaDTO>()
-        {
-            Data = [],
-            TotalCount = 0
-        };
+        return await Task.FromResult(request.ApplyTo(DirecoesClinicas));
     }
 
     private async Task<GridDataProviderResult<ServicoDTO>> ServicosDataProvider(GridDataProviderRequest<ServicoDTO> request)
     {
+        if (Id > -1)
+        {
+            Servicos = await EstabelecimentoApiService.GetEstabelecimentoServicosAsync(Id);
+        }
+
         if (Servicos is null)
         {
-            Servicos = await ServicosApiService.GetServicosAsync();
-            if (Servicos is not null)
-                return await Task.FromResult(request.ApplyTo(Servicos));
+            return new GridDataProviderResult<ServicoDTO>()
+            {
+                Data = [],
+                TotalCount = 0
+            };
         }
-        return new GridDataProviderResult<ServicoDTO>()
-        {
-            Data = [],
-            TotalCount = 0
-        };
+        return await Task.FromResult(request.ApplyTo(Servicos));
+    }
+    private void AddDirecaoClinica(MouseEventArgs e)
+    {
+        NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/DirecaoClinica");
+    }
+    private void AddServico(MouseEventArgs e)
+    {
+        NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/Servico");
+    }
+    private void OnDirecoesClinicasRowClick(GridRowEventArgs<DirecaoClinicaDTO> direcaoClinica)
+    {
+        NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/DirecaoClinica");
+    }
+    private void OnServicosRowClick(GridRowEventArgs<ServicoDTO> servico)
+    {
+        NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/Servico");
     }
 }

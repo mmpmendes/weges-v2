@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components.Forms;
 
 using Services;
 
+using SharedKernel.DTO;
+
 using System.Net.Http.Headers;
 
 namespace Web.Components.Pages.Estabelecimentos;
@@ -17,6 +19,30 @@ public partial class EstabelecimentoCertificadosLicencas
     public IBrowserFile? selectedLicencaFile = default!;
     private bool IsFileSelected { get; set; }
     private readonly long maxFileSize = 1024 * 1024 * 5;
+    private CertificadoErsDTO? CertificadoErs { get; set; }
+    private LicencaErsDTO? LicencaErs { get; set; }
+
+    protected override Task OnInitializedAsync()
+    {
+        EstabelecimentoApiService.GetEstabelecimentoCertificadoErsAsync(Id).ContinueWith(task =>
+        {
+            if (task.IsCompletedSuccessfully)
+            {
+                CertificadoErs = task.Result;
+            }
+        });
+
+        EstabelecimentoApiService.GetEstabelecimentoLicencaErsAsync(Id).ContinueWith(task =>
+        {
+            if (task.IsCompletedSuccessfully)
+            {
+                LicencaErs = task.Result;
+            }
+        });
+
+        return base.OnInitializedAsync();
+    }
+
 
 
     #region Certificado
