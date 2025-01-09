@@ -1,9 +1,9 @@
-﻿@page "/estabelecimento/{Id:long}"
+﻿@page "/estabelecimentos/{Id:long}"
 @using SharedKernel.DTO
 
 <PageTitle>Estabelecimento</PageTitle>
 
-<Tabs EnableFadeEffect="true" NavStyle="NavStyle.Pills">
+<Tabs EnableFadeEffect="true" Class="nav nav-pills nav-justified">
     <Tab Title="Dados" Active="true">
         <Content>
             <EstabelecimentoForm Id="Id"/>
@@ -11,6 +11,7 @@
     </Tab>
     <Tab Title="Direção Clínica">
         <Content>
+            <Button Type="ButtonType.Button" Color="ButtonColor.Dark" @onclick="AddDirecaoClinica"><Icon Name="IconName.PlusSquare" /> Adicionar</Button>
             <Grid TItem="DirecaoClinicaDTO"
                   @ref="DirecoesClinicasGrid"
                   Class="table table-hover table-bordered table-striped"
@@ -21,11 +22,12 @@
                   AllowPaging="true"
                   PageSize="10"
                   AllowSorting="true"
-                  Responsive="true">
+                  Responsive="true"
+                  EmptyText="Sem dados para apresentar">
 
                 <GridColumns>
                     <GridColumn TItem="DirecaoClinicaDTO" HeaderText="" PropertyName="Id" Filterable="false">
-                        <Button Class="btn btn-dark" @onclick="() => EditarDirecaoClinica(context.Id)"><Icon Name="IconName.PencilFill" /></Button>
+                        <Button Class="btn btn-dark" @onclick="() => EditarDirecaoClinica(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
                     </GridColumn>
                     <GridColumn 
                         TItem="DirecaoClinicaDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
@@ -56,13 +58,11 @@
                     </GridColumn>
                 </GridColumns>
             </Grid>
-            <div>
-                <Button Type="ButtonType.Button" Color="ButtonColor.Primary" @onclick="AddDirecaoClinica">Adicionar</Button>
-            </div>
         </Content>
     </Tab>
     <Tab Title="Dados Serviço">
         <Content>
+            <Button Type="ButtonType.Button" Color="ButtonColor.Dark" @onclick="AddServico"><Icon Name="IconName.PlusSquare" /> Adicionar</Button>
             <Grid TItem="ServicoDTO"
                   @ref="ServicosGrid"
                   Class="table table-hover table-bordered table-striped"
@@ -73,11 +73,12 @@
                   AllowPaging="true"
                   PageSize="10"
                   AllowSorting="true"
-                  Responsive="true">
+                  Responsive="true"
+                  EmptyText="Sem dados para apresentar">
 
                 <GridColumns>
                     <GridColumn TItem="ServicoDTO" HeaderText="" PropertyName="Id" Filterable="false">
-                        <Button Class="btn btn-dark" @onclick="() => EditarServico(context.Id)"><Icon Name="IconName.PencilFill" /></Button>
+                        <Button Class="btn btn-dark" @onclick="() => EditarServico(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
                     </GridColumn>
                     <GridColumn 
                         TItem="ServicoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
@@ -102,9 +103,6 @@
                     </GridColumn>
                 </GridColumns>
             </Grid>
-            <div>
-                <Button Type="ButtonType.Button" Color="ButtonColor.Primary" @onclick="AddServico">Adicionar</Button>
-            </div>
         </Content>
     </Tab>
     <Tab Title="Certificados e Licenças">

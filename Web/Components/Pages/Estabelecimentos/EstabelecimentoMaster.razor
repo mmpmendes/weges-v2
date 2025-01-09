@@ -3,7 +3,7 @@
 
 <PageTitle>Estabelecimentos</PageTitle>
 
-<h3>Estabelecimentos</h3>
+<h3>Estabelecimentos <Button Type="ButtonType.Button" Color="ButtonColor.Dark" @onclick="AddEstabelecimento"><Icon Name="IconName.PlusSquare" /></Button></h3>
 
 <Grid @ref="EstabelecimentosGrid" 
     TItem="EstabelecimentoDTO"
@@ -18,7 +18,7 @@
 
     <GridColumns>
         <GridColumn TItem="EstabelecimentoDTO" HeaderText="" PropertyName="Id" Filterable="false">
-                <Button Class="btn btn-dark" @onclick="() => NavigateToDetails(context.Id)">Selecionar</Button>
+                <Button Class="btn btn-dark" @onclick="() => NavigateToDetails(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
         </GridColumn>
         <GridColumn TItem="EstabelecimentoDTO" HeaderText="Sigla" PropertyName="Sigla" SortKeySelector="item => item.Sigla">
             @context.Sigla
@@ -40,6 +40,3 @@
         </GridColumn>
     </GridColumns>
 </Grid>
-<div>
-    <Button Type="ButtonType.Button" Color="ButtonColor.Primary" @onclick="AddEstabelecimento">Adicionar</Button>
-</div>

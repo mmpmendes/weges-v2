@@ -44,13 +44,13 @@ public partial class DirecaoClinicaDetails
             {
                 if (task.IsCompletedSuccessfully)
                 {
-                    NavigationManager.NavigateTo($"/estabelecimento/{EstabelecimentoId}");
+                    NavigationManager.NavigateTo($"/estabelecimentos/{EstabelecimentoId}");
                 }
             });
         }
     }
     private void GoBackToEstabelecimento(MouseEventArgs e)
     {
-        NavigationManager.NavigateTo($"/estabelecimento/{EstabelecimentoId}");
+        NavigationManager.NavigateTo($"/estabelecimentos/{EstabelecimentoId}");
     }
 }

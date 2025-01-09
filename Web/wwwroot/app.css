@@ -1,3 +1,29 @@
+.page-item.active{
+    --bs-pagination-active-bg: #212529;
+    
+}
+.nav-link:focus, .nav-link:hover {
+    color: #212529;
+    background-color: whitesmoke;
+}
+.active > .page-link, .page-link.active {
+    border-color: #212529;
+}
+.active > .page-link {
+    --bs-nav-pills-link-active-bg: #212529;
+}
+.nav-pills {
+    --bs-nav-pills-link-active-bg: #212529;
+}
+.nav-pills .nav-link.active {
+    background-color: #212529;
+    
+}
+
+.nav-link {
+    color: #212529;
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }

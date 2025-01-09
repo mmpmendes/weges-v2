@@ -25,7 +25,7 @@
                     <label class="form-label" for="observacoes">Observações</label>
                 </div>
                 <FileUploadButton SelectedFileChanged="OnCertificadoFileSelected" Label="Carregar Ficheiro" />
-                <button @onclick="UploadCertificado" disabled="@(!IsFileSelected)" class="btn btn-success">Guardar Certificado</button>
+                <button @onclick="UploadCertificado" disabled="@(!IsFileSelected)" class="btn btn-dark">Guardar Certificado</button>
             </CardBody>
         </Card>
     </span>
@@ -35,7 +35,7 @@
                 <CardTitle>Licença de Funcionamento ERS</CardTitle>
 
                 <FileUploadButton SelectedFileChanged="OnLicencaFileSelected" Label="Carregar Ficheiro" />
-                <button @onclick="UploadLicenca" disabled="@(!IsFileSelected)" class="btn btn-success">Guardar Certificado</button>
+                <button @onclick="UploadLicenca" disabled="@(!IsFileSelected)" class="btn btn-dark">Guardar Certificado</button>
             </CardBody>
         </Card>
     </span>

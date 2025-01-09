@@ -23,7 +23,7 @@ public partial class EstabelecimentoMaster
     // Note: This method is used to navigate to the details page
     private void NavigateToDetails(long estabelecimentoId)
     {
-        NavigationManager.NavigateTo($"/estabelecimento/{estabelecimentoId}");
+        NavigationManager.NavigateTo($"/estabelecimentos/{estabelecimentoId}");
     }
 
     // Note: This method is used to provide the data for the grid

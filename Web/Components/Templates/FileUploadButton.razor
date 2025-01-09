@@ -3,7 +3,7 @@
 
 <div class="mb-3">
     <InputFile id="fileInput" onchange="HandleFileSelected" hidden="true" />
-    <button class="btn btn-primary" @onclick="SelectFile">@Label</button>
+    <button class="@CssClass" @onclick="SelectFile">@Label</button>
 </div>
 
 <script>
@@ -22,6 +22,8 @@
     public bool IsFileSelected { get; set; } = false;
     [Parameter]
     public string Label { get; set; } = "Carregar Ficheiro";
+    [Parameter]
+    public string CssClass { get; set; } = "btn btn-outline-dark";
     private int maxAllowedFiles = 1;
 
 

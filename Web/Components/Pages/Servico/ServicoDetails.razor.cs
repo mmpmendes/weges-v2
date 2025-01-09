@@ -49,6 +49,6 @@ public partial class ServicoDetails
     }
     private void GoBackToEstabelecimento(MouseEventArgs e)
     {
-        NavigationManager.NavigateTo($"/Estabelecimento/{EstabelecimentoId}");
+        NavigationManager.NavigateTo($"/estabelecimentos/{EstabelecimentoId}");
     }
 }
