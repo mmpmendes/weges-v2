@@ -15,21 +15,23 @@ namespace ApiService.Controllers;
 [ApiController]
 public class EstabelecimentoController(
         ISimpleRepository<Estabelecimento> estabelecimentoRepo,
-        ISimpleRepository<CertificadoERS> repoCertificadoRepo,
-        ISimpleRepository<LicencaERS> repoLicencaRepo,
-        ISimpleRepository<Servico> _servicoRepo,
-        ISimpleRepository<DirecaoClinica> _direcaoClinicaRepo
+        ISimpleRepository<CertificadoERS> certificadoRepo,
+        ISimpleRepository<LicencaERS> licencaRepo,
+        ISimpleRepository<Servico> servicoRepo,
+        ISimpleRepository<DirecaoClinica> direcaoClinicaRepo
         , IConfiguration config
-        , IFileService servFile
+        , IFileService fileService
         , IMapper mapper
         ) : ControllerBase
 {
     private readonly ISimpleRepository<Estabelecimento> _estabelecimentoRepo = estabelecimentoRepo;
-    private readonly ISimpleRepository<CertificadoERS> _certificadoRepo = repoCertificadoRepo;
-    private readonly ISimpleRepository<LicencaERS> _licencaRepo = repoLicencaRepo;
+    private readonly ISimpleRepository<CertificadoERS> _certificadoRepo = certificadoRepo;
+    private readonly ISimpleRepository<LicencaERS> _licencaRepo = licencaRepo;
+    private readonly ISimpleRepository<Servico> _servicoRepo = servicoRepo;
+    private readonly ISimpleRepository<DirecaoClinica> _direcaoClinicaRepo = direcaoClinicaRepo;
     private readonly IMapper _mapper = mapper;
     private const string UPLOADPATH = "Paths:uploadpath";
-    private readonly IFileService _servFile = servFile;
+    private readonly IFileService _fileService = fileService;
     private readonly IConfiguration _config = config;
 
     /// <summary>
@@ -249,7 +251,7 @@ public class EstabelecimentoController(
     public async Task<IResult> UploadCertificado(IFormFile file)
     {
 
-        string fileLocationAndName = await _servFile.SaveFileToFileSystem(file, "certificados", _config[UPLOADPATH]);
+        string fileLocationAndName = await _fileService.SaveFileToFileSystem(file, "certificados", _config[UPLOADPATH]);
 
         return Results.Ok(fileLocationAndName);
         //return Results.Ok();
@@ -264,7 +266,7 @@ public class EstabelecimentoController(
     [HttpPost("UploadLicenca")]
     public async Task<IResult> UploadLicenca(IFormFile file)
     {
-        string fileLocationAndName = await _servFile.SaveFileToFileSystem(file, "licencas", _config[UPLOADPATH]);
+        string fileLocationAndName = await _fileService.SaveFileToFileSystem(file, "licencas", _config[UPLOADPATH]);
 
         return Results.Ok(fileLocationAndName);
     }

@@ -1,13 +1,11 @@
-﻿<Sidebar 
-Href="/" 
-IconName="IconName.Alphabet" 
-
-Title="Weges"
+﻿<Sidebar Href="/"
+         IconName="IconName.Alphabet"
+         Title="Weges"
          DataProvider="SidebarDataProvider">
 
 </Sidebar>
 
-@code{
+@code {
     private IEnumerable<NavItem>? navItems;
     private async Task<SidebarDataProviderResult> SidebarDataProvider(SidebarDataProviderRequest request)
     {
@@ -19,10 +17,11 @@ Title="Weges"
     private IEnumerable<NavItem> GetNavItems()
     {
         navItems = new List<NavItem>
-        {         new NavItem { Href = "/", IconName = IconName.House, Text = "Início" },
-         new NavItem { Href = "/estabelecimentos", IconName = IconName.Shop, Text = "Estabelecimentos" },
-         new NavItem { Href = "/entidades", IconName = IconName.ShopWindow, Text = "Entidades" },
-         new NavItem { Href = "/login", IconName = IconName.Person, Text = "Entrar" }
+        {
+            new NavItem { Href = "/", IconName = IconName.House, Text = "Início" },
+            new NavItem { Href = "/estabelecimentos", IconName = IconName.Shop, Text = "Estabelecimentos" },
+            new NavItem { Href = "/entidades", IconName = IconName.ShopWindow, Text = "Entidades" },
+            new NavItem { Href = "/login", IconName = IconName.Person, Text = "Entrar" }
         };
 
         return navItems;

@@ -69,10 +69,21 @@ public partial class EstabelecimentoDetails
     }
     private void OnDirecoesClinicasRowClick(GridRowEventArgs<DirecaoClinicaDTO> direcaoClinica)
     {
-        NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/DirecaoClinica");
+        NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/DirecaoClinica/{direcaoClinica.Item.Id}");
     }
+
+    private void EditarDirecaoClinica(long direcaoClinicaId)
+    {
+        NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/DirecaoClinica/{direcaoClinicaId}");
+    }
+
     private void OnServicosRowClick(GridRowEventArgs<ServicoDTO> servico)
     {
-        NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/Servico");
+        NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/Servico/{servico.Item.Id}");
+    }
+
+    private void EditarServico(long servicoId)
+    {
+        NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/Servico/{servicoId}");
     }
 }

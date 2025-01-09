@@ -16,6 +16,7 @@
                   Class="table table-hover table-bordered table-striped"
                   DataProvider="DirecoesClinicasDataProvider"
                   OnRowDoubleClick="OnDirecoesClinicasRowClick"
+                  AllowRowClick="true"
                   AllowFiltering="true"
                   AllowPaging="true"
                   PageSize="10"
@@ -23,6 +24,9 @@
                   Responsive="true">
 
                 <GridColumns>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="" PropertyName="Id" Filterable="false">
+                        <Button Class="btn btn-dark" @onclick="() => EditarDirecaoClinica(context.Id)"><Icon Name="IconName.PencilFill" /></Button>
+                    </GridColumn>
                     <GridColumn 
                         TItem="DirecaoClinicaDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
                         @context.Nome
@@ -64,6 +68,7 @@
                   Class="table table-hover table-bordered table-striped"
                   DataProvider="ServicosDataProvider"
                   OnRowDoubleClick="OnServicosRowClick"
+                  AllowRowClick="true"
                   AllowFiltering="true"
                   AllowPaging="true"
                   PageSize="10"
@@ -71,6 +76,9 @@
                   Responsive="true">
 
                 <GridColumns>
+                    <GridColumn TItem="ServicoDTO" HeaderText="" PropertyName="Id" Filterable="false">
+                        <Button Class="btn btn-dark" @onclick="() => EditarServico(context.Id)"><Icon Name="IconName.PencilFill" /></Button>
+                    </GridColumn>
                     <GridColumn 
                         TItem="ServicoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
                         @context.Nome

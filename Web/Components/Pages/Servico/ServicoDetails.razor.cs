@@ -14,28 +14,41 @@ public partial class ServicoDetails
     [Parameter]
     public long ServicoId { get; set; }
     [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+    [Inject]
     private ServicosApiService ServicosApiService { get; set; } = default!;
+    private ServicoDTO? Servico { get; set; }
+    protected override async Task OnParametersSetAsync()
+    {
+        if (ServicoId == 0 && Servico is null)
+        {
+            Servico = new ServicoDTO()
+            {
+                EstabelecimentoId = EstabelecimentoId,
+                DataInicio = DateOnly.FromDateTime(DateTime.Now)
+            };
+        }
+        else
+        {
+            Servico = await ServicosApiService.GetServicoByIdAsync(ServicoId);
+        }
+    }
 
-    private ServicoDTO? Servico { get; set; } = default!;
-
-    //protected override async Task OnParametersSetAsync()
-    //{
-    //    if (ServicoId > 0)
-    //    {
-    //        await ServicosApiService.GetServicoByIdAsync(ServicoId)
-    //            .ContinueWith(task =>
-    //            {
-    //                Servico = task.Result;
-    //                StateHasChanged();
-    //            });
-    //    }
-    //}
+    private async Task SaveServico(MouseEventArgs e)
+    {
+        if (Servico is not null)
+        {
+            await ServicosApiService.SaveServicoAsync(Servico).ContinueWith(task =>
+            {
+                if (task.IsCompletedSuccessfully)
+                {
+                    GoBackToEstabelecimento(e);
+                }
+            });
+        }
+    }
     private void GoBackToEstabelecimento(MouseEventArgs e)
     {
-        throw new NotImplementedException();
-    }
-    private void SaveServico(MouseEventArgs e)
-    {
-        throw new NotImplementedException();
+        NavigationManager.NavigateTo($"/Estabelecimento/{EstabelecimentoId}");
     }
 }

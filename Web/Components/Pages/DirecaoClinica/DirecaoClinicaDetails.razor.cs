@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 using Services;
 
@@ -13,28 +14,43 @@ public partial class DirecaoClinicaDetails
     [Parameter]
     public long DirecaoClinicaId { get; set; }
     [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+    [Inject]
     private DirecaoClinicaApiService DirecaoClinicaApiService { get; set; } = default!;
 
-    private DirecaoClinicaDTO? DirecaoClinica { get; set; } = default!;
+    private DirecaoClinicaDTO? DirecaoClinica { get; set; }
 
-    //protected override async Task OnParametersSetAsync()
-    //{
-    //    if (DirecaoClinicaId > 0)
-    //    {
-    //        await DirecaoClinicaApiService.GetDirecaoClinicaByIdAsync(DirecaoClinicaId)
-    //            .ContinueWith(task =>
-    //            {
-    //                DirecaoClinica = task.Result;
-    //                StateHasChanged();
-    //            });
-    //    }
-    //}
-    private void GoBackToEstabelecimento(Microsoft.AspNetCore.Components.Web.MouseEventArgs e)
+    protected override async Task OnParametersSetAsync()
     {
-        throw new NotImplementedException();
+        if (DirecaoClinicaId == 0 && DirecaoClinica is null)
+        {
+            DirecaoClinica = new DirecaoClinicaDTO()
+            {
+                EstabelecimentoId = EstabelecimentoId,
+                ValidadeIdentificacao = DateOnly.FromDateTime(DateTime.Now)
+            };
+        }
+        else
+        {
+            DirecaoClinica = await DirecaoClinicaApiService.GetDirecaoClinicaByIdAsync(DirecaoClinicaId);
+        }
     }
-    private void SaveDirecaoClinica(Microsoft.AspNetCore.Components.Web.MouseEventArgs e)
+
+    private async Task SaveDirecaoClinica(MouseEventArgs e)
     {
-        throw new NotImplementedException();
+        if (DirecaoClinica is not null)
+        {
+            await DirecaoClinicaApiService.SaveDirecaoClinicaAsync(DirecaoClinica).ContinueWith(task =>
+            {
+                if (task.IsCompletedSuccessfully)
+                {
+                    NavigationManager.NavigateTo($"/estabelecimento/{EstabelecimentoId}");
+                }
+            });
+        }
+    }
+    private void GoBackToEstabelecimento(MouseEventArgs e)
+    {
+        NavigationManager.NavigateTo($"/estabelecimento/{EstabelecimentoId}");
     }
 }
