@@ -49,5 +49,6 @@
     <div>
         <Button Class="btn btn-dark" @onclick="SaveDirecaoClinica">Guardar</Button>
         <Button Class="btn btn-outline-dark" @onclick="GoBackToEstabelecimento">Voltar</Button>
+        <SaveBackControl OnClickSaveEventHandler="SaveDirecaoClinica" OnClickBackEventHandler="GoBackToEstabelecimento" />
     </div>
 </div>

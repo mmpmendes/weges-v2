@@ -36,6 +36,5 @@
             <label class="form-label" for="observacoes">Observações</label>
         </div>
     }
-    <Button Class="btn btn-dark" @onclick="SaveServico">Guardar</Button>
-    <Button Class="btn btn-outline-dark" @onclick="GoBackToEstabelecimento">Voltar</Button>
+    <SaveBackControl OnClickSaveEventHandler="SaveServico" OnClickBackEventHandler="GoBackToEstabelecimento" />
 </div>

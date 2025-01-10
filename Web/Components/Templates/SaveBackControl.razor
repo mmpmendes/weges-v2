@@ -1,0 +1,20 @@
+﻿<div>
+    <SaveButton CssClass="@SaveCssClass" LabelText="@SaveLabelText" OnClickEventHandler="@OnClickSaveEventHandler"/>
+    <BackButton CssClass="@BackCssClass" LabelText="@BackLabelText" OnClickEventHandler="@OnClickBackEventHandler" />
+</div>
+
+@code{
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickSaveEventHandler { get; set; }
+    [Parameter]
+    public string SaveCssClass { get; set; } = "btn btn-dark";
+    [Parameter]
+    public string SaveLabelText { get; set; } = "Guardar";
+
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickBackEventHandler { get; set; }
+    [Parameter]
+    public string BackCssClass { get; set; } = "btn btn-outline-dark";
+    [Parameter]
+    public string BackLabelText { get; set; } = "Voltar";
+}
