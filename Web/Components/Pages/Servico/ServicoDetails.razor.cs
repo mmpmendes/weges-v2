@@ -38,17 +38,30 @@ public partial class ServicoDetails
     {
         if (Servico is not null)
         {
-            await ServicosApiService.SaveServicoAsync(Servico).ContinueWith(task =>
+            if (Servico.Id > 0)
             {
-                if (task.IsCompletedSuccessfully)
+                await ServicosApiService.UpdateServicoAsync(Servico).ContinueWith(task =>
                 {
-                    GoBackToEstabelecimento(e);
-                }
-            });
+                    if (task.IsCompletedSuccessfully)
+                    {
+                        GoBackToEstabelecimento(e);
+                    }
+                });
+            }
+            else
+            {
+                await ServicosApiService.SaveServicoAsync(Servico).ContinueWith(task =>
+                {
+                    if (task.IsCompletedSuccessfully)
+                    {
+                        GoBackToEstabelecimento(e);
+                    }
+                });
+            }
         }
     }
     private void GoBackToEstabelecimento(MouseEventArgs e)
     {
-        NavigationManager.NavigateTo($"/estabelecimentos/{EstabelecimentoId}");
+        NavigationManager.NavigateTo($"/estabelecimentos/{EstabelecimentoId}?return=servico");
     }
 }

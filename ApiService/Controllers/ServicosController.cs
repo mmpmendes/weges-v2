@@ -1,10 +1,11 @@
-﻿using AutoMapper;
+﻿using ApiModel.Models;
+
+using ApiService.Data;
+
+using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
-using ApiModel.Models;
-
-using ApiService.Data;
 using SharedKernel.DTO;
 
 namespace ApiService.Controllers;
@@ -65,18 +66,29 @@ public class ServicosController(
     /// <param name="Id"></param>
     /// <param name="servicoModel"></param>
     /// <returns></returns>
-    [HttpPut("{Id}")]
+    [HttpPatch("{Id}")]
     public async Task<IResult> UpdateServico(long Id, [FromBody] ServicoDTO servicoModel)
     {
-        if (servicoModel == null) return Results.BadRequest("Servico inválido.");
+        if (servicoModel == null)
+            return Results.BadRequest("Serviço inválida.");
+
+        // Ensure the record exists
+        var existingEntity = await _servicoRepo.GetById(Id);
+        if (existingEntity == null)
+            return Results.NotFound($"No record found with ID {Id}");
+
         try
         {
-            await _servicoRepo.Update(Id, _mapper.Map<Servico>(servicoModel));
+            // Perform the update
+            var updatedEntity = _mapper.Map(servicoModel, existingEntity);
+            await _servicoRepo.Update(Id, updatedEntity);
+
             return Results.Ok();
         }
         catch (Exception ex)
         {
-            return Results.BadRequest(ex.Message);
+            // Log the exception (optional)
+            return Results.Problem($"An error occurred: {ex.Message}");
         }
     }
 }

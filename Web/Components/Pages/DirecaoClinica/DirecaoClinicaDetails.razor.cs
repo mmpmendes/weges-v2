@@ -40,17 +40,30 @@ public partial class DirecaoClinicaDetails
     {
         if (DirecaoClinica is not null)
         {
-            await DirecaoClinicaApiService.SaveDirecaoClinicaAsync(DirecaoClinica).ContinueWith(task =>
+            if (DirecaoClinica.Id > 0)
             {
-                if (task.IsCompletedSuccessfully)
+                await DirecaoClinicaApiService.UpdateDirecaoClinicaAsync(DirecaoClinica).ContinueWith(task =>
                 {
-                    NavigationManager.NavigateTo($"/estabelecimentos/{EstabelecimentoId}");
-                }
-            });
+                    if (task.IsCompletedSuccessfully)
+                    {
+                        GoBackToEstabelecimento(e);
+                    }
+                });
+            }
+            else
+            {
+                await DirecaoClinicaApiService.SaveDirecaoClinicaAsync(DirecaoClinica).ContinueWith(task =>
+                {
+                    if (task.IsCompletedSuccessfully)
+                    {
+                        GoBackToEstabelecimento(e);
+                    }
+                });
+            }
         }
     }
     private void GoBackToEstabelecimento(MouseEventArgs e)
     {
-        NavigationManager.NavigateTo($"/estabelecimentos/{EstabelecimentoId}");
+        NavigationManager.NavigateTo($"/estabelecimentos/{EstabelecimentoId}?return=dircli");
     }
 }

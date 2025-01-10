@@ -34,7 +34,7 @@ public class DirecaoClinicaApiService(HttpClient httpClient)
     }
     public async Task<bool> UpdateDirecaoClinicaAsync(DirecaoClinicaDTO direcaoClinica, CancellationToken cancellationToken = default)
     {
-        var response = await httpClient.PatchAsJsonAsync($"/api/DirecaoClinica", direcaoClinica, cancellationToken);
+        var response = await httpClient.PatchAsJsonAsync($"/api/DirecaoClinica/{direcaoClinica.Id}", direcaoClinica, cancellationToken);
         return response.IsSuccessStatusCode;
     }
 }

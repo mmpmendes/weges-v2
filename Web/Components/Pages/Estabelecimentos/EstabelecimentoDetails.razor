@@ -3,15 +3,17 @@
 
 <PageTitle>Estabelecimento</PageTitle>
 
-<Tabs EnableFadeEffect="true" Class="nav nav-pills nav-justified">
+<Tabs EnableFadeEffect="true" Class="nav nav-pills nav-justified" @ref="Tabs">
     <Tab Title="Dados" Active="true">
         <Content>
-            <EstabelecimentoForm Id="Id"/>
+            <EstabelecimentoForm Id="Id" />
         </Content>
     </Tab>
     <Tab Title="Direção Clínica">
         <Content>
-            <Button Type="ButtonType.Button" Color="ButtonColor.Dark" @onclick="AddDirecaoClinica"><Icon Name="IconName.PlusSquare" /> Adicionar</Button>
+            <div class="d-grid gap-2">
+                <Button Type="ButtonType.Button" @onclick="AddDirecaoClinica" Class="btn btn-outline-dark"><Icon Name="IconName.PlusSquare" /> Adicionar</Button>
+            </div>
             <Grid TItem="DirecaoClinicaDTO"
                   @ref="DirecoesClinicasGrid"
                   Class="table table-hover table-bordered table-striped"
@@ -29,16 +31,13 @@
                     <GridColumn TItem="DirecaoClinicaDTO" HeaderText="" PropertyName="Id" Filterable="false">
                         <Button Class="btn btn-dark" @onclick="() => EditarDirecaoClinica(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
                     </GridColumn>
-                    <GridColumn 
-                        TItem="DirecaoClinicaDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
                         @context.Nome
                     </GridColumn>
-                    <GridColumn 
-                        TItem="DirecaoClinicaDTO" HeaderText="Cargo" PropertyName="Cargo" SortKeySelector="item => item.Cargo">
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Cargo" PropertyName="Cargo" SortKeySelector="item => item.Cargo">
                         @context.Cargo
                     </GridColumn>
-                    <GridColumn 
-                        TItem="DirecaoClinicaDTO" HeaderText="Identificação" PropertyName="Identificacao" SortKeySelector="item => item.Identificacao">
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Identificação" PropertyName="Identificacao" SortKeySelector="item => item.Identificacao">
                         @context.Identificacao
                     </GridColumn>
                     <GridColumn TItem="DirecaoClinicaDTO" HeaderText="ValidadeIdentificacao" PropertyName="ValidadeIdentificacao" SortKeySelector="item => item.ValidadeIdentificacao">
@@ -62,7 +61,9 @@
     </Tab>
     <Tab Title="Dados Serviço">
         <Content>
-            <Button Type="ButtonType.Button" Color="ButtonColor.Dark" @onclick="AddServico"><Icon Name="IconName.PlusSquare" /> Adicionar</Button>
+            <div class="d-grid gap-2">
+                <Button Type="ButtonType.Button" Class="btn btn-outline-dark" @onclick="AddServico"><Icon Name="IconName.PlusSquare" /> Adicionar</Button>
+            </div>
             <Grid TItem="ServicoDTO"
                   @ref="ServicosGrid"
                   Class="table table-hover table-bordered table-striped"
@@ -80,16 +81,13 @@
                     <GridColumn TItem="ServicoDTO" HeaderText="" PropertyName="Id" Filterable="false">
                         <Button Class="btn btn-dark" @onclick="() => EditarServico(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
                     </GridColumn>
-                    <GridColumn 
-                        TItem="ServicoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                    <GridColumn TItem="ServicoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
                         @context.Nome
                     </GridColumn>
-                    <GridColumn 
-                        TItem="ServicoDTO" HeaderText="Início" PropertyName="Início" SortKeySelector="item => item.DataInicio">
+                    <GridColumn TItem="ServicoDTO" HeaderText="Início" PropertyName="Início" SortKeySelector="item => item.DataInicio">
                         @context.DataInicio
                     </GridColumn>
-                    <GridColumn 
-                        TItem="ServicoDTO" HeaderText="Responsável" PropertyName="Responsavel" SortKeySelector="item => item.Responsavel">
+                    <GridColumn TItem="ServicoDTO" HeaderText="Responsável" PropertyName="Responsavel" SortKeySelector="item => item.Responsavel">
                         @context.Responsavel
                     </GridColumn>
                     <GridColumn TItem="ServicoDTO" HeaderText="Tipologia" PropertyName="Tipologia" SortKeySelector="item => item.Tipologia">
@@ -107,7 +105,7 @@
     </Tab>
     <Tab Title="Certificados e Licenças">
         <Content>
-            <EstabelecimentoCertificadosLicencas Id="Id"/>
+            <EstabelecimentoCertificadosLicencas Id="Id" />
         </Content>
     </Tab>
 </Tabs>

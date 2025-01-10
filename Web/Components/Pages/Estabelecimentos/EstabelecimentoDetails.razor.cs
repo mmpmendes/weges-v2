@@ -2,6 +2,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.WebUtilities;
 
 using Services;
 
@@ -23,6 +24,25 @@ public partial class EstabelecimentoDetails
     private IList<DirecaoClinicaDTO>? DirecoesClinicas = default!;
     private Grid<ServicoDTO>? ServicosGrid;
     private Grid<DirecaoClinicaDTO>? DirecoesClinicasGrid;
+    private Tabs Tabs = default!;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
+        var queryParameters = QueryHelpers.ParseQuery(uri.AbsoluteUri);
+        string value = queryParameters.FirstOrDefault().Value;
+        if (!String.IsNullOrEmpty(value))
+        {
+            if (value == "dircli")
+            {
+                await Tabs.ShowTabByIndexAsync(1);
+            }
+            else if (value == "servico")
+            {
+                await Tabs.ShowTabByIndexAsync(2);
+            }
+        }
+    }
 
     private async Task<GridDataProviderResult<DirecaoClinicaDTO>> DirecoesClinicasDataProvider(GridDataProviderRequest<DirecaoClinicaDTO> request)
     {

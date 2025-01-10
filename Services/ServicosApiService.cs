@@ -34,7 +34,7 @@ public class ServicosApiService(HttpClient httpClient)
     }
     public async Task<bool> UpdateServicoAsync(ServicoDTO servico, CancellationToken cancellationToken = default)
     {
-        var response = await httpClient.PatchAsJsonAsync($"/api/Servicos", servico, cancellationToken);
+        var response = await httpClient.PatchAsJsonAsync($"/api/Servicos/{servico.Id}", servico, cancellationToken);
         return response.IsSuccessStatusCode;
     }
 

@@ -69,18 +69,29 @@ public class DirecaoClinicaController(
     /// <param name="Id"></param>
     /// <param name="direcaoClinicaModel"></param>
     /// <returns></returns>
-    [HttpPut("{Id}")]
+    [HttpPatch("{Id}")]
     public async Task<IResult> UpdateServico(long Id, [FromBody] DirecaoClinicaDTO direcaoClinicaModel)
     {
-        if (direcaoClinicaModel == null) return Results.BadRequest("Direção clínica inválida.");
+        if (direcaoClinicaModel == null)
+            return Results.BadRequest("Direção clínica inválida.");
+
+        // Ensure the record exists
+        var existingEntity = await _direcaoRepo.GetById(Id);
+        if (existingEntity == null)
+            return Results.NotFound($"No record found with ID {Id}");
+
         try
         {
-            await _direcaoRepo.Update(Id, _mapper.Map<DirecaoClinica>(direcaoClinicaModel));
+            // Perform the update
+            var updatedEntity = _mapper.Map(direcaoClinicaModel, existingEntity);
+            await _direcaoRepo.Update(Id, updatedEntity);
+
             return Results.Ok();
         }
         catch (Exception ex)
         {
-            return Results.BadRequest(ex.Message);
+            // Log the exception (optional)
+            return Results.Problem($"An error occurred: {ex.Message}");
         }
     }
 }
