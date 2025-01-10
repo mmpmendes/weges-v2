@@ -67,37 +67,6 @@ public class SeedDataWeges(IServiceProvider serviceProvider,
 
             dbContext.SaveChanges();
         }
-
-        if (!dbContext.Set<Estabelecimento>().Any())
-        {
-            dbContext.Set<Estabelecimento>().AddRange(new[]
-            {
-                new Estabelecimento
-                {
-                    Id = 1,
-                    Denominacao = "Estabelecimento 11",
-                    Email = "email@email.email",
-                    InicioAtividade = new DateOnly(2020, 02, 20),
-                    Morada = "estab 1 morada",
-                    Sigla = "estab1",
-                    Telefone = "291111111",
-                    TipoPrestador = "Tipo de Prestador"
-                },
-                new Estabelecimento
-                {
-                    Id = 2,
-                    Denominacao = "Estabelecimento 2",
-                    Email = "email@email.email",
-                    InicioAtividade = new DateOnly(2023, 02, 20),
-                    Morada = "estab 2 morada",
-                    Sigla = "estab2",
-                    Telefone = "291111112",
-                    TipoPrestador = "Tipo de Prestador"
-                }
-            });
-            dbContext.SaveChanges();
-        }
-
         if (!dbContext.Set<DirecaoClinica>().Any())
         {
             dbContext.Set<DirecaoClinica>().AddRange(new[]
@@ -137,7 +106,6 @@ public class SeedDataWeges(IServiceProvider serviceProvider,
             });
             dbContext.SaveChanges();
         }
-
         if (!dbContext.Set<Servico>().Any())
         {
             dbContext.Set<Servico>().AddRange(new[]
@@ -169,5 +137,120 @@ public class SeedDataWeges(IServiceProvider serviceProvider,
             });
             dbContext.SaveChanges();
         }
+        if (!dbContext.Set<Ficheiro>().Any())
+        {
+            dbContext.Set<Ficheiro>().AddRange(new[]
+            {
+                new Ficheiro
+                {
+                    Id = 1,
+                    Nome = "Ficheiro 1",
+                    Localizacao = "/shift/exemplo1.txt",
+                    Tipo = "Tipo 1"
+                },
+                new Ficheiro
+                {
+                    Id = 2,
+                    Nome = "Ficheiro 2",
+                    Localizacao = "/shift/exemplo100.txt",
+                    Tipo = "Tipo 2"
+                }
+            });
+            dbContext.SaveChanges();
+        }
+        if (!dbContext.Set<Estabelecimento>().Any())
+        {
+            dbContext.Set<Estabelecimento>().AddRange(new[]
+            {
+                new Estabelecimento
+                {
+                    Id = 1,
+                    Denominacao = "Estabelecimento 11",
+                    Email = "email@email.email",
+                    InicioAtividade = new DateOnly(2020, 02, 20),
+                    Morada = "estab 1 morada",
+                    Sigla = "estab1",
+                    Telefone = "291111111",
+                    TipoPrestador = "Tipo de Prestador"
+                },
+                new Estabelecimento
+                {
+                    Id = 2,
+                    Denominacao = "Estabelecimento 2",
+                    Email = "email@email.email",
+                    InicioAtividade = new DateOnly(2023, 02, 20),
+                    Morada = "estab 2 morada",
+                    Sigla = "estab2",
+                    Telefone = "291111112",
+                    TipoPrestador = "Tipo de Prestador"
+                }
+            });
+            dbContext.SaveChanges();
+        }
+        if (!dbContext.Set<CertificadoERS>().Any())
+        {
+            dbContext.Set<CertificadoERS>().AddRange(new[]
+            {
+                new CertificadoERS
+                {
+                    Id = 1,
+                    DataExpiracao = new DateOnly(2023, 02, 20),
+                    DataPagamentoTaxa = new DateOnly(2023, 02, 20),
+                    EstabelecimentoId = 1,
+                    FicheiroId = 1,
+                    Periodo = "Periodo 1",
+                    NrCertificado = "Nr Certificado 1",
+                    DataSubmissao = new DateOnly(2023, 02, 20),
+                    Observacoes = "Observacoes 1",
+                    DataExpiracaoTaxa = new DateOnly(2023, 02, 20)
+                },
+                new CertificadoERS
+                {
+                    Id = 2,
+                    DataExpiracao = new DateOnly(2023, 02, 20),
+                    DataPagamentoTaxa = new DateOnly(2023, 02, 20),
+                    EstabelecimentoId = 2,
+                    FicheiroId = 2,
+                    Periodo = "Periodo 1",
+                    NrCertificado = "Nr Certificado 1",
+                    DataSubmissao = new DateOnly(2023, 02, 20),
+                    Observacoes = "Observacoes 1",
+                    DataExpiracaoTaxa = new DateOnly(2023, 02, 20)
+                }
+            });
+            dbContext.SaveChanges();
+        }
+        if (!dbContext.Set<LicencaERS>().Any())
+        {
+            dbContext.Set<LicencaERS>().AddRange(new[]
+            {
+                new LicencaERS
+                {
+                    Id = 1,
+                    DataSubmissao = new DateOnly(2023, 02, 20),
+                    Estabelecimento = dbContext.Set<Estabelecimento>().Find(1L),
+                    EstabelecimentoId = 1L,
+                    FicheiroId = 1L,
+                    NrLicenca = "NrLicenca 1",
+                    Ficheiro = dbContext.Set<Ficheiro>().Find(1L),
+                    Periodo = "Periodo 1",
+                    Observacoes = "Observacoes 1"
+                },
+                new LicencaERS
+                {
+                    Id = 2,
+                    DataSubmissao = new DateOnly(2023, 02, 20),
+                    Estabelecimento = dbContext.Set<Estabelecimento>().Find(2L),
+                    EstabelecimentoId = 2L,
+                    FicheiroId = 2L,
+                    NrLicenca = "NrLicenca 2",
+                    Ficheiro = dbContext.Set<Ficheiro>().Find(2L),
+                    Periodo = "Periodo 2",
+                    Observacoes = "Observacoes 2"
+                }
+            });
+            dbContext.SaveChanges();
+        }
+
     }
 }

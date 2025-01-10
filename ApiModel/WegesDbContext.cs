@@ -93,6 +93,24 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
             ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
         });
 
+        modelBuilder.Entity<Estabelecimento>()
+            .HasOne(e => e.CertificadoERS)
+            .WithOne(c => c.Estabelecimento)
+            .HasForeignKey<CertificadoERS>(c => c.EstabelecimentoId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Estabelecimento>()
+            .HasOne(l => l.LicencaERS)
+            .WithOne(c => c.Estabelecimento)
+            .HasForeignKey<LicencaERS>(c => c.EstabelecimentoId)
+            .OnDelete(DeleteBehavior.Cascade); // Or DeleteBehavior.Restrict
+
+        modelBuilder.Entity<CertificadoERS>()
+            .HasOne(c => c.Ficheiro)
+            .WithMany() // No navigation property in Ficheiro
+            .HasForeignKey(c => c.FicheiroId)
+            .OnDelete(DeleteBehavior.SetNull);
+
         base.OnModelCreating(modelBuilder);
     }
 }

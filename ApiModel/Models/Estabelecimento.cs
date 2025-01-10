@@ -9,4 +9,6 @@ public class Estabelecimento : Entity<long>
     public string? Telefone { get; set; }
     public string? TipoPrestador { get; set; }
     public string? Sigla { get; set; }
+    public CertificadoERS? CertificadoERS { get; set; }
+    public LicencaERS? LicencaERS { get; set; }
 }

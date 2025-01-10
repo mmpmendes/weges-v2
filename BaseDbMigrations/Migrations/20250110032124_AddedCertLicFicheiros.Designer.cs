@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BaseDbMigrations.Migrations
 {
     [DbContext(typeof(WegesDbContext))]
-    [Migration("20250104103226_addedCertificadoAndLicenca")]
-    partial class addedCertificadoAndLicenca
+    [Migration("20250110032124_AddedCertLicFicheiros")]
+    partial class AddedCertLicFicheiros
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,11 +59,8 @@ namespace BaseDbMigrations.Migrations
                     b.Property<long>("EstabelecimentoId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("FicheiroId")
+                    b.Property<long?>("FicheiroId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("Localizacao")
-                        .HasColumnType("text");
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
@@ -75,9 +72,6 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("text")
                         .HasDefaultValue("system-usr");
 
-                    b.Property<string>("NomeFicheiro")
-                        .HasColumnType("text");
-
                     b.Property<string>("NrCertificado")
                         .HasColumnType("text");
 
@@ -88,6 +82,11 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EstabelecimentoId")
+                        .IsUnique();
+
+                    b.HasIndex("FicheiroId");
 
                     b.ToTable("CertificadosERS", "weges");
                 });
@@ -384,12 +383,8 @@ namespace BaseDbMigrations.Migrations
                     b.Property<long>("EstabelecimentoId")
                         .HasColumnType("bigint");
 
-                    b.Property<long>("FicheiroId")
+                    b.Property<long?>("FicheiroId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("Localizacao")
-                        .IsRequired()
-                        .HasColumnType("text");
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
@@ -401,10 +396,6 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("text")
                         .HasDefaultValue("system-usr");
 
-                    b.Property<string>("NomeFicheiro")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("NrLicenca")
                         .HasColumnType("text");
 
@@ -415,6 +406,11 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EstabelecimentoId")
+                        .IsUnique();
+
+                    b.HasIndex("FicheiroId");
 
                     b.ToTable("LicencasERS", "weges");
                 });
@@ -491,6 +487,41 @@ namespace BaseDbMigrations.Migrations
                     b.ToTable("CodCaeEntidade", "weges");
                 });
 
+            modelBuilder.Entity("ApiModel.Models.CertificadoERS", b =>
+                {
+                    b.HasOne("ApiModel.Models.Estabelecimento", "Estabelecimento")
+                        .WithOne("CertificadoERS")
+                        .HasForeignKey("ApiModel.Models.CertificadoERS", "EstabelecimentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApiModel.Models.Ficheiro", "Ficheiro")
+                        .WithMany()
+                        .HasForeignKey("FicheiroId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Estabelecimento");
+
+                    b.Navigation("Ficheiro");
+                });
+
+            modelBuilder.Entity("ApiModel.Models.LicencaERS", b =>
+                {
+                    b.HasOne("ApiModel.Models.Estabelecimento", "Estabelecimento")
+                        .WithOne("LicencaERS")
+                        .HasForeignKey("ApiModel.Models.LicencaERS", "EstabelecimentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApiModel.Models.Ficheiro", "Ficheiro")
+                        .WithMany()
+                        .HasForeignKey("FicheiroId");
+
+                    b.Navigation("Estabelecimento");
+
+                    b.Navigation("Ficheiro");
+                });
+
             modelBuilder.Entity("CodCaeEntidade", b =>
                 {
                     b.HasOne("ApiModel.Models.CodCae", null)
@@ -504,6 +535,13 @@ namespace BaseDbMigrations.Migrations
                         .HasForeignKey("EntidadesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ApiModel.Models.Estabelecimento", b =>
+                {
+                    b.Navigation("CertificadoERS");
+
+                    b.Navigation("LicencaERS");
                 });
 #pragma warning restore 612, 618
         }
