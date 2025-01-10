@@ -1,24 +1,46 @@
-.page-item.active{
-    --bs-pagination-active-bg: #212529;
-    
+.bb-sidebar-top-row {
+    background-color: #212529 !important;
+    border-bottom: #212529 !important;
+    border-right: #212529 !important;
 }
+
+.bb-sidebar nav .nav-item a:hover {
+    color: rgb(33 37 41) !important;
+    background-color: rgb(159 164 169) !important;
+}
+
+.bb-sidebar nav .nav-item[b-jbgvk8pcne] a.active {
+    color: #212529 !important;
+}
+
+.bb-sidebar nav .nav-item a.active {
+    background-color: rgb(236 237 238) !important;
+}
+
+.page-item.active {
+    --bs-pagination-active-bg: #212529;
+}
+
 .nav-link:focus, .nav-link:hover {
     color: #212529;
     background-color: whitesmoke;
 }
+
 .active > .page-link, .page-link.active {
     border-color: #212529;
 }
+
 .active > .page-link {
     --bs-nav-pills-link-active-bg: #212529;
 }
+
 .nav-pills {
     --bs-nav-pills-link-active-bg: #212529;
 }
-.nav-pills .nav-link.active {
-    background-color: #212529;
-    
-}
+
+    .nav-pills .nav-link.active {
+        background-color: #212529;
+    }
 
 .nav-link {
     color: #212529;
@@ -39,7 +61,7 @@ a, .btn-link {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 .content {
