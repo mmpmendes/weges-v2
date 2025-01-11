@@ -1,0 +1,33 @@
+services:
+  api:
+#    image: ${DOCKER_REGISTRY-}siaraaapi
+    image: ${TAG_COMMIT_API}
+    build:
+      context: .
+      dockerfile: ApiService/Dockerfile
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.weges-api.rule=Host(`api-mmendes.badjouras`)"
+      - "traefik.http.routers.weges-api.entrypoints=websecure"
+      - "traefik.http.routers.weges-api.tls=true"
+    networks:
+      - traefik-net
+
+  web:
+    image: ${TAG_COMMIT_WEB}
+    build:
+      context: .
+      dockerfile: Web/Dockerfile
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.weges-web.rule=Host(`web-mmendes.badjouras`)"
+      - "traefik.http.routers.weges-web.entrypoints=websecure"
+      - "traefik.http.routers.weges-web.tls=true"
+    networks:
+      - traefik-net
+
+
+networks:
+  traefik-net:
+    external: true
+
