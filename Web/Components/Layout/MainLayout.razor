@@ -1,5 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
+@using SharedKernel.DTO
+@using Web.InMemory
 @inherits LayoutComponentBase
+@inject EstabelecimentoService EstabelecimentoService
 
 <div class="page">
     <div class="sidebar">
@@ -12,4 +15,14 @@
             @Body
         </article>
     </main>
+
+    <!-- Top-right corner div -->
+    <div class="top-right-corner">
+        <!-- Content for the top-right corner -->
+        <p>@(EstabelecimentoService.SelectedEstabelecimento?.Denominacao ?? "Selecionar Estabelecimento")</p>
+    </div>
 </div>
+
+@code{
+    private EstabelecimentoDTO SelectedEstabelecimento => EstabelecimentoService.SelectedEstabelecimento;
+}

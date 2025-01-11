@@ -4,7 +4,7 @@
 @using SharedKernel.DTO
 
 <PageTitle>Direção Clínica </PageTitle>
-<h3>Direção Clínica</h3>
+<h3>Diretor Clínico / Responsável Técnico</h3>
 <div class="mb-3">
     @if (DirecaoClinica == null)
     {
@@ -22,7 +22,7 @@
         </div>
         <div class="form-floating mb-3">
             <input type="date" @bind="DirecaoClinica.ValidadeIdentificacao" id="validade" class="form-control" />
-            <label class="form-label" for="validade">Validade</label>
+            <label class="form-label" for="validade">Validade Identificação</label>
         </div>
 
         <div class="form-floating mb-3">
@@ -31,7 +31,7 @@
         </div>
         <div class="form-floating mb-3">
             <input id="cedula" class="form-control" type="text" @bind="DirecaoClinica.Cedula" />
-            <label class="form-label" for="cedula">Cédula</label>
+            <label class="form-label" for="cedula">Cédula Profissional</label>
         </div>
         <div class="form-floating mb-3">
             <input id="ordem" class="form-control" type="text" @bind="DirecaoClinica.Ordem" />
@@ -39,6 +39,13 @@
         </div>
         <div class="form-floating mb-3">
             <input id="tipologia" class="form-control" type="text" @bind="DirecaoClinica.Tipologia" />
+            <AutoComplete @bind-Value="DirecaoClinica.Tipologia"
+                          TItem="TipologiaDTO"
+                          DataProvider="TipologiasDataProvider"
+                          PropertyName="Tipologia"
+                          Placeholder="Search a customer..."
+                          OnChanged="(TipologiaDTO tipologia) => OnAutoCompleteChanged(tipologia)" />
+
             <label class="form-label" for="tipologia">Tipologia</label>
         </div>
         <div class="form-floating mb-3">

@@ -7,6 +7,8 @@ using Services;
 
 using SharedKernel.DTO;
 
+using Web.InMemory;
+
 namespace Web.Components.Pages.Estabelecimentos;
 
 public partial class EstabelecimentoMaster
@@ -19,6 +21,11 @@ public partial class EstabelecimentoMaster
 
     [Inject]
     public required NavigationManager NavigationManager { get; set; }
+
+    [Inject]
+    public required EstabelecimentoService EstabelecimentoService { get; set; }
+
+    private HashSet<EstabelecimentoDTO> EstabelecimentosSelecionados = new();
 
     // Note: This method is used to navigate to the details page
     private void NavigateToDetails(long estabelecimentoId)
@@ -81,4 +88,11 @@ public partial class EstabelecimentoMaster
 
         return await Task.FromResult(filtersTranslation);
     }
+
+    private Task OnSelectedItemsChanged(HashSet<EstabelecimentoDTO> estabelecimentos)
+    {
+        EstabelecimentosSelecionados = estabelecimentos is not null && estabelecimentos.Any() ? estabelecimentos : new();
+        return Task.CompletedTask;
+    }
+
 }
