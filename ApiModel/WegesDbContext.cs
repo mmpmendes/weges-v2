@@ -14,6 +14,7 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
     public DbSet<Ficheiro> Ficheiros { get; set; }
     public DbSet<CertificadoERS> CertificadosERS { get; set; }
     public DbSet<LicencaERS> LicencasERS { get; set; }
+    public DbSet<Tipologia> Tipologias { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -103,12 +104,30 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
             .HasOne(l => l.LicencaERS)
             .WithOne(c => c.Estabelecimento)
             .HasForeignKey<LicencaERS>(c => c.EstabelecimentoId)
-            .OnDelete(DeleteBehavior.Cascade); // Or DeleteBehavior.Restrict
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<LicencaERS>()
+            .HasOne(c => c.Ficheiro)
+            .WithMany()
+            .HasForeignKey(c => c.FicheiroId)
+            .OnDelete(DeleteBehavior.SetNull);
 
         modelBuilder.Entity<CertificadoERS>()
             .HasOne(c => c.Ficheiro)
-            .WithMany() // No navigation property in Ficheiro
+            .WithMany()
             .HasForeignKey(c => c.FicheiroId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<DirecaoClinica>()
+            .HasOne(d => d.Tipologia)
+            .WithMany()
+            .HasForeignKey(d => d.TipologiaId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<Servico>()
+            .HasOne(s => s.Tipologia)
+            .WithMany()
+            .HasForeignKey(s => s.TipologiaId)
             .OnDelete(DeleteBehavior.SetNull);
 
         base.OnModelCreating(modelBuilder);

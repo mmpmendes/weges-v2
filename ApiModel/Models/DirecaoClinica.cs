@@ -11,6 +11,6 @@ public class DirecaoClinica : Entity<long>
     public long EspecialidadeId { get; set; }
     public string? Observacoes { get; set; }
     public long EstabelecimentoId { get; set; }
-    public long TipologiaId { get; set; }
-    public string? Tipologia { get; set; }
+    public long? TipologiaId { get; set; }
+    public Tipologia? Tipologia { get; set; }
 }

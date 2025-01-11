@@ -18,6 +18,7 @@ public class WegesProfile : Profile
         CreateMap<Servico, ServicoDTO>().ReverseMap();
         CreateMap<CertificadoERS, CertificadoErsDTO>().ReverseMap();
         CreateMap<LicencaERS, LicencaErsDTO>().ReverseMap();
+        CreateMap<Tipologia, TipologiaDTO>().ReverseMap();
     }
 }
 

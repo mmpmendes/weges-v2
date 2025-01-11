@@ -44,7 +44,6 @@ builder.Services
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-// Add service defaults & Aspire client integrations.
 builder.AddServiceDefaults();
 
 builder.Services.AddScoped<ISimpleRepository<Entidade>, SimpleRepository<Entidade>>();
@@ -54,6 +53,7 @@ builder.Services.AddScoped<ISimpleRepository<Servico>, SimpleRepository<Servico>
 builder.Services.AddScoped<ISimpleRepository<CertificadoERS>, SimpleRepository<CertificadoERS>>();
 builder.Services.AddScoped<ISimpleRepository<LicencaERS>, SimpleRepository<LicencaERS>>();
 builder.Services.AddScoped<ISimpleRepository<Ficheiro>, SimpleRepository<Ficheiro>>();
+builder.Services.AddScoped<ISimpleRepository<Tipologia>, SimpleRepository<Tipologia>>();
 builder.Services.AddScoped<IFileService, FileService>();
 
 
@@ -64,8 +64,6 @@ builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
 
 
 
-
-// Add services to the container.
 builder.Services.AddProblemDetails();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

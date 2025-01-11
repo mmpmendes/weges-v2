@@ -1,11 +1,16 @@
+.weges-icon img{
+    width: 36px!important;
+    background-size: cover;
+}
+
 .tab-pane {
     padding: 5px;
 }
 
 .bb-sidebar-top-row {
-    background-color: #212529 !important;
-    border-bottom: #212529 !important;
-    border-right: #212529 !important;
+    background-color: #263238 !important;
+    border-bottom: #263238 !important;
+    border-right: #263238 !important;
 }
 
 .bb-sidebar nav .nav-item a:hover {
@@ -14,7 +19,7 @@
 }
 
 .bb-sidebar nav .nav-item[b-jbgvk8pcne] a.active {
-    color: #212529 !important;
+    color: #263238 !important;
 }
 
 .bb-sidebar nav .nav-item a.active {
@@ -22,32 +27,32 @@
 }
 
 .page-item.active {
-    --bs-pagination-active-bg: #212529;
+    --bs-pagination-active-bg: #263238;
 }
 
 .nav-link:focus, .nav-link:hover {
-    color: #212529;
+    color: #263238;
     background-color: whitesmoke;
 }
 
 .active > .page-link, .page-link.active {
-    border-color: #212529;
+    border-color: #263238;
 }
 
 .active > .page-link {
-    --bs-nav-pills-link-active-bg: #212529;
+    --bs-nav-pills-link-active-bg: #263238;
 }
 
 .nav-pills {
-    --bs-nav-pills-link-active-bg: #212529;
+    --bs-nav-pills-link-active-bg: #263238;
 }
 
     .nav-pills .nav-link.active {
-        background-color: #212529;
+        background-color: #263238;
     }
 
 .nav-link {
-    color: #212529;
+    color: #263238;
 }
 
 html, body {

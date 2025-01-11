@@ -83,9 +83,7 @@ public class SeedDataWeges(IServiceProvider serviceProvider,
                     Especialidade = "Especialidade 1",
                     EspecialidadeId = 1,
                     Observacoes = "Observacoes 1",
-                    EstabelecimentoId = 1,
-                    TipologiaId = 1,
-                    Tipologia = "Tipologia 1"
+                    EstabelecimentoId = 1
                 },
                 new DirecaoClinica
                 {
@@ -99,9 +97,7 @@ public class SeedDataWeges(IServiceProvider serviceProvider,
                     Especialidade = "Especialidade 2",
                     EspecialidadeId = 2,
                     Observacoes = "Observacoes 2",
-                    EstabelecimentoId = 2,
-                    TipologiaId = 2,
-                    Tipologia = "Tipologia 2"
+                    EstabelecimentoId = 2
                 }
             });
             dbContext.SaveChanges();
@@ -116,11 +112,9 @@ public class SeedDataWeges(IServiceProvider serviceProvider,
                     Nome = "Servico 1",
                     DataInicio = new DateOnly(2023, 02, 20),
                     Responsavel = "Responsavel 1",
-                    TipologiaId = 1,
                     Horario = "Horario 1",
                     Observacoes = "Observacoes 1",
-                    EstabelecimentoId = 1,
-                    Tipologia = "Tipologia 1"
+                    EstabelecimentoId = 1
                 },
                 new Servico
                 {
@@ -128,11 +122,9 @@ public class SeedDataWeges(IServiceProvider serviceProvider,
                     Nome = "Servico 2",
                     DataInicio = new DateOnly(2023, 02, 20),
                     Responsavel = "Responsavel 2",
-                    TipologiaId = 2,
                     Horario = "Horario 2",
                     Observacoes = "Observacoes 2",
-                    EstabelecimentoId = 2,
-                    Tipologia = "Tipologia 2"
+                    EstabelecimentoId = 2
                 }
             });
             dbContext.SaveChanges();

@@ -54,7 +54,10 @@ builder.Services.AddHttpClient<UserManagementService>(client =>
 {
     client.BaseAddress = new("https+http://apiservice");
 });
-
+builder.Services.AddHttpClient<TipologiaApiService>(client =>
+{
+    client.BaseAddress = new("https+http://apiservice");
+});
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
