@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
     paths:
       - 'ApiService/**'
+      - '.github/workflows/weges-api.yml'
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   
