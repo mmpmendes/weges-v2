@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		docker-compose.yml = docker-compose.yml
-		.github\workflows\docker-publish.yml = .github\workflows\docker-publish.yml
+		.github\workflows\web-docker-image.yml = .github\workflows\web-docker-image.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedKernel", "SharedKernel\SharedKernel.csproj", "{4F1114BF-5FED-47C4-9221-CB01F44A0746}"
