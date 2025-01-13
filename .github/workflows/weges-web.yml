@@ -8,6 +8,8 @@ name: weges-web
 on:
   push:
     branches: [ "main" ]
+    paths:
+     - 'Web/**'
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
 
