@@ -1,7 +1,12 @@
 name: weges-api
 
 on:
-  push: 
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'ApiService/**'
+    # Publish semver tags as releases.
+    tags: [ 'v*.*.*' ]
   
 env:
   # Use docker.io for Docker Hub if empty
