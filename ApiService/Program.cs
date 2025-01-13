@@ -28,6 +28,7 @@ builder.Services.AddCors(options =>
         });
 });
 
+
 builder.Services.AddIdentityCore<WegesUser>()
                 .AddEntityFrameworkStores<WegesDbContext>()
                 .AddApiEndpoints()
