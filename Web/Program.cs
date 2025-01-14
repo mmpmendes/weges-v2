@@ -1,6 +1,7 @@
 using Services;
 
 using Web.Components;
+using Web.InMemory;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +59,9 @@ builder.Services.AddHttpClient<TipologiaApiService>(client =>
 {
     client.BaseAddress = new("https+http://apiservice");
 });
+
+builder.Services.AddScoped<EstabelecimentoService>();
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
