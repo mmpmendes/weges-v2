@@ -1,28 +1,80 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Services
 @using SharedKernel.DTO
+@using SharedKernel.Models
 @using Web.InMemory
 @inherits LayoutComponentBase
 @inject EstabelecimentoService EstabelecimentoService
+@inject IdentityService IdentityService
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
+<BlazorBootstrapLayout StickyHeader="true">
+    <HeaderSection>
+        @* <ThemeSwitcher Class="ps-3 ps-lg-2" /> *@
+        @if (EstabelecimentoService is not null && EstabelecimentoService.SelectedEstabelecimento is not null)
+        {
+            <!-- Top-right corner div -->
+            <div class="selected-info">
+                <span>
+                    @EstabelecimentoService.SelectedEstabelecimento!.Denominacao
+                </span>
+            </div>
+        }
+        <div class="profile-widget">
+            
+            <div class="profile-name">John Doe</div>
+        </div>
+    </HeaderSection>
+    <SidebarSection>
+        <div class="sidebar">
+            <NavMenu />
 
-    </div>
+        </div>
 
-    <main>
+    </SidebarSection>
+    <ContentSection>
         <article class="content px-4">
             @Body
         </article>
-    </main>
+    </ContentSection>
 
-    <!-- Top-right corner div -->
-    <div class="top-right-corner">
-        <!-- Content for the top-right corner -->
-        <p>@(EstabelecimentoService.SelectedEstabelecimento?.Denominacao ?? "Selecionar Estabelecimento")</p>
-    </div>
-</div>
+    <FooterSection>
+        <span>
+            Weges 2025
+        </span>
+    </FooterSection>
+</BlazorBootstrapLayout>
+@code {
 
-@code{
-    private EstabelecimentoDTO SelectedEstabelecimento => EstabelecimentoService.SelectedEstabelecimento;
+    private LoginModel loginModel = new();
+    private string? errorMessage;
+
+    private async Task HandleLoginAsync()
+    {
+        var token = await IdentityService.LoginAsync(loginModel);
+        if (!string.IsNullOrEmpty(token))
+        {
+            // Store the token for future use (e.g., in localStorage or a service)
+            errorMessage = null;
+        }
+        else
+        {
+            errorMessage = "Invalid login attempt.";
+        }
+    }
+
+    private EstabelecimentoDTO SelectedEstabelecimento { get; set; }
+
+    protected override void OnInitialized()
+    {
+        SelectedEstabelecimento = EstabelecimentoService.SelectedEstabelecimento;
+
+        // Subscribe to the event
+        EstabelecimentoService.OnEstabelecimentoChanged += HandleEstabelecimentoChanged;
+    }
+
+    private void HandleEstabelecimentoChanged()
+    {
+        SelectedEstabelecimento = EstabelecimentoService.SelectedEstabelecimento;
+        InvokeAsync(StateHasChanged); // Refresh UI
+    }
 }

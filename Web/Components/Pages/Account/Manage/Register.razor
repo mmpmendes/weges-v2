@@ -33,7 +33,7 @@
 @code {
     private RegisterModel _registerModel = new RegisterModel();
     [Inject]
-    private UserManagementService userManagementService { get; set; }
+    private IdentityService userManagementService { get; set; }
     private string message { get; set; } = string.Empty;
     private ElementReference myLabel;
     private bool showErrors = false;

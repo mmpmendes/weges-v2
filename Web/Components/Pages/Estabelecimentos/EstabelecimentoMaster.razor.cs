@@ -64,6 +64,16 @@ public partial class EstabelecimentoMaster
         NavigateToDetails(-1);
     }
 
+    private void SeleccionaEstabelecimento(long estabelecimentoId)
+    {
+        EstabelecimentoService.SelectedEstabelecimento = Estabelecimentos.Where(e => e.Id == estabelecimentoId).First();
+    }
+
+    private bool IsEstabelecimentoSelected(long estabelecimentoId)
+    {
+        return EstabelecimentoService.SelectedEstabelecimento?.Id == estabelecimentoId;
+    }
+
     // Note: This method is used to provide the translation for the grid filters
     private async Task<IEnumerable<FilterOperatorInfo>> GridFiltersTranslationProvider()
     {
@@ -89,10 +99,10 @@ public partial class EstabelecimentoMaster
         return await Task.FromResult(filtersTranslation);
     }
 
-    private Task OnSelectedItemsChanged(HashSet<EstabelecimentoDTO> estabelecimentos)
-    {
-        EstabelecimentosSelecionados = estabelecimentos is not null && estabelecimentos.Any() ? estabelecimentos : new();
-        return Task.CompletedTask;
-    }
+    //private Task OnSelectedItemsChanged(HashSet<EstabelecimentoDTO> estabelecimentos)
+    //{
+    //    EstabelecimentosSelecionados = estabelecimentos is not null && estabelecimentos.Any() ? estabelecimentos : new();
+    //    return Task.CompletedTask;
+    //}
 
 }

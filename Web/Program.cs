@@ -51,7 +51,7 @@ builder.Services.AddHttpClient<ServicosApiService>(client =>
     client.BaseAddress = new("https+http://apiservice");
 });
 
-builder.Services.AddHttpClient<UserManagementService>(client =>
+builder.Services.AddHttpClient<IdentityService>(client =>
 {
     client.BaseAddress = new("https+http://apiservice");
 });
@@ -59,8 +59,12 @@ builder.Services.AddHttpClient<TipologiaApiService>(client =>
 {
     client.BaseAddress = new("https+http://apiservice");
 });
+builder.Services.AddHttpClient<IdentityService>(client =>
+{
+    client.BaseAddress = new("https+http://apiservice");
+});
 
-builder.Services.AddScoped<EstabelecimentoService>();
+builder.Services.AddSingleton<EstabelecimentoService>();
 
 var app = builder.Build();
 

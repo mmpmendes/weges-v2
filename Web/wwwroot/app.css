@@ -1,18 +1,28 @@
-.top-right-corner {
-    position: absolute;
-    top: 10px; /* Adjust for desired spacing from the top */
-    right: 10px; /* Adjust for desired spacing from the right */
-    background-color: #f8f9fa; /* Light background for better visibility */
-    padding: 8px 12px; /* Add padding for a clean look */
-    border: 1px solid #ddd; /* Optional: border for definition */
-    border-radius: 4px; /* Optional: rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow */
-    font-size: 0.9rem; /* Adjust text size */
-    z-index: 1000; /* Ensure it appears above other content */
+.body{
+    margin-top: 56px;
 }
 
-.weges-icon img{
-    width: 36px!important;
+.profile-widget {
+    min-width: 150px;
+    text-align: center;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.selected-info {
+    margin-right:10px;
+}
+
+.bb-top-row-sticky{
+    position: initial!important;
+}
+
+.weges-icon img {
+    width: 36px !important;
     background-size: cover;
 }
 

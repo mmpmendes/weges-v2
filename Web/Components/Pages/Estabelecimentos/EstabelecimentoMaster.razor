@@ -9,9 +9,6 @@
       Class="table table-hover table-bordered table-striped"
       DataProvider="EstabelecimentosDataProvider"
       FiltersTranslationProvider="GridFiltersTranslationProvider"
-      AllowSelection="true"
-      SelectionMode="GridSelectionMode.Single"
-      SelectedItemsChanged="OnSelectedItemsChanged"
       AllowFiltering="true"
       AllowPaging="true"
       PageSize="10"
@@ -19,11 +16,9 @@
       EmptyText="Sem dados para apresentar">
 
     <GridColumns>
-        @* <GridColumn TItem="EstabelecimentoDTO" HeaderText="" PropertyName="Id" Filterable="false">
-            <Button Class="btn btn-dark" @onclick="() => SelecionarEstabelecimento(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
-        </GridColumn> *@
         <GridColumn TItem="EstabelecimentoDTO" HeaderText="" PropertyName="Id" Filterable="false">
-                <Button Class="btn btn-dark" @onclick="() => NavigateToDetails(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
+            <Button Class="btn btn-dark" Style="margin: 2px" @onclick="() => NavigateToDetails(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
+            <Button Class="btn btn-dark" Style="margin: 2px" hidden="@IsEstabelecimentoSelected(context.Id)" @onclick="() => SeleccionaEstabelecimento(context.Id)"><Icon Name="IconName.Check" /></Button>
         </GridColumn>
         <GridColumn TItem="EstabelecimentoDTO" HeaderText="Sigla" PropertyName="Sigla" SortKeySelector="item => item.Sigla">
             @context.Sigla
