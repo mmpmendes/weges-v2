@@ -1,10 +1,9 @@
-﻿using ApiModel.Models;
-
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiModel;
-public class UtilizadoresDbContext(DbContextOptions<UtilizadoresDbContext> options) : IdentityDbContext<WegesUser>(options)
+public class UtilizadoresDbContext(DbContextOptions<UtilizadoresDbContext> options) : IdentityDbContext<IdentityUser>(options)
 {
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

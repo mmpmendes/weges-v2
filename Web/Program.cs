@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 using Services;
 
 using Web.Components;
@@ -17,17 +19,17 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
-builder.Services.AddAuthentication("Cookies")
-    .AddCookie("Cookies", options =>
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
     {
         options.LoginPath = "/login"; // Path to your login page
         options.LogoutPath = "/logout"; // Path to handle logouts
-        options.Cookie.HttpOnly = true; // Ensure the cookie is not accessible via JavaScript
+        options.Cookie.HttpOnly = false; // Ensure the cookie is not accessible via JavaScript
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always; // Use HTTPS for production
         options.Cookie.SameSite = SameSiteMode.Strict; // Prevent cross-site requests
         options.ExpireTimeSpan = TimeSpan.FromHours(1); // Set cookie expiration
     });
-builder.Services.AddAuthorization();
 
 builder.Services.AddBlazorBootstrap();
 

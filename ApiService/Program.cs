@@ -28,10 +28,6 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.AddIdentityCore<WegesUser>()
-                .AddEntityFrameworkStores<WegesDbContext>()
-                .AddApiEndpoints()
-                .AddErrorDescriber<PortugueseIdentityErrorDescriber>();
 
 builder.Services.AddDbContextPool<WegesDbContext>(options =>
     options.UseNpgsql(
@@ -41,6 +37,14 @@ builder.Services
     .AddDbContextPool<UtilizadoresDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("weges")));
+
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<UtilizadoresDbContext>()
+                .AddApiEndpoints()
+                .AddDefaultTokenProviders()
+                .AddSignInManager()
+                .AddErrorDescriber<PortugueseIdentityErrorDescriber>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -58,9 +62,9 @@ builder.Services.AddScoped<IFileService, FileService>();
 
 
 builder.Services.AddAuthorization();
-builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
-                .AddCookie(IdentityConstants.ApplicationScheme)
-                .AddBearerToken(IdentityConstants.BearerScheme);
+//builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
+//                .AddCookie(IdentityConstants.ApplicationScheme)
+//                .AddBearerToken(IdentityConstants.BearerScheme);
 
 
 
@@ -90,6 +94,6 @@ if (app.Environment.IsDevelopment())
 
 //app.MapDefaultEndpoints();
 app.MapControllers();
-app.MapIdentityApi<WegesUser>();
+app.MapIdentityApi<IdentityUser>();
 
 app.Run();
