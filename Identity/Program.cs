@@ -75,6 +75,7 @@ builder.Services.AddHttpClient<TipologiaApiService>(client =>
 
 builder.Services.AddSingleton<EstabelecimentoService>();
 
+builder.Services.AddAntiforgery();
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
@@ -94,11 +95,13 @@ else
 app.UseHttpsRedirection();
 
 
-app.UseAntiforgery();
 
 app.UseOutputCache();
+
+
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseAntiforgery();
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
