@@ -1,0 +1,113 @@
+﻿@page "/estabelecimentos/{Id:long}"
+@using Microsoft.AspNetCore.Authorization
+@using SharedKernel.DTO
+@attribute [Authorize]
+
+<PageTitle>Estabelecimento</PageTitle>
+
+<Tabs EnableFadeEffect="true" Class="nav nav-pills nav-justified" @ref="Tabs">
+    <Tab Title="Dados" Active="true">
+        <Content>
+            <EstabelecimentoForm Id="Id" />
+        </Content>
+    </Tab>
+    <Tab Title="Direção Clínica">
+        <Content>
+            <div class="d-grid gap-2">
+                <Button Type="ButtonType.Button" @onclick="AddDirecaoClinica" Class="btn btn-outline-dark"><Icon Name="IconName.PlusSquare" /> Adicionar</Button>
+            </div>
+            <Grid TItem="DirecaoClinicaDTO"
+                  @ref="DirecoesClinicasGrid"
+                  Class="table table-hover table-bordered table-striped"
+                  DataProvider="DirecoesClinicasDataProvider"
+                  OnRowDoubleClick="OnDirecoesClinicasRowClick"
+                  AllowRowClick="true"
+                  AllowFiltering="true"
+                  AllowPaging="true"
+                  PageSize="10"
+                  AllowSorting="true"
+                  Responsive="true"
+                  EmptyText="Sem dados para apresentar">
+
+                <GridColumns>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="" PropertyName="Id" Filterable="false">
+                        <Button Class="btn btn-dark" @onclick="() => EditarDirecaoClinica(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                        @context.Nome
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Cargo" PropertyName="Cargo" SortKeySelector="item => item.Cargo">
+                        @context.Cargo
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Identificação" PropertyName="Identificacao" SortKeySelector="item => item.Identificacao">
+                        @context.Identificacao
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="ValidadeIdentificacao" PropertyName="ValidadeIdentificacao" SortKeySelector="item => item.ValidadeIdentificacao">
+                        @context.ValidadeIdentificacao
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Cedula" PropertyName="Cedula" SortKeySelector="item => item.Cedula">
+                        @context.Cedula
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Ordem" PropertyName="Ordem" SortKeySelector="item => item.Ordem">
+                        @context.Ordem
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Especialidade" PropertyName="Especialidade" SortKeySelector="item => item.Especialidade">
+                        @context.Especialidade
+                    </GridColumn>
+                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Tipologia" PropertyName="Tipologia" SortKeySelector="item => item.Tipologia">
+                        @context.Tipologia
+                    </GridColumn>
+                </GridColumns>
+            </Grid>
+        </Content>
+    </Tab>
+    <Tab Title="Dados Serviço">
+        <Content>
+            <div class="d-grid gap-2">
+                <Button Type="ButtonType.Button" Class="btn btn-outline-dark" @onclick="AddServico"><Icon Name="IconName.PlusSquare" /> Adicionar</Button>
+            </div>
+            <Grid TItem="ServicoDTO"
+                  @ref="ServicosGrid"
+                  Class="table table-hover table-bordered table-striped"
+                  DataProvider="ServicosDataProvider"
+                  OnRowDoubleClick="OnServicosRowClick"
+                  AllowRowClick="true"
+                  AllowFiltering="true"
+                  AllowPaging="true"
+                  PageSize="10"
+                  AllowSorting="true"
+                  Responsive="true"
+                  EmptyText="Sem dados para apresentar">
+
+                <GridColumns>
+                    <GridColumn TItem="ServicoDTO" HeaderText="" PropertyName="Id" Filterable="false">
+                        <Button Class="btn btn-dark" @onclick="() => EditarServico(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
+                    </GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                        @context.Nome
+                    </GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Início" PropertyName="Início" SortKeySelector="item => item.DataInicio">
+                        @context.DataInicio
+                    </GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Responsável" PropertyName="Responsavel" SortKeySelector="item => item.Responsavel">
+                        @context.Responsavel
+                    </GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Tipologia" PropertyName="Tipologia" SortKeySelector="item => item.Tipologia">
+                        @context.Tipologia
+                    </GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Horário" PropertyName="Horario" SortKeySelector="item => item.Horario">
+                        @context.Horario
+                    </GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Observações" PropertyName="Observacoes" SortKeySelector="item => item.Observacoes">
+                        @context.Observacoes
+                    </GridColumn>
+                </GridColumns>
+            </Grid>
+        </Content>
+    </Tab>
+    <Tab Title="Certificados e Licenças">
+        <Content>
+            <EstabelecimentoCertificadosLicencas Id="Id" />
+        </Content>
+    </Tab>
+</Tabs>

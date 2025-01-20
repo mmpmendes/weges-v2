@@ -1,0 +1,27 @@
+﻿@page "/tipologias"
+@using Microsoft.AspNetCore.Authorization
+@using SharedKernel.DTO
+@attribute [Authorize]
+
+<PageTitle>Tipologias</PageTitle>
+<h3>Tipologias <Button Type="ButtonType.Button" Color="ButtonColor.Dark" @onclick="AddTipologia"><Icon Name="IconName.PlusSquare" /></Button></h3>
+
+<Grid @ref="TipologiasGrid"
+      TItem="TipologiaDTO"
+      Class="table table-hover table-bordered table-striped"
+      DataProvider="TipologiasDataProvider"
+      FiltersTranslationProvider="GridFiltersTranslationProvider"
+      AllowFiltering="true"
+      AllowPaging="true"
+      PageSize="10"
+      Responsive="true"
+      EmptyText="Sem dados para apresentar">
+    <GridColumns>
+        <GridColumn TItem="TipologiaDTO" HeaderText="" PropertyName="Id" Filterable="false">
+            <Button Class="btn btn-dark" @onclick="() => NavigateToDetails(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
+        </GridColumn>
+        <GridColumn TItem="TipologiaDTO" HeaderText="Tipologia" PropertyName="Nome" SortKeySelector="item => item.Nome">
+            @context.Nome
+        </GridColumn>
+    </GridColumns>
+</Grid>

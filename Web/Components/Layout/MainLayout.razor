@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Services
 @using SharedKernel.DTO
-@using SharedKernel.Models
 @using Web.InMemory
 @inherits LayoutComponentBase
 @inject EstabelecimentoService EstabelecimentoService
@@ -19,10 +18,12 @@
                 </span>
             </div>
         }
+        
         <div class="profile-widget">
-            
+
             <div class="profile-name">John Doe</div>
         </div>
+
     </HeaderSection>
     <SidebarSection>
         <div class="sidebar">
@@ -44,23 +45,6 @@
     </FooterSection>
 </BlazorBootstrapLayout>
 @code {
-
-    private WegesLoginDTO loginModel = new();
-    private string? errorMessage;
-
-    private async Task HandleLoginAsync()
-    {
-        var token = await IdentityService.LoginAsync(loginModel);
-        if (!string.IsNullOrEmpty(token))
-        {
-            // Store the token for future use (e.g., in localStorage or a service)
-            errorMessage = null;
-        }
-        else
-        {
-            errorMessage = "Invalid login attempt.";
-        }
-    }
 
     private EstabelecimentoDTO SelectedEstabelecimento { get; set; }
 

@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityMigrations", "Ident
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileManagement", "FileManagement\FileManagement.csproj", "{68A50652-B6DC-49BB-AEB7-BEF2F04BB729}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity", "Identity\Identity.csproj", "{38F9AC2B-2EA7-4EAE-8C5F-6DF6B775CD89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{68A50652-B6DC-49BB-AEB7-BEF2F04BB729}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68A50652-B6DC-49BB-AEB7-BEF2F04BB729}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68A50652-B6DC-49BB-AEB7-BEF2F04BB729}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38F9AC2B-2EA7-4EAE-8C5F-6DF6B775CD89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38F9AC2B-2EA7-4EAE-8C5F-6DF6B775CD89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38F9AC2B-2EA7-4EAE-8C5F-6DF6B775CD89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38F9AC2B-2EA7-4EAE-8C5F-6DF6B775CD89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

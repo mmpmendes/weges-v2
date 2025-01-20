@@ -1,0 +1,10 @@
+﻿@page "/tipologias/{Id:long}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+<div class="tab-padded">
+    <div class="form-floating mb-3">
+        <input id="tipologia" class="form-control" type="text" @bind="Tipologia.Nome" />
+        <label class="form-label" for="nome">Tipologia</label>
+    </div>
+</div>
+<SaveBackControl OnClickSaveEventHandler="SaveTipologia" OnClickBackEventHandler="GoBackToTipologias" />

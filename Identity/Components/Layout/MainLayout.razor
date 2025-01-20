@@ -1,0 +1,83 @@
+﻿@using ApiModel.Models
+@using Identity.Components.Account
+@using Identity.InMemory
+@using Microsoft.AspNetCore.Identity
+@using SharedKernel.DTO
+@inherits LayoutComponentBase
+@inject SignInManager<WegesUser> SignInManager
+@inject IdentityRedirectManager RedirectManager
+
+<BlazorBootstrapLayout StickyHeader="true">
+    <HeaderSection>
+        @if (EstabelecimentoService is not null && EstabelecimentoService.SelectedEstabelecimento is not null)
+        {
+            <!-- Top-right corner div -->
+            <div class="selected-info">
+                <span>
+                    @EstabelecimentoService.SelectedEstabelecimento!.Denominacao
+                </span>
+            </div>
+        }
+
+        @if (authState?.User.Identity is not null && authState.User.Identity.IsAuthenticated)
+        {
+            @* <div class="profile-widget" @onclick='()=>NavigationManager.NavigateTo("Account/Manage")'> *@
+            <div class="profile-widget">
+                <div class="profile-name">
+                    <a href="/Account/Manage">@authState.User.Identity.Name</a>
+                    <button class="btn btn-link" @onclick="Logout">Sair</button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="profile-widget">
+                <div class="profile-name"><a href="/Account/Login">Entrar</a></div>
+            </div>
+        }
+
+    </HeaderSection>
+    <SidebarSection>
+        <div class="sidebar">
+            <NavMenu @rendermode=@InteractiveServer/>
+        </div>
+    </SidebarSection>
+
+    <ContentSection>
+        <article class="content px-4">
+            @Body
+        </article>
+    </ContentSection>
+</BlazorBootstrapLayout>
+
+@code {
+
+    private EstabelecimentoDTO SelectedEstabelecimento { get; set; }
+
+    [Inject] EstabelecimentoService EstabelecimentoService { get; set; } = default!;
+    [Inject] AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
+    [Inject] NavigationManager NavigationManager { get; set; } = default!;
+    private AuthenticationState? authState;
+
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+
+    protected async override void OnInitialized()
+    {
+        authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        SelectedEstabelecimento = EstabelecimentoService.SelectedEstabelecimento;
+
+        // Subscribe to the event
+        EstabelecimentoService.OnEstabelecimentoChanged += HandleEstabelecimentoChanged;
+    }
+
+    private void HandleEstabelecimentoChanged()
+    {
+        SelectedEstabelecimento = EstabelecimentoService.SelectedEstabelecimento;
+        InvokeAsync(StateHasChanged); // Refresh UI
+    }
+    private void Logout(MouseEventArgs e)
+    {
+        NavigationManager.NavigateTo("/Account/Logout");
+    }
+}

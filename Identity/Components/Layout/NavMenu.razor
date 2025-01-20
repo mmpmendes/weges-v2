@@ -1,0 +1,49 @@
+﻿<Sidebar2 Href="/"
+          ImageSrc="../images/weges_icone.png"
+          Title="Weges"
+          Class="weges-icon"
+          
+          DataProvider="SidebarDataProvider">
+
+</Sidebar2>
+
+@code {
+    [Inject] AuthenticationStateProvider authenticationStateProvider { get; set; } = default!;
+    private IEnumerable<NavItem>? navItems;
+    private async Task<Sidebar2DataProviderResult> SidebarDataProvider(Sidebar2DataProviderRequest request)
+    {
+        if (navItems is null)
+            navItems = await GetNavItems();
+
+        return await Task.FromResult(request.ApplyTo(navItems));
+    }
+    private async Task<IEnumerable<NavItem>> GetNavItems()
+    {
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        if (authState.User.Identity is not null && authState.User.Identity.IsAuthenticated)
+        {
+            navItems = new List<NavItem>
+            {
+                new NavItem { Id = "10" ,Href = "/", IconName = IconName.House, Text = "Início" },
+                new NavItem { Id = "20" ,Href = "/estabelecimentos", IconName = IconName.Shop, Text = "Estabelecimentos" },
+                new NavItem { Id = "30" ,Href = "/entidades", IconName = IconName.ShopWindow, Text = "Entidades" },
+                // new NavItem { Id = "400" , IconName = IconName.Gear, Text = "Back-Office" },
+                // new NavItem { Id = "500" ,Href = "/tipologias", IconName = IconName.ShopWindow, Text = "Tipologias", ParentId = "40" },
+                new NavItem { Href = "/Account/Logout", IconName = IconName.Person, Text = "Sair" }
+            };
+        }
+        else
+        {
+            navItems = new List<NavItem>
+            {
+                new NavItem { Id = "10" ,Href = "/", IconName = IconName.House, Text = "Início" },
+                // new NavItem { Id = "400" , IconName = IconName.Gear, Text = "Back-Office" },
+                // new NavItem { Id = "500" ,Href = "/tipologias", IconName = IconName.ShopWindow, Text = "Tipologias", ParentId = "40" },
+                new NavItem { Href = "/Account/Login", IconName = IconName.Person, Text = "Entrar" }
+            };
+        }
+
+        return navItems;
+    }
+}
+

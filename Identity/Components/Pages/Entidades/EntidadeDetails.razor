@@ -1,0 +1,53 @@
+﻿@page "/entidade/{Id:long}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+<PageTitle>Entidade</PageTitle>
+
+<Tabs EnableFadeEffect="true" NavStyle="NavStyle.Pills">
+    <Tab Title="Dados" Active="true">
+        <Content>
+            <div class="tab-padded">
+                <div class="form-floating mb-3">
+                    <input id="denominacao" class="form-control" type="text" @bind="Entidade.Denominacao" />
+                    <label class="form-label" for="denominacao">Denominação</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="nif" @bind="Entidade.NifNipc" type="text" class="form-control" />
+                    <label class="form-label" for="nif">NIF/NIPC</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" @bind="Entidade.Morada" id="morada" class="form-control" />
+                    <label class="form-label" for="morada">Morada</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="nres" class="form-control" type="text" @bind="Entidade.NrERS" />
+                    <label class="form-label" for="nrers">Nº de registo ERS</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="tlf" class="form-control" type="tel" @bind="Entidade.Telefone" />
+                    <label class="form-label" for="tlf">Contato telefónico</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="email" class="form-control" type="email" @bind="Entidade.Email" />
+                    <label class="form-label"  for="email">Endereço de email</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="sigla" class="form-control" type="text" @bind="Entidade.Sigla" />
+                    <label class ="form-label" for="sigla">Sigla</label>
+                </div>
+                <Button Class="btn btn-dark" @onclick="SaveEntidade">Guardar</Button>
+                <Button Class="btn btn-outline-dark" @onclick="GoBackToEntidades">Voltar</Button>
+            </div>
+        </Content>
+    </Tab>
+    <Tab Title="Administração">
+        <Content>
+            <p>Content for Tab 1</p>
+        </Content>
+    </Tab>
+    <Tab Title="Acessos">
+        <Content>
+            <p>Content for Tab 1</p>
+        </Content>
+    </Tab>
+</Tabs>
