@@ -8,13 +8,8 @@ using BaseDbMigrations;
 using Microsoft.EntityFrameworkCore;
 
 var builder = Host.CreateApplicationBuilder(args);
-builder.Services.AddHostedService<DbInitializer<WegesDbContext>>();
-builder.Services.AddHostedService<DbInitializer<UtilizadoresDbContext>>();
-builder.Services.AddHostedService<SeedDataWeges>();
 
-builder.AddServiceDefaults();
-
-builder.Services.AddDbContextPool<WegesDbContext>(options =>
+builder.Services.AddDbContext<WegesDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("weges"),
         b =>
@@ -24,7 +19,7 @@ builder.Services.AddDbContextPool<WegesDbContext>(options =>
         }));
 
 builder.Services
-    .AddDbContextPool<UtilizadoresDbContext>(options =>
+    .AddDbContext<UtilizadoresDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("weges"),
         b =>
@@ -32,6 +27,14 @@ builder.Services
             b.MigrationsAssembly("IdentityMigrations");
             b.MigrationsHistoryTable("__EFMigrationsHistory", "weges_users");
         }));
+
+builder.Services.AddHostedService<DbInitializer<WegesDbContext>>();
+builder.Services.AddHostedService<DbInitializer<UtilizadoresDbContext>>();
+builder.Services.AddHostedService<SeedDataWeges>();
+
+builder.AddServiceDefaults();
+
+
 
 var app = builder.Build();
 

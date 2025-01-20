@@ -1,0 +1,41 @@
+﻿@page "/Estabelecimentos/{EstabelecimentoId:long}/Servico"
+@page "/Estabelecimentos/{EstabelecimentoId:long}/Servico/{ServicoId:long}"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+<PageTitle>Serviço</PageTitle>
+<h3>Serviço</h3>
+<div class="mb-3">
+    @if (Servico == null)
+    {
+        <p>Carregando...</p>
+    }
+    else
+    {
+        <div class="form-floating mb-3">
+            <input id="nome" class="form-control" type="text" @bind="Servico!.Nome" />
+            <label class="form-label" for="nome">Nome</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input id="datainicio" class="form-control" type="date" @bind="Servico!.DataInicio" />
+            <label class="form-label" for="datainicio">Data Início</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" @bind="Servico!.Responsavel" id="diretor" class="form-control" />
+            <label class="form-label" for="diretor">Diretor de Serviço</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input id="tipologia" class="form-control" type="text" @bind="Servico.Tipologia" />
+            <label class="form-label" for="tipologia">Tipologia</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input id="horario" class="form-control" type="text" @bind="Servico.Horario" />
+            <label class="form-label" for="horario">Horário</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input id="observacoes" class="form-control" type="text" @bind="Servico.Observacoes" />
+            <label class="form-label" for="observacoes">Observações</label>
+        </div>
+    }
+    <SaveBackControl OnClickSaveEventHandler="SaveServico" OnClickBackEventHandler="GoBackToEstabelecimento" />
+</div>

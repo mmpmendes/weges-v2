@@ -1,0 +1,41 @@
+﻿<div class="row">
+    <span class="col-md-6">
+        <Card Style="width:18rem;">
+            <CardBody>
+                <CardTitle>Certificado de Registo ERS</CardTitle>
+                <div class="form-floating mb-3">
+                    <input id="nrCertificado" class="form-control" type="text" />
+                    <label class="form-label" for="nrCertificado">Nº do certificado</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="periodo" class="form-control" type="text" />
+                    <label class="form-label" for="periodo">Período</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="expiracao" class="form-control" type="date" />
+                    <label class="form-label" for="expiracao">Data de expiração</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="taxa" class="form-control" type="date" />
+                    <label class="form-label" for="taxa">Data de expiração taxa</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input id="observacoes" class="form-control" type="text" />
+                    <label class="form-label" for="observacoes">Observações</label>
+                </div>
+                <FileUploadButton SelectedFileChanged="OnCertificadoFileSelected" Label="Carregar Ficheiro" />
+                <button @onclick="UploadCertificado" disabled="@(!IsFileSelected)" class="btn btn-dark">Guardar Certificado</button>
+            </CardBody>
+        </Card>
+    </span>
+    <span class="col-md-6">
+        <Card Style="width:18rem;">
+            <CardBody>
+                <CardTitle>Licença de Funcionamento ERS</CardTitle>
+
+                <FileUploadButton SelectedFileChanged="OnLicencaFileSelected" Label="Carregar Ficheiro" />
+                <button @onclick="UploadLicenca" disabled="@(!IsFileSelected)" class="btn btn-dark">Guardar Certificado</button>
+            </CardBody>
+        </Card>
+    </span>
+</div>

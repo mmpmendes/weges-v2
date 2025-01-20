@@ -1,65 +1,49 @@
 ﻿@page "/login"
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@using Microsoft.AspNetCore.Identity
 @using Newtonsoft.Json
 @using System.Security.Claims
 @using Services
+@using SharedKernel.DTO
 @using SharedKernel.Models
 
-@inject UserManagementService userService;
-@inject NavigationManager navigationManager;
+@inject IdentityService userService
+@inject NavigationManager navigationManager
 
-<h3>Entrar</h3>
-<EditForm Model="_loginModel" OnValidSubmit="LoginCall">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <div>
-        <label>Email:</label>
-        <InputText @bind-Value="_loginModel.Email" />
+<h3>Autenticar</h3>
+<div class="mb-3">
+    <div class="form-floating mb-3">
+        <label class="form-label">Email</label>
+        <input @bind="loginModel.Email" type="email" class="form-control" />
     </div>
-
-    <div>
-        <label>Palavra-passe:</label>
-        <InputText type="password" @bind-Value="_loginModel.Password" />
+    <div class="form-floating mb-3">
+        <label class="form-label">Palavra-passe</label>
+        <input @bind="loginModel.Password" type="password" class="form-control" />
     </div>
-
-    <button type="submit">Login</button>
-</EditForm>
-<br />
-@if (!string.IsNullOrEmpty(message))
+    <button class="btn btn-dark" @onclick="HandleLoginAsync">Entrar</button>
+    <div>Se ainda não tem conta registe-se <a href="/register">aqui.</a></div>
+</div>
+@if (errorMessage != null)
 {
-    <div class="alert alert-danger" role="alert">
-        @message
-    </div>
+    <p style="color: red">@errorMessage</p>
 }
-<label>Se ainda não tem conta por favor registe-se <a href="/register">aqui</a></label>
 
 @code {
-    private LoginModel _loginModel = new LoginModel();
-    private string message { get; set; } = string.Empty;
+    private WegesLoginDTO loginModel = new();
+    private string? errorMessage;
 
-    private async Task LoginCall()
+    private async Task HandleLoginAsync()
     {
-        var response = await userService.LoginUserAsync(_loginModel);
-        if (response.IsSuccessStatusCode)
+        var token = await userService.LoginAsync(loginModel);
+        if (!string.IsNullOrEmpty(token))
         {
-            var content = await response.Content.ReadAsStringAsync();
-            var tokens = JsonConvert.DeserializeObject<AccessTokenResponse>(content);
-            if (tokens is not null)
-            {
-                var info = await userService.GetUserInfoAsync(tokens.AccessToken);
-                message = info is not null ? info.Email : "Não Logado";
-            }
-            else
-            {
-                // Handle error getting user information
-                message = "Impossível encontrar a informação do utilizador.";
-            }
+            // Store the token for future use (e.g., in localStorage or a service)
+            errorMessage = null;
         }
         else
         {
-            message = "Credenciais Inválidas.";
+            errorMessage = "Invalid login attempt.";
         }
     }
 }

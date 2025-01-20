@@ -1,0 +1,39 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using System.Text.Json
+@using SharedKernel.DTO
+@attribute [Authorize]
+@page "/entidades"
+
+<PageTitle>Entidades</PageTitle>
+
+<h3>Entidades <Button Type="ButtonType.Button" Color="ButtonColor.Dark" @onclick="AddEntidade"><Icon Name="IconName.PlusSquare" /></Button></h3>
+<Grid @ref="EntidadesGV" 
+    TItem="EntidadeDTO"
+      Class="table table-hover table-bordered table-striped table-light"
+      DataProvider="EntidadesDataProvider"
+      AllowFiltering="true"
+      AllowPaging="true"
+      PageSize="10"
+      AllowSorting="true"
+      Responsive="true"
+      EmptyText="Sem dados para apresentar">
+
+    <GridColumns>
+        <GridColumn TItem="EntidadeDTO" HeaderText="" PropertyName="Id" Filterable="false">
+                <Button Class="btn btn-dark" @onclick="() => NavigateToDetails(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
+        </GridColumn>
+        <GridColumn TItem="EntidadeDTO" HeaderText="Sigla" PropertyName="Sigla" SortKeySelector="item => item.Sigla">
+            @context.Sigla
+        </GridColumn>
+        <GridColumn TItem="EntidadeDTO" HeaderText="Denominação" PropertyName="Denominacao" SortKeySelector="item => item.Denominacao">
+            @context.Denominacao
+        </GridColumn>
+        <GridColumn TItem="EntidadeDTO" HeaderText="Nif" PropertyName="NifNipc" SortKeySelector="item => item.NifNipc">
+            @context.NifNipc
+        </GridColumn>
+        <GridColumn TItem="EntidadeDTO" HeaderText="Email" PropertyName="Email" SortKeySelector="item => item.Email">
+            @context.Email
+        </GridColumn>
+    </GridColumns>
+</Grid>

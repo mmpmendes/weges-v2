@@ -1,0 +1,10 @@
+﻿<Button Class="@CssClass" @onclick="OnClickEventHandler">@LabelText</Button>
+
+@code {
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClickEventHandler { get; set; }
+    [Parameter]
+    public string CssClass { get; set; } = "btn btn-dark";
+    [Parameter]
+    public string LabelText { get; set; } = "Guardar";
+}
