@@ -4,42 +4,44 @@
 @using Microsoft.AspNetCore.Identity
 @using SharedKernel.DTO
 @inherits LayoutComponentBase
+@implements IDisposable
 @inject SignInManager<WegesUser> SignInManager
 @inject IdentityRedirectManager RedirectManager
 
 <BlazorBootstrapLayout StickyHeader="true">
     <HeaderSection>
-        @if (EstabelecimentoService is not null && EstabelecimentoService.SelectedEstabelecimento is not null)
+        @if (SelectedEstabelecimento is not null)
         {
             <!-- Top-right corner div -->
-            <div class="selected-info">
+            <div class="btn profile-name bg-light">
                 <span>
-                    @EstabelecimentoService.SelectedEstabelecimento!.Denominacao
+                    @SelectedEstabelecimento.Denominacao
                 </span>
             </div>
         }
 
         @if (authState?.User.Identity is not null && authState.User.Identity.IsAuthenticated)
         {
-            @* <div class="profile-widget" @onclick='()=>NavigationManager.NavigateTo("Account/Manage")'> *@
-            <div class="profile-widget">
-                <div class="profile-name">
-                    <a href="/Account/Manage">@authState.User.Identity.Name</a>
-                    <button class="btn btn-link" @onclick="Logout">Sair</button>
-                </div>
+            <div class="profile-name">
+                <form action="/Account/Logout" method="post">
+                    <AntiforgeryToken />
+                    <button type="submit" class="btn btn-light">
+                        Terminar Sessão
+                    </button>
+                </form>
             </div>
         }
         else
         {
-            <div class="profile-widget">
-                <div class="profile-name"><a href="/Account/Login">Entrar</a></div>
+            <div class="profile-name">
+                <a class="btn btn-light" href="/Account/Login">Inicar sessão</a>
             </div>
         }
 
     </HeaderSection>
     <SidebarSection>
         <div class="sidebar">
-            <NavMenu @rendermode=@InteractiveServer/>
+            <NavMenu @rendermode=@InteractiveServer />
         </div>
     </SidebarSection>
 
@@ -68,16 +70,17 @@
         SelectedEstabelecimento = EstabelecimentoService.SelectedEstabelecimento;
 
         // Subscribe to the event
-        EstabelecimentoService.OnEstabelecimentoChanged += HandleEstabelecimentoChanged;
+        EstabelecimentoService.OnEstabelecimentoChanged += async() => await HandleEstabelecimentoChanged();
     }
 
-    private void HandleEstabelecimentoChanged()
+    private async Task HandleEstabelecimentoChanged()
     {
+        await InvokeAsync(StateHasChanged); // Refresh UI
         SelectedEstabelecimento = EstabelecimentoService.SelectedEstabelecimento;
-        InvokeAsync(StateHasChanged); // Refresh UI
     }
-    private void Logout(MouseEventArgs e)
+
+    public void Dispose()
     {
-        NavigationManager.NavigateTo("/Account/Logout");
+        EstabelecimentoService.OnEstabelecimentoChanged -= async () => await HandleEstabelecimentoChanged();
     }
 }

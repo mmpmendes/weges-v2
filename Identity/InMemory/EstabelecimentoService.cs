@@ -13,11 +13,11 @@ public class EstabelecimentoService
         set
         {
             _selectedEstabelecimento = value;
-            NotifyEstabelecimentoChanged();
+            NotifyEstabelecimentoChanged().GetAwaiter();
         }
     }
 
-    private void NotifyEstabelecimentoChanged()
+    private async Task NotifyEstabelecimentoChanged()
     {
         OnEstabelecimentoChanged?.Invoke();
     }

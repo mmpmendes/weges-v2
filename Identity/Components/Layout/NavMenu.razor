@@ -2,34 +2,61 @@
           ImageSrc="../images/weges_icone.png"
           Title="Weges"
           Class="weges-icon"
-          
           DataProvider="SidebarDataProvider">
 
 </Sidebar2>
 
 @code {
-    [Inject] AuthenticationStateProvider authenticationStateProvider { get; set; } = default!;
+    [Inject] AuthenticationStateProvider authStateProvider { get; set; } = default!;
+    private AuthenticationState authState;
     private IEnumerable<NavItem>? navItems;
+
     private async Task<Sidebar2DataProviderResult> SidebarDataProvider(Sidebar2DataProviderRequest request)
     {
+        authState = await authStateProvider.GetAuthenticationStateAsync();
         if (navItems is null)
             navItems = await GetNavItems();
 
         return await Task.FromResult(request.ApplyTo(navItems));
     }
+
     private async Task<IEnumerable<NavItem>> GetNavItems()
     {
-        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        var authState = await authStateProvider.GetAuthenticationStateAsync();
         if (authState.User.Identity is not null && authState.User.Identity.IsAuthenticated)
         {
             navItems = new List<NavItem>
             {
                 new NavItem { Id = "10" ,Href = "/", IconName = IconName.House, Text = "Início" },
-                new NavItem { Id = "20" ,Href = "/estabelecimentos", IconName = IconName.Shop, Text = "Estabelecimentos" },
-                new NavItem { Id = "30" ,Href = "/entidades", IconName = IconName.ShopWindow, Text = "Entidades" },
+                new NavItem { Id = "20" , IconName = IconName.Shop, Text = "Estabelecimentos" },
+                new NavItem { Id = "24", ParentId="20", Href = "/estabelecimentos", IconName = IconName.Shop, Text = "Lista"},
+                new NavItem { Id = "25", ParentId="20", Href = "/recursoshumanos", IconName = IconName.People, Text = "Recursos Humanos" },
+                new NavItem { Id = "26", ParentId="20", Href = "/dossierlicenciamento", IconName = IconName.FolderCheck, Text = "Dossier Licenciamento" },
+                new NavItem { Id = "27", ParentId="20", Href = "/documentosafixar", IconName = IconName.Files, Text = "Documentos a Afixar" },
+                new NavItem { Id = "28", ParentId="20", Href = "/equipamentomedicogeral", IconName = IconName.Tools, Text = "Equipamento médico e geral" },
+                new NavItem { Id = "29", ParentId="20", Href = "/formacao", IconName = IconName.Book, Text = "Formação" },
+                new NavItem { Id = "30" ,Href = "/clinicaboaspraticas", IconName = IconName.ShopWindow, Text = "Clínica e Boas Práticas" },
+                new NavItem { Id = "37", ParentId="30", Href = "/dossierqualidade", IconName = IconName.ShopWindow, Text = "Dossier de Qualidade" },
+                new NavItem { Id = "38", ParentId="30", Href = "/medicamentos", IconName = IconName.ShopWindow, Text = "Medicamentos" },
+                new NavItem { Id = "39", ParentId="30", Href = "/residuoshospitalares", IconName = IconName.ShopWindow, Text = "Resíduos hospitalares" },
+                new NavItem { Id = "40", Href = "/protecaoradiologica", IconName = IconName.ShopWindow, Text = "Proteção Radiológica" },
+                new NavItem { Id = "41", ParentId="40", Href = "/protecaoradiologicageral", IconName = IconName.ShopWindow, Text = "Visão Geral" },
+                new NavItem { Id = "42", ParentId="40", Href = "/caracteristicasinstalacao", IconName = IconName.ShopWindow, Text = "Características da Instalação" },
+                new NavItem { Id = "43", ParentId="40", Href = "/equipamentosrx", IconName = IconName.ShopWindow, Text = "Equipamentos RX" },
+                new NavItem { Id = "44", ParentId="40", Href = "/manutencaorx", IconName = IconName.ShopWindow, Text = "Manutenção RX" },
+                new NavItem { Id = "45", ParentId="40", Href = "/legalizacao", IconName = IconName.ShopWindow, Text = "Legalização - Testes e Processo" },
+                new NavItem { Id = "46", ParentId="40", Href = "/controloqualidade", IconName = IconName.ShopWindow, Text = "Controlo de Qualidade" },
+                new NavItem { Id = "47", ParentId="40", Href = "/trabalhadoresexpostos", IconName = IconName.ShopWindow, Text = "Trabalhadores Expostos" },
+                new NavItem { Id = "48", ParentId="40", Href = "/certificados", IconName = IconName.ShopWindow, Text = "Certificados" },
+                new NavItem { Id = "49", ParentId="40", Href = "/procedimentosemergencia", IconName = IconName.ShopWindow, Text = "Procedimentos de Emergência" },
+                new NavItem { Id = "50", ParentId="40", Href = "/dossiergarantiaqualidade", IconName = IconName.ShopWindow, Text = "Dossier de Garantia de qualidade" },
+                new NavItem { Id = "60", Href = "/auditoriaanual", IconName = IconName.ShopWindow, Text = "Auditoria anual" },
+                new NavItem { Id = "70", Href = "/faturacao", IconName = IconName.ShopWindow, Text = "Faturação" },
+                new NavItem { Id = "80", Href = "/mensagens", IconName = IconName.ShopWindow, Text = "Centro de mensagens" }
+                
                 // new NavItem { Id = "400" , IconName = IconName.Gear, Text = "Back-Office" },
                 // new NavItem { Id = "500" ,Href = "/tipologias", IconName = IconName.ShopWindow, Text = "Tipologias", ParentId = "40" },
-                new NavItem { Href = "/Account/Logout", IconName = IconName.Person, Text = "Sair" }
+                // new NavItem { Href = "/Logout", IconName = IconName.Person, Text = "Sair" }
             };
         }
         else
@@ -39,7 +66,7 @@
                 new NavItem { Id = "10" ,Href = "/", IconName = IconName.House, Text = "Início" },
                 // new NavItem { Id = "400" , IconName = IconName.Gear, Text = "Back-Office" },
                 // new NavItem { Id = "500" ,Href = "/tipologias", IconName = IconName.ShopWindow, Text = "Tipologias", ParentId = "40" },
-                new NavItem { Href = "/Account/Login", IconName = IconName.Person, Text = "Entrar" }
+                // new NavItem { Href = "/Account/Login", IconName = IconName.Person, Text = "Entrar" }
             };
         }
 

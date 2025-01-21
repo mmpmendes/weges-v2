@@ -1,0 +1,84 @@
+﻿@page "/equipamentomedicogeral"
+@using Identity.Components.Shared
+@using Microsoft.AspNetCore.Authorization
+@using SharedKernel.DTO
+@attribute [Authorize]
+@rendermode InteractiveServer
+
+<PageTitle>Equipamentos</PageTitle>
+
+<Tabs>
+    <Tab Title="Inventário Geral">
+        <Content>
+            <Grid @ref="InventarioGrid"
+                  TItem="InventarioItemDTO"
+                  Class="table table-hover table-bordered table-striped"
+                  DataProvider="InventarioDataProvider"
+                  FiltersTranslationProvider="GridFiltersTranslation.GridFiltersTranslationProvider"
+                  AllowPaging="true"
+                  PageSize="10"
+                  Responsive="true"
+                  EmptyText="Sem dados para apresentar">
+
+                <GridColumns>
+                    <GridColumn TItem="InventarioItemDTO" HeaderText="Nº Inventário" PropertyName="NrInventario" SortKeySelector="item => item.NrInventario">
+                        @context.NrInventario
+                    </GridColumn>
+                    <GridColumn TItem="InventarioItemDTO" HeaderText="Equipamento" PropertyName="Equipamento" SortKeySelector="item => item.Equipamento">
+                        @context.Equipamento
+                    </GridColumn>
+                    <GridColumn TItem="InventarioItemDTO" HeaderText="Marca" PropertyName="Marca" SortKeySelector="item => item.Marca">
+                        @context.Marca
+                    </GridColumn>
+                    <GridColumn TItem="InventarioItemDTO" HeaderText="Modelo" PropertyName="Modelo" SortKeySelector="item => item.Modelo">
+                        @context.Modelo
+                    </GridColumn>
+                    <GridColumn TItem="InventarioItemDTO" HeaderText="Nº de Série" PropertyName="NrSerie" SortKeySelector="item => item.NrSerie">
+                        @context.NrSerie
+                    </GridColumn>
+                    <GridColumn TItem="InventarioItemDTO" HeaderText="Localizacao Equip." PropertyName="Localizacao" SortKeySelector="item => item.Localizacao">
+                        @context.Localizacao
+                    </GridColumn>
+                    <GridColumn TItem="InventarioItemDTO" HeaderText="Empresa Responsável" PropertyName="EmpresaResponsavel" SortKeySelector="item => item.EmpresaResponsavel">
+                        @context.EmpresaResponsavel
+                    </GridColumn>
+                    <GridColumn TItem="InventarioItemDTO" HeaderText="Observações" PropertyName="Observacoes" SortKeySelector="item => item.Observavoes">
+                        @context.Observavoes
+                    </GridColumn>
+                    <GridColumn TItem="InventarioItemDTO" HeaderText="Estado" PropertyName="Estado" SortKeySelector="item => item.Estado">
+                        @context.Estado
+                    </GridColumn>
+                </GridColumns>
+            </Grid>
+        </Content>
+    </Tab>
+    <Tab Title="Manutenção">
+        <Content>
+            <Grid @ref="ManutencaoGrid"
+                  TItem="ManutencaoDTO"
+                  Class="table table-hover table-bordered table-striped"
+                  DataProvider="ManutencoesDataProvider"
+                  FiltersTranslationProvider="GridFiltersTranslation.GridFiltersTranslationProvider"
+                  AllowPaging="true"
+                  PageSize="10"
+                  Responsive="true"
+                  EmptyText="Sem dados para apresentar">
+
+                <GridColumns>
+                    <GridColumn TItem="ManutencaoDTO" HeaderText="Nº Equipamento" PropertyName="NrEquipamento" SortKeySelector="item => item.NrEquipamento">
+                        @context.NrEquipamento
+                    </GridColumn>
+                    <GridColumn TItem="ManutencaoDTO" HeaderText="Data de manutenção" PropertyName="DataManutencao" SortKeySelector="item => item.DataManutencao">
+                        @context.DataManutencao
+                    </GridColumn>
+                    <GridColumn TItem="ManutencaoDTO" HeaderText="Próxima Manutenção" PropertyName="ProximaManutencao" SortKeySelector="item => item.ProximaManutencao">
+                        @context.ProximaManutencao
+                    </GridColumn>
+                    <GridColumn TItem="ManutencaoDTO" HeaderText="Observações" PropertyName="Observacoes" SortKeySelector="item => item.Observacoes">
+                        @context.Observacoes
+                    </GridColumn>
+                </GridColumns>
+            </Grid>
+        </Content>
+    </Tab>
+</Tabs>

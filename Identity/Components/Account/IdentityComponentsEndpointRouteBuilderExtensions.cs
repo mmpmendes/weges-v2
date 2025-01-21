@@ -1,14 +1,17 @@
-using System.Security.Claims;
-using System.Text.Json;
+using ApiModel.Models;
+
+using Identity.Components.Account.Pages;
+using Identity.Components.Account.Pages.Manage;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
-using Identity.Components.Account.Pages;
-using Identity.Components.Account.Pages.Manage;
-using ApiModel.Models;
+
+using System.Security.Claims;
+using System.Text.Json;
 
 namespace Microsoft.AspNetCore.Routing;
 
@@ -43,9 +46,13 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
         accountGroup.MapPost("/Logout", async (
             ClaimsPrincipal user,
             [FromServices] SignInManager<WegesUser> signInManager,
-            [FromForm] string returnUrl) =>
+            [FromForm] string? returnUrl) =>
         {
             await signInManager.SignOutAsync();
+            if (string.IsNullOrEmpty(returnUrl))
+            {
+                return TypedResults.LocalRedirect("~/");
+            }
             return TypedResults.LocalRedirect($"~/{returnUrl}");
         });
 

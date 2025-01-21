@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Authorization
 @using SharedKernel.DTO
 @attribute [Authorize]
+@rendermode InteractiveServer
 
 <PageTitle>Tipologias</PageTitle>
 <h3>Tipologias <Button Type="ButtonType.Button" Color="ButtonColor.Dark" @onclick="AddTipologia"><Icon Name="IconName.PlusSquare" /></Button></h3>

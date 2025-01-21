@@ -1,6 +1,8 @@
 ﻿@page "/tipologias/{Id:long}"
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize]
+@rendermode InteractiveServer
+
 <div class="tab-padded">
     <div class="form-floating mb-3">
         <input id="tipologia" class="form-control" type="text" @bind="Tipologia.Nome" />

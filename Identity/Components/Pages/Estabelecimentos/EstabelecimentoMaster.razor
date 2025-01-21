@@ -1,7 +1,9 @@
 ﻿@page "/estabelecimentos"
+@using Identity.Components.Shared
 @using Microsoft.AspNetCore.Authorization
 @using SharedKernel.DTO
 @attribute [Authorize]
+@rendermode InteractiveServer
 
 <PageTitle>Estabelecimentos</PageTitle>
 <h3>Estabelecimentos <Button Type="ButtonType.Button" Color="ButtonColor.Dark" @onclick="AddEstabelecimento"><Icon Name="IconName.PlusSquare" /></Button></h3>
@@ -10,7 +12,7 @@
     TItem="EstabelecimentoDTO"
       Class="table table-hover table-bordered table-striped"
       DataProvider="EstabelecimentosDataProvider"
-      FiltersTranslationProvider="GridFiltersTranslationProvider"
+      FiltersTranslationProvider="GridFiltersTranslation.GridFiltersTranslationProvider"
       AllowFiltering="true"
       AllowPaging="true"
       PageSize="10"

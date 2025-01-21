@@ -1,18 +1,47 @@
-﻿@page "/Account/Logout"
+﻿@* @page "/Logout"
 @using ApiModel.Models
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<WegesUser> SignInManager
 @inject NavigationManager NavigationManager
+@inject HttpClient HttpClient
 @rendermode InteractiveServer
 
 <PageTitle>Terminar Sessão</PageTitle>
 <h1>Terminar Sessão</h1>
-<RedirectToLogin />
 
 @code {
     
     protected override async Task OnInitializedAsync()
     {
-        await SignInManager.SignOutAsync();
+        string returnUrl = ""; // Replace with your actual return URL
+
+        // Create the form data with the returnUrl parameter
+        var formData = new MultipartFormDataContent
+        {
+            { new StringContent(returnUrl), "returnUrl" }
+        };
+
+        try
+        {
+            // Send the POST request to the Logout endpoint
+            var response = await HttpClient.PostAsync("/Account/Logout", formData);
+
+            if (response.IsSuccessStatusCode)
+            {
+                // Navigate to the return URL or show a success message
+                NavigationManager.NavigateTo(returnUrl);
+            }
+            else
+            {
+                // Handle failure (log or display error)
+                Console.Error.WriteLine($"Logout failed: {response.StatusCode} - {await response.Content.ReadAsStringAsync()}");
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions
+            Console.Error.WriteLine($"An error occurred: {ex.Message}");
+        }
     }
 }
+ *@

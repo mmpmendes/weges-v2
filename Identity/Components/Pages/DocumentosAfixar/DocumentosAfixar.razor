@@ -1,0 +1,123 @@
+﻿@page "/documentosafixar"
+@using Identity.Components.Shared
+@using Identity.InMemory
+@using Microsoft.AspNetCore.Authorization
+@using SharedKernel.DTO
+@attribute [Authorize]
+@rendermode InteractiveServer
+
+<PageTitle> Documentos Afixar </PageTitle>
+<h3> Documentos Afixar </h3>
+
+<Card>
+    <CardHeader>
+        <h5> Lista de verificação </h5>
+    </CardHeader>
+    <CardBody>
+        <Grid @ref="ListaVerificacaoGrid"
+              TItem="FicheirosLicenciamentoDTO"
+              Class="table table-hover table-bordered table-striped"
+              DataProvider="ListaVerificacaoDataProvider"
+              AllowPaging="true"
+              PageSize="3"
+              Responsive="true"
+              EmptyText="Sem dados para apresentar">
+
+            <GridColumns>
+                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                    @context.Nome
+                </GridColumn>
+                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Submetido" PropertyName="Submetido" SortKeySelector="item => item.Submetido">
+                    @context.Nome
+                </GridColumn>
+                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Observações" PropertyName="Observacoes" SortKeySelector="item => item.Observacoes">
+                    @context.Observacoes
+                </GridColumn>
+            </GridColumns>
+        </Grid>
+    </CardBody>
+</Card>
+<Card>
+    <CardHeader>
+        <h5> Alvará de utilização </h5>
+    </CardHeader>
+    <CardBody>
+        <Grid @ref="FicheirosAnexarGrid"
+              TItem="FicheirosLicenciamentoDTO"
+              Class="table table-hover table-bordered table-striped"
+              DataProvider="FicheirosAnexarDataProvider"
+              AllowPaging="true"
+              PageSize="3"
+              Responsive="true"
+              EmptyText="Sem dados para apresentar">
+
+            <GridColumns>
+                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                    @context.Nome
+                </GridColumn>
+                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Submetido" PropertyName="Submetido" SortKeySelector="item => item.Submetido">
+                    @context.Nome
+                </GridColumn>
+                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Observações" PropertyName="Observacoes" SortKeySelector="item => item.Observacoes">
+                    @context.Observacoes
+                </GridColumn>
+            </GridColumns>
+        </Grid>
+    </CardBody>
+</Card>
+<Card>
+    <CardHeader>
+        <h5> Medidas de Autoproteção (ANPC) </h5>
+    </CardHeader>
+    <CardBody>
+        <Grid @ref="CartaDireitosDeveresGrid"
+              TItem="FicheirosLicenciamentoDTO"
+              Class="table table-hover table-bordered table-striped"
+              DataProvider="CartaDireitosDeveresDataProvider"
+              AllowPaging="true"
+              PageSize="3"
+              Responsive="true"
+              EmptyText="Sem dados para apresentar">
+
+            <GridColumns>
+                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                    @context.Nome
+                </GridColumn>
+                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Submetido" PropertyName="Submetido" SortKeySelector="item => item.Submetido">
+                    @context.Nome
+                </GridColumn>
+                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Observações" PropertyName="Observacoes" SortKeySelector="item => item.Observacoes">
+                    @context.Observacoes
+                </GridColumn>
+            </GridColumns>
+        </Grid>
+    </CardBody>
+</Card>
+<Card>
+    <CardHeader>
+        <h5> Parecer ANPC </h5>
+    </CardHeader>
+    <CardBody>
+        <Grid @ref="LicenciamentoRegistoLegalGrid"
+              TItem="FicheirosLicenciamentoDTO"
+              Class="table table-hover table-bordered table-striped"
+              DataProvider="LicenciamentoRegistoLegalDataProvider"
+              AllowPaging="true"
+              PageSize="3"
+              Responsive="true"
+              EmptyText="Sem dados para apresentar">
+
+            <GridColumns>
+                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                    @context.Nome
+                </GridColumn>
+                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Submetido" PropertyName="Submetido" SortKeySelector="item => item.Submetido">
+                    @context.Nome
+                </GridColumn>
+                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Observações" PropertyName="Observacoes" SortKeySelector="item => item.Observacoes">
+                    @context.Observacoes
+                </GridColumn>
+            </GridColumns>
+        </Grid>
+    </CardBody>
+</Card>

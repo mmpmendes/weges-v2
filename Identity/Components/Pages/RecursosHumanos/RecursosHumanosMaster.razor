@@ -1,0 +1,54 @@
+﻿@page "/recursoshumanos"
+@using Identity.InMemory
+@using Microsoft.AspNetCore.Authorization
+@using SharedKernel.DTO
+@attribute [Authorize]
+@rendermode InteractiveServer
+
+<PageTitle>Recursos Humanos</PageTitle>
+
+<h3>Recursos Humanos</h3>
+
+@if (EstabelecimentoService.SelectedEstabelecimento is not null)
+{
+    <Tabs>
+        <Tab Title="Serviços">
+            <Content>
+                <Grid @ref="ServicosGrid" 
+                    TItem="ServicoDTO"
+                      Class="table table-hover table-bordered table-striped"
+                      DataProvider="ServicosDataProvider"
+                      FiltersTranslationProvider="GridFiltersTranslationProvider"
+                      AllowFiltering="true"
+                      AllowPaging="true"
+                      PageSize="10"
+                      Responsive="true"
+                      EmptyText="Sem dados para apresentar">
+                      <GridColumn TItem="ServicoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                          @context.Nome</GridColumn>
+                </Grid>
+            </Content>
+        </Tab>
+        <Tab Title="Corpo clínico">
+            <Content>
+                <Grid @ref="CorpoClinicoGrid"
+                      TItem="CorpoClinicoDTO"
+                      Class="table table-hover table-bordered table-striped"
+                      DataProvider="CorpoClinicoDataProvider"
+                      FiltersTranslationProvider="GridFiltersTranslationProvider"
+                      AllowFiltering="true"
+                      AllowPaging="true"
+                      PageSize="10"
+                      Responsive="true"
+                      EmptyText="Sem dados para apresentar">
+                    <GridColumn TItem="CorpoClinicoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                        @context.Nome>
+                    </GridColumn>
+                </Grid>
+            </Content>
+        </Tab>
+    </Tabs>
+}
+else{
+    <h5>Por favor selecione um <a href="/estabelecimentos">estabelecimento</a></h5>
+}
