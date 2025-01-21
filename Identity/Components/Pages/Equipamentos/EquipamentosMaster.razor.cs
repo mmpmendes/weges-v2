@@ -34,8 +34,14 @@ public partial class EquipamentosMaster
             sortString = request.Sorting.FirstOrDefault()!.SortString;
             sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
         }
-
-        InventarioItems = await EstabelecimentoApiService.GetEstabelecimentoInventarioAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+        try
+        {
+            InventarioItems = await EstabelecimentoApiService.GetEstabelecimentoInventarioAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
         if (InventarioItems is null)
         {
             return new GridDataProviderResult<InventarioItemDTO>()
@@ -60,7 +66,14 @@ public partial class EquipamentosMaster
             sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
         }
 
-        Manutencoes = await EstabelecimentoApiService.GetEstabelecimentoManutencoesAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+        try
+        {
+            Manutencoes = await EstabelecimentoApiService.GetEstabelecimentoManutencoesAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
         if (Manutencoes is null)
         {
             return new GridDataProviderResult<ManutencaoDTO>()

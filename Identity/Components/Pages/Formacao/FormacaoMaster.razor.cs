@@ -31,7 +31,14 @@ public partial class FormacaoMaster
             sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
         }
 
-        FormacaoItems = await EstabelecimentoApiService.GetEstabelecimentoFormacaoAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+        try
+        {
+            FormacaoItems = await EstabelecimentoApiService.GetEstabelecimentoFormacaoAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
         if (FormacaoItems is null)
         {
             return new GridDataProviderResult<FormacaoDTO>()
