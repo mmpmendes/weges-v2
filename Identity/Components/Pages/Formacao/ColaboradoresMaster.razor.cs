@@ -10,16 +10,16 @@ using SharedKernel.DTO;
 
 namespace Identity.Components.Pages.Formacao;
 
-public partial class FormacaoMaster
+public partial class ColaboradoresMaster
 {
-    private IList<FormacaoDTO>? FormacaoItems = default!;
-    private Grid<FormacaoDTO> FormacaoGrid = default!;
+    private IList<ColaboradorDTO>? ColaboradoresItems = default!;
+    private Grid<ColaboradorDTO> ColaboradoresGrid = default!;
 
     [Inject] public EstabelecimentoApiService EstabelecimentoApiService { get; set; } = default!;
     [Inject] public EstabelecimentoService EstabelecimentoService { get; set; } = default!;
 
     // Note: This method is used to provide the data for the grid
-    private async Task<GridDataProviderResult<FormacaoDTO>> FormacaoDataProvider(GridDataProviderRequest<FormacaoDTO> request)
+    private async Task<GridDataProviderResult<ColaboradorDTO>> ColaboradoresDataProvider(GridDataProviderRequest<ColaboradorDTO> request)
     {
         string sortString = "";
         SortDirection sortDirection = SortDirection.None;
@@ -33,21 +33,21 @@ public partial class FormacaoMaster
 
         try
         {
-            FormacaoItems = await EstabelecimentoApiService.GetEstabelecimentoFormacaoAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+            ColaboradoresItems = await EstabelecimentoApiService.GetEstabelecimentoColaboradoresAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
         }
-        if (FormacaoItems is null)
+        if (ColaboradoresItems is null)
         {
-            return new GridDataProviderResult<FormacaoDTO>()
+            return new GridDataProviderResult<ColaboradorDTO>()
             {
                 Data = [],
                 TotalCount = 0
             };
         }
 
-        return await Task.FromResult(request.ApplyTo(FormacaoItems));
+        return await Task.FromResult(request.ApplyTo(ColaboradoresItems));
     }
 }

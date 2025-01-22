@@ -1,0 +1,51 @@
+﻿@page "/colaboradores"
+@using Identity.Components.Shared
+@using Microsoft.AspNetCore.Authorization
+@using SharedKernel.DTO
+@attribute [Authorize]
+@rendermode InteractiveServer
+
+<PageTitle>Colaboradores</PageTitle>
+
+<Tabs>
+    <Tab Title="Colaboradores">
+        <Content>
+            <Grid @ref="ColaboradoresGrid"
+                  TItem="ColaboradorDTO"
+                  Class="table table-hover table-bordered table-striped"
+                  DataProvider="ColaboradoresDataProvider"
+                  FiltersTranslationProvider="GridFiltersTranslation.GridFiltersTranslationProvider"
+                  AllowPaging="true"
+                  PageSize="10"
+                  Responsive="true"
+                  EmptyText="Sem dados para apresentar">
+                <GridColumns>
+                    <GridColumn TItem="ColaboradorDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                        @context.Nome
+                    </GridColumn>
+                    <GridColumn TItem="ColaboradorDTO" HeaderText="Nº Identificação" PropertyName="NrIdentificacao" SortKeySelector="item => item.NrIdentificacao">
+                        @context.NrIdentificacao
+                    </GridColumn>
+                    <GridColumn TItem="ColaboradorDTO" HeaderText="Data de Nascimento" PropertyName="DataNascimento" SortKeySelector="item => item.DataNascimento">
+                        @context.DataNascimento
+                    </GridColumn>
+                    <GridColumn TItem="ColaboradorDTO" HeaderText="Início de Atividade" PropertyName="InicioAtividade" SortKeySelector="item => item.InicioAtividade">
+                        @context.InicioAtividade
+                    </GridColumn>
+                    <GridColumn TItem="ColaboradorDTO" HeaderText="Especialidade" PropertyName="Especialidade" SortKeySelector="item => item.Especialidade">
+                        @context.Especialidade
+                    </GridColumn>
+                    <GridColumn TItem="ColaboradorDTO" HeaderText="Estado" PropertyName="Estado" SortKeySelector="item => item.Estado">
+                        @context.Estado
+                    </GridColumn>
+                    <GridColumn TItem="ColaboradorDTO" HeaderText="Total Horas formação" PropertyName="TotalHoras" SortKeySelector="item => item.TotalHoras">
+                        @context.TotalHoras
+                    </GridColumn>
+                    <GridColumn TItem="ColaboradorDTO" HeaderText="Observações" PropertyName="Observacoes" SortKeySelector="item => item.Observacoes">
+                        @context.Observacoes
+                    </GridColumn>
+                </GridColumns>
+            </Grid>
+        </Content>
+    </Tab>
+</Tabs>

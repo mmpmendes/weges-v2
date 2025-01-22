@@ -15,34 +15,64 @@
         <Tab Title="Serviços">
             <Content>
                 <Grid @ref="ServicosGrid" 
-                    TItem="ServicoDTO"
-                      Class="table table-hover table-bordered table-striped"
-                      DataProvider="ServicosDataProvider"
-                      FiltersTranslationProvider="GridFiltersTranslationProvider"
-                      AllowFiltering="true"
-                      AllowPaging="true"
-                      PageSize="10"
-                      Responsive="true"
-                      EmptyText="Sem dados para apresentar">
-                      <GridColumn TItem="ServicoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
-                          @context.Nome</GridColumn>
+                TItem="ServicoDTO"
+                Class="table table-hover table-bordered table-striped"
+                DataProvider="ServicosDataProvider"
+                FiltersTranslationProvider="GridFiltersTranslationProvider"
+                AllowFiltering="true"
+                AllowPaging="true"
+                PageSize="10"
+                Responsive="true"
+                EmptyText="Sem dados para apresentar">
+                    <GridColumn TItem="ServicoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
+                        @context.Nome</GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Tipologia" PropertyName="Tipologia" SortKeySelector="item => item.Tipologia">
+                        @context.Tipologia</GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Horário" PropertyName="Horario" SortKeySelector="item => item.Horario">
+                        @context.Horario</GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Responsável" PropertyName="Responsavel" SortKeySelector="item => item.Responsavel">
+                        @context.Responsavel</GridColumn>
+                    <GridColumn TItem="ServicoDTO" HeaderText="Observações" PropertyName="Observacoes" SortKeySelector="item => item.Observacoes">
+                        @context.Observacoes</GridColumn>
                 </Grid>
             </Content>
         </Tab>
         <Tab Title="Corpo clínico">
             <Content>
                 <Grid @ref="CorpoClinicoGrid"
-                      TItem="CorpoClinicoDTO"
-                      Class="table table-hover table-bordered table-striped"
-                      DataProvider="CorpoClinicoDataProvider"
-                      FiltersTranslationProvider="GridFiltersTranslationProvider"
-                      AllowFiltering="true"
-                      AllowPaging="true"
-                      PageSize="10"
-                      Responsive="true"
-                      EmptyText="Sem dados para apresentar">
+                TItem="CorpoClinicoDTO"
+                Class="table table-hover table-bordered table-striped"
+                DataProvider="CorpoClinicoDataProvider"
+                FiltersTranslationProvider="GridFiltersTranslationProvider"
+                AllowFiltering="true"
+                AllowPaging="true"
+                PageSize="10"
+                Responsive="true"
+                EmptyText="Sem dados para apresentar">
                     <GridColumn TItem="CorpoClinicoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
-                        @context.Nome>
+                        @context.Nome
+                    </GridColumn>
+                    <GridColumn TItem="CorpoClinicoDTO" HeaderText="Data de Nascimento" PropertyName="DataNascimento" SortKeySelector="item => item.DataNascimento">
+                        @context.DataNascimento
+                    </GridColumn>
+                    <GridColumn TItem="CorpoClinicoDTO" HeaderText="Cédula" PropertyName="Cedula" SortKeySelector="item => item.Cedula">
+                        @context.Cedula
+                    </GridColumn>
+                    <GridColumn TItem="CorpoClinicoDTO" HeaderText="Estado" PropertyName="Estado" SortKeySelector="item => item.Estado">
+                        @if (context.Estado)
+                        {
+                            <span>Ativo</span>
+                        }
+                        else
+                        {
+                            <span>Inativo</span>
+                        }
+                    </GridColumn>
+                    <GridColumn TItem="CorpoClinicoDTO" HeaderText="Data de Saída" PropertyName="DataSaida" SortKeySelector="item => item.DataSaida">
+                        @context.DataSaida
+                    </GridColumn>
+                    <GridColumn TItem="CorpoClinicoDTO" HeaderText="Servico" PropertyName="Servico" SortKeySelector="item => item.Servico">
+                        @context.Servico
                     </GridColumn>
                 </Grid>
             </Content>

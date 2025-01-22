@@ -171,9 +171,9 @@ public class EstabelecimentoApiService(HttpClient httpClient)
         return response;
     }
 
-    public async Task<IList<FormacaoDTO>?> GetEstabelecimentoFormacaoAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
+    public async Task<IList<ColaboradorDTO>?> GetEstabelecimentoColaboradoresAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
-        var response = await httpClient.GetFromJsonAsync<IList<FormacaoDTO>>($"/api/Estabelecimento/{id}/Formacao");
+        var response = await httpClient.GetFromJsonAsync<IList<ColaboradorDTO>>($"/api/Estabelecimento/{id}/Colaboradores");
         return response;
     }
 }

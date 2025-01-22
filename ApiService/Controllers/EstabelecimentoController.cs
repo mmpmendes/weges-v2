@@ -18,7 +18,8 @@ public class EstabelecimentoController(
         ISimpleRepository<CertificadoERS> certificadoRepo,
         ISimpleRepository<LicencaERS> licencaRepo,
         ISimpleRepository<Servico> servicoRepo,
-        ISimpleRepository<DirecaoClinica> direcaoClinicaRepo
+        ISimpleRepository<DirecaoClinica> direcaoClinicaRepo,
+        ISimpleRepository<Colaborador> colaboradorRepo
         , IConfiguration config
         , IFileService fileService
         , IMapper mapper
@@ -29,6 +30,7 @@ public class EstabelecimentoController(
     private readonly ISimpleRepository<LicencaERS> _licencaRepo = licencaRepo;
     private readonly ISimpleRepository<Servico> _servicoRepo = servicoRepo;
     private readonly ISimpleRepository<DirecaoClinica> _direcaoClinicaRepo = direcaoClinicaRepo;
+    private readonly ISimpleRepository<Colaborador> _colaboradorRepo = colaboradorRepo;
     private readonly IMapper _mapper = mapper;
     private const string UPLOADPATH = "Paths:uploadpath";
     private readonly IFileService _fileService = fileService;
@@ -293,5 +295,14 @@ public class EstabelecimentoController(
         if (!direcoesClinicas.Any()) return Results.Ok(direcoesClinicas);
         var direcoesClinicasDto = _mapper.Map<IEnumerable<DirecaoClinicaDTO>>(direcoesClinicas);
         return Results.Ok(direcoesClinicasDto);
+    }
+
+    [HttpGet("{id}/CorpoClinico")]
+    public IResult GetCorpoClinicoByEstabelecimentoId(long id)
+    {
+        var colaborador = _colaboradorRepo.GetAll().Where(c => c.EstabelecimentoId == id && c.ColaboradorTipoId == 1);
+        if (!colaborador.Any()) return Results.Ok(colaborador);
+        var colaboradoresDto = _mapper.Map<IEnumerable<CorpoClinicoDTO>>(colaborador);
+        return Results.Ok(colaboradoresDto);
     }
 }

@@ -1,5 +1,5 @@
 ﻿namespace SharedKernel.DTO;
-public class FormacaoDTO
+public class ColaboradorDTO
 {
     public long Id { get; set; }
     public string Nome { get; set; }

@@ -3,6 +3,7 @@ using System;
 using ApiModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BaseDbMigrations.Migrations
 {
     [DbContext(typeof(WegesDbContext))]
-    partial class WegesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250121221244_RestOfAnexosList")]
+    partial class RestOfAnexosList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -283,7 +286,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.HasIndex("ServicoId");
 
-                    b.ToTable("Colaboradores", "weges");
+                    b.ToTable("Colaborador", "weges");
                 });
 
             modelBuilder.Entity("ApiModel.Models.ColaboradorTipo", b =>
@@ -935,13 +938,13 @@ namespace BaseDbMigrations.Migrations
                     b.HasOne("ApiModel.Models.ColaboradorTipo", "ColaboradorTipo")
                         .WithMany()
                         .HasForeignKey("ColaboradorTipoId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ApiModel.Models.Estabelecimento", "Estabelecimento")
                         .WithMany()
                         .HasForeignKey("EstabelecimentoId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ApiModel.Models.Servico", "Servico")

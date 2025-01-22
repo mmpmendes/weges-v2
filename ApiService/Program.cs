@@ -58,6 +58,7 @@ builder.Services.AddScoped<ISimpleRepository<CertificadoERS>, SimpleRepository<C
 builder.Services.AddScoped<ISimpleRepository<LicencaERS>, SimpleRepository<LicencaERS>>();
 builder.Services.AddScoped<ISimpleRepository<Ficheiro>, SimpleRepository<Ficheiro>>();
 builder.Services.AddScoped<ISimpleRepository<Tipologia>, SimpleRepository<Tipologia>>();
+builder.Services.AddScoped<ISimpleRepository<Colaborador>, SimpleRepository<Colaborador>>();
 builder.Services.AddScoped<IFileService, FileService>();
 
 
