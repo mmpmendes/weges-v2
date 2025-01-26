@@ -1,5 +1,7 @@
 ﻿using BlazorBootstrap;
 
+using Microsoft.AspNetCore.WebUtilities;
+
 using SharedKernel.DTO;
 
 using System.Net.Http.Json;
@@ -10,24 +12,7 @@ public class EstabelecimentoApiService(HttpClient httpClient)
     public async Task<IList<EstabelecimentoDTO>?> GetEstabelecimentosAsync(IEnumerable<FilterItem> filters = default!, int pageNumber = 1, int pageSize = 0, string sortString = default!, SortDirection sortDirection = default, CancellationToken cancellationToken = default)
     {
         int maxItems = 10;
-        //var queryParameters = new Dictionary<string, string>
-        //{
-        //    { "maxItems", maxItems.ToString() },
-        //    { "pageSize", pageSize.ToString() },
-        //    { "sortString", sortString },
-        //    { "sortDirection", sortDirection.ToString() }
-        //};
-
-        //if (filters != null)
-        //{
-        //    foreach (var filter in filters)
-        //    {
-        //        queryParameters.Add($"filters[{filter.}]", filter.Value);
-        //    }
-        //}
-
-        //var queryString = string.Join("&", queryParameters.Select(kvp => $"{kvp.Key}={Uri.EscapeDataString(kvp.Value)}"));
-        var requestUri = $"/api/Estabelecimento";//?{queryString}";
+        var requestUri = $"/api/Estabelecimento";
         List<EstabelecimentoDTO>? estabelecimentos = null;
 
         await foreach (var estabelecimento in httpClient.GetFromJsonAsAsyncEnumerable<EstabelecimentoDTO>(requestUri, cancellationToken))
@@ -44,6 +29,50 @@ public class EstabelecimentoApiService(HttpClient httpClient)
         }
 
         return estabelecimentos;
+    }
+
+    public async Task<ListEstabelecimentosDTO?> GetEstabelecimentosFiltradosAsync(IEnumerable<FilterItem> filters = default!, int pageNumber = 1, int pageSize = 0, string sortString = default!, SortDirection sortDirection = default, CancellationToken cancellationToken = default)
+    {
+        int maxItems = 10;
+        // Convert filters to a dictionary
+        var filterDict = filters?.ToDictionary(f => f.PropertyName, f => f.Value?.ToString());
+
+        // Convert SortDirection to a string
+        var sortDirectionString = sortDirection == SortDirection.Descending ? "desc" : "asc";
+
+        // Build query parameters
+        var queryParams = new Dictionary<string, string>
+        {
+            ["pageNumber"] = pageNumber.ToString(),
+            ["pageSize"] = pageSize.ToString(),
+            ["sortString"] = sortString ?? string.Empty,
+            ["sortDirection"] = sortDirectionString
+        };
+
+        if (filterDict != null)
+        {
+            foreach (var filter in filterDict)
+            {
+                queryParams[filter.Key] = filter.Value!;
+            }
+        }
+
+        // Construct query string
+        var queryString = QueryHelpers.AddQueryString($"/api/Estabelecimento/Filtrados", queryParams);
+
+        List<EstabelecimentoDTO>? estabelecimentos = [];
+
+        var results = await httpClient.GetFromJsonAsync<ListEstabelecimentosDTO>(queryString, cancellationToken);
+
+        //foreach (var estabelecimento in results.Result )
+        //{
+        //    if (estabelecimento is not null)
+        //    {
+        //        estabelecimentos ??= [];
+        //        estabelecimentos.Add(estabelecimento);
+        //    }
+        //}
+        return results;
     }
 
     public async Task<EstabelecimentoDTO?> GetEstabelecimentoByIdAsync(long estabelecimentoId, CancellationToken cancellationToken = default)

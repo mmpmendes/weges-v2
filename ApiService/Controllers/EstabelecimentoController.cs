@@ -6,6 +6,7 @@ using ApiService.Services;
 using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 using SharedKernel.DTO;
 
@@ -44,6 +45,67 @@ public class EstabelecimentoController(
     public IResult Get()
     {
         return Results.Ok(_mapper.Map<IEnumerable<EstabelecimentoDTO>>(_estabelecimentoRepo.GetAll()));
+    }
+
+    /// <summary>
+    /// Retorna a lista de todos os estabelecimentos filtrados
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet("Filtrados")]
+    public IResult GetEstabelecimentosFiltrados(
+        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 10,
+        [FromQuery] string? sortString = null,
+        [FromQuery] string? sortDirection = null,
+        [FromQuery] Dictionary<string, string>? filters = null)
+    {
+        // Fetch all establishments
+        var query = _estabelecimentoRepo.GetAll().AsQueryable();
+
+        // Apply filters
+        if (filters is not null)
+        {
+            foreach (var filter in filters)
+            {
+                var propertyName = filter.Key;
+                var filterValue = filter.Value;
+
+                // Use reflection to filter dynamically
+                query = query.Where(e => EF.Property<string>(e, propertyName).Contains(filterValue));
+            }
+        }
+
+        // Apply sorting
+        if (!string.IsNullOrWhiteSpace(sortString))
+        {
+            var isDescending = sortDirection?.Equals("desc", StringComparison.OrdinalIgnoreCase) ?? false;
+            query = isDescending
+                ? query.OrderByDescending(e => EF.Property<object>(e, sortString))
+                : query.OrderBy(e => EF.Property<object>(e, sortString));
+        }
+
+        // Total count before pagination
+        var totalCount = query.Count();
+
+        // Apply pagination
+        var paginatedData = query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        // Map to DTOs
+        var result = _mapper.Map<IEnumerable<EstabelecimentoDTO>>(paginatedData);
+
+        // Return paginated result
+        return Results.Ok(new ListEstabelecimentosDTO
+        {
+            Estabelecimentos = result.ToList(),
+            TotalCount = totalCount,
+            //PageNumber = pageNumber,
+            //PageSize = pageSize
+        });
+
+        //return Results.Ok(_mapper.Map<IEnumerable<EstabelecimentoDTO>>(_estabelecimentoRepo.GetAll()));
     }
 
     /// <summary>

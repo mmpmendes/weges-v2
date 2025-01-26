@@ -95,6 +95,6 @@ if (app.Environment.IsDevelopment())
 
 //app.MapDefaultEndpoints();
 app.MapControllers();
-app.MapIdentityApi<IdentityUser>();
+//app.MapIdentityApi<IdentityUser>();
 
 app.Run();

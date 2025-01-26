@@ -32,6 +32,11 @@ builder.Services.AddAuthentication(options =>
         options.DefaultScheme = IdentityConstants.ApplicationScheme;
         options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
     })
+    .AddGoogle(authenticationScheme: "Google", displayName: "Google", options =>
+    {
+        options.ClientId = builder.Configuration["Google:ClientId"];
+        options.ClientSecret = builder.Configuration["Google:ClientSecret"];
+    })
     .AddIdentityCookies();
 
 var connectionString = builder.Configuration.GetConnectionString("weges") ?? throw new InvalidOperationException("Connection string 'weges' not found.");

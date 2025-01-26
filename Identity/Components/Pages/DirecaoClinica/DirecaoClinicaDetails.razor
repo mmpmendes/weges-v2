@@ -41,12 +41,12 @@
         </div>
         <div class="form-floating mb-3">
             <input id="tipologia" class="form-control" type="text" @bind="DirecaoClinica.Tipologia" />
-            <AutoComplete @bind-Value="DirecaoClinica.Tipologia"
+            @* <AutoComplete @bind-Value="DirecaoClinica.Tipologia"
                           TItem="TipologiaDTO"
                           DataProvider="TipologiasDataProvider"
                           PropertyName="Tipologia"
                           Placeholder="Search a customer..."
-                          OnChanged="(TipologiaDTO tipologia) => OnAutoCompleteChanged(tipologia)" />
+                          OnChanged="(TipologiaDTO tipologia) => OnAutoCompleteChanged(tipologia)" /> *@
 
             <label class="form-label" for="tipologia">Tipologia</label>
         </div>
@@ -56,8 +56,6 @@
         </div>
     }
     <div>
-        <Button Class="btn btn-dark" @onclick="SaveDirecaoClinica">Guardar</Button>
-        <Button Class="btn btn-outline-dark" @onclick="GoBackToEstabelecimento">Voltar</Button>
         <SaveBackControl OnClickSaveEventHandler="SaveDirecaoClinica" OnClickBackEventHandler="GoBackToEstabelecimento" />
     </div>
 </div>

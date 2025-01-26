@@ -46,14 +46,22 @@ public partial class EstabelecimentoMaster
             sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
         }
 
-        Estabelecimentos = await EstabelecimentoApiService.GetEstabelecimentosAsync(request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
-        if (Estabelecimentos is null)
+        //Estabelecimentos = await EstabelecimentoApiService.GetEstabelecimentosFiltradosAsync(request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+        var response = await EstabelecimentoApiService.GetEstabelecimentosFiltradosAsync(request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+
+        Estabelecimentos = [];
+
+        if (response is null || response.Estabelecimentos is null)
         {
             return new GridDataProviderResult<EstabelecimentoDTO>()
             {
                 Data = [],
                 TotalCount = 0
             };
+        }
+        else if (response.Estabelecimentos is not null)
+        {
+            Estabelecimentos = response.Estabelecimentos;
         }
 
         return await Task.FromResult(request.ApplyTo(Estabelecimentos));
@@ -66,7 +74,7 @@ public partial class EstabelecimentoMaster
 
     private void SeleccionaEstabelecimento(long estabelecimentoId)
     {
-        EstabelecimentoService.SelectedEstabelecimento = Estabelecimentos.Where(e => e.Id == estabelecimentoId).First();
+        EstabelecimentoService.SelectedEstabelecimento = Estabelecimentos.First(e => e.Id == estabelecimentoId);
     }
 
     private bool IsEstabelecimentoSelected(long estabelecimentoId)
