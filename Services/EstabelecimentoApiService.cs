@@ -33,7 +33,6 @@ public class EstabelecimentoApiService(HttpClient httpClient)
 
     public async Task<ListEstabelecimentosDTO?> GetEstabelecimentosFiltradosAsync(IEnumerable<FilterItem> filters = default!, int pageNumber = 1, int pageSize = 0, string sortString = default!, SortDirection sortDirection = default, CancellationToken cancellationToken = default)
     {
-        int maxItems = 10;
         // Convert filters to a dictionary
         var filterDict = filters?.ToDictionary(f => f.PropertyName, f => f.Value?.ToString());
 
@@ -63,15 +62,6 @@ public class EstabelecimentoApiService(HttpClient httpClient)
         List<EstabelecimentoDTO>? estabelecimentos = [];
 
         var results = await httpClient.GetFromJsonAsync<ListEstabelecimentosDTO>(queryString, cancellationToken);
-
-        //foreach (var estabelecimento in results.Result )
-        //{
-        //    if (estabelecimento is not null)
-        //    {
-        //        estabelecimentos ??= [];
-        //        estabelecimentos.Add(estabelecimento);
-        //    }
-        //}
         return results;
     }
 

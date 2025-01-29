@@ -51,7 +51,7 @@ public partial class EstabelecimentoMaster
 
         Estabelecimentos = [];
 
-        if (response is null || response.Estabelecimentos is null)
+        if (response is null)
         {
             return new GridDataProviderResult<EstabelecimentoDTO>()
             {
@@ -59,12 +59,17 @@ public partial class EstabelecimentoMaster
                 TotalCount = 0
             };
         }
-        else if (response.Estabelecimentos is not null)
+        else
         {
             Estabelecimentos = response.Estabelecimentos;
+            return new GridDataProviderResult<EstabelecimentoDTO>()
+            {
+                Data = response.Estabelecimentos,
+                TotalCount = response.TotalCount
+            };
         }
 
-        return await Task.FromResult(request.ApplyTo(Estabelecimentos));
+
     }
 
     private void AddEstabelecimento(MouseEventArgs e)

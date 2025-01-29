@@ -67,6 +67,9 @@ public class EstabelecimentoController(
         {
             foreach (var filter in filters)
             {
+                if (filter.Key.Equals("pageNumber") || filter.Key.Equals("pageSize") || filter.Key.Equals("sortString") || filter.Key.Equals("sortDirection"))
+                    continue;
+
                 var propertyName = filter.Key;
                 var filterValue = filter.Value;
 
@@ -101,11 +104,7 @@ public class EstabelecimentoController(
         {
             Estabelecimentos = result.ToList(),
             TotalCount = totalCount,
-            //PageNumber = pageNumber,
-            //PageSize = pageSize
         });
-
-        //return Results.Ok(_mapper.Map<IEnumerable<EstabelecimentoDTO>>(_estabelecimentoRepo.GetAll()));
     }
 
     /// <summary>

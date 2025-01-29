@@ -24,22 +24,22 @@
             <Button Class="btn btn-dark" Style="margin: 2px" @onclick="() => NavigateToDetails(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
             <Button Class="btn btn-dark" Style="margin: 2px" hidden="@IsEstabelecimentoSelected(context.Id)" @onclick="() => SeleccionaEstabelecimento(context.Id)"><Icon Name="IconName.Check" /></Button>
         </GridColumn>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Sigla" PropertyName="Sigla" SortKeySelector="item => item.Sigla">
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Sigla" PropertyName="Sigla" SortString="Sigla" SortKeySelector="item => item.Sigla">
             @context.Sigla
         </GridColumn>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Denominação" PropertyName="Denominacao" SortKeySelector="item => item.Denominacao">
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Denominação" PropertyName="Denominacao" SortString="Denominacao" SortKeySelector="item => item.Denominacao">
             @context.Denominacao
         </GridColumn>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Morada" PropertyName="Morada" SortKeySelector="item => item.Morada">
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Morada" PropertyName="Morada" SortString="Morada" SortKeySelector="item => item.Morada">
             @context.Morada
         </GridColumn>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Email" PropertyName="Email" SortKeySelector="item => item.Email">
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Email" PropertyName="Email" SortString="Email" SortKeySelector="item => item.Email">
             @context.Email
         </GridColumn>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Tipo Prestador" PropertyName="Tipo Prestador" SortKeySelector="item => item.TipoPrestador">
-            @context.Email
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Tipo Prestador" PropertyName="TipoPrestador" SortString="TipoPrestador" SortKeySelector="item => item.TipoPrestador">
+            @context.TipoPrestador
         </GridColumn>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Telefone" PropertyName="Telefone" SortKeySelector="item => item.Telefone">
+        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Telefone" PropertyName="Telefone" SortString="Telefone" SortKeySelector="item => item.Telefone">
             @context.Telefone
         </GridColumn>
     </GridColumns>
