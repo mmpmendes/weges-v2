@@ -1,6 +1,7 @@
-﻿@if (!string.IsNullOrEmpty(DisplayMessage))
+﻿@using Identity.Components.Account
+@if (!string.IsNullOrEmpty(DisplayMessage))
 {
-    var statusMessageClass = DisplayMessage.StartsWith("Error") ? "danger" : "success";
+    var statusMessageClass = DisplayMessage.StartsWith("Erro") ? "danger" : "success";
     <div class="alert alert-@statusMessageClass" role="alert">
         @DisplayMessage
     </div>

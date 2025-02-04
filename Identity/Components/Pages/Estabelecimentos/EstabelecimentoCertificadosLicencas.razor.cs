@@ -19,7 +19,7 @@ public partial class EstabelecimentoCertificadosLicencas
     public IBrowserFile? selectedLicencaFile = default!;
     private bool IsFileSelected { get; set; }
     private readonly long maxFileSize = 1024 * 1024 * 5;
-    private CertificadoErsDTO? CertificadoErs { get; set; }
+    private CertificadoErsDTO? CertificadoErs { get; set; } = new CertificadoErsDTO();
     private LicencaErsDTO? LicencaErs { get; set; }
 
     protected override Task OnInitializedAsync()
@@ -57,9 +57,20 @@ public partial class EstabelecimentoCertificadosLicencas
 
         formData.Add(stream, "file", selectedCertificadoFile.Name);
 
-        await EstabelecimentoApiService.UploadCertificadoAsync(formData);
+        string fileLocation = await EstabelecimentoApiService.UploadCertificadoFileAsync(formData);
 
         IsFileSelected = false;
+
+        CertificadoErs.Localizacao = fileLocation;
+
+        if (CertificadoErs.Id < 0)
+        {
+            await EstabelecimentoApiService.CreateCertificadoErsAsync(Id, CertificadoErs);
+        }
+        else
+        {
+            await EstabelecimentoApiService.UpdateCertificadoDataAsync(Id, CertificadoErs);
+        }
     }
 
     private void OnCertificadoFileSelected(IBrowserFile? file)

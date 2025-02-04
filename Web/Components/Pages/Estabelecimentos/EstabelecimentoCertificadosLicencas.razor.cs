@@ -57,7 +57,7 @@ public partial class EstabelecimentoCertificadosLicencas
 
         formData.Add(stream, "file", selectedCertificadoFile.Name);
 
-        await EstabelecimentoApiService.UploadCertificadoAsync(formData);
+        await EstabelecimentoApiService.UploadCertificadoFileAsync(formData);
 
         IsFileSelected = false;
     }

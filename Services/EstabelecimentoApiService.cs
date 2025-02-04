@@ -86,12 +86,26 @@ public class EstabelecimentoApiService(HttpClient httpClient)
         return response.IsSuccessStatusCode;
     }
 
-    public async Task<bool> UploadCertificadoAsync(MultipartFormDataContent data, CancellationToken cancellationToken = default)
+    #region Certificado
+    public async Task<string> UploadCertificadoFileAsync(MultipartFormDataContent data, CancellationToken cancellationToken = default)
     {
         var response = await httpClient.PostAsync($"/api/Estabelecimento/UploadCertificado", data, cancellationToken);
 
-        return response.IsSuccessStatusCode;
+        return response.IsSuccessStatusCode ? await response.Content.ReadAsStringAsync() : string.Empty;
     }
+
+    public async Task<CertificadoErsDTO?> UpdateCertificadoDataAsync(long EstabelecimentoId, CertificadoErsDTO certificado, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PutAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/UpdateCertificadoErs", certificado, cancellationToken);
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<CertificadoErsDTO>() : null;
+    }
+
+    public async Task<CertificadoErsDTO?> CreateCertificadoErsAsync(long EstabelecimentoId, CertificadoErsDTO certificado, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PostAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/CertificadoErs", certificado, cancellationToken);
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<CertificadoErsDTO>() : null;
+    }
+    #endregion
 
     public async Task<bool> UploadLicencaAsync(MultipartFormDataContent data, CancellationToken cancellationToken = default)
     {
