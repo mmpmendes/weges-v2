@@ -1,4 +1,7 @@
-﻿namespace Services;
+﻿
+using Services.Models;
+
+namespace Services;
 public class FicheiroApiService(HttpClient httpClient)
 {
     public async Task<FileData> DownloadFicheiro(long ficheiroId, CancellationToken cancellationToken = default)
@@ -17,17 +20,5 @@ public class FicheiroApiService(HttpClient httpClient)
         return null;
     }
 
-    public class FileData
-    {
-        public byte[] FileBytes { get; }
-        public string FileName { get; }
-        public string ContentType { get; }
 
-        public FileData(byte[] fileBytes, string fileName, string contentType)
-        {
-            FileBytes = fileBytes;
-            FileName = fileName;
-            ContentType = contentType;
-        }
-    }
 }

@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Identity.InMemory;
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 using Services;
+using Services.Models;
 
 using SharedKernel.DTO;
-
-using System.Net.Http.Headers;
-
-using static Services.FicheiroApiService;
 
 namespace Identity.Components.Pages.Estabelecimentos;
 
@@ -22,12 +21,12 @@ public partial class EstabelecimentoCertificadosLicencas
     [Inject]
     private FicheiroApiService FicheiroApiService { get; set; } = default!;
     [Inject]
-    private IJSRuntime jSRuntime { get; set; }
+    private IJSRuntime jSRuntime { get; set; } = default!;
 
     public IBrowserFile? selectedCertificadoFile = default!;
     public IBrowserFile? selectedLicencaFile = default!;
     private bool IsFileSelected { get; set; }
-    private readonly long maxFileSize = 1024 * 1024 * 5;
+
     private CertificadoErsDTO? CertificadoErs { get; set; }
     private LicencaErsDTO? LicencaErs { get; set; }
 
@@ -45,12 +44,15 @@ public partial class EstabelecimentoCertificadosLicencas
     #region Certificado
     private async Task UploadCertificado()
     {
+        // TODO: Output mensagem de erro tentar de novo
         if (selectedCertificadoFile is null) return;
 
         using var formData = new MultipartFormDataContent();
 
-        var stream = new StreamContent(selectedCertificadoFile.OpenReadStream(maxFileSize));
-        stream.Headers.ContentType = new MediaTypeHeaderValue(selectedCertificadoFile.ContentType);
+        var stream = FileManagementClientSide.SetupFileForUpload(selectedCertificadoFile);
+
+        // TODO: Output mensagem de erro tentar de novo
+        if (stream is null) return;
 
         formData.Add(stream, "file", selectedCertificadoFile.Name);
 
@@ -94,9 +96,10 @@ public partial class EstabelecimentoCertificadosLicencas
         if (selectedLicencaFile is null) return;
 
         using var formData = new MultipartFormDataContent();
+        var stream = FileManagementClientSide.SetupFileForUpload(selectedLicencaFile);
 
-        var stream = new StreamContent(selectedLicencaFile.OpenReadStream(maxFileSize));
-        stream.Headers.ContentType = new MediaTypeHeaderValue(selectedLicencaFile.ContentType);
+        // TODO: Output mensagem de erro tentar de novo
+        if (stream is null) return;
 
         formData.Add(stream, "file", selectedLicencaFile.Name);
 
@@ -126,14 +129,9 @@ public partial class EstabelecimentoCertificadosLicencas
         if (CertificadoErs?.FicheiroId > 0)
         {
             FileData fileData = await FicheiroApiService.DownloadFicheiro(CertificadoErs.FicheiroId);
-            if (fileData != null && fileData.FileBytes.Length > 0)
-            {
-                var base64 = Convert.ToBase64String(fileData.FileBytes);
-                var contentType = fileData.ContentType ?? "application/octet-stream";
-                var jsFileName = fileData.FileName ?? "download";
+            if (fileData is null) return;
 
-                await jSRuntime.InvokeVoidAsync("blazorDownloadFile", base64, contentType, jsFileName);
-            }
+            await FileManagementClientSide.DownloadFile(jSRuntime, fileData);
         }
     }
 }
