@@ -1,4 +1,5 @@
-﻿<div class="row">
+﻿@rendermode InteractiveServer
+<div class="row">
     <span class="col-md-6">
         <Card Style="width:18rem;">
             <CardBody>
@@ -7,31 +8,32 @@
                 {
 
                     <div class="form-floating mb-3">
-                        <input id="nrCertificado" class="form-control" type="text" @bind-value="CertificadoErs.NrCertificado"/>
+                        <input id="nrCertificado" class="form-control" type="text" @bind-value="CertificadoErs.NrCertificado" />
                         <label class="form-label" for="nrCertificado">Nº do certificado</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input id="periodo" class="form-control" type="text" @bind-value="CertificadoErs.Periodo"/>
+                        <input id="periodo" class="form-control" type="text" @bind-value="CertificadoErs.Periodo" />
                         <label class="form-label" for="periodo">Período</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input id="expiracao" class="form-control" type="date" @bind-value="CertificadoErs.DataExpiracao"/>
+                        <input id="expiracao" class="form-control" type="date" @bind-value="CertificadoErs.DataExpiracao" />
                         <label class="form-label" for="expiracao">Data de expiração</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input id="taxa" class="form-control" type="date" @bind-value="CertificadoErs.DataExpiracaoTaxa"/>
+                        <input id="taxa" class="form-control" type="date" @bind-value="CertificadoErs.DataExpiracaoTaxa" />
                         <label class="form-label" for="taxa">Data de expiração taxa</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input id="observacoes" class="form-control" type="text" @bind-value="CertificadoErs.Observacoes" />
                         <label class="form-label" for="observacoes">Observações</label>
                     </div>
-                    @if (CertificadoErs.Ficheiro is null)
+                    @if (CertificadoErs.FicheiroId > 0)
+                    {
+                        <button class="btn btn-outline-dark" @onclick="DownloadFicheiro">Donwload Ficheiro</button>
+                    }
+                    else
                     {
                         <FileUploadButton SelectedFileChanged="OnCertificadoFileSelected" Label="Carregar Ficheiro" />
-                    }
-                    else{
-                        <button class="btn btn-primary" onclick="@DownloadFicheiro(CertificadoErs.Id)"></button>
                     }
                     <button @onclick="UploadCertificado" disabled="@(!IsFileSelected)" class="btn btn-dark">Guardar Certificado</button>
                 }

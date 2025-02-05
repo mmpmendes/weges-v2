@@ -24,51 +24,54 @@ public class FicheiroController(
 
     private async Task<FileResult?> GetFile(long ficheiroId)
     {
-        Ficheiro? Ficheiro = await _ficheiroRepo.GetById(ficheiroId);
-        if (Ficheiro == null)
+        var ficheiro = await _ficheiroRepo.GetById(ficheiroId);
+        if (ficheiro == null)
         {
             return null;
         }
 
-        string certificadoPath = Path.Combine(_config[UPLOADPATH], Ficheiro.Localizacao!);
+        string filePath = Path.Combine(_config[UPLOADPATH], ficheiro.Localizacao!);
 
-        if (!System.IO.File.Exists(certificadoPath))
+        if (!System.IO.File.Exists(filePath))
         {
             return null;
         }
-        var ficheiro = _fileService.GetFileAsByteArray(certificadoPath);
-        var contentType = _fileService.GetContentType(certificadoPath);
 
-        return new FileContentResult(ficheiro, contentType)
-        {
-            FileDownloadName = Ficheiro.Nome
-        };
+        var fileBytes = _fileService.GetFileAsByteArray(filePath);
+        var contentType = _fileService.GetContentType(filePath);
+
+        return File(fileBytes, contentType, ficheiro.Nome);
     }
 
     [HttpGet("DownloadFicheiro/{ficheiroId}")]
-    public async Task<IResult> DownloadFicheiro(long ficheiroId)
+    public async Task<IActionResult> DownloadFicheiro(long ficheiroId)
     {
-        var ficheiro = await GetFile(ficheiroId);
+        var fileResult = await GetFile(ficheiroId);
 
-        if (ficheiro == null)
+        if (fileResult == null)
         {
-            return Results.Ok();
+            return NotFound("File not found.");
         }
 
-        return Results.Ok(ficheiro);
-
+        return fileResult;
     }
 
     [HttpGet("DownloadCertificadoERS/{certificadoId}")]
-    public async Task<IResult> DownloadCertificadoERS(long certificadoId)
+    public async Task<IActionResult> DownloadCertificadoERS(long certificadoId)
     {
         var certificado = await _certificadoErsRepo.GetById(certificadoId);
 
         if (certificado == null || certificado.FicheiroId == null)
         {
-            return Results.Ok();
+            return NotFound("Certificado not found or does not have an associated file.");
         }
 
-        return Results.Ok(await GetFile((long)certificado.FicheiroId));
+        var fileResult = await GetFile((long)certificado.FicheiroId);
+        if (fileResult == null)
+        {
+            return NotFound("Associated file not found.");
+        }
+
+        return fileResult;
     }
 }

@@ -180,7 +180,7 @@ public class EstabelecimentoController(
     [HttpGet("{id}/CertificadoErs")]
     public IResult GetCertificadoErsByEstabelecimentoId(long id)
     {
-        var certificado = _certificadoRepo.GetAll().Where(c => c.EstabelecimentoId == id).FirstOrDefault();
+        var certificado = _certificadoRepo.GetAll().Where(c => c.EstabelecimentoId == id).Include(c => c.Ficheiro).FirstOrDefault();
         if (certificado == null) return Results.Ok(new CertificadoErsDTO());
 
         var certificadoDto = _mapper.Map<CertificadoErsDTO>(certificado);

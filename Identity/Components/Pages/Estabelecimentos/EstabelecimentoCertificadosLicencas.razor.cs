@@ -1,11 +1,15 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 
 using Services;
 
 using SharedKernel.DTO;
 
 using System.Net.Http.Headers;
+
+using static Services.FicheiroApiService;
 
 namespace Identity.Components.Pages.Estabelecimentos;
 
@@ -17,6 +21,8 @@ public partial class EstabelecimentoCertificadosLicencas
     private EstabelecimentoApiService EstabelecimentoApiService { get; set; } = default!;
     [Inject]
     private FicheiroApiService FicheiroApiService { get; set; } = default!;
+    [Inject]
+    private IJSRuntime jSRuntime { get; set; }
 
     public IBrowserFile? selectedCertificadoFile = default!;
     public IBrowserFile? selectedLicencaFile = default!;
@@ -54,7 +60,7 @@ public partial class EstabelecimentoCertificadosLicencas
 
         if (ficheiro is not null)
         {
-            CertificadoErs!.Ficheiro = ficheiro;
+            CertificadoErs!.FicheiroId = ficheiro.Id;
             CertificadoErs!.EstabelecimentoId = Id;
         }
         if (CertificadoErs!.Id <= 0)
@@ -114,8 +120,20 @@ public partial class EstabelecimentoCertificadosLicencas
     }
 
     #endregion
-    private async Task DownloadFicheiro(long certificadoId)
+
+    private async Task DownloadFicheiro(MouseEventArgs e)
     {
-        await FicheiroApiService.DownloadCertificadoErs(certificadoId);
+        if (CertificadoErs?.FicheiroId > 0)
+        {
+            FileData fileData = await FicheiroApiService.DownloadFicheiro(CertificadoErs.FicheiroId);
+            if (fileData != null && fileData.FileBytes.Length > 0)
+            {
+                var base64 = Convert.ToBase64String(fileData.FileBytes);
+                var contentType = fileData.ContentType ?? "application/octet-stream";
+                var jsFileName = fileData.FileName ?? "download";
+
+                await jSRuntime.InvokeVoidAsync("blazorDownloadFile", base64, contentType, jsFileName);
+            }
+        }
     }
 }

@@ -18,10 +18,9 @@ public class WegesProfile : Profile
         CreateMap<DirecaoClinica, DirecaoClinicaDTO>().ReverseMap();
         CreateMap<Servico, ServicoDTO>().ReverseMap();
         CreateMap<CertificadoERS, CertificadoErsDTO>()
-             .ForMember(dest => dest.Ficheiro, opt => opt.MapFrom(src => src.Ficheiro));
+             .ForMember(dest => dest.FicheiroId, opt => opt.MapFrom(src => src.Ficheiro == null ? 0 : src.Ficheiro.Id));
         CreateMap<CertificadoErsDTO, CertificadoERS>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore())
-            .ForMember(dest => dest.Ficheiro, opt => opt.MapFrom(src => src.Ficheiro)); ;
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<LicencaERS, LicencaErsDTO>().ReverseMap();
         CreateMap<Tipologia, TipologiaDTO>().ReverseMap();

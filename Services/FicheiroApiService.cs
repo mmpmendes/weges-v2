@@ -1,13 +1,33 @@
 ﻿namespace Services;
 public class FicheiroApiService(HttpClient httpClient)
 {
-    public async Task DownloadFicheiro(long ficheiroId, CancellationToken cancellationToken = default)
+    public async Task<FileData> DownloadFicheiro(long ficheiroId, CancellationToken cancellationToken = default)
     {
-        await httpClient.GetStreamAsync($"/api/Ficheiro/DownloadFicheiro/{ficheiroId}", cancellationToken);
+        var response = await httpClient.GetAsync($"/api/Ficheiro/DownloadFicheiro/{ficheiroId}", cancellationToken);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var fileBytes = await response.Content.ReadAsByteArrayAsync();
+            var contentType = response.Content.Headers.ContentType?.ToString();
+            var fileName = response.Content.Headers.ContentDisposition?.FileName?.Trim('"') ?? "ficheiro.pdf";
+
+            return new FileData(fileBytes, fileName, contentType);
+        }
+
+        return null;
     }
 
-    public async Task DownloadCertificadoErs(long certificadoId, CancellationToken cancellationToken = default)
+    public class FileData
     {
-        await httpClient.GetStreamAsync($"/Ficheiro/DownloadCertificadoErs/{certificadoId}", cancellationToken);
+        public byte[] FileBytes { get; }
+        public string FileName { get; }
+        public string ContentType { get; }
+
+        public FileData(byte[] fileBytes, string fileName, string contentType)
+        {
+            FileBytes = fileBytes;
+            FileName = fileName;
+            ContentType = contentType;
+        }
     }
 }

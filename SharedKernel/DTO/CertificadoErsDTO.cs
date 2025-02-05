@@ -10,5 +10,5 @@ public class CertificadoErsDTO
     public DateOnly? DataExpiracaoTaxa { get; set; }
     public string? DataPagamentoTaxa { get; set; }
     public long EstabelecimentoId { get; set; }
-    public FicheiroDTO? Ficheiro { get; set; }
+    public long FicheiroId { get; set; }
 }
