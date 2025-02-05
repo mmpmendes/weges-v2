@@ -77,7 +77,10 @@ builder.Services.AddHttpClient<TipologiaApiService>(client =>
 {
     client.BaseAddress = new("https+http://apiservice");
 });
-
+builder.Services.AddHttpClient<FicheiroApiService>(client =>
+{
+    client.BaseAddress = new("https+http://apiservice");
+});
 builder.Services.AddSingleton<EstabelecimentoService>();
 
 builder.Services.AddAntiforgery();

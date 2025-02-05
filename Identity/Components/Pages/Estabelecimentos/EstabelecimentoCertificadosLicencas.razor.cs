@@ -15,32 +15,23 @@ public partial class EstabelecimentoCertificadosLicencas
     public long Id { get; set; }
     [Inject]
     private EstabelecimentoApiService EstabelecimentoApiService { get; set; } = default!;
+    [Inject]
+    private FicheiroApiService FicheiroApiService { get; set; } = default!;
+
     public IBrowserFile? selectedCertificadoFile = default!;
     public IBrowserFile? selectedLicencaFile = default!;
     private bool IsFileSelected { get; set; }
     private readonly long maxFileSize = 1024 * 1024 * 5;
-    private CertificadoErsDTO? CertificadoErs { get; set; } = new CertificadoErsDTO();
+    private CertificadoErsDTO? CertificadoErs { get; set; }
     private LicencaErsDTO? LicencaErs { get; set; }
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
-        EstabelecimentoApiService.GetEstabelecimentoCertificadoErsAsync(Id).ContinueWith(task =>
-        {
-            if (task.IsCompletedSuccessfully)
-            {
-                CertificadoErs = task.Result;
-            }
-        });
+        CertificadoErs = await EstabelecimentoApiService.GetEstabelecimentoCertificadoErsAsync(Id);
 
-        EstabelecimentoApiService.GetEstabelecimentoLicencaErsAsync(Id).ContinueWith(task =>
-        {
-            if (task.IsCompletedSuccessfully)
-            {
-                LicencaErs = task.Result;
-            }
-        });
+        LicencaErs = await EstabelecimentoApiService.GetEstabelecimentoLicencaErsAsync(Id);
 
-        return base.OnInitializedAsync();
+        await base.OnInitializedAsync();
     }
 
 
@@ -57,13 +48,16 @@ public partial class EstabelecimentoCertificadosLicencas
 
         formData.Add(stream, "file", selectedCertificadoFile.Name);
 
-        string fileLocation = await EstabelecimentoApiService.UploadCertificadoFileAsync(formData);
+        FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadCertificadoFileAsync(formData);
 
         IsFileSelected = false;
 
-        CertificadoErs.Localizacao = fileLocation;
-
-        if (CertificadoErs.Id < 0)
+        if (ficheiro is not null)
+        {
+            CertificadoErs!.Ficheiro = ficheiro;
+            CertificadoErs!.EstabelecimentoId = Id;
+        }
+        if (CertificadoErs!.Id <= 0)
         {
             await EstabelecimentoApiService.CreateCertificadoErsAsync(Id, CertificadoErs);
         }
@@ -120,4 +114,8 @@ public partial class EstabelecimentoCertificadosLicencas
     }
 
     #endregion
+    private async Task DownloadFicheiro(long certificadoId)
+    {
+        await FicheiroApiService.DownloadCertificadoErs(certificadoId);
+    }
 }

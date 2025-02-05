@@ -338,37 +338,37 @@ public class SeedDataWeges(IServiceProvider serviceProvider,
     /// <param name="dbContext"></param>
     private static void SeedLicencas(WegesDbContext dbContext)
     {
-        if (!dbContext.Set<LicencaERS>().Any())
-        {
-            dbContext.Set<LicencaERS>().AddRange(new[]
-            {
-                new LicencaERS
-                {
-                    Id = 1,
-                    DataSubmissao = new DateOnly(2023, 02, 20),
-                    Estabelecimento = dbContext.Set<Estabelecimento>().Find(1L),
-                    EstabelecimentoId = 1L,
-                    FicheiroId = 1L,
-                    NrLicenca = "NrLicenca 1",
-                    Ficheiro = dbContext.Set<Ficheiro>().Find(1L),
-                    Periodo = "Periodo 1",
-                    Observacoes = "Observacoes 1"
-                },
-                new LicencaERS
-                {
-                    Id = 2,
-                    DataSubmissao = new DateOnly(2023, 02, 20),
-                    Estabelecimento = dbContext.Set<Estabelecimento>().Find(2L),
-                    EstabelecimentoId = 2L,
-                    FicheiroId = 2L,
-                    NrLicenca = "NrLicenca 2",
-                    Ficheiro = dbContext.Set<Ficheiro>().Find(2L),
-                    Periodo = "Periodo 2",
-                    Observacoes = "Observacoes 2"
-                }
-            });
-            dbContext.SaveChanges();
-        }
+        //if (!dbContext.Set<LicencaERS>().Any())
+        //{
+        //    dbContext.Set<LicencaERS>().AddRange(new[]
+        //    {
+        //        new LicencaERS
+        //        {
+        //            Id = 1,
+        //            DataSubmissao = new DateOnly(2023, 02, 20),
+        //            Estabelecimento = dbContext.Set<Estabelecimento>().Find(1L),
+        //            EstabelecimentoId = 1L,
+        //            FicheiroId = 1L,
+        //            NrLicenca = "NrLicenca 1",
+        //            Ficheiro = dbContext.Set<Ficheiro>().Find(1L),
+        //            Periodo = "Periodo 1",
+        //            Observacoes = "Observacoes 1"
+        //        },
+        //        new LicencaERS
+        //        {
+        //            Id = 2,
+        //            DataSubmissao = new DateOnly(2023, 02, 20),
+        //            Estabelecimento = dbContext.Set<Estabelecimento>().Find(2L),
+        //            EstabelecimentoId = 2L,
+        //            FicheiroId = 2L,
+        //            NrLicenca = "NrLicenca 2",
+        //            Ficheiro = dbContext.Set<Ficheiro>().Find(2L),
+        //            Periodo = "Periodo 2",
+        //            Observacoes = "Observacoes 2"
+        //        }
+        //    });
+        //    dbContext.SaveChanges();
+        //}
     }
     /// <summary>
     /// Seed Certificados
@@ -376,39 +376,39 @@ public class SeedDataWeges(IServiceProvider serviceProvider,
     /// <param name="dbContext"></param>
     private static void SeedCertificados(WegesDbContext dbContext)
     {
-        if (!dbContext.Set<CertificadoERS>().Any())
-        {
-            dbContext.Set<CertificadoERS>().AddRange(new[]
-            {
-                new CertificadoERS
-                {
-                    Id = 1,
-                    DataExpiracao = new DateOnly(2023, 02, 20),
-                    DataPagamentoTaxa = new DateOnly(2023, 02, 20),
-                    EstabelecimentoId = 1,
-                    FicheiroId = 1,
-                    Periodo = "Periodo 1",
-                    NrCertificado = "Nr Certificado 1",
-                    DataSubmissao = new DateOnly(2023, 02, 20),
-                    Observacoes = "Observacoes 1",
-                    DataExpiracaoTaxa = new DateOnly(2023, 02, 20)
-                },
-                new CertificadoERS
-                {
-                    Id = 2,
-                    DataExpiracao = new DateOnly(2023, 02, 20),
-                    DataPagamentoTaxa = new DateOnly(2023, 02, 20),
-                    EstabelecimentoId = 2,
-                    FicheiroId = 2,
-                    Periodo = "Periodo 1",
-                    NrCertificado = "Nr Certificado 1",
-                    DataSubmissao = new DateOnly(2023, 02, 20),
-                    Observacoes = "Observacoes 1",
-                    DataExpiracaoTaxa = new DateOnly(2023, 02, 20)
-                }
-            });
-            dbContext.SaveChanges();
-        }
+        //if (!dbContext.Set<CertificadoERS>().Any())
+        //{
+        //    dbContext.Set<CertificadoERS>().AddRange(new[]
+        //    {
+        //        new CertificadoERS
+        //        {
+        //            Id = 1,
+        //            DataExpiracao = new DateOnly(2023, 02, 20),
+        //            DataPagamentoTaxa = new DateOnly(2023, 02, 20),
+        //            EstabelecimentoId = 1,
+        //            FicheiroId = 1,
+        //            Periodo = "Periodo 1",
+        //            NrCertificado = "Nr Certificado 1",
+        //            DataSubmissao = new DateOnly(2023, 02, 20),
+        //            Observacoes = "Observacoes 1",
+        //            DataExpiracaoTaxa = new DateOnly(2023, 02, 20)
+        //        },
+        //        new CertificadoERS
+        //        {
+        //            Id = 2,
+        //            DataExpiracao = new DateOnly(2023, 02, 20),
+        //            DataPagamentoTaxa = new DateOnly(2023, 02, 20),
+        //            EstabelecimentoId = 2,
+        //            FicheiroId = 2,
+        //            Periodo = "Periodo 1",
+        //            NrCertificado = "Nr Certificado 1",
+        //            DataSubmissao = new DateOnly(2023, 02, 20),
+        //            Observacoes = "Observacoes 1",
+        //            DataExpiracaoTaxa = new DateOnly(2023, 02, 20)
+        //        }
+        //    });
+        //    dbContext.SaveChanges();
+        //}
     }
     /// <summary>
     /// Seed Estabelecimentos
@@ -563,27 +563,27 @@ public class SeedDataWeges(IServiceProvider serviceProvider,
     /// <param name="dbContext"></param>
     private static void SeedFicheiros(WegesDbContext dbContext)
     {
-        if (!dbContext.Set<Ficheiro>().Any())
-        {
-            dbContext.Set<Ficheiro>().AddRange(new[]
-            {
-                new Ficheiro
-                {
-                    Id = 1,
-                    Nome = "Ficheiro 1",
-                    Localizacao = "/shift/exemplo1.txt",
-                    Tipo = "Tipo 1"
-                },
-                new Ficheiro
-                {
-                    Id = 2,
-                    Nome = "Ficheiro 2",
-                    Localizacao = "/shift/exemplo100.txt",
-                    Tipo = "Tipo 2"
-                }
-            });
-            dbContext.SaveChanges();
-        }
+        //if (!dbContext.Set<Ficheiro>().Any())
+        //{
+        //    dbContext.Set<Ficheiro>().AddRange(new[]
+        //    {
+        //        new Ficheiro
+        //        {
+        //            Id = 1,
+        //            Nome = "Ficheiro 1",
+        //            Localizacao = "/shift/exemplo1.txt",
+        //            Tipo = "Tipo 1"
+        //        },
+        //        new Ficheiro
+        //        {
+        //            Id = 2,
+        //            Nome = "Ficheiro 2",
+        //            Localizacao = "/shift/exemplo100.txt",
+        //            Tipo = "Tipo 2"
+        //        }
+        //    });
+        //    dbContext.SaveChanges();
+        //}
     }
     /// <summary>
     /// Seed Servicos

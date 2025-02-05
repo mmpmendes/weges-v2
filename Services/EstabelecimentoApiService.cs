@@ -87,11 +87,11 @@ public class EstabelecimentoApiService(HttpClient httpClient)
     }
 
     #region Certificado
-    public async Task<string> UploadCertificadoFileAsync(MultipartFormDataContent data, CancellationToken cancellationToken = default)
+    public async Task<FicheiroDTO?> UploadCertificadoFileAsync(MultipartFormDataContent data, CancellationToken cancellationToken = default)
     {
         var response = await httpClient.PostAsync($"/api/Estabelecimento/UploadCertificado", data, cancellationToken);
 
-        return response.IsSuccessStatusCode ? await response.Content.ReadAsStringAsync() : string.Empty;
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<FicheiroDTO>() : null;
     }
 
     public async Task<CertificadoErsDTO?> UpdateCertificadoDataAsync(long EstabelecimentoId, CertificadoErsDTO certificado, CancellationToken cancellationToken = default)

@@ -8,6 +8,6 @@ public class LicencaErsDTO
     public string? Observacoes { get; set; }
     public long EstabelecimentoId { get; set; }
     public long FicheiroId { get; set; }
-    public required string Localizacao { get; set; }
-    public required string NomeFicheiro { get; set; }
+    public string? Localizacao { get; set; }
+    public string? NomeFicheiro { get; set; }
 }

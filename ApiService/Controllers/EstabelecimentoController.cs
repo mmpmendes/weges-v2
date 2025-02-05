@@ -20,7 +20,8 @@ public class EstabelecimentoController(
         ISimpleRepository<LicencaERS> licencaRepo,
         ISimpleRepository<Servico> servicoRepo,
         ISimpleRepository<DirecaoClinica> direcaoClinicaRepo,
-        ISimpleRepository<Colaborador> colaboradorRepo
+        ISimpleRepository<Colaborador> colaboradorRepo,
+        ISimpleRepository<Ficheiro> ficheiroRepo
         , IConfiguration config
         , IFileService fileService
         , IMapper mapper
@@ -32,6 +33,7 @@ public class EstabelecimentoController(
     private readonly ISimpleRepository<Servico> _servicoRepo = servicoRepo;
     private readonly ISimpleRepository<DirecaoClinica> _direcaoClinicaRepo = direcaoClinicaRepo;
     private readonly ISimpleRepository<Colaborador> _colaboradorRepo = colaboradorRepo;
+    private readonly ISimpleRepository<Ficheiro> _ficheiroRepo = ficheiroRepo;
     private readonly IMapper _mapper = mapper;
     private const string UPLOADPATH = "Paths:uploadpath";
     private readonly IFileService _fileService = fileService;
@@ -178,11 +180,11 @@ public class EstabelecimentoController(
     [HttpGet("{id}/CertificadoErs")]
     public IResult GetCertificadoErsByEstabelecimentoId(long id)
     {
-        var certificados = _certificadoRepo.GetAll().Where(c => c.EstabelecimentoId == id);
-        if (!certificados.Any()) return Results.NotFound("Certificados não encontrados para o estabelecimento.");
+        var certificado = _certificadoRepo.GetAll().Where(c => c.EstabelecimentoId == id).FirstOrDefault();
+        if (certificado == null) return Results.Ok(new CertificadoErsDTO());
 
-        var certificadosDto = _mapper.Map<IEnumerable<CertificadoErsDTO>>(certificados);
-        return Results.Ok(certificadosDto);
+        var certificadoDto = _mapper.Map<CertificadoErsDTO>(certificado);
+        return Results.Ok(certificadoDto);
     }
 
     /// <summary>
@@ -193,10 +195,10 @@ public class EstabelecimentoController(
     [HttpGet("{id}/LicencaErs")]
     public IResult GetLicencaErsByEstabelecimentoId(long id)
     {
-        var licencas = _licencaRepo.GetAll().Where(c => c.EstabelecimentoId == id);
-        if (!licencas.Any()) return Results.NotFound("Licencas não encontradas para o estabelecimento.");
+        var licencas = _licencaRepo.GetAll().Where(c => c.EstabelecimentoId == id).FirstOrDefault();
+        if (licencas == null) return Results.Ok(new LicencaErsDTO());
 
-        var licencasDto = _mapper.Map<IEnumerable<LicencaErsDTO>>(licencas);
+        var licencasDto = _mapper.Map<LicencaErsDTO>(licencas);
         return Results.Ok(licencasDto);
     }
 
@@ -313,11 +315,31 @@ public class EstabelecimentoController(
     [HttpPost("UploadCertificado")]
     public async Task<IResult> UploadCertificado(IFormFile file)
     {
-
+        // first - save the file to the file system
         string fileLocationAndName = await _fileService.SaveFileToFileSystem(file, "certificados", _config[UPLOADPATH]);
 
-        return Results.Ok(fileLocationAndName);
-        //return Results.Ok();
+        return await SaveFicheiro(file.Name, fileLocationAndName);
+    }
+
+    private async Task<IResult> SaveFicheiro(string fileName, string fileLocationAndName)
+    {
+        // second - save the file to the ficheiros table
+        Ficheiro ficheiro = new Ficheiro()
+        {
+            Nome = fileName,
+            Localizacao = fileLocationAndName
+        };
+
+        try
+        {
+            await _ficheiroRepo.Create(ficheiro);
+
+            return Results.Ok(_mapper.Map<FicheiroDTO>(ficheiro));
+        }
+        catch (Exception)
+        {
+            return Results.InternalServerError("Erro a gravar o ficheiro");
+        }
     }
 
     /// <summary>
