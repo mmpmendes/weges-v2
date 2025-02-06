@@ -11,12 +11,12 @@ public class Estabelecimento : Entity<long>
     public string? Sigla { get; set; }
     public CertificadoERS? CertificadoERS { get; set; }
     public LicencaERS? LicencaERS { get; set; }
-    public ICollection<Anexo>? CartoesNipc { get; set; }
-    public ICollection<Anexo>? Alvaras { get; set; }
-    public ICollection<Anexo>? MedidasANPC { get; set; }
-    public ICollection<Anexo>? ParecerANPC { get; set; }
-    public ICollection<Anexo>? ListaVerificacao { get; set; }
-    public ICollection<Anexo>? FicheirosAnexar { get; set; }
-    public ICollection<Anexo>? DireitosDeveres { get; set; }
-    public ICollection<Anexo>? LicenciamentoRegistoLegal { get; set; }
+    public Anexo? CartaoNIPC { get; set; }
+    public Anexo? Alvara { get; set; }
+    public Anexo? MedidaANPC { get; set; }
+    public Anexo? ParecerANPC { get; set; }
+    public Anexo? ListaVerificacao { get; set; }
+    public Anexo? FicheirosAnexar { get; set; }
+    public Anexo? DireitosDeveres { get; set; }
+    public Anexo? LicenciamentoRegistoLegal { get; set; }
 }

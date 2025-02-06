@@ -27,6 +27,8 @@ public class WegesProfile : Profile
         CreateMap<Colaborador, ColaboradorDTO>().ReverseMap();
         CreateMap<Colaborador, CorpoClinicoDTO>().ReverseMap();
         CreateMap<Ficheiro, FicheiroDTO>().ReverseMap();
+
+        CreateMap<Anexo, AnexoDTO>().ReverseMap();
     }
 }
 

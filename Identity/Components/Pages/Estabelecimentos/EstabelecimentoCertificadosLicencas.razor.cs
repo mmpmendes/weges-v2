@@ -25,7 +25,8 @@ public partial class EstabelecimentoCertificadosLicencas
 
     public IBrowserFile? selectedCertificadoFile = default!;
     public IBrowserFile? selectedLicencaFile = default!;
-    private bool IsFileSelected { get; set; }
+    private bool IsCertificadoFileSelected { get; set; }
+    private bool IsLicencaFileSelected { get; set; }
 
     private CertificadoErsDTO? CertificadoErs { get; set; }
     private LicencaErsDTO? LicencaErs { get; set; }
@@ -58,7 +59,7 @@ public partial class EstabelecimentoCertificadosLicencas
 
         FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadCertificadoFileAsync(formData);
 
-        IsFileSelected = false;
+        IsCertificadoFileSelected = false;
 
         if (ficheiro is not null)
         {
@@ -81,11 +82,11 @@ public partial class EstabelecimentoCertificadosLicencas
 
         if (selectedCertificadoFile is not null)
         {
-            IsFileSelected = true;
+            IsCertificadoFileSelected = true;
         }
         else
         {
-            IsFileSelected = false;
+            IsCertificadoFileSelected = false;
         }
     }
     #endregion
@@ -93,9 +94,11 @@ public partial class EstabelecimentoCertificadosLicencas
     #region Licenca
     private async Task UploadLicenca()
     {
+        // TODO: Output mensagem de erro tentar de novo
         if (selectedLicencaFile is null) return;
 
         using var formData = new MultipartFormDataContent();
+
         var stream = FileManagementClientSide.SetupFileForUpload(selectedLicencaFile);
 
         // TODO: Output mensagem de erro tentar de novo
@@ -103,9 +106,23 @@ public partial class EstabelecimentoCertificadosLicencas
 
         formData.Add(stream, "file", selectedLicencaFile.Name);
 
-        await EstabelecimentoApiService.UploadLicencaAsync(formData);
+        FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadLicencaFileAsync(formData);
 
-        IsFileSelected = false;
+        IsLicencaFileSelected = false;
+
+        if (ficheiro is not null)
+        {
+            LicencaErs!.FicheiroId = ficheiro.Id;
+            LicencaErs!.EstabelecimentoId = Id;
+        }
+        if (LicencaErs!.Id <= 0)
+        {
+            await EstabelecimentoApiService.CreateLicencaErsAsync(Id, LicencaErs);
+        }
+        else
+        {
+            await EstabelecimentoApiService.UpdateLicencaDataAsync(Id, LicencaErs);
+        }
     }
 
     private void OnLicencaFileSelected(IBrowserFile? file)
@@ -114,24 +131,36 @@ public partial class EstabelecimentoCertificadosLicencas
 
         if (selectedLicencaFile is not null)
         {
-            IsFileSelected = true;
+            IsLicencaFileSelected = true;
         }
         else
         {
-            IsFileSelected = false;
+            IsLicencaFileSelected = false;
         }
     }
 
     #endregion
 
-    private async Task DownloadFicheiro(MouseEventArgs e)
+    private async Task DownloadCertificadoErs(MouseEventArgs e)
     {
         if (CertificadoErs?.FicheiroId > 0)
         {
-            FileData fileData = await FicheiroApiService.DownloadFicheiro(CertificadoErs.FicheiroId);
-            if (fileData is null) return;
-
-            await FileManagementClientSide.DownloadFile(jSRuntime, fileData);
+            await DownloadFile(CertificadoErs.FicheiroId);
         }
+    }
+    private async Task DownloadLicencaErs(MouseEventArgs e)
+    {
+        if (LicencaErs?.FicheiroId > 0)
+        {
+            await DownloadFile(LicencaErs.FicheiroId);
+        }
+    }
+
+    private async Task DownloadFile(long ficheiroId)
+    {
+        FileData fileData = await FicheiroApiService.DownloadFicheiro(ficheiroId);
+        if (fileData is null) return;
+
+        await FileManagementClientSide.DownloadFile(jSRuntime, fileData);
     }
 }

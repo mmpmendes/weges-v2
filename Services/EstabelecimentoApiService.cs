@@ -67,9 +67,15 @@ public class EstabelecimentoApiService(HttpClient httpClient)
 
     public async Task<EstabelecimentoDTO?> GetEstabelecimentoByIdAsync(long estabelecimentoId, CancellationToken cancellationToken = default)
     {
-        var estabelecimento = await httpClient.GetFromJsonAsync<EstabelecimentoDTO>($"/api/Estabelecimento/{estabelecimentoId}", cancellationToken);
-
-        return estabelecimento;
+        try
+        {
+            var estabelecimento = await httpClient.GetFromJsonAsync<EstabelecimentoDTO>($"/api/Estabelecimento/{estabelecimentoId}", cancellationToken);
+            return estabelecimento;
+        }
+        catch (Exception)
+        {
+            return null;
+        }
     }
 
     public async Task<bool> SaveEstabelecimentoAsync(EstabelecimentoDTO estabelecimento, CancellationToken cancellationToken = default)
@@ -85,27 +91,6 @@ public class EstabelecimentoApiService(HttpClient httpClient)
 
         return response.IsSuccessStatusCode;
     }
-
-    #region Certificado
-    public async Task<FicheiroDTO?> UploadCertificadoFileAsync(MultipartFormDataContent data, CancellationToken cancellationToken = default)
-    {
-        var response = await httpClient.PostAsync($"/api/Estabelecimento/UploadCertificado", data, cancellationToken);
-
-        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<FicheiroDTO>() : null;
-    }
-
-    public async Task<CertificadoErsDTO?> UpdateCertificadoDataAsync(long EstabelecimentoId, CertificadoErsDTO certificado, CancellationToken cancellationToken = default)
-    {
-        var response = await httpClient.PutAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/UpdateCertificadoErs", certificado, cancellationToken);
-        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<CertificadoErsDTO>() : null;
-    }
-
-    public async Task<CertificadoErsDTO?> CreateCertificadoErsAsync(long EstabelecimentoId, CertificadoErsDTO certificado, CancellationToken cancellationToken = default)
-    {
-        var response = await httpClient.PostAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/CertificadoErs", certificado, cancellationToken);
-        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<CertificadoErsDTO>() : null;
-    }
-    #endregion
 
     public async Task<bool> UploadLicencaAsync(MultipartFormDataContent data, CancellationToken cancellationToken = default)
     {
@@ -146,7 +131,7 @@ public class EstabelecimentoApiService(HttpClient httpClient)
 
     public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosCartoesNipcAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
-        var response = await httpClient.GetFromJsonAsync<IList<FicheirosLicenciamentoDTO>>($"/api/Estabelecimento/{id}/CartoesNipc");
+        var response = await httpClient.GetFromJsonAsync<IList<FicheirosLicenciamentoDTO>?>($"/api/Estabelecimento/{id}/CartoesNipc");
         return response;
     }
 
@@ -209,4 +194,46 @@ public class EstabelecimentoApiService(HttpClient httpClient)
         var response = await httpClient.GetFromJsonAsync<IList<ColaboradorDTO>>($"/api/Estabelecimento/{id}/Colaboradores");
         return response;
     }
+
+    #region LicencaERS
+    public async Task<FicheiroDTO?> UploadLicencaFileAsync(MultipartFormDataContent formData, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PostAsync($"/api/Estabelecimento/UploadLicenca", formData, cancellationToken);
+
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<FicheiroDTO?>() : null;
+    }
+
+    public async Task<LicencaErsDTO?> CreateLicencaErsAsync(long EstabelecimentoId, LicencaErsDTO licencaErs, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PostAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/CertificadoErs", licencaErs, cancellationToken);
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<LicencaErsDTO?>() : null;
+    }
+
+    public async Task<LicencaErsDTO?> UpdateLicencaDataAsync(long EstabelecimentoId, LicencaErsDTO licencaErs, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PutAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/UpdateCertificadoErs", licencaErs, cancellationToken);
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<LicencaErsDTO?>() : null;
+    }
+    #endregion
+
+    #region Certificado
+    public async Task<FicheiroDTO?> UploadCertificadoFileAsync(MultipartFormDataContent data, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PostAsync($"/api/Estabelecimento/UploadCertificado", data, cancellationToken);
+
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<FicheiroDTO?>() : null;
+    }
+
+    public async Task<CertificadoErsDTO?> UpdateCertificadoDataAsync(long EstabelecimentoId, CertificadoErsDTO certificado, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PutAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/UpdateCertificadoErs", certificado, cancellationToken);
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<CertificadoErsDTO?>() : null;
+    }
+
+    public async Task<CertificadoErsDTO?> CreateCertificadoErsAsync(long EstabelecimentoId, CertificadoErsDTO certificado, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PostAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/CertificadoErs", certificado, cancellationToken);
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<CertificadoErsDTO?>() : null;
+    }
+    #endregion
 }

@@ -153,7 +153,7 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
                 .HasForeignKey<LicencaERS>(c => c.EstabelecimentoId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasMany(e => e.CartoesNipc)
+            entity.HasMany(e => e.CartaoNIPC)
                 .WithMany(entity => entity.Estabelecimentos)
                 .UsingEntity<Dictionary<string, object>>(
                 "EstabelecimentoCartoesNipc", // Name of the join table
@@ -165,7 +165,7 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
                     j.HasKey("EstabelecimentoId", "AnexoId");
                 });
 
-            entity.HasMany(e => e.Alvaras)
+            entity.HasMany(e => e.Alvara)
                 .WithMany(entity => entity.Estabelecimentos)
                 .UsingEntity<Dictionary<string, object>>(
                 "EstabelecimentoAlvaras", // Name of the join table
@@ -177,7 +177,7 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
                     j.HasKey("EstabelecimentoId", "AnexoId");
                 });
 
-            entity.HasMany(e => e.MedidasANPC)
+            entity.HasMany(e => e.MedidaANPC)
                 .WithMany(entity => entity.Estabelecimentos)
                 .UsingEntity<Dictionary<string, object>>(
                 "EstabelecimentoMedidasANPC", // Name of the join table

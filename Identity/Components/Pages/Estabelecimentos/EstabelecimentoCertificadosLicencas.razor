@@ -1,5 +1,4 @@
-﻿@rendermode InteractiveServer
-<div class="row">
+﻿<div class="row">
     <span class="col-md-6">
         <Card Style="width:18rem;">
             <CardBody>
@@ -29,13 +28,16 @@
                     </div>
                     @if (CertificadoErs.FicheiroId > 0)
                     {
-                        <button class="btn btn-outline-dark" @onclick="DownloadFicheiro">Donwload Ficheiro</button>
+                        <Button Class="btn btn-outline-dark" @onclick="DownloadCertificadoErs">
+                            Download Ficheiro
+                            <Icon Name="IconName.Download" />
+                        </Button>
                     }
                     else
                     {
                         <FileUploadButton SelectedFileChanged="OnCertificadoFileSelected" Label="Carregar Ficheiro" />
                     }
-                    <button @onclick="UploadCertificado" disabled="@(!IsFileSelected)" class="btn btn-dark">Guardar Certificado</button>
+                    <Button @onclick="UploadCertificado" Disabled="@(!IsCertificadoFileSelected)" Class="btn btn-dark">Guardar Certificado</Button>
                 }
             </CardBody>
         </Card>
@@ -44,9 +46,30 @@
         <Card Style="width:18rem;">
             <CardBody>
                 <CardTitle>Licença de Funcionamento ERS</CardTitle>
+                @if (LicencaErs is not null)
+                {
+                    <div class="form-floating mb-3">
+                        <input id="nrLicenca" class="form-control" type="text" @bind-value="LicencaErs.NrLicenca" />
+                        <label class="form-label" for="nrLicenca">Nº de Licença</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input id="observacoes" class="form-control" type="text" @bind-value="LicencaErs.Observacoes" />
+                        <label class="form-label" for="observacoes">Observações</label>
+                    </div>
 
-                <FileUploadButton SelectedFileChanged="OnLicencaFileSelected" Label="Carregar Ficheiro" />
-                <button @onclick="UploadLicenca" disabled="@(!IsFileSelected)" class="btn btn-dark">Guardar Certificado</button>
+                    @if (LicencaErs.FicheiroId > 0)
+                    {
+                        <Button Class="btn btn-outline-dark" @onclick="DownloadLicencaErs">
+                            Download Ficheiro
+                            <Icon Name="IconName.Download" />
+                        </Button>
+                    }
+                    else
+                    {
+                        <FileUploadButton SelectedFileChanged="OnLicencaFileSelected" Label="Carregar Ficheiro" />
+                    }
+                    <Button @onclick="UploadLicenca" Disabled="@(!IsLicencaFileSelected)" Class="btn btn-dark">Guardar Licença</Button>
+                }
             </CardBody>
         </Card>
     </span>

@@ -14,27 +14,19 @@
         <h5> Cópia de cartão NIPC </h5>
     </CardHeader>
     <CardBody>
-        <Grid @ref="CartoesNipcGrid" 
-            TItem="FicheirosLicenciamentoDTO"
-                Class="table table-hover table-bordered table-striped"
-                DataProvider="CartaoNipcDataProvider"
-                AllowPaging="true"
-                PageSize="3"
-                Responsive="true"
-                EmptyText="Sem dados para apresentar">
-
-        <GridColumns>
-                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
-                    @context.Nome
-                </GridColumn>
-                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Submetido" PropertyName="Submetido" SortKeySelector="item => item.Submetido">
-                    @context.Nome
-                </GridColumn>
-                <GridColumn TItem="FicheirosLicenciamentoDTO" HeaderText="Observações" PropertyName="Observacoes" SortKeySelector="item => item.Observacoes">
-                    @context.Observacoes
-                </GridColumn>
-        </GridColumns>
-    </Grid>
+        @if (CartaoNipc == null)
+        {
+            <FileUploadButton SelectedFileChanged="OnCartaoNipcFileSelected" Label="Anexar Ficheiro" />
+        }
+        else
+        {
+            <Button Class="btn btn-outline-dark" @onclick="DownloadCartaoNipc">
+                Download Ficheiro
+                <Icon Name="IconName.Download" />
+            </Button>
+        }
+        <Button @onclick="UploadCartaoNipc" Disabled="@(!IsCartaoNipcFileSelected)" Class="btn btn-dark">Guardar Certificado</Button>
+        }
     </CardBody>
 </Card>
 <Card>
