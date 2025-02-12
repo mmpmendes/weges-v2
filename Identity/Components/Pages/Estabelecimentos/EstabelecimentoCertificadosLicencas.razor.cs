@@ -14,14 +14,10 @@ namespace Identity.Components.Pages.Estabelecimentos;
 
 public partial class EstabelecimentoCertificadosLicencas
 {
-    [Parameter]
-    public long Id { get; set; }
-    [Inject]
-    private EstabelecimentoApiService EstabelecimentoApiService { get; set; } = default!;
-    [Inject]
-    private FicheiroApiService FicheiroApiService { get; set; } = default!;
-    [Inject]
-    private IJSRuntime jSRuntime { get; set; } = default!;
+    [Parameter] public long Id { get; set; }
+    [Inject] private EstabelecimentoApiService EstabelecimentoApiService { get; set; } = default!;
+    [Inject] private FicheiroApiService FicheiroApiService { get; set; } = default!;
+    [Inject] private IJSRuntime jSRuntime { get; set; } = default!;
 
     public IBrowserFile? selectedCertificadoFile = default!;
     public IBrowserFile? selectedLicencaFile = default!;

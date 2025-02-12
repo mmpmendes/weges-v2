@@ -11,12 +11,28 @@ public class Estabelecimento : Entity<long>
     public string? Sigla { get; set; }
     public CertificadoERS? CertificadoERS { get; set; }
     public LicencaERS? LicencaERS { get; set; }
-    public Anexo? CartaoNIPC { get; set; }
+
+    public long? CartaoNipcId { get; set; }
+    public Anexo? CartaoNipc { get; set; }
+
+    public long? AlvaraId { get; set; }
     public Anexo? Alvara { get; set; }
-    public Anexo? MedidaANPC { get; set; }
-    public Anexo? ParecerANPC { get; set; }
+
+    public long? MedidaAnpcId { get; set; }
+    public Anexo? MedidaAnpc { get; set; }
+
+    public long? ParecerAnpcId { get; set; }
+    public Anexo? ParecerAnpc { get; set; }
+
+    public long? ListaVerificacaoId { get; set; }
     public Anexo? ListaVerificacao { get; set; }
+
+    public long? FicheirosAnexarId { get; set; }
     public Anexo? FicheirosAnexar { get; set; }
+
+    public long? DireitosDeveresId { get; set; }
     public Anexo? DireitosDeveres { get; set; }
+
+    public long? LicenciamentoRegistoLegalId { get; set; }
     public Anexo? LicenciamentoRegistoLegal { get; set; }
 }

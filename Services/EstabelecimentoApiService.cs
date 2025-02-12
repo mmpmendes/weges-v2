@@ -235,5 +235,15 @@ public class EstabelecimentoApiService(HttpClient httpClient)
         var response = await httpClient.PostAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/CertificadoErs", certificado, cancellationToken);
         return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<CertificadoErsDTO?>() : null;
     }
+
+    public async Task CreateCartaoNipcAsync(long v, AnexoDTO cartaoNipc)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task UpdateCartaoNipcAsync(long v, AnexoDTO cartaoNipc)
+    {
+        throw new NotImplementedException();
+    }
     #endregion
 }

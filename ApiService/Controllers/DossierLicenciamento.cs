@@ -26,7 +26,7 @@ public class DossierLicenciamento(
         if (estabelecimento == null)
             return Results.NotFound();
 
-        return Results.Ok(estabelecimento.CartaoNIPC);
+        return Results.Ok(estabelecimento.CartaoNipc);
     }
 
     [HttpGet("{EstabelecimentoId}/GetAlvara")]
@@ -48,7 +48,7 @@ public class DossierLicenciamento(
         if (estabelecimento == null)
             return Results.NotFound();
 
-        return Results.Ok(estabelecimento.MedidaANPC);
+        return Results.Ok(estabelecimento.MedidaAnpc);
     }
 
     [HttpGet("{EstabelecimentoId}/GetParecerANPC")]
@@ -59,6 +59,6 @@ public class DossierLicenciamento(
         if (estabelecimento == null)
             return Results.NotFound();
 
-        return Results.Ok(estabelecimento.ParecerANPC);
+        return Results.Ok(estabelecimento.ParecerAnpc);
     }
 }

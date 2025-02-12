@@ -43,99 +43,15 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
             entidade.Property(e => e.EmailNotificacoesERS).HasMaxLength(50);
         });
 
-        modelBuilder.Entity<Estabelecimento>(ent =>
-        {
-            //auto increment Id
-            ent.Property(e => e.Id).ValueGeneratedOnAdd();
-            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
-        modelBuilder.Entity<DirecaoClinica>(ent =>
-        {
-            //auto increment Id
-            ent.Property(e => e.Id).ValueGeneratedOnAdd();
-            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
-        modelBuilder.Entity<Servico>(ent =>
-        {
-            //auto increment Id
-            ent.Property(e => e.Id).ValueGeneratedOnAdd();
-            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
-        modelBuilder.Entity<Ficheiro>(ent =>
-        {
-            //auto increment Id
-            ent.Property(e => e.Id).ValueGeneratedOnAdd();
-            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
-        modelBuilder.Entity<LicencaERS>(ent =>
-        {
-            //auto increment Id
-            ent.Property(e => e.Id).ValueGeneratedOnAdd();
-            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
-        modelBuilder.Entity<CertificadoERS>(ent =>
-        {
-            //auto increment Id
-            ent.Property(e => e.Id).ValueGeneratedOnAdd();
-            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
-        modelBuilder.Entity<Colaborador>(ent =>
-        {
-            //auto increment Id
-            ent.Property(e => e.Id).ValueGeneratedOnAdd();
-            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
-        modelBuilder.Entity<ColaboradorTipo>(ent =>
-        {
-            //auto increment Id
-            ent.Property(e => e.Id).ValueGeneratedOnAdd();
-            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
-        modelBuilder.Entity<AnexoTipo>(ent =>
-        {
-            //auto increment Id
-            ent.Property(e => e.Id).ValueGeneratedOnAdd();
-            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
-        modelBuilder.Entity<Formacao>(ent =>
-        {
-            //auto increment Id
-            ent.Property(e => e.Id).ValueGeneratedOnAdd();
-            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
-            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
-            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
-        });
-
         modelBuilder.Entity<Estabelecimento>(entity =>
         {
+            //auto increment Id
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            entity.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            entity.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            entity.Property(e => e.Created).HasDefaultValueSql("NOW()");
+
             entity.Property(e => e.Denominacao).HasMaxLength(255);
             entity.Property(e => e.Morada).HasMaxLength(512);
             entity.Property(e => e.Email).HasMaxLength(255);
@@ -153,103 +69,129 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
                 .HasForeignKey<LicencaERS>(c => c.EstabelecimentoId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasMany(e => e.CartaoNIPC)
-                .WithMany(entity => entity.Estabelecimentos)
-                .UsingEntity<Dictionary<string, object>>(
-                "EstabelecimentoCartoesNipc", // Name of the join table
-                j => j.HasOne<Anexo>().WithMany().HasForeignKey("AnexoId"),
-                j => j.HasOne<Estabelecimento>().WithMany().HasForeignKey("EstabelecimentoId"),
-                j =>
-                {
-                    j.ToTable("EstabelecimentoCartoesNipc");
-                    j.HasKey("EstabelecimentoId", "AnexoId");
-                });
+            entity.HasOne(e => e.CartaoNipc)
+                 .WithOne()
+                 .HasForeignKey<Anexo>(a => a.Id)
+                 .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasMany(e => e.Alvara)
-                .WithMany(entity => entity.Estabelecimentos)
-                .UsingEntity<Dictionary<string, object>>(
-                "EstabelecimentoAlvaras", // Name of the join table
-                j => j.HasOne<Anexo>().WithMany().HasForeignKey("AnexoId"),
-                j => j.HasOne<Estabelecimento>().WithMany().HasForeignKey("EstabelecimentoId"),
-                j =>
-                {
-                    j.ToTable("EstabelecimentoAlvaras");
-                    j.HasKey("EstabelecimentoId", "AnexoId");
-                });
+            entity.HasOne(e => e.Alvara)
+                .WithOne()
+                .HasForeignKey<Anexo>(a => a.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasMany(e => e.MedidaANPC)
-                .WithMany(entity => entity.Estabelecimentos)
-                .UsingEntity<Dictionary<string, object>>(
-                "EstabelecimentoMedidasANPC", // Name of the join table
-                j => j.HasOne<Anexo>().WithMany().HasForeignKey("AnexoId"),
-                j => j.HasOne<Estabelecimento>().WithMany().HasForeignKey("EstabelecimentoId"),
-                j =>
-                {
-                    j.ToTable("EstabelecimentoMedidasANPC");
-                    j.HasKey("EstabelecimentoId", "AnexoId");
-                });
+            entity.HasOne(e => e.MedidaAnpc)
+                .WithOne()
+                .HasForeignKey<Anexo>(a => a.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasMany(e => e.ParecerANPC)
-                .WithMany(entity => entity.Estabelecimentos)
-                .UsingEntity<Dictionary<string, object>>(
-                "EstabelecimentoParecerANPC", // Name of the join table
-                j => j.HasOne<Anexo>().WithMany().HasForeignKey("AnexoId"),
-                j => j.HasOne<Estabelecimento>().WithMany().HasForeignKey("EstabelecimentoId"),
-                j =>
-                {
-                    j.ToTable("EstabelecimentoParecerANPC");
-                    j.HasKey("EstabelecimentoId", "AnexoId");
-                });
+            entity.HasOne(e => e.ParecerAnpc)
+                .WithOne()
+                .HasForeignKey<Anexo>(a => a.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasMany(e => e.ListaVerificacao)
-                .WithMany(entity => entity.Estabelecimentos)
-                .UsingEntity<Dictionary<string, object>>(
-                "EstabelecimentoListaVerificacao", // Name of the join table
-                j => j.HasOne<Anexo>().WithMany().HasForeignKey("AnexoId"),
-                j => j.HasOne<Estabelecimento>().WithMany().HasForeignKey("EstabelecimentoId"),
-                j =>
-                {
-                    j.ToTable("EstabelecimentoListaVerificacao");
-                    j.HasKey("EstabelecimentoId", "AnexoId");
-                });
+            entity.HasOne(e => e.ListaVerificacao)
+                .WithOne()
+                .HasForeignKey<Anexo>(a => a.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasMany(e => e.FicheirosAnexar)
-                .WithMany(entity => entity.Estabelecimentos)
-                .UsingEntity<Dictionary<string, object>>(
-                "EstabelecimentoFicheirosAnexar", // Name of the join table
-                j => j.HasOne<Anexo>().WithMany().HasForeignKey("AnexoId"),
-                j => j.HasOne<Estabelecimento>().WithMany().HasForeignKey("EstabelecimentoId"),
-                j =>
-                {
-                    j.ToTable("EstabelecimentoFicheirosAnexar");
-                    j.HasKey("EstabelecimentoId", "AnexoId");
-                });
+            entity.HasOne(e => e.FicheirosAnexar)
+                .WithOne()
+                .HasForeignKey<Anexo>(a => a.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasMany(e => e.DireitosDeveres)
-                .WithMany(entity => entity.Estabelecimentos)
-                .UsingEntity<Dictionary<string, object>>(
-                "EstabelecimentoDireitosDeveres", // Name of the join table
-                j => j.HasOne<Anexo>().WithMany().HasForeignKey("AnexoId"),
-                j => j.HasOne<Estabelecimento>().WithMany().HasForeignKey("EstabelecimentoId"),
-                j =>
-                {
-                    j.ToTable("EstabelecimentoDireitosDeveres");
-                    j.HasKey("EstabelecimentoId", "AnexoId");
-                });
+            entity.HasOne(e => e.DireitosDeveres)
+                .WithOne()
+                .HasForeignKey<Anexo>(a => a.Id)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            entity.HasMany(e => e.LicenciamentoRegistoLegal)
-                .WithMany(entity => entity.Estabelecimentos)
-                .UsingEntity<Dictionary<string, object>>(
-                "EstabelecimentoLicenciamentoRegistoLegal", // Name of the join table
-                j => j.HasOne<Anexo>().WithMany().HasForeignKey("AnexoId"),
-                j => j.HasOne<Estabelecimento>().WithMany().HasForeignKey("EstabelecimentoId"),
-                j =>
-                {
-                    j.ToTable("EstabelecimentoLicenciamentoRegistoLegal");
-                    j.HasKey("EstabelecimentoId", "AnexoId");
-                });
+            entity.HasOne(e => e.LicenciamentoRegistoLegal)
+                .WithOne()
+                .HasForeignKey<Anexo>(a => a.Id)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+        modelBuilder.Entity<LicencaERS>(ent =>
+        {
+            //auto increment Id
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+        modelBuilder.Entity<LicencaERS>()
+            .HasOne(c => c.Ficheiro)
+            .WithMany()
+            .HasForeignKey(c => c.FicheiroId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<CertificadoERS>(ent =>
+        {
+            //auto increment Id
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+        modelBuilder.Entity<CertificadoERS>()
+            .HasOne(c => c.Ficheiro)
+            .WithMany()
+            .HasForeignKey(c => c.FicheiroId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<DirecaoClinica>(ent =>
+        {
+            //auto increment Id
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+        modelBuilder.Entity<DirecaoClinica>()
+            .HasOne(d => d.Tipologia)
+            .WithMany()
+            .HasForeignKey(d => d.TipologiaId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<Servico>(ent =>
+        {
+            //auto increment Id
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+        modelBuilder.Entity<Servico>()
+            .HasOne(s => s.Tipologia)
+            .WithMany()
+            .HasForeignKey(s => s.TipologiaId)
+            .OnDelete(DeleteBehavior.SetNull);
+
+        modelBuilder.Entity<Ficheiro>(entity =>
+        {
+            //auto increment Id
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            entity.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            entity.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            entity.Property(e => e.Created).HasDefaultValueSql("NOW()");
+
+            entity.Property(f => f.Nome).HasMaxLength(255);
+            entity.Property(f => f.Localizacao).HasMaxLength(512);
+            entity.Property(f => f.Tipo).HasMaxLength(100);
         });
 
+        modelBuilder.Entity<Colaborador>(ent =>
+        {
+            //auto increment Id
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
         modelBuilder.Entity<Colaborador>()
             .HasOne(c => c.ColaboradorTipo)
             .WithMany()
@@ -261,36 +203,33 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
             .HasForeignKey(c => c.EstabelecimentoId)
             .OnDelete(DeleteBehavior.SetNull);
 
-        modelBuilder.Entity<LicencaERS>()
-            .HasOne(c => c.Ficheiro)
-            .WithMany()
-            .HasForeignKey(c => c.FicheiroId)
-            .OnDelete(DeleteBehavior.SetNull);
-
-        modelBuilder.Entity<CertificadoERS>()
-            .HasOne(c => c.Ficheiro)
-            .WithMany()
-            .HasForeignKey(c => c.FicheiroId)
-            .OnDelete(DeleteBehavior.SetNull);
-
-        modelBuilder.Entity<DirecaoClinica>()
-            .HasOne(d => d.Tipologia)
-            .WithMany()
-            .HasForeignKey(d => d.TipologiaId)
-            .OnDelete(DeleteBehavior.SetNull);
-
-        modelBuilder.Entity<Servico>()
-            .HasOne(s => s.Tipologia)
-            .WithMany()
-            .HasForeignKey(s => s.TipologiaId)
-            .OnDelete(DeleteBehavior.SetNull);
-
-        // Configure Ficheiro
-        modelBuilder.Entity<Ficheiro>(entity =>
+        modelBuilder.Entity<ColaboradorTipo>(ent =>
         {
-            entity.Property(f => f.Nome).HasMaxLength(255);
-            entity.Property(f => f.Localizacao).HasMaxLength(512);
-            entity.Property(f => f.Tipo).HasMaxLength(100);
+            //auto increment Id
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
+        });
+        modelBuilder.Entity<AnexoTipo>(entity =>
+        {
+            //auto increment Id
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
+            entity.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            entity.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            entity.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            entity.Property(e => e.Created).HasDefaultValueSql("NOW()");
+            entity.Property(at => at.Tipo).HasMaxLength(100);
+        });
+        modelBuilder.Entity<Formacao>(ent =>
+        {
+            //auto increment Id
+            ent.Property(e => e.Id).ValueGeneratedOnAdd();
+            ent.Property(e => e.CreatedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.ModifiedBy).HasDefaultValue("system-usr");
+            ent.Property(e => e.Modified).HasDefaultValueSql("NOW()");
+            ent.Property(e => e.Created).HasDefaultValueSql("NOW()");
         });
 
         // Configure Anexo
@@ -308,12 +247,6 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
                 .WithMany()
                 .HasForeignKey(a => a.AnexoTipoId)
                 .OnDelete(DeleteBehavior.Restrict);
-        });
-
-        // Configure AnexoTipo
-        modelBuilder.Entity<AnexoTipo>(entity =>
-        {
-            entity.Property(at => at.Tipo).HasMaxLength(100);
         });
     }
 }

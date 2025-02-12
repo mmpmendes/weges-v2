@@ -1,10 +1,12 @@
-﻿using BlazorBootstrap;
-
-using Identity.InMemory;
+﻿using Identity.InMemory;
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.JSInterop;
 
 using Services;
+using Services.Models;
 
 using SharedKernel.DTO;
 
@@ -12,146 +14,76 @@ namespace Identity.Components.Pages.DossierLicenciamento;
 
 public partial class DossierLicenciamento
 {
+    [Parameter] public long Id { get; set; }
     [Inject] EstabelecimentoApiService EstabelecimentoApiService { get; set; } = default!;
     [Inject] EstabelecimentoService EstabelecimentoService { get; set; } = default!;
+    [Inject] private FicheiroApiService FicheiroApiService { get; set; } = default!;
 
-    private IList<FicheirosLicenciamentoDTO>? CartoesNipc = default!;
-    private Grid<FicheirosLicenciamentoDTO> CartoesNipcGrid = default!;
+    [Inject] private IJSRuntime jSRuntime { get; set; } = default!;
 
-    private IList<FicheirosLicenciamentoDTO>? Alvaras = default!;
-    private Grid<FicheirosLicenciamentoDTO> AlvarasGrid = default!;
+    private AnexoDTO? CartaoNipc { get; set; }
+    private bool IsCartaoNipcSelected { get; set; }
+    public IBrowserFile? selectedCartaoNipcFile = default!;
 
-    private IList<FicheirosLicenciamentoDTO>? MedidasAnpc = default!;
-    private Grid<FicheirosLicenciamentoDTO> MedidasAnpcGrid = default!;
-
-    private IList<FicheirosLicenciamentoDTO>? PareceresAnpc = default!;
-    private Grid<FicheirosLicenciamentoDTO> PareceresAnpcGrid = default!;
-
-    private async Task<GridDataProviderResult<FicheirosLicenciamentoDTO>> CartaoNipcDataProvider(GridDataProviderRequest<FicheirosLicenciamentoDTO> request)
+    private async Task UploadCartaoNipc()
     {
-        string sortString = "";
-        SortDirection sortDirection = SortDirection.None;
+        // TODO: Output mensagem de erro tentar de novo
+        if (selectedCartaoNipcFile is null) return;
 
-        if (request.Sorting is not null && request.Sorting.Any())
-        {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
-        }
+        using var formData = new MultipartFormDataContent();
 
-        try
-        {
-            CartoesNipc = await EstabelecimentoApiService.GetEstabelecimentosCartoesNipcAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        if (CartoesNipc is null)
-        {
-            return new GridDataProviderResult<FicheirosLicenciamentoDTO>()
-            {
-                Data = [],
-                TotalCount = 0
-            };
-        }
+        var stream = FileManagementClientSide.SetupFileForUpload(selectedCartaoNipcFile);
 
-        return await Task.FromResult(request.ApplyTo(CartoesNipc));
+        // TODO: Output mensagem de erro tentar de novo
+        if (stream is null) return;
+
+        formData.Add(stream, "file", selectedCartaoNipcFile.Name);
+
+        FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadCertificadoFileAsync(formData);
+        IsCartaoNipcSelected = false;
+
+        if (ficheiro is not null)
+        {
+            CartaoNipc!.FicheiroId = ficheiro.Id;
+            CartaoNipc!.EstabelecimentoId = Id;
+        }
+        if (CartaoNipc!.Id <= 0)
+        {
+            await EstabelecimentoApiService.CreateCartaoNipcAsync(Id, CartaoNipc);
+        }
+        else
+        {
+            await EstabelecimentoApiService.UpdateCartaoNipcAsync(Id, CartaoNipc);
+        }
     }
 
-    private async Task<GridDataProviderResult<FicheirosLicenciamentoDTO>> AlvarasDataProvider(GridDataProviderRequest<FicheirosLicenciamentoDTO> request)
+    private void OnCartaoNipcFileSelected(IBrowserFile? file)
     {
-        string sortString = "";
-        SortDirection sortDirection = SortDirection.None;
+        selectedCartaoNipcFile = file;
 
-        if (request.Sorting is not null && request.Sorting.Any())
+        if (selectedCartaoNipcFile is not null)
         {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
+            IsCartaoNipcSelected = true;
         }
-
-        try
+        else
         {
-            Alvaras = await EstabelecimentoApiService.GetEstabelecimentosAlvarasAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
-
+            IsCartaoNipcSelected = false;
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        if (Alvaras is null)
-        {
-            return new GridDataProviderResult<FicheirosLicenciamentoDTO>()
-            {
-                Data = [],
-                TotalCount = 0
-            };
-        }
-
-        return await Task.FromResult(request.ApplyTo(Alvaras));
     }
 
-    private async Task<GridDataProviderResult<FicheirosLicenciamentoDTO>> MedidasAnpcDataProvider(GridDataProviderRequest<FicheirosLicenciamentoDTO> request)
+    private async Task DownloadCartaoNipc(MouseEventArgs e)
     {
-        string sortString = "";
-        SortDirection sortDirection = SortDirection.None;
-
-        if (request.Sorting is not null && request.Sorting.Any())
+        if (CartaoNipc?.FicheiroId > 0)
         {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
+            await DownloadFile(CartaoNipc.FicheiroId);
         }
-
-        try
-        {
-            MedidasAnpc = await EstabelecimentoApiService.GetEstabelecimentosMedidasAnpcAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        if (MedidasAnpc is null)
-        {
-            return new GridDataProviderResult<FicheirosLicenciamentoDTO>()
-            {
-                Data = [],
-                TotalCount = 0
-            };
-        }
-
-        return await Task.FromResult(request.ApplyTo(MedidasAnpc));
     }
 
-    private async Task<GridDataProviderResult<FicheirosLicenciamentoDTO>> PareceresAnpcDataProvider(GridDataProviderRequest<FicheirosLicenciamentoDTO> request)
+    private async Task DownloadFile(long ficheiroId)
     {
-        string sortString = "";
-        SortDirection sortDirection = SortDirection.None;
+        FileData fileData = await FicheiroApiService.DownloadFicheiro(ficheiroId);
+        if (fileData is null) return;
 
-        if (request.Sorting is not null && request.Sorting.Any())
-        {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
-        }
-        try
-        {
-            PareceresAnpc = await EstabelecimentoApiService.GetEstabelecimentosPareceresAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }
-        if (PareceresAnpc is null)
-        {
-            return new GridDataProviderResult<FicheirosLicenciamentoDTO>()
-            {
-                Data = [],
-                TotalCount = 0
-            };
-        }
-
-        return await Task.FromResult(request.ApplyTo(PareceresAnpc));
+        await FileManagementClientSide.DownloadFile(jSRuntime, fileData);
     }
 }

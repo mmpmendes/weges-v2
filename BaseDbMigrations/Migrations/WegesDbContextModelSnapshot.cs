@@ -26,10 +26,7 @@ namespace BaseDbMigrations.Migrations
             modelBuilder.Entity("ApiModel.Models.Anexo", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<long>("AnexoTipoId")
                         .HasColumnType("bigint");
@@ -468,6 +465,12 @@ namespace BaseDbMigrations.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<long?>("AlvaraId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("CartaoNipcId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
@@ -483,12 +486,27 @@ namespace BaseDbMigrations.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<long?>("DireitosDeveresId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Email")
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
+                    b.Property<long?>("FicheirosAnexarId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateOnly>("InicioAtividade")
                         .HasColumnType("date");
+
+                    b.Property<long?>("LicenciamentoRegistoLegalId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("ListaVerificacaoId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("MedidaAnpcId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
@@ -504,6 +522,9 @@ namespace BaseDbMigrations.Migrations
                         .HasMaxLength(512)
                         .HasColumnType("character varying(512)");
 
+                    b.Property<long?>("ParecerAnpcId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Sigla")
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
@@ -517,6 +538,20 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AlvaraId");
+
+                    b.HasIndex("CartaoNipcId");
+
+                    b.HasIndex("DireitosDeveresId");
+
+                    b.HasIndex("FicheirosAnexarId");
+
+                    b.HasIndex("ListaVerificacaoId");
+
+                    b.HasIndex("MedidaAnpcId");
+
+                    b.HasIndex("ParecerAnpcId");
 
                     b.ToTable("Estabelecimentos", "weges");
                 });
@@ -660,9 +695,6 @@ namespace BaseDbMigrations.Migrations
                     b.Property<string>("Observacoes")
                         .HasColumnType("text");
 
-                    b.Property<string>("Periodo")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.HasIndex("EstabelecimentoId")
@@ -773,126 +805,6 @@ namespace BaseDbMigrations.Migrations
                     b.ToTable("CodCaeEntidade", "weges");
                 });
 
-            modelBuilder.Entity("EstabelecimentoAlvaras", b =>
-                {
-                    b.Property<long>("EstabelecimentoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("AnexoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("EstabelecimentoId", "AnexoId");
-
-                    b.HasIndex("AnexoId");
-
-                    b.ToTable("EstabelecimentoAlvaras", "weges");
-                });
-
-            modelBuilder.Entity("EstabelecimentoCartoesNipc", b =>
-                {
-                    b.Property<long>("EstabelecimentoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("AnexoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("EstabelecimentoId", "AnexoId");
-
-                    b.HasIndex("AnexoId");
-
-                    b.ToTable("EstabelecimentoCartoesNipc", "weges");
-                });
-
-            modelBuilder.Entity("EstabelecimentoDireitosDeveres", b =>
-                {
-                    b.Property<long>("EstabelecimentoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("AnexoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("EstabelecimentoId", "AnexoId");
-
-                    b.HasIndex("AnexoId");
-
-                    b.ToTable("EstabelecimentoDireitosDeveres", "weges");
-                });
-
-            modelBuilder.Entity("EstabelecimentoFicheirosAnexar", b =>
-                {
-                    b.Property<long>("EstabelecimentoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("AnexoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("EstabelecimentoId", "AnexoId");
-
-                    b.HasIndex("AnexoId");
-
-                    b.ToTable("EstabelecimentoFicheirosAnexar", "weges");
-                });
-
-            modelBuilder.Entity("EstabelecimentoLicenciamentoRegistoLegal", b =>
-                {
-                    b.Property<long>("EstabelecimentoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("AnexoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("EstabelecimentoId", "AnexoId");
-
-                    b.HasIndex("AnexoId");
-
-                    b.ToTable("EstabelecimentoLicenciamentoRegistoLegal", "weges");
-                });
-
-            modelBuilder.Entity("EstabelecimentoListaVerificacao", b =>
-                {
-                    b.Property<long>("EstabelecimentoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("AnexoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("EstabelecimentoId", "AnexoId");
-
-                    b.HasIndex("AnexoId");
-
-                    b.ToTable("EstabelecimentoListaVerificacao", "weges");
-                });
-
-            modelBuilder.Entity("EstabelecimentoMedidasANPC", b =>
-                {
-                    b.Property<long>("EstabelecimentoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("AnexoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("EstabelecimentoId", "AnexoId");
-
-                    b.HasIndex("AnexoId");
-
-                    b.ToTable("EstabelecimentoMedidasANPC", "weges");
-                });
-
-            modelBuilder.Entity("EstabelecimentoParecerANPC", b =>
-                {
-                    b.Property<long>("EstabelecimentoId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("AnexoId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("EstabelecimentoId", "AnexoId");
-
-                    b.HasIndex("AnexoId");
-
-                    b.ToTable("EstabelecimentoParecerANPC", "weges");
-                });
-
             modelBuilder.Entity("ApiModel.Models.Anexo", b =>
                 {
                     b.HasOne("ApiModel.Models.AnexoTipo", "AnexoTipo")
@@ -904,6 +816,12 @@ namespace BaseDbMigrations.Migrations
                     b.HasOne("ApiModel.Models.Ficheiro", "Ficheiro")
                         .WithMany()
                         .HasForeignKey("FicheiroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ApiModel.Models.Estabelecimento", null)
+                        .WithOne("LicenciamentoRegistoLegal")
+                        .HasForeignKey("ApiModel.Models.Anexo", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -967,6 +885,51 @@ namespace BaseDbMigrations.Migrations
                     b.Navigation("Tipologia");
                 });
 
+            modelBuilder.Entity("ApiModel.Models.Estabelecimento", b =>
+                {
+                    b.HasOne("ApiModel.Models.Anexo", "Alvara")
+                        .WithMany()
+                        .HasForeignKey("AlvaraId");
+
+                    b.HasOne("ApiModel.Models.Anexo", "CartaoNipc")
+                        .WithMany()
+                        .HasForeignKey("CartaoNipcId");
+
+                    b.HasOne("ApiModel.Models.Anexo", "DireitosDeveres")
+                        .WithMany()
+                        .HasForeignKey("DireitosDeveresId");
+
+                    b.HasOne("ApiModel.Models.Anexo", "FicheirosAnexar")
+                        .WithMany()
+                        .HasForeignKey("FicheirosAnexarId");
+
+                    b.HasOne("ApiModel.Models.Anexo", "ListaVerificacao")
+                        .WithMany()
+                        .HasForeignKey("ListaVerificacaoId");
+
+                    b.HasOne("ApiModel.Models.Anexo", "MedidaAnpc")
+                        .WithMany()
+                        .HasForeignKey("MedidaAnpcId");
+
+                    b.HasOne("ApiModel.Models.Anexo", "ParecerAnpc")
+                        .WithMany()
+                        .HasForeignKey("ParecerAnpcId");
+
+                    b.Navigation("Alvara");
+
+                    b.Navigation("CartaoNipc");
+
+                    b.Navigation("DireitosDeveres");
+
+                    b.Navigation("FicheirosAnexar");
+
+                    b.Navigation("ListaVerificacao");
+
+                    b.Navigation("MedidaAnpc");
+
+                    b.Navigation("ParecerAnpc");
+                });
+
             modelBuilder.Entity("ApiModel.Models.Formacao", b =>
                 {
                     b.HasOne("ApiModel.Models.Colaborador", null)
@@ -1017,126 +980,6 @@ namespace BaseDbMigrations.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EstabelecimentoAlvaras", b =>
-                {
-                    b.HasOne("ApiModel.Models.Anexo", null)
-                        .WithMany()
-                        .HasForeignKey("AnexoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ApiModel.Models.Estabelecimento", null)
-                        .WithMany()
-                        .HasForeignKey("EstabelecimentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EstabelecimentoCartoesNipc", b =>
-                {
-                    b.HasOne("ApiModel.Models.Anexo", null)
-                        .WithMany()
-                        .HasForeignKey("AnexoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ApiModel.Models.Estabelecimento", null)
-                        .WithMany()
-                        .HasForeignKey("EstabelecimentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EstabelecimentoDireitosDeveres", b =>
-                {
-                    b.HasOne("ApiModel.Models.Anexo", null)
-                        .WithMany()
-                        .HasForeignKey("AnexoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ApiModel.Models.Estabelecimento", null)
-                        .WithMany()
-                        .HasForeignKey("EstabelecimentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EstabelecimentoFicheirosAnexar", b =>
-                {
-                    b.HasOne("ApiModel.Models.Anexo", null)
-                        .WithMany()
-                        .HasForeignKey("AnexoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ApiModel.Models.Estabelecimento", null)
-                        .WithMany()
-                        .HasForeignKey("EstabelecimentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EstabelecimentoLicenciamentoRegistoLegal", b =>
-                {
-                    b.HasOne("ApiModel.Models.Anexo", null)
-                        .WithMany()
-                        .HasForeignKey("AnexoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ApiModel.Models.Estabelecimento", null)
-                        .WithMany()
-                        .HasForeignKey("EstabelecimentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EstabelecimentoListaVerificacao", b =>
-                {
-                    b.HasOne("ApiModel.Models.Anexo", null)
-                        .WithMany()
-                        .HasForeignKey("AnexoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ApiModel.Models.Estabelecimento", null)
-                        .WithMany()
-                        .HasForeignKey("EstabelecimentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EstabelecimentoMedidasANPC", b =>
-                {
-                    b.HasOne("ApiModel.Models.Anexo", null)
-                        .WithMany()
-                        .HasForeignKey("AnexoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ApiModel.Models.Estabelecimento", null)
-                        .WithMany()
-                        .HasForeignKey("EstabelecimentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EstabelecimentoParecerANPC", b =>
-                {
-                    b.HasOne("ApiModel.Models.Anexo", null)
-                        .WithMany()
-                        .HasForeignKey("AnexoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ApiModel.Models.Estabelecimento", null)
-                        .WithMany()
-                        .HasForeignKey("EstabelecimentoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("ApiModel.Models.Colaborador", b =>
                 {
                     b.Navigation("Formacoes");
@@ -1147,6 +990,8 @@ namespace BaseDbMigrations.Migrations
                     b.Navigation("CertificadoERS");
 
                     b.Navigation("LicencaERS");
+
+                    b.Navigation("LicenciamentoRegistoLegal");
                 });
 #pragma warning restore 612, 618
         }
