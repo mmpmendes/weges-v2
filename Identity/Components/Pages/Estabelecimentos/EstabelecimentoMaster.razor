@@ -17,6 +17,7 @@
       AllowSorting="true"
       AllowFiltering="true"
       Responsive="true"
+      
       EmptyText="Sem dados para apresentar">
 
     <GridColumns>
@@ -42,5 +43,12 @@
         <GridColumn TItem="EstabelecimentoDTO" HeaderText="Telefone" PropertyName="Telefone" SortString="Telefone" SortKeySelector="item => item.Telefone">
             @context.Telefone
         </GridColumn>
+        @* <GridColumn TItem="EstabelecimentoDTO" HeaderText="" PropertyName="someProperty">
+            <CheckboxInput
+                @ref="checkId"
+                Label="" 
+                ValueExpression="() => context.someProperty"
+                ValueChanged="(value) => DoSomething(value, context)" />
+        </GridColumn> *@
     </GridColumns>
 </Grid>

@@ -15,15 +15,13 @@ public partial class EstabelecimentoMaster
 {
     private IList<EstabelecimentoDTO>? Estabelecimentos = default!;
     private Grid<EstabelecimentoDTO> EstabelecimentosGrid = default!;
+    private CheckboxInput checkId;
 
-    [Inject]
-    public required EstabelecimentoApiService EstabelecimentoApiService { get; set; }
+    [Inject] public required EstabelecimentoApiService EstabelecimentoApiService { get; set; }
 
-    [Inject]
-    public required NavigationManager NavigationManager { get; set; }
+    [Inject] public required NavigationManager NavigationManager { get; set; }
 
-    [Inject]
-    public required EstabelecimentoService EstabelecimentoService { get; set; }
+    [Inject] public required EstabelecimentoService EstabelecimentoService { get; set; }
 
     private HashSet<EstabelecimentoDTO> EstabelecimentosSelecionados = new();
 
@@ -68,8 +66,6 @@ public partial class EstabelecimentoMaster
                 TotalCount = response.TotalCount
             };
         }
-
-
     }
 
     private void AddEstabelecimento(MouseEventArgs e)
@@ -86,4 +82,10 @@ public partial class EstabelecimentoMaster
     {
         return EstabelecimentoService.SelectedEstabelecimento?.Id == estabelecimentoId;
     }
+    //private async Task DoSomething(bool value, EstabelecimentoDTO estabelecimento)
+    //{
+    //    Console.WriteLine("Save - " + estabelecimento.someProperty);
+
+    //    estabelecimento.someProperty = value;
+    //}
 }

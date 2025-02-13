@@ -1,13 +1,13 @@
 ﻿@using Identity.InMemory
 @using SharedKernel.DTO
 @implements IDisposable
+@rendermode InteractiveServer
 
 <Sidebar2 Href="/"
-ImageSrc="../images/weges_icone.png"
-Title="Weges"
-Class="weges-icon"
-DataProvider="SidebarDataProvider">
-
+        ImageSrc="../images/weges_icone.png"
+        Title="Weges"
+        Class="weges-icon"
+        DataProvider="SidebarDataProvider">
 </Sidebar2>
 
 @code {
@@ -29,6 +29,7 @@ DataProvider="SidebarDataProvider">
     {
         await InvokeAsync(StateHasChanged); // Refresh UI
         SelectedEstabelecimento = EstabelecimentoService.SelectedEstabelecimento;
+        navItems = await GetNavItems();
     }
 
     public void Dispose()
@@ -38,8 +39,7 @@ DataProvider="SidebarDataProvider">
     private async Task<Sidebar2DataProviderResult> SidebarDataProvider(Sidebar2DataProviderRequest request)
     {
         authState = await authStateProvider.GetAuthenticationStateAsync();
-        if (navItems is null)
-            navItems = await GetNavItems();
+        navItems = await GetNavItems();
 
         return await Task.FromResult(request.ApplyTo(navItems));
     }
@@ -85,7 +85,7 @@ DataProvider="SidebarDataProvider">
         if(SelectedEstabelecimento is not null && navItems is not null){
             navItems.Add(
                 new NavItem { 
-                Id = "26", ParentId = "20", Href = $"/dossierlicenciamento{SelectedEstabelecimento.Id}", IconName = IconName.FolderCheck, Text = "Dossier Licenciamento" }
+                Id = "26", ParentId = "20", Href = $"/dossierlicenciamento/{SelectedEstabelecimento.Id}", IconName = IconName.FolderCheck, Text = "Dossier Licenciamento" }
             );
             navItems.Add(
                 new NavItem { 

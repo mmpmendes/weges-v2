@@ -6,16 +6,20 @@ using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
 
+using SharedKernel.DTO;
+
 namespace ApiService.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class DossierLicenciamento(
+public class DossierLicenciamentoController(
         ISimpleRepository<Estabelecimento> estabelecimentoRepo
+        , ISimpleRepository<Anexo> anexoRepo
         , IMapper mapper
         ) : ControllerBase
 {
     private readonly ISimpleRepository<Estabelecimento> estabelecimentoRepo = estabelecimentoRepo;
+    private readonly ISimpleRepository<Anexo> anexoRepo = anexoRepo;
     private readonly IMapper mapper = mapper;
 
     [HttpGet("{EstabelecimentoId}/GetCartaoNIPC")]
@@ -27,6 +31,25 @@ public class DossierLicenciamento(
             return Results.NotFound();
 
         return Results.Ok(estabelecimento.CartaoNipc);
+    }
+
+    [HttpPost]
+    public async Task<IResult> SaveCartaoNipc([FromBody] AnexoDTO CartaoNipc)
+    {
+        var estabelecimento = await estabelecimentoRepo.GetById(CartaoNipc.EstabelecimentoId);
+
+        if (estabelecimento == null)
+        {
+            return Results.NotFound();
+        }
+
+        var cartao = mapper.Map<Anexo>(CartaoNipc);
+
+        estabelecimento.CartaoNipc = cartao;
+
+        await estabelecimentoRepo.Update(estabelecimento.Id, estabelecimento);
+
+        return Results.Ok();
     }
 
     [HttpGet("{EstabelecimentoId}/GetAlvara")]

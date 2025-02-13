@@ -10,4 +10,6 @@ public class EstabelecimentoDTO
     public string? Telefone { get; set; }
     public string? TipoPrestador { get; set; }
     public string? Sigla { get; set; }
+
+    public bool someProperty { get; set; } = false;
 }

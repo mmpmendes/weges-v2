@@ -6,6 +6,5 @@ public class AnexoDTO
     public DateOnly Submetido { get; set; }
     public long FicheiroId { get; set; }
     public string? Observacoes { get; set; }
-
     public long EstabelecimentoId { get; set; }
 }

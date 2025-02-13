@@ -27,7 +27,7 @@ public class FileService : IFileService
         return contentType;
     }
 
-    public async Task<string> SaveFileToFileSystem(IFormFile file, string folder, string configFolder)
+    public async Task<string> SaveFileToFileSystem(IFormFile file, string configFolder)
     {
         if (file == null || file.Length == 0)
             return "No file uploaded";
@@ -38,23 +38,20 @@ public class FileService : IFileService
         // Generate a new file name using a GUID, keeping the original extension
         var newFileName = $"{Guid.NewGuid()}{fileExtension}";
 
-        string setFolder = Path.Combine(configFolder, folder);
-
         // WANT TO CHECK IF SETFOLDER PATH EXISTS IF NOT CREATE IT
         // Check if the folder path exists, and if not, create it
-        if (!Directory.Exists(setFolder))
+        if (!Directory.Exists(configFolder))
         {
-            Directory.CreateDirectory(setFolder);
+            Directory.CreateDirectory(configFolder);
         }
 
-        // FIX THIS
-        string path = Path.Combine(setFolder, newFileName);
+        string path = Path.Combine(configFolder);
 
         // Save the file to the specified path
         using var stream = new FileStream(path, FileMode.Create);
         await file.CopyToAsync(stream);
 
         // Return the new file name
-        return Path.Combine(folder, newFileName);
+        return Path.Combine(configFolder, newFileName);
     }
 }

@@ -316,7 +316,7 @@ public class EstabelecimentoController(
     public async Task<IResult> UploadCertificado(IFormFile file)
     {
         // first - save the file to the file system
-        string fileLocationAndName = await _fileService.SaveFileToFileSystem(file, "certificados", _config[UPLOADPATH]);
+        string fileLocationAndName = await _fileService.SaveFileToFileSystem(file, _config[UPLOADPATH]);
 
         return await SaveFicheiro(file.Name, fileLocationAndName);
     }
@@ -351,7 +351,7 @@ public class EstabelecimentoController(
     [HttpPost("UploadLicenca")]
     public async Task<IResult> UploadLicenca(IFormFile file)
     {
-        string fileLocationAndName = await _fileService.SaveFileToFileSystem(file, "licencas", _config[UPLOADPATH]);
+        string fileLocationAndName = await _fileService.SaveFileToFileSystem(file, _config[UPLOADPATH]);
 
         return Results.Ok(fileLocationAndName);
     }
@@ -388,4 +388,30 @@ public class EstabelecimentoController(
         var colaboradoresDto = _mapper.Map<IEnumerable<CorpoClinicoDTO>>(colaborador);
         return Results.Ok(colaboradoresDto);
     }
+
+    [HttpPost("{id}/CartaoNipc")]
+    public async Task<IResult> CreateCartaoNipc(long id, [FromBody] AnexoDTO CartaoNipc)
+    {
+        if (CartaoNipc == null) return Results.BadRequest("CartaoNipc inválido.");
+
+        try
+        {
+            var estabelecimento = await _estabelecimentoRepo.GetById(CartaoNipc.EstabelecimentoId);
+            if (estabelecimento is null)
+            {
+                return Results.NotFound();
+            }
+
+            estabelecimento.CartaoNipc = _mapper.Map<Anexo>(CartaoNipc);
+
+            await _estabelecimentoRepo.Update(estabelecimento.Id, estabelecimento);
+
+            return Results.Created($"/api/Estabelecimento/{id}/CartaoNipc/{estabelecimento.CartaoNipc.Id}", estabelecimento.CartaoNipc);
+        }
+        catch (Exception)
+        {
+            return Results.InternalServerError("Erro ao gravar o Cartão.");
+        }
+    }
+
 }

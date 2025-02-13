@@ -235,15 +235,31 @@ public class EstabelecimentoApiService(HttpClient httpClient)
         var response = await httpClient.PostAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/CertificadoErs", certificado, cancellationToken);
         return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<CertificadoErsDTO?>() : null;
     }
+    #endregion
 
-    public async Task CreateCartaoNipcAsync(long v, AnexoDTO cartaoNipc)
+    #region CartaoNipc
+
+
+    public async Task<AnexoDTO?> CreateCartaoNipcAsync(long EstabelecimentoId, AnexoDTO cartaoNipc, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = await httpClient.PostAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/CartaoNipc", cartaoNipc, cancellationToken);
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<AnexoDTO?>() : null;
     }
 
-    public async Task UpdateCartaoNipcAsync(long v, AnexoDTO cartaoNipc)
+    public async Task<AnexoDTO?> UpdateCartaoNipcAsync(long EstabelecimentoId, AnexoDTO cartaoNipc, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var response = await httpClient.PutAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/UpdateCartaoNipc", cartaoNipc, cancellationToken);
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<AnexoDTO?>() : null;
     }
+    #endregion
+
+    #region Upload Ficheiro Genérico
+    public async Task<FicheiroDTO?> UploadFicheiroAsync(MultipartFormDataContent data, CancellationToken cancellationToken = default)
+    {
+        var response = await httpClient.PostAsync($"/api/Ficheiro/UploadFicheiro", data, cancellationToken);
+
+        return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<FicheiroDTO?>() : null;
+    }
+
     #endregion
 }

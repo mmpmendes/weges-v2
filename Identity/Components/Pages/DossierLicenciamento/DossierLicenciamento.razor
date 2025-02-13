@@ -1,4 +1,4 @@
-﻿@page "/dossierlicenciamento"
+﻿@page "/dossierlicenciamento/{estabelecimentoId:long}"
 @using Identity.Components.Shared
 @using Identity.InMemory
 @using Microsoft.AspNetCore.Authorization
@@ -25,7 +25,7 @@
                 <Icon Name="IconName.Download" />
             </Button>
         }
-        <Button @onclick="UploadCartaoNipc" Disabled="@(!IsCartaoNipcSelected)" Class="btn btn-dark">Guardar Certificado</Button>
+        <Button @onclick="UploadCartaoNipc" Disabled="@(!IsCartaoNipcSelected)" Class="btn btn-dark">Guardar Cartão</Button>
     </CardBody>
 </Card>
 <Card>

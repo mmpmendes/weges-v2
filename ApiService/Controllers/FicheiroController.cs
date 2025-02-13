@@ -3,7 +3,11 @@
 using ApiService.Data;
 using ApiService.Services;
 
+using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
+
+using SharedKernel.DTO;
 
 namespace ApiService.Controllers;
 
@@ -14,10 +18,12 @@ public class FicheiroController(
     , ISimpleRepository<CertificadoERS> certificadoErsRepo
     , IConfiguration config
     , IFileService fileService
+    , IMapper mapper
     ) : ControllerBase
 {
     private const string UPLOADPATH = "Paths:uploadpath";
     private readonly IFileService _fileService = fileService;
+    private readonly IMapper _mapper = mapper;
     private readonly IConfiguration _config = config;
     private readonly ISimpleRepository<Ficheiro> _ficheiroRepo = ficheiroRepo;
     private readonly ISimpleRepository<CertificadoERS> _certificadoErsRepo = certificadoErsRepo;
@@ -42,6 +48,37 @@ public class FicheiroController(
 
         return File(fileBytes, contentType, ficheiro.Nome);
     }
+
+    private async Task<IResult> SaveFicheiro(string fileName, string fileLocationAndName)
+    {
+        // second - save the file to the ficheiros table
+        Ficheiro ficheiro = new Ficheiro()
+        {
+            Nome = fileName,
+            Localizacao = fileLocationAndName
+        };
+
+        try
+        {
+            await _ficheiroRepo.Create(ficheiro);
+
+            return Results.Ok(_mapper.Map<FicheiroDTO>(ficheiro));
+        }
+        catch (Exception)
+        {
+            return Results.InternalServerError("Erro a gravar o ficheiro");
+        }
+    }
+
+    [HttpPost("UploadFicheiro")]
+    public async Task<IResult> UploadFicheiro(IFormFile file)
+    {
+        // first - save the file to the file system
+        string fileLocationAndName = await _fileService.SaveFileToFileSystem(file, _config[UPLOADPATH]);
+
+        return await SaveFicheiro(file.Name, fileLocationAndName);
+    }
+
 
     [HttpGet("DownloadFicheiro/{ficheiroId}")]
     public async Task<IActionResult> DownloadFicheiro(long ficheiroId)
@@ -74,4 +111,6 @@ public class FicheiroController(
 
         return fileResult;
     }
+
+
 }

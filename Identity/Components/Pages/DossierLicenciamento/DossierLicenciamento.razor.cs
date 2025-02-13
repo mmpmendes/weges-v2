@@ -14,7 +14,7 @@ namespace Identity.Components.Pages.DossierLicenciamento;
 
 public partial class DossierLicenciamento
 {
-    [Parameter] public long Id { get; set; }
+    [Parameter] public long estabelecimentoId { get; set; }
     [Inject] EstabelecimentoApiService EstabelecimentoApiService { get; set; } = default!;
     [Inject] EstabelecimentoService EstabelecimentoService { get; set; } = default!;
     [Inject] private FicheiroApiService FicheiroApiService { get; set; } = default!;
@@ -39,21 +39,21 @@ public partial class DossierLicenciamento
 
         formData.Add(stream, "file", selectedCartaoNipcFile.Name);
 
-        FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadCertificadoFileAsync(formData);
+        FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadCartaoNipcAsync(formData);
         IsCartaoNipcSelected = false;
 
         if (ficheiro is not null)
         {
             CartaoNipc!.FicheiroId = ficheiro.Id;
-            CartaoNipc!.EstabelecimentoId = Id;
+            CartaoNipc!.EstabelecimentoId = estabelecimentoId;
         }
         if (CartaoNipc!.Id <= 0)
         {
-            await EstabelecimentoApiService.CreateCartaoNipcAsync(Id, CartaoNipc);
+            await EstabelecimentoApiService.CreateCartaoNipcAsync(estabelecimentoId, CartaoNipc);
         }
         else
         {
-            await EstabelecimentoApiService.UpdateCartaoNipcAsync(Id, CartaoNipc);
+            await EstabelecimentoApiService.UpdateCartaoNipcAsync(estabelecimentoId, CartaoNipc);
         }
     }
 
