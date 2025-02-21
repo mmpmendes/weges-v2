@@ -61,6 +61,8 @@ public class EstabelecimentoController(
         [FromQuery] string? sortDirection = null,
         [FromQuery] Dictionary<string, string>? filters = null)
     {
+
+
         // Fetch all establishments
         var query = _estabelecimentoRepo.GetAll().AsQueryable();
 
@@ -91,7 +93,10 @@ public class EstabelecimentoController(
 
         // Total count before pagination
         var totalCount = query.Count();
-
+        if (pageSize == 0)
+        {
+            pageSize = totalCount;
+        }
         // Apply pagination
         var paginatedData = query
             .Skip((pageNumber - 1) * pageSize)

@@ -1,6 +1,4 @@
-﻿using BlazorBootstrap;
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 using Services;
@@ -80,19 +78,19 @@ public partial class DirecaoClinicaDetails
         NavigationManager.NavigateTo($"/estabelecimentos/{EstabelecimentoId}?return=dircli");
     }
 
-    private async Task<AutoCompleteDataProviderResult<TipologiaDTO>> TipologiasDataProvider(AutoCompleteDataProviderRequest<TipologiaDTO> request)
-    {
-        if (Tipologias is null)
-        {
-            Tipologias = await TipologiaApiService.GetTipologiasAsync();
-        }
+    //private async Task<AutoCompleteDataProviderResult<TipologiaDTO>> TipologiasDataProvider(AutoCompleteDataProviderRequest<TipologiaDTO> request)
+    //{
+    //    if (Tipologias is null)
+    //    {
+    //        Tipologias = await TipologiaApiService.GetTipologiasAsync();
+    //    }
 
-        if (Tipologias is not null)
-        {
-            return await Task.FromResult(request.ApplyTo(Tipologias.OrderBy(tipologia => tipologia.Nome)));
-        }
-        return new AutoCompleteDataProviderResult<TipologiaDTO>();
-    }
+    //    if (Tipologias is not null)
+    //    {
+    //        return await Task.FromResult(request.ApplyTo(Tipologias.OrderBy(tipologia => tipologia.Nome)));
+    //    }
+    //    return new AutoCompleteDataProviderResult<TipologiaDTO>();
+    //}
 
     private void OnAutoCompleteChanged(TipologiaDTO tipologia)
     {

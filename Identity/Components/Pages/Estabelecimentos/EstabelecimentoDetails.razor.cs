@@ -1,8 +1,8 @@
-﻿using BlazorBootstrap;
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.WebUtilities;
+
+using MudBlazor;
 
 using Services;
 
@@ -22,9 +22,9 @@ public partial class EstabelecimentoDetails
 
     private IList<ServicoDTO>? Servicos = default!;
     private IList<DirecaoClinicaDTO>? DirecoesClinicas = default!;
-    private Grid<ServicoDTO>? ServicosGrid;
-    private Grid<DirecaoClinicaDTO>? DirecoesClinicasGrid;
-    private Tabs Tabs = default!;
+    private MudDataGrid<ServicoDTO>? ServicosGrid;
+    private MudDataGrid<DirecaoClinicaDTO>? DirecoesClinicasGrid;
+    private MudTabs Tabs = default!;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -35,16 +35,18 @@ public partial class EstabelecimentoDetails
         {
             if (value == "dircli")
             {
-                await Tabs.ShowTabByIndexAsync(1);
+                //await Tabs.ShowTabByIndexAsync(1);
+                Tabs.ActivatePanel(1);
             }
             else if (value == "servico")
             {
-                await Tabs.ShowTabByIndexAsync(2);
+                //await Tabs.ShowTabByIndexAsync(2);
+                Tabs.ActivatePanel(2);
             }
         }
     }
 
-    private async Task<GridDataProviderResult<DirecaoClinicaDTO>> DirecoesClinicasDataProvider(GridDataProviderRequest<DirecaoClinicaDTO> request)
+    private async Task<GridData<DirecaoClinicaDTO>> DirecoesClinicasDataProvider(GridState<DirecaoClinicaDTO> state)
     {
         if (Id > -1)
         {
@@ -53,16 +55,20 @@ public partial class EstabelecimentoDetails
 
         if (DirecoesClinicas is null)
         {
-            return new GridDataProviderResult<DirecaoClinicaDTO>()
+            return new GridData<DirecaoClinicaDTO>()
             {
-                Data = [],
-                TotalCount = 0
+                Items = [],
+                TotalItems = 0
             };
         }
-        return await Task.FromResult(request.ApplyTo(DirecoesClinicas));
+        return new GridData<DirecaoClinicaDTO>
+        {
+            Items = DirecoesClinicas,
+            TotalItems = DirecoesClinicas.Count
+        };
     }
 
-    private async Task<GridDataProviderResult<ServicoDTO>> ServicosDataProvider(GridDataProviderRequest<ServicoDTO> request)
+    private async Task<GridData<ServicoDTO>> ServicosDataProvider(GridState<ServicoDTO> state)
     {
         if (Id > -1)
         {
@@ -71,13 +77,17 @@ public partial class EstabelecimentoDetails
 
         if (Servicos is null)
         {
-            return new GridDataProviderResult<ServicoDTO>()
+            return new GridData<ServicoDTO>()
             {
-                Data = [],
-                TotalCount = 0
+                Items = [],
+                TotalItems = 0
             };
         }
-        return await Task.FromResult(request.ApplyTo(Servicos));
+        return new GridData<ServicoDTO>
+        {
+            Items = Servicos,
+            TotalItems = Servicos.Count
+        };
     }
     private void AddDirecaoClinica(MouseEventArgs e)
     {
@@ -87,20 +97,20 @@ public partial class EstabelecimentoDetails
     {
         NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/Servico");
     }
-    private void OnDirecoesClinicasRowClick(GridRowEventArgs<DirecaoClinicaDTO> direcaoClinica)
-    {
-        NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/DirecaoClinica/{direcaoClinica.Item.Id}");
-    }
+    //private void OnDirecoesClinicasRowClick(GridRowEventArgs<DirecaoClinicaDTO> direcaoClinica)
+    //{
+    //    NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/DirecaoClinica/{direcaoClinica.Item.Id}");
+    //}
 
     private void EditarDirecaoClinica(long direcaoClinicaId)
     {
         NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/DirecaoClinica/{direcaoClinicaId}");
     }
 
-    private void OnServicosRowClick(GridRowEventArgs<ServicoDTO> servico)
-    {
-        NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/Servico/{servico.Item.Id}");
-    }
+    //private void OnServicosRowClick(GridRowEventArgs<ServicoDTO> servico)
+    //{
+    //    NavigationManager.NavigateTo($"/Estabelecimentos/{Id}/Servico/{servico.Item.Id}");
+    //}
 
     private void EditarServico(long servicoId)
     {

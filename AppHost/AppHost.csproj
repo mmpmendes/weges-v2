@@ -13,7 +13,6 @@
     <ProjectReference Include="..\BaseDbMigrations\BaseDbMigrations.csproj" />
     <ProjectReference Include="..\IdentityMigrations\IdentityMigrations.csproj" />
     <ProjectReference Include="..\Identity\Identity.csproj" />
-    <ProjectReference Include="..\Web\Web.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" Version="9.0.0" />

@@ -1,6 +1,6 @@
-﻿using BlazorBootstrap;
+﻿using Microsoft.AspNetCore.WebUtilities;
 
-using Microsoft.AspNetCore.WebUtilities;
+using MudBlazor;
 
 using SharedKernel.DTO;
 
@@ -9,7 +9,7 @@ using System.Net.Http.Json;
 namespace Services;
 public class EstabelecimentoApiService(HttpClient httpClient)
 {
-    public async Task<IList<EstabelecimentoDTO>?> GetEstabelecimentosAsync(IEnumerable<FilterItem> filters = default!, int pageNumber = 1, int pageSize = 0, string sortString = default!, SortDirection sortDirection = default, CancellationToken cancellationToken = default)
+    public async Task<IList<EstabelecimentoDTO>?> GetEstabelecimentosAsync(IEnumerable<IFilterDefinition<EstabelecimentoDTO>> filters = default!, int pageNumber = 1, int pageSize = 0, string sortString = default!, SortDirection sortDirection = default, CancellationToken cancellationToken = default)
     {
         int maxItems = 10;
         var requestUri = $"/api/Estabelecimento";
@@ -31,13 +31,13 @@ public class EstabelecimentoApiService(HttpClient httpClient)
         return estabelecimentos;
     }
 
-    public async Task<ListEstabelecimentosDTO?> GetEstabelecimentosFiltradosAsync(IEnumerable<FilterItem> filters = default!, int pageNumber = 1, int pageSize = 0, string sortString = default!, SortDirection sortDirection = default, CancellationToken cancellationToken = default)
+    public async Task<ListEstabelecimentosDTO?> GetEstabelecimentosFiltradosAsync(IEnumerable<IFilterDefinition<EstabelecimentoDTO>> filters = default!, int pageNumber = 1, int pageSize = 0, string sortString = default!, string? sortDirection = default, CancellationToken cancellationToken = default)
     {
         // Convert filters to a dictionary
-        var filterDict = filters?.ToDictionary(f => f.PropertyName, f => f.Value?.ToString());
+        //var filterDict = filters?.ToDictionary(f => f.PropertyName, f => f.Value?.ToString());
 
         // Convert SortDirection to a string
-        var sortDirectionString = sortDirection == SortDirection.Descending ? "desc" : "asc";
+        var sortDirectionString = sortDirection is not null ? sortDirection : "asc";
 
         // Build query parameters
         var queryParams = new Dictionary<string, string>
@@ -48,13 +48,13 @@ public class EstabelecimentoApiService(HttpClient httpClient)
             ["sortDirection"] = sortDirectionString
         };
 
-        if (filterDict != null)
-        {
-            foreach (var filter in filterDict)
-            {
-                queryParams[filter.Key] = filter.Value!;
-            }
-        }
+        //if (filterDict != null)
+        //{
+        //    foreach (var filter in filterDict)
+        //    {
+        //        queryParams[filter.Key] = filter.Value!;
+        //    }
+        //}
 
         // Construct query string
         var queryString = QueryHelpers.AddQueryString($"/api/Estabelecimento/Filtrados", queryParams);
@@ -129,67 +129,67 @@ public class EstabelecimentoApiService(HttpClient httpClient)
         return response;
     }
 
-    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosCartoesNipcAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
+    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosCartoesNipcAsync(long id, IEnumerable<IFilterDefinition<FicheirosLicenciamentoDTO>> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetFromJsonAsync<IList<FicheirosLicenciamentoDTO>?>($"/api/Estabelecimento/{id}/CartoesNipc");
         return response;
     }
 
-    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosAlvarasAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
+    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosAlvarasAsync(long id, IEnumerable<IFilterDefinition<FicheirosLicenciamentoDTO>> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetFromJsonAsync<IList<FicheirosLicenciamentoDTO>>($"/api/Estabelecimento/{id}/Alvaras");
         return response;
     }
 
-    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosMedidasAnpcAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
+    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosMedidasAnpcAsync(long id, IEnumerable<IFilterDefinition<FicheirosLicenciamentoDTO>> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetFromJsonAsync<IList<FicheirosLicenciamentoDTO>>($"/api/Estabelecimento/{id}/MedidasAnpc");
         return response;
     }
 
-    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosPareceresAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
+    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosPareceresAsync(long id, IEnumerable<IFilterDefinition<FicheirosLicenciamentoDTO>> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetFromJsonAsync<IList<FicheirosLicenciamentoDTO>>($"/api/Estabelecimento/{id}/Pareceres");
         return response;
     }
 
-    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentoListasVerificacao(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
+    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentoListasVerificacao(long id, IEnumerable<IFilterDefinition<FicheirosLicenciamentoDTO>> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetFromJsonAsync<IList<FicheirosLicenciamentoDTO>>($"/api/Estabelecimento/{id}/ListasVerificacao");
         return response;
     }
 
-    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosFicheirosAnexarAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
+    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosFicheirosAnexarAsync(long id, IEnumerable<IFilterDefinition<FicheirosLicenciamentoDTO>> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetFromJsonAsync<IList<FicheirosLicenciamentoDTO>>($"/api/Estabelecimento/{id}/FicheirosAnexar");
         return response;
     }
 
-    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosCartaDireitosDeveresAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
+    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosCartaDireitosDeveresAsync(long id, IEnumerable<IFilterDefinition<FicheirosLicenciamentoDTO>> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetFromJsonAsync<IList<FicheirosLicenciamentoDTO>>($"/api/Estabelecimento/{id}/CartaDireitosDeveres");
         return response;
     }
 
-    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosLicenciamentosLegaisAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
+    public async Task<IList<FicheirosLicenciamentoDTO>?> GetEstabelecimentosLicenciamentosLegaisAsync(long id, IEnumerable<IFilterDefinition<FicheirosLicenciamentoDTO>> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetFromJsonAsync<IList<FicheirosLicenciamentoDTO>>($"/api/Estabelecimento/{id}/LicenciamentosLegais");
         return response;
     }
 
-    public async Task<IList<InventarioItemDTO>?> GetEstabelecimentoInventarioAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
+    public async Task<IList<InventarioItemDTO>?> GetEstabelecimentoInventarioAsync(long id, IEnumerable<IFilterDefinition<FicheirosLicenciamentoDTO>> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetFromJsonAsync<IList<InventarioItemDTO>>($"/api/Estabelecimento/{id}/Inventario");
         return response;
     }
 
-    public async Task<IList<ManutencaoDTO>?> GetEstabelecimentoManutencoesAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
+    public async Task<IList<ManutencaoDTO>?> GetEstabelecimentoManutencoesAsync(long id, IEnumerable<IFilterDefinition<FicheirosLicenciamentoDTO>> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetFromJsonAsync<IList<ManutencaoDTO>>($"/api/Estabelecimento/{id}/Manutencoes");
         return response;
     }
 
-    public async Task<IList<ColaboradorDTO>?> GetEstabelecimentoColaboradoresAsync(long id, IEnumerable<FilterItem> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
+    public async Task<IList<ColaboradorDTO>?> GetEstabelecimentoColaboradoresAsync(long id, IEnumerable<IFilterDefinition<FicheirosLicenciamentoDTO>> filters, int pageNumber, int pageSize, string sortString, SortDirection sortDirection, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetFromJsonAsync<IList<ColaboradorDTO>>($"/api/Estabelecimento/{id}/Colaboradores");
         return response;

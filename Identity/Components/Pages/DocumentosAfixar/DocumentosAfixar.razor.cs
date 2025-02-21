@@ -1,8 +1,8 @@
-﻿using BlazorBootstrap;
-
-using Identity.InMemory;
+﻿using Identity.InMemory;
 
 using Microsoft.AspNetCore.Components;
+
+using MudBlazor;
 
 using Services;
 
@@ -16,32 +16,32 @@ public partial class DocumentosAfixar
     [Inject] EstabelecimentoService EstabelecimentoService { get; set; } = default!;
 
     private IList<FicheirosLicenciamentoDTO>? ListasVerificacao = default!;
-    private Grid<FicheirosLicenciamentoDTO> ListaVerificacaoGrid = default!;
+    private MudDataGrid<FicheirosLicenciamentoDTO> ListaVerificacaoGrid = default!;
 
     private IList<FicheirosLicenciamentoDTO>? FicheirosAnexar = default!;
-    private Grid<FicheirosLicenciamentoDTO> FicheirosAnexarGrid = default!;
+    private MudDataGrid<FicheirosLicenciamentoDTO> FicheirosAnexarGrid = default!;
 
     private IList<FicheirosLicenciamentoDTO>? CartasDireitosDeveres = default!;
-    private Grid<FicheirosLicenciamentoDTO> CartaDireitosDeveresGrid = default!;
+    private MudDataGrid<FicheirosLicenciamentoDTO> CartaDireitosDeveresGrid = default!;
 
     private IList<FicheirosLicenciamentoDTO>? LicenciamentosRegistosLegais = default!;
-    private Grid<FicheirosLicenciamentoDTO> LicenciamentoRegistoLegalGrid = default!;
+    private MudDataGrid<FicheirosLicenciamentoDTO> LicenciamentoRegistoLegalGrid = default!;
 
-    private async Task<GridDataProviderResult<FicheirosLicenciamentoDTO>> ListaVerificacaoDataProvider(GridDataProviderRequest<FicheirosLicenciamentoDTO> request)
+    private async Task<GridData<FicheirosLicenciamentoDTO>> ListaVerificacaoDataProvider(GridState<FicheirosLicenciamentoDTO> state)
     {
         string sortString = "";
         SortDirection sortDirection = SortDirection.None;
 
-        if (request.Sorting is not null && request.Sorting.Any())
-        {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
-        }
+        //if (request.Sorting is not null && request.Sorting.Any())
+        //{
+        //    // Note: Multi column sorting is not supported at this moment
+        //    sortString = request.Sorting.FirstOrDefault()!.SortString;
+        //    sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
+        //}
 
         try
         {
-            ListasVerificacao = await EstabelecimentoApiService.GetEstabelecimentoListasVerificacao(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+            //ListasVerificacao = await EstabelecimentoApiService.GetEstabelecimentoListasVerificacao(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
         }
         catch (Exception ex)
         {
@@ -49,31 +49,35 @@ public partial class DocumentosAfixar
         }
         if (ListasVerificacao is null)
         {
-            return new GridDataProviderResult<FicheirosLicenciamentoDTO>()
+            return new GridData<FicheirosLicenciamentoDTO>()
             {
-                Data = [],
-                TotalCount = 0
+                Items = [],
+                TotalItems = 0
             };
         }
 
-        return await Task.FromResult(request.ApplyTo(ListasVerificacao));
+        return new GridData<FicheirosLicenciamentoDTO>()
+        {
+            Items = ListasVerificacao,
+            TotalItems = ListasVerificacao.Count
+        };
     }
 
-    private async Task<GridDataProviderResult<FicheirosLicenciamentoDTO>> FicheirosAnexarDataProvider(GridDataProviderRequest<FicheirosLicenciamentoDTO> request)
+    private async Task<GridData<FicheirosLicenciamentoDTO>> FicheirosAnexarDataProvider(GridState<FicheirosLicenciamentoDTO> state)
     {
         string sortString = "";
         SortDirection sortDirection = SortDirection.None;
 
-        if (request.Sorting is not null && request.Sorting.Any())
-        {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
-        }
+        //if (request.Sorting is not null && request.Sorting.Any())
+        //{
+        //    // Note: Multi column sorting is not supported at this moment
+        //    sortString = request.Sorting.FirstOrDefault()!.SortString;
+        //    sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
+        //}
 
         try
         {
-            FicheirosAnexar = await EstabelecimentoApiService.GetEstabelecimentosFicheirosAnexarAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+            //FicheirosAnexar = await EstabelecimentoApiService.GetEstabelecimentosFicheirosAnexarAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection);
 
         }
         catch (Exception ex)
@@ -82,31 +86,35 @@ public partial class DocumentosAfixar
         }
         if (FicheirosAnexar is null)
         {
-            return new GridDataProviderResult<FicheirosLicenciamentoDTO>()
+            return new GridData<FicheirosLicenciamentoDTO>()
             {
-                Data = [],
-                TotalCount = 0
+                Items = [],
+                TotalItems = 0
             };
         }
 
-        return await Task.FromResult(request.ApplyTo(FicheirosAnexar));
+        return new GridData<FicheirosLicenciamentoDTO>()
+        {
+            Items = FicheirosAnexar,
+            TotalItems = FicheirosAnexar.Count
+        };
     }
 
-    private async Task<GridDataProviderResult<FicheirosLicenciamentoDTO>> CartaDireitosDeveresDataProvider(GridDataProviderRequest<FicheirosLicenciamentoDTO> request)
+    private async Task<GridData<FicheirosLicenciamentoDTO>> CartaDireitosDeveresDataProvider(GridState<FicheirosLicenciamentoDTO> state)
     {
         string sortString = "";
         SortDirection sortDirection = SortDirection.None;
 
-        if (request.Sorting is not null && request.Sorting.Any())
-        {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
-        }
+        //if (request.Sorting is not null && request.Sorting.Any())
+        //{
+        //    // Note: Multi column sorting is not supported at this moment
+        //    sortString = request.Sorting.FirstOrDefault()!.SortString;
+        //    sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
+        //}
 
         try
         {
-            CartasDireitosDeveres = await EstabelecimentoApiService.GetEstabelecimentosCartaDireitosDeveresAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+            //CartasDireitosDeveres = await EstabelecimentoApiService.GetEstabelecimentosCartaDireitosDeveresAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
         }
         catch (Exception ex)
         {
@@ -114,30 +122,34 @@ public partial class DocumentosAfixar
         }
         if (CartasDireitosDeveres is null)
         {
-            return new GridDataProviderResult<FicheirosLicenciamentoDTO>()
+            return new GridData<FicheirosLicenciamentoDTO>()
             {
-                Data = [],
-                TotalCount = 0
+                Items = [],
+                TotalItems = 0
             };
         }
 
-        return await Task.FromResult(request.ApplyTo(CartasDireitosDeveres));
+        return new GridData<FicheirosLicenciamentoDTO>()
+        {
+            Items = CartasDireitosDeveres,
+            TotalItems = CartasDireitosDeveres.Count
+        };
     }
 
-    private async Task<GridDataProviderResult<FicheirosLicenciamentoDTO>> LicenciamentoRegistoLegalDataProvider(GridDataProviderRequest<FicheirosLicenciamentoDTO> request)
+    private async Task<GridData<FicheirosLicenciamentoDTO>> LicenciamentoRegistoLegalDataProvider(GridState<FicheirosLicenciamentoDTO> state)
     {
         string sortString = "";
         SortDirection sortDirection = SortDirection.None;
 
-        if (request.Sorting is not null && request.Sorting.Any())
-        {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
-        }
+        //if (state.Sorting is not null && state.Sorting.Any())
+        //{
+        //    // Note: Multi column sorting is not supported at this moment
+        //    sortString = state.Sorting.FirstOrDefault()!.SortString;
+        //    sortDirection = state.Sorting.FirstOrDefault()!.SortDirection;
+        //}
         try
         {
-            LicenciamentosRegistosLegais = await EstabelecimentoApiService.GetEstabelecimentosLicenciamentosLegaisAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+            //LicenciamentosRegistosLegais = await EstabelecimentoApiService.GetEstabelecimentosLicenciamentosLegaisAsync(EstabelecimentoService.SelectedEstabelecimento.Id, state.Filters, state.PageNumber, state.PageSize, sortString, sortDirection, state.CancellationToken);
         }
         catch (Exception ex)
         {
@@ -145,13 +157,17 @@ public partial class DocumentosAfixar
         }
         if (LicenciamentosRegistosLegais is null)
         {
-            return new GridDataProviderResult<FicheirosLicenciamentoDTO>()
+            return new GridData<FicheirosLicenciamentoDTO>()
             {
-                Data = [],
-                TotalCount = 0
+                Items = [],
+                TotalItems = 0
             };
         }
 
-        return await Task.FromResult(request.ApplyTo(LicenciamentosRegistosLegais));
+        return new GridData<FicheirosLicenciamentoDTO>()
+        {
+            Items = LicenciamentosRegistosLegais,
+            TotalItems = LicenciamentosRegistosLegais.Count
+        };
     }
 }

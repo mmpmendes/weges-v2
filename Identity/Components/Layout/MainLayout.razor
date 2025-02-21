@@ -8,9 +8,22 @@
 @inject SignInManager<WegesUser> SignInManager
 @inject IdentityRedirectManager RedirectManager
 
-<BlazorBootstrapLayout StickyHeader="true">
-    <HeaderSection>
-        @if (SelectedEstabelecimento is not null)
+@* Required *@
+<MudThemeProvider />
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<MudLayout StickyHeader="true">
+    <MudAppBar>
+        Weges
+    </MudAppBar>
+    <MudDrawer Open="true">
+        @*  @if (SelectedEstabelecimento is not null)
         {
             <!-- Top-right corner div -->
             <div class="btn profile-name bg-light">
@@ -36,21 +49,25 @@
             <div class="profile-name">
                 <a class="btn btn-light" href="/Account/Login">Inicar sessão</a>
             </div>
-        }
+        } *@
+        <MudDrawerHeader Style="background-color: gainsboro;">
+            <MudImage Src="images/weges_cor_logo_simb.png" Height="40"></MudImage>
+        </MudDrawerHeader>
+        <NavMenu />
+    </MudDrawer>
+    @* <MudAppBar>
 
-    </HeaderSection>
-    <SidebarSection>
-        <div class="sidebar">
-            <NavMenu />
-        </div>
-    </SidebarSection>
+    </MudAppBar> *@
+    @* <MudDrawer>
 
-    <ContentSection>
+    </MudDrawer> *@
+
+    <MudMainContent>
         <article class="content px-4">
             @Body
         </article>
-    </ContentSection>
-</BlazorBootstrapLayout>
+    </MudMainContent>
+</MudLayout>
 
 @code {
 
@@ -70,7 +87,7 @@
         SelectedEstabelecimento = EstabelecimentoService.SelectedEstabelecimento;
 
         // Subscribe to the event
-        EstabelecimentoService.OnEstabelecimentoChanged += async() => await HandleEstabelecimentoChanged();
+        EstabelecimentoService.OnEstabelecimentoChanged += async () => await HandleEstabelecimentoChanged();
     }
 
     private async Task HandleEstabelecimentoChanged()

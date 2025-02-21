@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 namespace Services;
 public class TipologiaApiService(HttpClient httpClient)
 {
-    public async Task<IEnumerable<TipologiaDTO>?> GetTipologiasAsync(CancellationToken cancellationToken = default)
+    public async Task<IList<TipologiaDTO>?> GetTipologiasAsync(CancellationToken cancellationToken = default)
     {
         List<TipologiaDTO>? tipologias = null;
         await foreach (var tipologia in httpClient.GetFromJsonAsAsyncEnumerable<TipologiaDTO>("/api/Tipologias", cancellationToken))

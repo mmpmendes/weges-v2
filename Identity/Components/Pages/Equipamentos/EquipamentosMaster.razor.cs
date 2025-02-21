@@ -1,8 +1,8 @@
-﻿using BlazorBootstrap;
-
-using Identity.InMemory;
+﻿using Identity.InMemory;
 
 using Microsoft.AspNetCore.Components;
+
+using MudBlazor;
 
 using Services;
 
@@ -13,30 +13,30 @@ namespace Identity.Components.Pages.Equipamentos;
 public partial class EquipamentosMaster
 {
     private IList<InventarioItemDTO>? InventarioItems = default!;
-    private Grid<InventarioItemDTO> InventarioGrid = default!;
+    private MudDataGrid<InventarioItemDTO> InventarioGrid = default!;
 
     private IList<ManutencaoDTO>? Manutencoes = default!;
-    private Grid<ManutencaoDTO> ManutencaoGrid = default!;
+    private MudDataGrid<ManutencaoDTO> ManutencaoGrid = default!;
 
 
     [Inject] public EstabelecimentoApiService EstabelecimentoApiService { get; set; } = default!;
     [Inject] public EstabelecimentoService EstabelecimentoService { get; set; } = default!;
 
     // Note: This method is used to provide the data for the grid
-    private async Task<GridDataProviderResult<InventarioItemDTO>> InventarioDataProvider(GridDataProviderRequest<InventarioItemDTO> request)
+    private async Task<GridData<InventarioItemDTO>> InventarioDataProvider(GridState<InventarioItemDTO> request)
     {
         string sortString = "";
         SortDirection sortDirection = SortDirection.None;
 
-        if (request.Sorting is not null && request.Sorting.Any())
-        {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
-        }
+        //if (request.Sorting is not null && request.Sorting.Any())
+        //{
+        //    // Note: Multi column sorting is not supported at this moment
+        //    sortString = request.Sorting.FirstOrDefault()!.SortString;
+        //    sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
+        //}
         try
         {
-            InventarioItems = await EstabelecimentoApiService.GetEstabelecimentoInventarioAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+            //InventarioItems = await EstabelecimentoApiService.GetEstabelecimentoInventarioAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
         }
         catch (Exception e)
         {
@@ -44,31 +44,35 @@ public partial class EquipamentosMaster
         }
         if (InventarioItems is null)
         {
-            return new GridDataProviderResult<InventarioItemDTO>()
+            return new GridData<InventarioItemDTO>()
             {
-                Data = [],
-                TotalCount = 0
+                Items = [],
+                TotalItems = 0
             };
         }
 
-        return await Task.FromResult(request.ApplyTo(InventarioItems));
+        return new GridData<InventarioItemDTO>()
+        {
+            Items = InventarioItems,
+            TotalItems = InventarioItems.Count
+        };
     }
 
-    private async Task<GridDataProviderResult<ManutencaoDTO>> ManutencoesDataProvider(GridDataProviderRequest<ManutencaoDTO> request)
+    private async Task<GridData<ManutencaoDTO>> ManutencoesDataProvider(GridState<ManutencaoDTO> state)
     {
         string sortString = "";
         SortDirection sortDirection = SortDirection.None;
 
-        if (request.Sorting is not null && request.Sorting.Any())
-        {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
-        }
+        //if (state.Sorting is not null && state.Sorting.Any())
+        //{
+        //    // Note: Multi column sorting is not supported at this moment
+        //    sortString = state.Sorting.FirstOrDefault()!.SortString;
+        //    sortDirection = state.Sorting.FirstOrDefault()!.SortDirection;
+        //}
 
         try
         {
-            Manutencoes = await EstabelecimentoApiService.GetEstabelecimentoManutencoesAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+            //Manutencoes = await EstabelecimentoApiService.GetEstabelecimentoManutencoesAsync(EstabelecimentoService.SelectedEstabelecimento.Id, state.Filters, state.PageNumber, state.PageSize, sortString, sortDirection, state.CancellationToken);
         }
         catch (Exception e)
         {
@@ -76,13 +80,17 @@ public partial class EquipamentosMaster
         }
         if (Manutencoes is null)
         {
-            return new GridDataProviderResult<ManutencaoDTO>()
+            return new GridData<ManutencaoDTO>()
             {
-                Data = [],
-                TotalCount = 0
+                Items = [],
+                TotalItems = 0
             };
         }
 
-        return await Task.FromResult(request.ApplyTo(Manutencoes));
+        return new GridData<ManutencaoDTO>()
+        {
+            Items = Manutencoes,
+            TotalItems = Manutencoes.Count
+        };
     }
 }

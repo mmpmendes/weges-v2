@@ -1,7 +1,7 @@
-﻿using BlazorBootstrap;
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+
+using MudBlazor;
 
 using Services;
 
@@ -12,7 +12,7 @@ namespace Identity.Components.Pages.Entidades;
 public partial class EntidadeMaster
 {
     private IList<EntidadeDTO>? Entidades = default!;
-    private Grid<EntidadeDTO> EntidadesGV = default!;
+    private MudDataGrid<EntidadeDTO> EntidadesGV = default!;
 
     [Inject]
     public required EntidadeApiService EntidadeApiService { get; set; }
@@ -30,12 +30,23 @@ public partial class EntidadeMaster
         NavigationManager.NavigateTo($"/entidade/{entidadeId}");
     }
 
-    private async Task<GridDataProviderResult<EntidadeDTO>> EntidadesDataProvider(GridDataProviderRequest<EntidadeDTO> request)
+    private async Task<GridData<EntidadeDTO>> EntidadesDataProvider(GridState<EntidadeDTO> state)
     {
         if (Entidades is null)
+        {
             Entidades = await EntidadeApiService.GetEntidadesAsync();
+            return new GridData<EntidadeDTO>()
+            {
+                Items = [],
+                TotalItems = 0
+            };
+        }
 
-        return await Task.FromResult(request.ApplyTo(Entidades));
+        return new GridData<EntidadeDTO>()
+        {
+            Items = Entidades,
+            TotalItems = Entidades.Count
+        };
     }
 
     private void AddEntidade(MouseEventArgs e)

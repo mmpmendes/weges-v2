@@ -1,7 +1,7 @@
-﻿using BlazorBootstrap;
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+
+using MudBlazor;
 
 using Services;
 
@@ -11,36 +11,40 @@ namespace Identity.Components.Pages.Backoffice.Tipologias;
 
 public partial class TipologiasMaster
 {
-    private IEnumerable<TipologiaDTO>? Tipologias = default!;
-    private Grid<TipologiaDTO> TipologiasGrid = default!;
+    private IList<TipologiaDTO>? Tipologias = default!;
+    private MudDataGrid<TipologiaDTO> TipologiasGrid = default!;
     [Inject]
     public required NavigationManager NavigationManager { get; set; } = default!;
     [Inject]
     public required TipologiaApiService TipologiaApiService { get; set; } = default!;
 
-    private async Task<GridDataProviderResult<TipologiaDTO>> TipologiasDataProvider(GridDataProviderRequest<TipologiaDTO> request)
+    private async Task<GridData<TipologiaDTO>> TipologiasDataProvider(GridState<TipologiaDTO> state)
     {
         string sortString = "";
         SortDirection sortDirection = SortDirection.None;
 
-        if (request.Sorting is not null && request.Sorting.Any())
-        {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
-        }
+        //if (state.Sorting is not null && state.Sorting.Any())
+        //{
+        //    // Note: Multi column sorting is not supported at this moment
+        //    sortString = state.Sorting.FirstOrDefault()!.SortString;
+        //    sortDirection = state.Sorting.FirstOrDefault()!.SortDirection;
+        //}
 
-        Tipologias = await TipologiaApiService.GetTipologiasAsync(request.CancellationToken);
+        Tipologias = await TipologiaApiService.GetTipologiasAsync();
         if (Tipologias is null)
         {
-            return new GridDataProviderResult<TipologiaDTO>()
+            return new GridData<TipologiaDTO>()
             {
-                Data = [],
-                TotalCount = 0
+                Items = [],
+                TotalItems = 0
             };
         }
 
-        return await Task.FromResult(request.ApplyTo(Tipologias));
+        return new GridData<TipologiaDTO>()
+        {
+            Items = Tipologias,
+            TotalItems = Tipologias.Count
+        };
     }
 
     private void NavigateToDetails(long tipologiaId)
@@ -54,27 +58,27 @@ public partial class TipologiasMaster
     }
 
     // Note: This method is used to provide the translation for the grid filters
-    private async Task<IEnumerable<FilterOperatorInfo>> GridFiltersTranslationProvider()
-    {
-        var filtersTranslation = new List<FilterOperatorInfo>();
+    //private async Task<IEnumerable<FilterOperatorInfo>> GridFiltersTranslationProvider()
+    //{
+    //    var filtersTranslation = new List<FilterOperatorInfo>();
 
-        // number/date/boolean
-        filtersTranslation.Add(new("=", "é igual", FilterOperator.Equals));
-        filtersTranslation.Add(new("!=", "não é igual", FilterOperator.NotEquals));
-        // number/date
-        filtersTranslation.Add(new("<", "é menor", FilterOperator.LessThan));
-        filtersTranslation.Add(new("<=", "é menor ou igual", FilterOperator.LessThanOrEquals));
-        filtersTranslation.Add(new(">", "é maior", FilterOperator.GreaterThan));
-        filtersTranslation.Add(new(">=", "é maior ou igual", FilterOperator.GreaterThanOrEquals));
-        // string
-        filtersTranslation.Add(new("*a*", "contém", FilterOperator.Contains));
-        filtersTranslation.Add(new("!*a*", "não contém", FilterOperator.DoesNotContain));
-        filtersTranslation.Add(new("a**", "começa com", FilterOperator.StartsWith));
-        filtersTranslation.Add(new("**a", "termina com", FilterOperator.EndsWith));
-        filtersTranslation.Add(new("=", "é igual", FilterOperator.Equals));
-        // common
-        filtersTranslation.Add(new("x", "limpar", FilterOperator.Clear));
+    //    // number/date/boolean
+    //    filtersTranslation.Add(new("=", "é igual", FilterOperator.Equals));
+    //    filtersTranslation.Add(new("!=", "não é igual", FilterOperator.NotEquals));
+    //    // number/date
+    //    filtersTranslation.Add(new("<", "é menor", FilterOperator.LessThan));
+    //    filtersTranslation.Add(new("<=", "é menor ou igual", FilterOperator.LessThanOrEquals));
+    //    filtersTranslation.Add(new(">", "é maior", FilterOperator.GreaterThan));
+    //    filtersTranslation.Add(new(">=", "é maior ou igual", FilterOperator.GreaterThanOrEquals));
+    //    // string
+    //    filtersTranslation.Add(new("*a*", "contém", FilterOperator.Contains));
+    //    filtersTranslation.Add(new("!*a*", "não contém", FilterOperator.DoesNotContain));
+    //    filtersTranslation.Add(new("a**", "começa com", FilterOperator.StartsWith));
+    //    filtersTranslation.Add(new("**a", "termina com", FilterOperator.EndsWith));
+    //    filtersTranslation.Add(new("=", "é igual", FilterOperator.Equals));
+    //    // common
+    //    filtersTranslation.Add(new("x", "limpar", FilterOperator.Clear));
 
-        return await Task.FromResult(filtersTranslation);
-    }
+    //    return await Task.FromResult(filtersTranslation);
+    //}
 }

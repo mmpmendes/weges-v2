@@ -39,7 +39,7 @@ public partial class DossierLicenciamento
 
         formData.Add(stream, "file", selectedCartaoNipcFile.Name);
 
-        FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadCartaoNipcAsync(formData);
+        FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadFicheiroAsync(formData);
         IsCartaoNipcSelected = false;
 
         if (ficheiro is not null)

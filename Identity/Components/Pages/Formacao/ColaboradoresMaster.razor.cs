@@ -1,8 +1,8 @@
-﻿using BlazorBootstrap;
-
-using Identity.InMemory;
+﻿using Identity.InMemory;
 
 using Microsoft.AspNetCore.Components;
+
+using MudBlazor;
 
 using Services;
 
@@ -13,27 +13,27 @@ namespace Identity.Components.Pages.Formacao;
 public partial class ColaboradoresMaster
 {
     private IList<ColaboradorDTO>? ColaboradoresItems = default!;
-    private Grid<ColaboradorDTO> ColaboradoresGrid = default!;
+    private MudDataGrid<ColaboradorDTO> ColaboradoresGrid = default!;
 
     [Inject] public EstabelecimentoApiService EstabelecimentoApiService { get; set; } = default!;
     [Inject] public EstabelecimentoService EstabelecimentoService { get; set; } = default!;
 
     // Note: This method is used to provide the data for the grid
-    private async Task<GridDataProviderResult<ColaboradorDTO>> ColaboradoresDataProvider(GridDataProviderRequest<ColaboradorDTO> request)
+    private async Task<GridData<ColaboradorDTO>> ColaboradoresDataProvider(GridState<ColaboradorDTO> state)
     {
         string sortString = "";
         SortDirection sortDirection = SortDirection.None;
 
-        if (request.Sorting is not null && request.Sorting.Any())
-        {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
-        }
+        //if (state.Sorting is not null && state.Sorting.Any())
+        //{
+        //    // Note: Multi column sorting is not supported at this moment
+        //    sortString = state.Sorting.FirstOrDefault()!.SortString;
+        //    sortDirection = state.Sorting.FirstOrDefault()!.SortDirection;
+        //}
 
         try
         {
-            ColaboradoresItems = await EstabelecimentoApiService.GetEstabelecimentoColaboradoresAsync(EstabelecimentoService.SelectedEstabelecimento.Id, request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
+            //ColaboradoresItems = await EstabelecimentoApiService.GetEstabelecimentoColaboradoresAsync(EstabelecimentoService.SelectedEstabelecimento.Id, state.Filters, state.PageNumber, state.PageSize, sortString, sortDirection, state.CancellationToken);
         }
         catch (Exception e)
         {
@@ -41,13 +41,17 @@ public partial class ColaboradoresMaster
         }
         if (ColaboradoresItems is null)
         {
-            return new GridDataProviderResult<ColaboradorDTO>()
+            return new GridData<ColaboradorDTO>()
             {
-                Data = [],
-                TotalCount = 0
+                Items = [],
+                TotalItems = 0
             };
         }
 
-        return await Task.FromResult(request.ApplyTo(ColaboradoresItems));
+        return new GridData<ColaboradorDTO>()
+        {
+            Items = ColaboradoresItems,
+            TotalItems = ColaboradoresItems.Count
+        };
     }
 }

@@ -1,9 +1,9 @@
-﻿using BlazorBootstrap;
-
-using Identity.InMemory;
+﻿using Identity.InMemory;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+
+using MudBlazor;
 
 using Services;
 
@@ -14,8 +14,8 @@ namespace Identity.Components.Pages.Estabelecimentos;
 public partial class EstabelecimentoMaster
 {
     private IList<EstabelecimentoDTO>? Estabelecimentos = default!;
-    private Grid<EstabelecimentoDTO> EstabelecimentosGrid = default!;
-    private CheckboxInput checkId;
+    private MudDataGrid<EstabelecimentoDTO> EstabelecimentosGrid = default!;
+    private string searchString1 = "";
 
     [Inject] public required EstabelecimentoApiService EstabelecimentoApiService { get; set; }
 
@@ -23,7 +23,12 @@ public partial class EstabelecimentoMaster
 
     [Inject] public required EstabelecimentoService EstabelecimentoService { get; set; }
 
-    private HashSet<EstabelecimentoDTO> EstabelecimentosSelecionados = new();
+    protected override async Task OnInitializedAsync()
+    {
+        var listEstabelecimentosDTO = await EstabelecimentoApiService.GetEstabelecimentosFiltradosAsync();
+
+        Estabelecimentos = listEstabelecimentosDTO?.Estabelecimentos;
+    }
 
     // Note: This method is used to navigate to the details page
     private void NavigateToDetails(long estabelecimentoId)
@@ -32,38 +37,30 @@ public partial class EstabelecimentoMaster
     }
 
     // Note: This method is used to provide the data for the grid
-    private async Task<GridDataProviderResult<EstabelecimentoDTO>> EstabelecimentosDataProvider(GridDataProviderRequest<EstabelecimentoDTO> request)
+    private async Task<GridData<EstabelecimentoDTO>> EstabelecimentosDataProvider(GridState<EstabelecimentoDTO> state)
     {
-        string sortString = "";
-        SortDirection sortDirection = SortDirection.None;
-
-        if (request.Sorting is not null && request.Sorting.Any())
-        {
-            // Note: Multi column sorting is not supported at this moment
-            sortString = request.Sorting.FirstOrDefault()!.SortString;
-            sortDirection = request.Sorting.FirstOrDefault()!.SortDirection;
-        }
-
-        //Estabelecimentos = await EstabelecimentoApiService.GetEstabelecimentosFiltradosAsync(request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
-        var response = await EstabelecimentoApiService.GetEstabelecimentosFiltradosAsync(request.Filters, request.PageNumber, request.PageSize, sortString, sortDirection, request.CancellationToken);
-
-        Estabelecimentos = [];
+        ListEstabelecimentosDTO? response = await EstabelecimentoApiService.GetEstabelecimentosFiltradosAsync(
+            filters: state.FilterDefinitions,
+            pageNumber: state.Page,
+            pageSize: state.PageSize,
+            sortString: state.SortDefinitions.FirstOrDefault()?.ToString()!);
 
         if (response is null)
         {
-            return new GridDataProviderResult<EstabelecimentoDTO>()
+            Estabelecimentos = [];
+            return new GridData<EstabelecimentoDTO>()
             {
-                Data = [],
-                TotalCount = 0
+                TotalItems = 0,
+                Items = []
             };
         }
         else
         {
             Estabelecimentos = response.Estabelecimentos;
-            return new GridDataProviderResult<EstabelecimentoDTO>()
+            return new GridData<EstabelecimentoDTO>()
             {
-                Data = response.Estabelecimentos,
-                TotalCount = response.TotalCount
+                TotalItems = response.TotalCount,
+                Items = response.Estabelecimentos ?? []
             };
         }
     }
@@ -75,7 +72,7 @@ public partial class EstabelecimentoMaster
 
     private void SeleccionaEstabelecimento(long estabelecimentoId)
     {
-        EstabelecimentoService.SelectedEstabelecimento = Estabelecimentos.First(e => e.Id == estabelecimentoId);
+        EstabelecimentoService.SelectedEstabelecimento = Estabelecimentos!.First(e => e.Id == estabelecimentoId);
     }
 
     private bool IsEstabelecimentoSelected(long estabelecimentoId)

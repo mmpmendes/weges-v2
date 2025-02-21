@@ -2,53 +2,34 @@
 @using Identity.Components.Shared
 @using Microsoft.AspNetCore.Authorization
 @using SharedKernel.DTO
-@attribute [Authorize]
 @rendermode InteractiveServer
+@* @attribute [Authorize] *@
 
 <PageTitle>Estabelecimentos</PageTitle>
-<h3>Estabelecimentos <Button Type="ButtonType.Button" Color="ButtonColor.Dark" @onclick="AddEstabelecimento"><Icon Name="IconName.PlusSquare" /></Button></h3>
 
-<Grid @ref="EstabelecimentosGrid" 
-    TItem="EstabelecimentoDTO"
-      Class="table table-hover table-bordered table-striped"
-      DataProvider="EstabelecimentosDataProvider"
-      PageSize="5"
-      AllowPaging="true"
-      AllowSorting="true"
-      AllowFiltering="true"
-      Responsive="true"
-      
-      EmptyText="Sem dados para apresentar">
-
-    <GridColumns>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="" PropertyName="Id" Filterable="false">
-            <Button Class="btn btn-dark" Style="margin: 2px" @onclick="() => NavigateToDetails(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
-            <Button Class="btn btn-dark" Style="margin: 2px" hidden="@IsEstabelecimentoSelected(context.Id)" @onclick="() => SeleccionaEstabelecimento(context.Id)"><Icon Name="IconName.Check" /></Button>
-        </GridColumn>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Sigla" PropertyName="Sigla" SortString="Sigla" SortKeySelector="item => item.Sigla">
-            @context.Sigla
-        </GridColumn>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Denominação" PropertyName="Denominacao" SortString="Denominacao" SortKeySelector="item => item.Denominacao">
-            @context.Denominacao
-        </GridColumn>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Morada" PropertyName="Morada" SortString="Morada" SortKeySelector="item => item.Morada">
-            @context.Morada
-        </GridColumn>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Email" PropertyName="Email" SortString="Email" SortKeySelector="item => item.Email">
-            @context.Email
-        </GridColumn>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Tipo Prestador" PropertyName="TipoPrestador" SortString="TipoPrestador" SortKeySelector="item => item.TipoPrestador">
-            @context.TipoPrestador
-        </GridColumn>
-        <GridColumn TItem="EstabelecimentoDTO" HeaderText="Telefone" PropertyName="Telefone" SortString="Telefone" SortKeySelector="item => item.Telefone">
-            @context.Telefone
-        </GridColumn>
-        @* <GridColumn TItem="EstabelecimentoDTO" HeaderText="" PropertyName="someProperty">
-            <CheckboxInput
-                @ref="checkId"
-                Label="" 
-                ValueExpression="() => context.someProperty"
-                ValueChanged="(value) => DoSomething(value, context)" />
-        </GridColumn> *@
-    </GridColumns>
-</Grid>
+<MudDataGrid 
+    @ref="EstabelecimentosGrid" 
+    T="EstabelecimentoDTO"
+    ServerData="EstabelecimentosDataProvider" 
+    Filterable="true"
+    SortMode="SortMode.Single"
+    Groupable="false">
+   <ToolBarContent>
+       <MudText Typo="Typo.h6">Estabelecimentos</MudText>
+       <MudButton Color="Color.Primary" onclick="@AddEstabelecimento">
+            <MudIcon Color="@Color.Primary" Icon="@Icons.Material.Filled.Add" /> 
+       </MudButton>
+        <MudSpacer />
+   </ToolBarContent>
+   <Columns>
+       <PropertyColumn Property="x => x.Sigla" Title="Sigla" />
+       <PropertyColumn Property="x => x.Denominacao" Title="Denominação" />
+       <PropertyColumn Property="x => x.Morada" Title="Morada" />
+       <PropertyColumn Property="x => x.Email" Title="Email" />
+       <PropertyColumn Property="x => x.Telefone" Title="Telefone" />
+       <PropertyColumn Property="x => x.TipoPrestador" Title="Tipo Prestador" />
+   </Columns>
+   <PagerContent>
+        <MudDataGridPager T="EstabelecimentoDTO" />
+    </PagerContent>
+</MudDataGrid>

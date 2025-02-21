@@ -11,7 +11,7 @@
 
 @if (EstabelecimentoService.SelectedEstabelecimento is not null)
 {
-    <Tabs>
+    @* <Tabs>
         <Tab Title="Serviços">
             <Content>
                 <Grid @ref="ServicosGrid" 
@@ -77,7 +77,7 @@
                 </Grid>
             </Content>
         </Tab>
-    </Tabs>
+    </Tabs> *@
 }
 else{
     <h5>Por favor selecione um <a href="/estabelecimentos">estabelecimento</a></h5>

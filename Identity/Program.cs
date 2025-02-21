@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
+using MudBlazor.Services;
+
 using Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -51,7 +53,7 @@ builder.Services.AddIdentityCore<WegesUser>(options => options.SignIn.RequireCon
 
 builder.Services.AddSingleton<IEmailSender<WegesUser>, IdentityNoOpEmailSender>();
 
-builder.Services.AddBlazorBootstrap();
+builder.Services.AddMudServices();
 
 builder.Services.AddHttpClient<EntidadeApiService>(client =>
 {
