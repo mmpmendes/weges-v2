@@ -91,12 +91,6 @@ public class EstabelecimentoController(
                 : query.OrderBy(e => EF.Property<object>(e, sortString));
         }
 
-        // Total count before pagination
-        var totalCount = query.Count();
-        if (pageSize == 0)
-        {
-            pageSize = totalCount;
-        }
         // Apply pagination
         var paginatedData = query
             .Skip((pageNumber - 1) * pageSize)
@@ -110,7 +104,7 @@ public class EstabelecimentoController(
         return Results.Ok(new ListEstabelecimentosDTO
         {
             Estabelecimentos = result.ToList(),
-            TotalCount = totalCount,
+            TotalCount = query.Count(),
         });
     }
 

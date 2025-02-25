@@ -26,24 +26,24 @@ public partial class EstabelecimentoDetails
     private MudDataGrid<DirecaoClinicaDTO>? DirecoesClinicasGrid;
     private MudTabs Tabs = default!;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override Task OnAfterRenderAsync(bool firstRender)
     {
         var uri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri);
         var queryParameters = QueryHelpers.ParseQuery(uri.AbsoluteUri);
-        string value = queryParameters.FirstOrDefault().Value;
+        string? value = queryParameters.FirstOrDefault().Value;
         if (!String.IsNullOrEmpty(value))
         {
             if (value == "dircli")
             {
-                //await Tabs.ShowTabByIndexAsync(1);
                 Tabs.ActivatePanel(1);
             }
             else if (value == "servico")
             {
-                //await Tabs.ShowTabByIndexAsync(2);
                 Tabs.ActivatePanel(2);
             }
         }
+
+        return Task.CompletedTask;
     }
 
     private async Task<GridData<DirecaoClinicaDTO>> DirecoesClinicasDataProvider(GridState<DirecaoClinicaDTO> state)

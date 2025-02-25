@@ -3,9 +3,8 @@
 <div class="mb-3">
     <InputFile id="fileInput" onchange="HandleFileSelected" hidden="true" />
     
-    <button class="@CssClass" @onclick="SelectFile">@Label
-        <Icon Name="IconName.Upload" />
-    </button>
+    <MudButton class="@CssClass" OnClick="SelectFile" EndIcon="@Icons.Material.Filled.UploadFile">@Label
+    </MudButton>
 </div>
 
 <script>

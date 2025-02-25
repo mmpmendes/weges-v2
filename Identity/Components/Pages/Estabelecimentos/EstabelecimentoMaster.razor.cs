@@ -23,13 +23,6 @@ public partial class EstabelecimentoMaster
 
     [Inject] public required EstabelecimentoService EstabelecimentoService { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        var listEstabelecimentosDTO = await EstabelecimentoApiService.GetEstabelecimentosFiltradosAsync();
-
-        Estabelecimentos = listEstabelecimentosDTO?.Estabelecimentos;
-    }
-
     // Note: This method is used to navigate to the details page
     private void NavigateToDetails(long estabelecimentoId)
     {
@@ -40,10 +33,11 @@ public partial class EstabelecimentoMaster
     private async Task<GridData<EstabelecimentoDTO>> EstabelecimentosDataProvider(GridState<EstabelecimentoDTO> state)
     {
         ListEstabelecimentosDTO? response = await EstabelecimentoApiService.GetEstabelecimentosFiltradosAsync(
-            filters: state.FilterDefinitions,
-            pageNumber: state.Page,
+            filters: null,
+            pageNumber: state.Page + 1,
             pageSize: state.PageSize,
-            sortString: state.SortDefinitions.FirstOrDefault()?.ToString()!);
+            sortString: state.SortDefinitions.FirstOrDefault()?.SortBy,
+            sortDirection: state.SortDefinitions.FirstOrDefault()?.Descending == true ? "desc" : "asc");
 
         if (response is null)
         {
@@ -79,10 +73,4 @@ public partial class EstabelecimentoMaster
     {
         return EstabelecimentoService.SelectedEstabelecimento?.Id == estabelecimentoId;
     }
-    //private async Task DoSomething(bool value, EstabelecimentoDTO estabelecimento)
-    //{
-    //    Console.WriteLine("Save - " + estabelecimento.someProperty);
-
-    //    estabelecimento.someProperty = value;
-    //}
 }

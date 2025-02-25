@@ -1,76 +1,85 @@
-﻿<div class="row">
-    <span class="col-md-6">
-        <Card Style="width:18rem;">
-            <CardBody>
-                <CardTitle>Certificado de Registo ERS</CardTitle>
+﻿<MudGrid>
+    <MudItem xs="6">
+        <MudCard>
+            <MudCardHeader>
+                <CardHeaderContent>
+                    <MudText>Certificado de Registo ERS</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent>
+
                 @if (CertificadoErs is not null)
                 {
-
-                    <div class="form-floating mb-3">
-                        <input id="nrCertificado" class="form-control" type="text" @bind-value="CertificadoErs.NrCertificado" />
-                        <label class="form-label" for="nrCertificado">Nº do certificado</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input id="periodo" class="form-control" type="text" @bind-value="CertificadoErs.Periodo" />
-                        <label class="form-label" for="periodo">Período</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input id="expiracao" class="form-control" type="date" @bind-value="CertificadoErs.DataExpiracao" />
-                        <label class="form-label" for="expiracao">Data de expiração</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input id="taxa" class="form-control" type="date" @bind-value="CertificadoErs.DataExpiracaoTaxa" />
-                        <label class="form-label" for="taxa">Data de expiração taxa</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input id="observacoes" class="form-control" type="text" @bind-value="CertificadoErs.Observacoes" />
-                        <label class="form-label" for="observacoes">Observações</label>
-                    </div>
-                    @if (CertificadoErs.FicheiroId > 0)
-                    {
-                        <Button Class="btn btn-outline-dark" @onclick="DownloadCertificadoErs">
-                            Download Ficheiro
-                            <Icon Name="IconName.Download" />
-                        </Button>
-                    }
-                    else
-                    {
-                        <FileUploadButton SelectedFileChanged="OnCertificadoFileSelected" Label="Carregar Ficheiro" />
-                    }
-                    <Button @onclick="UploadCertificado" Disabled="@(!IsCertificadoFileSelected)" Class="btn btn-dark">Guardar Certificado</Button>
+                    <MudGrid>
+                        <MudItem xs="12">
+                            <MudTextField T="string" @bind-Text="CertificadoErs.NrCertificado" Label="Nº do certificado" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField T="string" @bind-Text="CertificadoErs.Periodo" Label="Período" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField T="DateOnly?" @bind-Value="CertificadoErs.DataExpiracao" Label="Data de expiração" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField T="DateOnly?" @bind-Value="CertificadoErs.DataExpiracaoTaxa" Label="Data de expiração taxa" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField T="string" @bind-Text="CertificadoErs.Observacoes" Label="Observações" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            @if (CertificadoErs.FicheiroId > 0)
+                            {
+                                <MudButton Variant="Variant.Outlined" Color="@Color.Dark" OnClick="DownloadCertificadoErs" EndIcon="@Icons.Material.Filled.Download">
+                                    Download Ficheiro
+                                </MudButton>
+                            }
+                            else
+                            {
+                                <FileUploadButton SelectedFileChanged="OnCertificadoFileSelected" Label="Carregar Ficheiro" />
+                            }
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudButton OnClick="UploadCertificado" Disabled="@(!IsCertificadoFileSelected)" Color="@Color.Dark" Variant="Variant.Filled">Guardar Certificado</MudButton>
+                        </MudItem>
+                    </MudGrid>
                 }
-            </CardBody>
-        </Card>
-    </span>
-    <span class="col-md-6">
-        <Card Style="width:18rem;">
-            <CardBody>
-                <CardTitle>Licença de Funcionamento ERS</CardTitle>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+    <MudItem xs="6">
+        <MudCard>
+            <MudCardHeader>
+                <MudText>Licença de Funcionamento ERS</MudText>
+            </MudCardHeader>
+            <MudCardContent>
+
                 @if (LicencaErs is not null)
                 {
-                    <div class="form-floating mb-3">
-                        <input id="nrLicenca" class="form-control" type="text" @bind-value="LicencaErs.NrLicenca" />
-                        <label class="form-label" for="nrLicenca">Nº de Licença</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input id="observacoes" class="form-control" type="text" @bind-value="LicencaErs.Observacoes" />
-                        <label class="form-label" for="observacoes">Observações</label>
-                    </div>
-
-                    @if (LicencaErs.FicheiroId > 0)
-                    {
-                        <Button Class="btn btn-outline-dark" @onclick="DownloadLicencaErs">
-                            Download Ficheiro
-                            <Icon Name="IconName.Download" />
-                        </Button>
-                    }
-                    else
-                    {
-                        <FileUploadButton SelectedFileChanged="OnLicencaFileSelected" Label="Carregar Ficheiro" />
-                    }
-                    <Button @onclick="UploadLicenca" Disabled="@(!IsLicencaFileSelected)" Class="btn btn-dark">Guardar Licença</Button>
+                    <MudGrid>
+                        <MudItem xs="12">
+                            <MudTextField T="string" @bind-Text="LicencaErs.NrLicenca" Label="Nº de Licença" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudTextField T="string" @bind-Text="LicencaErs.Observacoes" Label="Observações" />
+                        </MudItem>
+                        <MudItem xs="12">
+                            @if (LicencaErs.FicheiroId > 0)
+                            {
+                                <MudButton Color="@Color.Dark" Variant="Variant.Outlined" OnClick="DownloadLicencaErs" EndIcon="@Icons.Material.Filled.Download">
+                                    Download Ficheiro
+                                </MudButton>
+                            }
+                            else
+                            {
+                                <FileUploadButton SelectedFileChanged="OnLicencaFileSelected" Label="Carregar Ficheiro" />
+                            }
+                        </MudItem>
+                        <MudItem xs="12">
+                            <MudButton OnClick="UploadLicenca" Disabled="@(!IsLicencaFileSelected)" Color="@Color.Dark" Variant="Variant.Filled">Guardar Licença</MudButton>
+                        </MudItem>
+                    </MudGrid>
                 }
-            </CardBody>
-        </Card>
-    </span>
-</div>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+</MudGrid>

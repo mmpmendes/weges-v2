@@ -2,7 +2,6 @@
 @using Identity.Components.Shared
 @using Microsoft.AspNetCore.Authorization
 @using SharedKernel.DTO
-@rendermode InteractiveServer
 @* @attribute [Authorize] *@
 
 <PageTitle>Estabelecimentos</PageTitle>
@@ -10,9 +9,8 @@
 <MudDataGrid 
     @ref="EstabelecimentosGrid" 
     T="EstabelecimentoDTO"
-    ServerData="EstabelecimentosDataProvider" 
+    ServerData="EstabelecimentosDataProvider"
     Filterable="true"
-    SortMode="SortMode.Single"
     Groupable="false">
    <ToolBarContent>
        <MudText Typo="Typo.h6">Estabelecimentos</MudText>
@@ -22,6 +20,11 @@
         <MudSpacer />
    </ToolBarContent>
    <Columns>
+       <TemplateColumn T="EstabelecimentoDTO">
+         <CellTemplate>
+            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary" OnClick="@(()=>NavigateToDetails(context.Item.Id))" >Selecionar</MudButton>
+         </CellTemplate>
+       </TemplateColumn>
        <PropertyColumn Property="x => x.Sigla" Title="Sigla" />
        <PropertyColumn Property="x => x.Denominacao" Title="Denominação" />
        <PropertyColumn Property="x => x.Morada" Title="Morada" />

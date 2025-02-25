@@ -1,114 +1,65 @@
 ﻿@page "/estabelecimentos/{Id:long}"
 @using Microsoft.AspNetCore.Authorization
 @using SharedKernel.DTO
-@attribute [Authorize]
-@rendermode InteractiveServer
+@* @attribute [Authorize] *@
 
 <PageTitle>Estabelecimento</PageTitle>
 
-@* <Tabs EnableFadeEffect="true" Class="nav nav-pills nav-justified" @ref="Tabs">
-    <Tab Title="Dados" Active="true">
-        <Content>
-            <EstabelecimentoForm Id="Id" />
-        </Content>
-    </Tab>
-    <Tab Title="Direção Clínica">
-        <Content>
+<MudTabs EnableFadeEffect="true" Class="nav nav-pills nav-justified" @ref="Tabs">
+    <MudTabPanel Text="Dados" Active="true">
+       <EstabelecimentoForm Id="Id" />        
+    </MudTabPanel>
+    <MudTabPanel Text="Direção Clínica">
             <div class="d-grid gap-2">
-                <Button Type="ButtonType.Button" @onclick="AddDirecaoClinica" Class="btn btn-outline-dark"><Icon Name="IconName.PlusSquare" /> Adicionar</Button>
+                <MudButton @onclick="AddDirecaoClinica" Class="btn btn-outline-dark" EndIcon="@Icons.Material.Filled.Add">Adicionar</MudButton>
             </div>
-            <Grid TItem="DirecaoClinicaDTO"
+            <MudDataGrid T="DirecaoClinicaDTO"
                   @ref="DirecoesClinicasGrid"
                   Class="table table-hover table-bordered table-striped"
-                  DataProvider="DirecoesClinicasDataProvider"
-                  OnRowDoubleClick="OnDirecoesClinicasRowClick"
-                  AllowRowClick="true"
-                  AllowFiltering="true"
-                  AllowPaging="true"
-                  PageSize="10"
-                  AllowSorting="true"
-                  Responsive="true"
-                  EmptyText="Sem dados para apresentar">
+                  ServerData="DirecoesClinicasDataProvider">
 
-                <GridColumns>
-                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="" PropertyName="Id" Filterable="false">
-                        <Button Class="btn btn-dark" @onclick="() => EditarDirecaoClinica(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
-                    </GridColumn>
-                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
-                        @context.Nome
-                    </GridColumn>
-                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Cargo" PropertyName="Cargo" SortKeySelector="item => item.Cargo">
-                        @context.Cargo
-                    </GridColumn>
-                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Identificação" PropertyName="Identificacao" SortKeySelector="item => item.Identificacao">
-                        @context.Identificacao
-                    </GridColumn>
-                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="ValidadeIdentificacao" PropertyName="ValidadeIdentificacao" SortKeySelector="item => item.ValidadeIdentificacao">
-                        @context.ValidadeIdentificacao
-                    </GridColumn>
-                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Cedula" PropertyName="Cedula" SortKeySelector="item => item.Cedula">
-                        @context.Cedula
-                    </GridColumn>
-                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Ordem" PropertyName="Ordem" SortKeySelector="item => item.Ordem">
-                        @context.Ordem
-                    </GridColumn>
-                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Especialidade" PropertyName="Especialidade" SortKeySelector="item => item.Especialidade">
-                        @context.Especialidade
-                    </GridColumn>
-                    <GridColumn TItem="DirecaoClinicaDTO" HeaderText="Tipologia" PropertyName="Tipologia" SortKeySelector="item => item.Tipologia">
-                        @context.Tipologia
-                    </GridColumn>
-                </GridColumns>
-            </Grid>
-        </Content>
-    </Tab>
-    <Tab Title="Dados Serviço">
-        <Content>
+                <Columns>
+                    <TemplateColumn T="DirecaoClinicaDTO">
+                        <CellTemplate>
+                            <MudButton Class="btn btn-dark" OnClick="() => EditarDirecaoClinica(context.Item.Id)" StartIcon="@Icons.Material.Filled.Edit"></MudButton>
+                        </CellTemplate>
+                    </TemplateColumn>
+                    <PropertyColumn Property="x => x.Nome" Title="Nome"/>
+                    <PropertyColumn Property="x => x.Cargo" Title="Cargo"/>
+                    <PropertyColumn Property="x => x.Identificacao" Title="Identificação" />
+                    <PropertyColumn Property="x => x.ValidadeIdentificacao" Title="Validade ID" />
+                    <PropertyColumn Property="x => x.Cedula" Title="Cédula" />
+                    <PropertyColumn Property="x => x.Ordem" Title="Ordem" />
+                    <PropertyColumn Property="x => x.Especialidade" Title="Especialidade" />
+                    <PropertyColumn Property="x => x.Tipologia" Title="Tipologia" />
+                </Columns>
+            </MudDataGrid>
+    </MudTabPanel>
+    <MudTabPanel Text="Dados Serviço">
             <div class="d-grid gap-2">
-                <Button Type="ButtonType.Button" Class="btn btn-outline-dark" @onclick="AddServico"><Icon Name="IconName.PlusSquare" /> Adicionar</Button>
+                <MudButton Class="btn btn-outline-dark" OnClick="AddServico" EndIcon="@Icons.Material.Filled.Add">Adicionar</MudButton>
             </div>
-            <Grid TItem="ServicoDTO"
+            <MudDataGrid T="ServicoDTO"
                   @ref="ServicosGrid"
                   Class="table table-hover table-bordered table-striped"
-                  DataProvider="ServicosDataProvider"
-                  OnRowDoubleClick="OnServicosRowClick"
-                  AllowRowClick="true"
-                  AllowFiltering="true"
-                  AllowPaging="true"
-                  PageSize="10"
-                  AllowSorting="true"
-                  Responsive="true"
-                  EmptyText="Sem dados para apresentar">
-
-                <GridColumns>
-                    <GridColumn TItem="ServicoDTO" HeaderText="" PropertyName="Id" Filterable="false">
-                        <Button Class="btn btn-dark" @onclick="() => EditarServico(context.Id)"><Icon Name="IconName.PencilSquare" /></Button>
-                    </GridColumn>
-                    <GridColumn TItem="ServicoDTO" HeaderText="Nome" PropertyName="Nome" SortKeySelector="item => item.Nome">
-                        @context.Nome
-                    </GridColumn>
-                    <GridColumn TItem="ServicoDTO" HeaderText="Início" PropertyName="Início" SortKeySelector="item => item.DataInicio">
-                        @context.DataInicio
-                    </GridColumn>
-                    <GridColumn TItem="ServicoDTO" HeaderText="Responsável" PropertyName="Responsavel" SortKeySelector="item => item.Responsavel">
-                        @context.Responsavel
-                    </GridColumn>
-                    <GridColumn TItem="ServicoDTO" HeaderText="Tipologia" PropertyName="Tipologia" SortKeySelector="item => item.Tipologia">
-                        @context.Tipologia
-                    </GridColumn>
-                    <GridColumn TItem="ServicoDTO" HeaderText="Horário" PropertyName="Horario" SortKeySelector="item => item.Horario">
-                        @context.Horario
-                    </GridColumn>
-                    <GridColumn TItem="ServicoDTO" HeaderText="Observações" PropertyName="Observacoes" SortKeySelector="item => item.Observacoes">
-                        @context.Observacoes
-                    </GridColumn>
-                </GridColumns>
-            </Grid>
-        </Content>
-    </Tab>
-    <Tab Title="Certificados e Licenças">
-        <Content>
-            <EstabelecimentoCertificadosLicencas Id="Id" />
-        </Content>
-    </Tab>
-</Tabs> *@
+                  ServerData="ServicosDataProvider">
+                <Columns>
+                    <TemplateColumn T="ServicoDTO">
+                        <CellTemplate>
+                            <MudButton Class="btn btn-dark" OnClick="() => EditarServico(context.Item.Id)" StartIcon="@Icons.Material.Filled.Edit"></MudButton>
+                        </CellTemplate>
+                    </TemplateColumn>
+                    <PropertyColumn Property="x => x.Nome" Title="Nome" />
+                    <PropertyColumn Property="x => x.DataInicio" Title="Início" />
+                    <PropertyColumn Property="x => x.Responsavel" Title="Responsável" />
+                    <PropertyColumn Property="x => x.Tipologia" Title="Tipologia" />
+                    <PropertyColumn Property="x => x.Horario" Title="Horário" />
+                    <PropertyColumn Property="x => x.Observacoes" Title="Observações" />
+                </Columns>
+            </MudDataGrid>
+        
+    </MudTabPanel>
+    <MudTabPanel Text="Certificados e Licenças">
+         <EstabelecimentoCertificadosLicencas Id="Id" />
+    </MudTabPanel>
+</MudTabs>

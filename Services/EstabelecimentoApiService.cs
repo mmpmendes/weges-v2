@@ -31,7 +31,7 @@ public class EstabelecimentoApiService(HttpClient httpClient)
         return estabelecimentos;
     }
 
-    public async Task<ListEstabelecimentosDTO?> GetEstabelecimentosFiltradosAsync(IEnumerable<IFilterDefinition<EstabelecimentoDTO>> filters = default!, int pageNumber = 1, int pageSize = 0, string sortString = default!, string? sortDirection = default, CancellationToken cancellationToken = default)
+    public async Task<ListEstabelecimentosDTO?> GetEstabelecimentosFiltradosAsync(IEnumerable<IFilterDefinition<EstabelecimentoDTO>>? filters = default!, int pageNumber = 1, int pageSize = 0, string sortString = default!, string? sortDirection = default, CancellationToken cancellationToken = default)
     {
         // Convert filters to a dictionary
         //var filterDict = filters?.ToDictionary(f => f.PropertyName, f => f.Value?.ToString());
@@ -48,7 +48,7 @@ public class EstabelecimentoApiService(HttpClient httpClient)
             ["sortDirection"] = sortDirectionString
         };
 
-        //if (filterDict != null)
+        //if (filterDict != null)2
         //{
         //    foreach (var filter in filterDict)
         //    {
