@@ -1,22 +1,30 @@
 ﻿@page "/tipologias"
-@using Microsoft.AspNetCore.Authorization
+@using WebApp.Components.Shared
 @using SharedKernel.DTO
-@attribute [Authorize]
-@rendermode InteractiveServer
+@* @attribute [Authorize] *@
 
 <PageTitle>Tipologias</PageTitle>
-<h3>Tipologias <MudButton Type="ButtonType.Button" Color="@Color.Dark" @onclick="AddTipologia" EndIcon="@Icons.Material.Filled.Add" /></h3>
 
-<MudTable Items="Tipologias"
-          Class="table table-hover table-bordered table-striped">
-    <HeaderContent>
-        <MudTh></MudTh>
-        <MudTh>Tipologia</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd>
-            <MudButton Class="btn btn-dark" @onclick="() => NavigateToDetails(context.Id)" EndIcon="@Icons.Material.Filled.Edit" />
-        </MudTd>
-        <MudTd DataLabel="Nr">@context.Nome</MudTd>
-    </RowTemplate>
-</MudTable>
+<MudDataGrid @ref="TipologiasGrid"
+             T="TipologiaDto"
+             ServerData="TipologiasDataProvider"
+             Filterable="true"
+             Groupable="false">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Tipologias</MudText>
+        <MudButton Color="Color.Primary" OnClick="@AddTipologia">
+            <MudIcon Color="@Color.Primary" Icon="@Icons.Material.Filled.Add" />
+        </MudButton>
+    </ToolBarContent>
+    <Columns>
+        <TemplateColumn T="TipologiaDto">
+            <CellTemplate>
+                <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary" OnClick="@(()=>NavigateToDetails(context.Item.Id))" EndIcon="@Icons.Material.Filled.Edit">Selecionar</MudButton>
+            </CellTemplate>
+        </TemplateColumn>
+        <PropertyColumn Property="x => x.Nome" Title="Nome" />
+    </Columns>
+    <PagerContent>
+        <MudDataGridPager T="TipologiaDto" />
+    </PagerContent>
+</MudDataGrid>

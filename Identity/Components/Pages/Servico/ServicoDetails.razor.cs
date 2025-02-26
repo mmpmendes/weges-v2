@@ -5,7 +5,7 @@ using Services;
 
 using SharedKernel.DTO;
 
-namespace Identity.Components.Pages.Servico;
+namespace WebApp.Components.Pages.Servico;
 
 public partial class ServicoDetails
 {

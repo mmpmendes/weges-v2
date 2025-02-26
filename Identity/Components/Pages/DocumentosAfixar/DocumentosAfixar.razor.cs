@@ -1,6 +1,4 @@
-﻿using Identity.InMemory;
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 using MudBlazor;
 
@@ -8,7 +6,9 @@ using Services;
 
 using SharedKernel.DTO;
 
-namespace Identity.Components.Pages.DocumentosAfixar;
+using WebApp.InMemory;
+
+namespace WebApp.Components.Pages.DocumentosAfixar;
 
 public partial class DocumentosAfixar
 {

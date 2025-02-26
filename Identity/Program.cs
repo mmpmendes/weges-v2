@@ -1,10 +1,6 @@
 using ApiModel;
 using ApiModel.Models;
 
-using Identity.Components;
-using Identity.Components.Account;
-using Identity.InMemory;
-
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 
 using Services;
+
+using WebApp.Components;
+using WebApp.Components.Account;
+using WebApp.InMemory;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -5,7 +5,7 @@ using Services;
 
 using SharedKernel.DTO;
 
-namespace Identity.Components.Pages.DirecaoClinica;
+namespace WebApp.Components.Pages.DirecaoClinica;
 
 public partial class DirecaoClinicaDetails
 {
@@ -20,7 +20,7 @@ public partial class DirecaoClinicaDetails
     [Inject]
     private TipologiaApiService TipologiaApiService { get; set; } = default!;
 
-    private IEnumerable<TipologiaDTO>? Tipologias { get; set; }
+    private IEnumerable<TipologiaDto>? Tipologias { get; set; }
 
     private DirecaoClinicaDTO? DirecaoClinica { get; set; }
 
@@ -92,7 +92,7 @@ public partial class DirecaoClinicaDetails
     //    return new AutoCompleteDataProviderResult<TipologiaDTO>();
     //}
 
-    private void OnAutoCompleteChanged(TipologiaDTO tipologia)
+    private void OnAutoCompleteChanged(TipologiaDto tipologia)
     {
         Console.WriteLine($"'{tipologia?.Nome}' selected.");
     }

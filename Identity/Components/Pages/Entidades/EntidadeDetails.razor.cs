@@ -5,7 +5,7 @@ using Services;
 
 using SharedKernel.DTO;
 
-namespace Identity.Components.Pages.Entidades;
+namespace WebApp.Components.Pages.Entidades;
 
 public partial class EntidadeDetails
 {

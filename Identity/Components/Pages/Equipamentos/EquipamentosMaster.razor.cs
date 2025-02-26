@@ -1,6 +1,4 @@
-﻿using Identity.InMemory;
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 
 using MudBlazor;
 
@@ -8,7 +6,9 @@ using Services;
 
 using SharedKernel.DTO;
 
-namespace Identity.Components.Pages.Equipamentos;
+using WebApp.InMemory;
+
+namespace WebApp.Components.Pages.Equipamentos;
 
 public partial class EquipamentosMaster
 {

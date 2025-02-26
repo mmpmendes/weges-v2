@@ -5,11 +5,11 @@ using Services;
 
 using SharedKernel.DTO;
 
-namespace Identity.Components.Pages.Backoffice.Tipologias;
+namespace WebApp.Components.Pages.Backoffice.Tipologias;
 
 public partial class TipologiasDetails
 {
-    public TipologiaDTO? Tipologia { get; set; } = new TipologiaDTO();
+    public TipologiaDto? Tipologia { get; set; } = new TipologiaDto();
     [Parameter]
     public long Id { get; set; }
     [Inject]
@@ -22,7 +22,7 @@ public partial class TipologiasDetails
         if (Id >= 0)
             Tipologia = await TipologiaApiService.GetTipologiaByIdAsync(Id);
         else
-            Tipologia = new TipologiaDTO();
+            Tipologia = new TipologiaDto();
     }
 
     private async void SaveTipologia(MouseEventArgs e)

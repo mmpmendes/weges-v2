@@ -1,4 +1,4 @@
-﻿namespace Identity.Components.Shared;
+﻿namespace WebApp.Components.Shared;
 
 public static class GridFiltersTranslation
 {

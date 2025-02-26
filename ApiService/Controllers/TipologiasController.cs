@@ -26,7 +26,7 @@ public class TipologiasController(
     [HttpGet()]
     public IResult Get()
     {
-        return Results.Ok(_mapper.Map<IEnumerable<TipologiaDTO>>(_tipologiaRepo.GetAll()));
+        return Results.Ok(_mapper.Map<IEnumerable<TipologiaDto>>(_tipologiaRepo.GetAll()));
     }
     /// <summary>
     /// Retorna a tipologia com o <param name="Id"></param>
@@ -38,7 +38,7 @@ public class TipologiasController(
     {
         var tipologia = await _tipologiaRepo.GetById(Id);
         if (tipologia == null) return Results.BadRequest("Tipologia não encontrada.");
-        TipologiaDTO toReturn = _mapper.Map<TipologiaDTO>(tipologia);
+        TipologiaDto toReturn = _mapper.Map<TipologiaDto>(tipologia);
         return Results.Ok(toReturn);
     }
     /// <summary>
@@ -47,7 +47,7 @@ public class TipologiasController(
     /// <param name="tipologiaModel"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IResult> CreateTipologia([FromBody] TipologiaDTO tipologiaModel)
+    public async Task<IResult> CreateTipologia([FromBody] TipologiaDto tipologiaModel)
     {
         if (tipologiaModel == null) return Results.BadRequest("Tipologia inválida.");
         try

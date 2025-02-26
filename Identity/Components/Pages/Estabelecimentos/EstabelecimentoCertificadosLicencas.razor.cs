@@ -1,6 +1,4 @@
-﻿using Identity.InMemory;
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
@@ -10,7 +8,9 @@ using Services.Models;
 
 using SharedKernel.DTO;
 
-namespace Identity.Components.Pages.Estabelecimentos;
+using WebApp.InMemory;
+
+namespace WebApp.Components.Pages.Estabelecimentos;
 
 public partial class EstabelecimentoCertificadosLicencas
 {

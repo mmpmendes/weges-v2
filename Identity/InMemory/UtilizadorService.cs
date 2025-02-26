@@ -1,6 +1,6 @@
 ﻿using SharedKernel.DTO;
 
-namespace Identity.InMemory;
+namespace WebApp.InMemory;
 
 public class UtilizadorService
 {

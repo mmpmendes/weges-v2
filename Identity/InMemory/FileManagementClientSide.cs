@@ -5,7 +5,7 @@ using Services.Models;
 
 using System.Net.Http.Headers;
 
-namespace Identity.InMemory;
+namespace WebApp.InMemory;
 
 public static class FileManagementClientSide
 {

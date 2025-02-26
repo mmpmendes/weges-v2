@@ -1,8 +1,5 @@
 using ApiModel.Models;
 
-using Identity.Components.Account.Pages;
-using Identity.Components.Account.Pages.Manage;
-
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -12,6 +9,9 @@ using Microsoft.Extensions.Primitives;
 
 using System.Security.Claims;
 using System.Text.Json;
+
+using WebApp.Components.Account.Pages;
+using WebApp.Components.Account.Pages.Manage;
 
 namespace Microsoft.AspNetCore.Routing;
 

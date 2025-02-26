@@ -23,7 +23,7 @@ public class WegesProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<LicencaERS, LicencaErsDTO>().ReverseMap();
-        CreateMap<Tipologia, TipologiaDTO>().ReverseMap();
+        CreateMap<Tipologia, TipologiaDto>().ReverseMap();
         CreateMap<Colaborador, ColaboradorDTO>().ReverseMap();
         CreateMap<Colaborador, CorpoClinicoDTO>().ReverseMap();
         CreateMap<Ficheiro, FicheiroDTO>().ReverseMap();

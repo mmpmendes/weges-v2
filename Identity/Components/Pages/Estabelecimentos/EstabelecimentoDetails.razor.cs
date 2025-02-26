@@ -8,7 +8,7 @@ using Services;
 
 using SharedKernel.DTO;
 
-namespace Identity.Components.Pages.Estabelecimentos;
+namespace WebApp.Components.Pages.Estabelecimentos;
 
 public partial class EstabelecimentoDetails
 {

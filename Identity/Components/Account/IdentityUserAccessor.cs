@@ -1,7 +1,8 @@
-using Microsoft.AspNetCore.Identity;
 using ApiModel.Models;
 
-namespace Identity.Components.Account;
+using Microsoft.AspNetCore.Identity;
+
+namespace WebApp.Components.Account;
 
 internal sealed class IdentityUserAccessor(UserManager<WegesUser> userManager, IdentityRedirectManager redirectManager)
 {

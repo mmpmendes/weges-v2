@@ -23,7 +23,7 @@ var migrationService = builder.AddProject<Projects.BaseDbMigrations>("weges-migr
 //    .WaitFor(apiService)
 //    .WithReference(cache);
 
-builder.AddProject<Projects.Identity>("identity")
+builder.AddProject<Projects.WebApp>("identity")
     .WithExternalHttpEndpoints()
     .WithReference(apiService)
     .WithReference(db)

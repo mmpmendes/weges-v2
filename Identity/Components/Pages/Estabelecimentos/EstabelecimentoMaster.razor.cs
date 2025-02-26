@@ -1,6 +1,4 @@
-﻿using Identity.InMemory;
-
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 using MudBlazor;
@@ -9,7 +7,9 @@ using Services;
 
 using SharedKernel.DTO;
 
-namespace Identity.Components.Pages.Estabelecimentos;
+using WebApp.InMemory;
+
+namespace WebApp.Components.Pages.Estabelecimentos;
 
 public partial class EstabelecimentoMaster
 {
