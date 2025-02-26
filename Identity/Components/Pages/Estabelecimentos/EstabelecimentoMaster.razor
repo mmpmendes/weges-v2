@@ -22,7 +22,7 @@
    <Columns>
        <TemplateColumn T="EstabelecimentoDTO">
          <CellTemplate>
-            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary" OnClick="@(()=>NavigateToDetails(context.Item.Id))" >Selecionar</MudButton>
+            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary" OnClick="@(()=>NavigateToDetails(context.Item))" >Selecionar</MudButton>
          </CellTemplate>
        </TemplateColumn>
        <PropertyColumn Property="x => x.Sigla" Title="Sigla" />

@@ -2,6 +2,25 @@
     <MudNavLink IconColor="Color.Inherit" Href="/" Icon="@Icons.Material.Filled.House">Início</MudNavLink>
     @* <MudNavLink Href="/entidades" Icon="@Icons.Material.Filled.Store">Entidades</MudNavLink> *@
     <MudNavLink IconColor="Color.Inherit" Href="/estabelecimentos" Icon="@Icons.Material.Filled.Store">Estabelecimentos</MudNavLink>
+     
+
+        @* @if (authState?.User.Identity is not null && authState.User.Identity.IsAuthenticated)
+        {
+            <div class="profile-name">
+                <form action="/Account/Logout" method="post">
+                    <AntiforgeryToken />
+                    <button type="submit" class="btn btn-light">
+                        Terminar Sessão
+                    </button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="profile-name">
+                <a class="btn btn-light" href="/Account/Login">Inicar sessão</a>
+            </div>
+        } *@
 </MudNavMenu>
 
 @code {

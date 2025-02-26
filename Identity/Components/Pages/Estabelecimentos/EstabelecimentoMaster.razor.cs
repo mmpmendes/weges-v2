@@ -24,16 +24,24 @@ public partial class EstabelecimentoMaster
     [Inject] public required EstabelecimentoService EstabelecimentoService { get; set; }
 
     // Note: This method is used to navigate to the details page
-    private void NavigateToDetails(long estabelecimentoId)
+    private void NavigateToDetails(EstabelecimentoDTO? estabelecimento)
     {
-        NavigationManager.NavigateTo($"/estabelecimentos/{estabelecimentoId}");
+        if (estabelecimento is not null)
+        {
+            EstabelecimentoService.SelectedEstabelecimento = estabelecimento;
+            NavigationManager.NavigateTo($"/estabelecimentos/{estabelecimento.Id}");
+        }
+        else
+        {
+            NavigationManager.NavigateTo($"/estabelecimentos/{-1}");
+        }
     }
 
     // Note: This method is used to provide the data for the grid
     private async Task<GridData<EstabelecimentoDTO>> EstabelecimentosDataProvider(GridState<EstabelecimentoDTO> state)
     {
         ListEstabelecimentosDTO? response = await EstabelecimentoApiService.GetEstabelecimentosFiltradosAsync(
-            filters: null,
+            filters: state.FilterDefinitions,
             pageNumber: state.Page + 1,
             pageSize: state.PageSize,
             sortString: state.SortDefinitions.FirstOrDefault()?.SortBy,
@@ -61,7 +69,7 @@ public partial class EstabelecimentoMaster
 
     private void AddEstabelecimento(MouseEventArgs e)
     {
-        NavigateToDetails(-1);
+        NavigateToDetails(null);
     }
 
     private void SeleccionaEstabelecimento(long estabelecimentoId)

@@ -21,7 +21,7 @@ public partial class TipologiasMaster
     private async Task<GridData<TipologiaDto>> TipologiasDataProvider(GridState<TipologiaDto> state)
     {
         Tipologias = await TipologiaApiService.GetTipologiasAsync(
-            filters: null,
+            filters: state.FilterDefinitions,
             pageNumber: state.Page + 1,
             pageSize: state.PageSize,
             sortString: state.SortDefinitions.FirstOrDefault()?.SortBy,

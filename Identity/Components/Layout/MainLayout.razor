@@ -22,43 +22,20 @@
 <MudLayout StickyHeader="true">
     <MudAppBar Color="Color.Secondary" Elevation="0">
         <MudSpacer/>
+        @if (SelectedEstabelecimento is not null)
+        {
+            <MudItem><MudText Color="@(_isDarkMode ? Color.Primary : Color.Dark)">@SelectedEstabelecimento.Denominacao</MudText></MudItem>
+        }
         @if (_isDarkMode)
         {
-            <MudIconButton Icon="@Icons.Material.Filled.LightMode" aria-label="light" OnClick="updateThemeMode"/>
+            <MudIconButton Color="Color.Primary" Icon="@Icons.Material.Filled.LightMode" aria-label="light" OnClick="updateThemeMode"/>
         }
         else
         {
-            <MudIconButton Icon="@Icons.Material.Filled.DarkMode" aria-label="dark" OnClick="updateThemeMode"/>
+            <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.DarkMode" aria-label="dark" OnClick="updateThemeMode"/>
         }
     </MudAppBar>
     <MudDrawer Color="Color.Primary" Open="true">
-        @*  @if (SelectedEstabelecimento is not null)
-        {
-            <!-- Top-right corner div -->
-            <div class="btn profile-name bg-light">
-                <span>
-                    @SelectedEstabelecimento.Denominacao
-                </span>
-            </div>
-        }
-
-        @if (authState?.User.Identity is not null && authState.User.Identity.IsAuthenticated)
-        {
-            <div class="profile-name">
-                <form action="/Account/Logout" method="post">
-                    <AntiforgeryToken />
-                    <button type="submit" class="btn btn-light">
-                        Terminar Sessão
-                    </button>
-                </form>
-            </div>
-        }
-        else
-        {
-            <div class="profile-name">
-                <a class="btn btn-light" href="/Account/Login">Inicar sessão</a>
-            </div>
-        } *@
         <MudDrawerHeader Style=@(_isDarkMode ? "background: none;background-color:#1E1E1E" : "background: none;background-color:#EFE6DA") >
             <MudImage Src="images/weges_cor_logo_simb.png" Height="40"></MudImage>
         </MudDrawerHeader>
@@ -73,7 +50,7 @@
 
 @code {
     private bool _isDarkMode = false;
-    private MudTheme _theme = new();
+    private MudTheme _theme = default!;
     private MudThemeProvider _mudThemeProvider = default!;
 
     private EstabelecimentoDTO SelectedEstabelecimento { get; set; } = default!;
@@ -113,13 +90,7 @@
                 Background = "#121212",
                 Surface = "#1E1E1E",
                 TextPrimary = "#E0E0E0"
-            },
-
-            // LayoutProperties = new LayoutProperties()
-            // {
-            //     DrawerWidthLeft = "260px",
-            //     DrawerWidthRight = "300px"
-            // }
+            }
         };
     }
 
