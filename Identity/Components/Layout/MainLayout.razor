@@ -2,6 +2,7 @@
 @using Identity.Components.Account
 @using Identity.InMemory
 @using Microsoft.AspNetCore.Identity
+@using MudBlazor.Utilities
 @using SharedKernel.DTO
 @inherits LayoutComponentBase
 @implements IDisposable
@@ -19,10 +20,10 @@
 <MudSnackbarProvider />
 
 <MudLayout StickyHeader="true">
-    <MudAppBar>
+    <MudAppBar Style=@($"background:#C6893F")>
         Weges
     </MudAppBar>
-    <MudDrawer Open="true">
+    <MudDrawer Style=@($"background:#C6893F") Open="true">
         @*  @if (SelectedEstabelecimento is not null)
         {
             <!-- Top-right corner div -->
@@ -55,13 +56,6 @@
         </MudDrawerHeader>
         <NavMenu />
     </MudDrawer>
-    @* <MudAppBar>
-
-    </MudAppBar> *@
-    @* <MudDrawer>
-
-    </MudDrawer> *@
-
     <MudMainContent>
         <article class="content px-4">
             @Body
