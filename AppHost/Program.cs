@@ -7,26 +7,24 @@ var postgres = builder.AddPostgres("pgserver")
                       .WithContainerName("pgserver").WithPgAdmin().WithLifetime(ContainerLifetime.Persistent);
 
 var db = postgres.AddDatabase("weges");
+
 var apiService = builder.AddProject<Projects.ApiService>("apiservice")
                     .WithReference(db)
+                    .WaitFor(postgres)
                     .WaitFor(db)
                     .WithReference(cache);
 
 var migrationService = builder.AddProject<Projects.BaseDbMigrations>("weges-migration")
     .WithReference(db)
+    .WaitFor(postgres)
     .WaitFor(db)
     .WaitFor(apiService);
 
-//builder.AddProject<Projects.Web>("webfrontend")
-//    .WithExternalHttpEndpoints()
-//    .WithReference(apiService)
-//    .WaitFor(apiService)
-//    .WithReference(cache);
-
-builder.AddProject<Projects.WebApp>("identity")
+builder.AddProject<Projects.WebApp>("webfrontend")
     .WithExternalHttpEndpoints()
     .WithReference(apiService)
     .WithReference(db)
+    .WaitFor(postgres)
     .WaitFor(db)
     .WaitFor(apiService)
     .WaitFor(migrationService)

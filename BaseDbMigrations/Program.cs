@@ -29,14 +29,6 @@ builder.Services
                 postgresOptions.MigrationsHistoryTable("__EFMigrationsHistory", "weges_users");
             });
     });
-builder.EnrichNpgsqlDbContext<WegesDbContext>(settings =>
-{
-    settings.DisableRetry = true;
-});
-builder.EnrichNpgsqlDbContext<UtilizadoresDbContext>(settings =>
-{
-    settings.DisableRetry = true;
-});
 
 builder.Services.AddHostedService<DbInitializer>();
 //builder.Services.AddHostedService<DbInitializer<UtilizadoresDbContext>>();

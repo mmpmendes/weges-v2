@@ -2,8 +2,6 @@ using ApiModel;
 using ApiModel.Models;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage;
 
 using System.Diagnostics;
 
@@ -16,7 +14,7 @@ public class DbInitializer(
 {
     private readonly ActivitySource _activitySource = new(hostEnvironment.ApplicationName);
 
-    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+    protected override Task ExecuteAsync(CancellationToken cancellationToken)
     {
         using var activity = _activitySource.StartActivity(hostEnvironment.ApplicationName, ActivityKind.Client);
 
@@ -26,10 +24,9 @@ public class DbInitializer(
             var wegesDbContext = scope.ServiceProvider.GetRequiredService<WegesDbContext>();
             var utilizadoresDbContext = scope.ServiceProvider.GetRequiredService<UtilizadoresDbContext>();
 
-            await EnsureDatabaseAsync(wegesDbContext, cancellationToken);
-            await RunMigrationAsync(wegesDbContext, cancellationToken);
-            await RunMigrationAsync(utilizadoresDbContext, cancellationToken);
-            await SeedDatabaseAsync(wegesDbContext, cancellationToken);
+            RunMigration(wegesDbContext);
+            RunMigration(utilizadoresDbContext);
+            SeedDatabase(wegesDbContext);
         }
         catch (Exception ex)
         {
@@ -38,90 +35,61 @@ public class DbInitializer(
         }
 
         hostApplicationLifetime.StopApplication();
+
+        return Task.CompletedTask;
     }
 
-    private static async Task EnsureDatabaseAsync(DbContext dbContext, CancellationToken cancellationToken)
+    private static void RunMigration(DbContext dbContext)
     {
-        var dbCreator = dbContext.GetService<IRelationalDatabaseCreator>();
-
-        var strategy = dbContext.Database.CreateExecutionStrategy();
-        await strategy.ExecuteAsync(async () =>
-        {
-            // Create the database if it does not exist.
-            // Do this first so there is then a database to start a transaction against.
-            if (!await dbCreator.ExistsAsync(cancellationToken))
-            {
-                await dbCreator.CreateAsync(cancellationToken);
-            }
-        });
-    }
-
-    private static async Task RunMigrationAsync(DbContext dbContext, CancellationToken cancellationToken)
-    {
-        var strategy = dbContext.Database.CreateExecutionStrategy();
-        await strategy.ExecuteAsync(async () =>
-        {
-            // Run migration in a transaction to avoid partial migration if it fails.
-            //using var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken);
-            await dbContext.Database.MigrateAsync(cancellationToken);
-            //await transaction.CommitAsync(cancellationToken);
-        });
+        dbContext.Database.Migrate();
     }
 
     /// <summary>
     /// Seed Database
     /// </summary>
     /// <param name="dbContext"></param>
-    private static async Task SeedDatabaseAsync(WegesDbContext dbContext, CancellationToken cancellationToken)
+    private static void SeedDatabase(WegesDbContext dbContext)
     {
-        var dbCreator = dbContext.GetService<IRelationalDatabaseCreator>();
-        var strategy = dbContext.Database.CreateExecutionStrategy();
-        await strategy.ExecuteAsync(async () =>
+        if (!dbContext.Set<Entidade>().Any())
         {
-            if (await dbCreator.ExistsAsync(cancellationToken) && await dbCreator.HasTablesAsync())
-            {
-                if (!dbContext.Set<Entidade>().Any())
-                {
-                    SeedEntidades(dbContext);
-                }
-                if (!dbContext.Set<DirecaoClinica>().Any())
-                {
-                    SeedDirecoesClinicas(dbContext);
-                }
-                if (!dbContext.Set<Servico>().Any())
-                {
-                    SeedServicos(dbContext);
-                }
-                if (!dbContext.Set<Ficheiro>().Any())
-                {
-                    SeedFicheiros(dbContext);
-                }
-                if (!dbContext.Set<Estabelecimento>().Any())
-                {
-                    SeedEstabelecimentos(dbContext);
-                }
-                if (!dbContext.Set<CertificadoERS>().Any())
-                {
-                    SeedCertificados(dbContext);
-                }
-                if (!dbContext.Set<LicencaERS>().Any())
-                {
-                    SeedLicencas(dbContext);
-                }
-                if (!dbContext.Set<AnexoTipo>().Any())
-                {
-                    SeedAnexoTipo(dbContext);
-                }
-                if (!dbContext.Set<ColaboradorTipo>().Any())
-                {
-                    SeedColaboradorTipo(dbContext);
-                }
-                if (!dbContext.Set<Colaborador>().Any())
-                {
-                    SeedColaboradores(dbContext);
-                }
-            }
-        });
+            SeedEntidades(dbContext);
+        }
+        if (!dbContext.Set<DirecaoClinica>().Any())
+        {
+            SeedDirecoesClinicas(dbContext);
+        }
+        if (!dbContext.Set<Servico>().Any())
+        {
+            SeedServicos(dbContext);
+        }
+        if (!dbContext.Set<Ficheiro>().Any())
+        {
+            SeedFicheiros(dbContext);
+        }
+        if (!dbContext.Set<Estabelecimento>().Any())
+        {
+            SeedEstabelecimentos(dbContext);
+        }
+        if (!dbContext.Set<CertificadoERS>().Any())
+        {
+            SeedCertificados(dbContext);
+        }
+        if (!dbContext.Set<LicencaERS>().Any())
+        {
+            SeedLicencas(dbContext);
+        }
+        if (!dbContext.Set<AnexoTipo>().Any())
+        {
+            SeedAnexoTipo(dbContext);
+        }
+        if (!dbContext.Set<ColaboradorTipo>().Any())
+        {
+            SeedColaboradorTipo(dbContext);
+        }
+        if (!dbContext.Set<Colaborador>().Any())
+        {
+            SeedColaboradores(dbContext);
+        }
     }
     /// <summary>
     /// Seed Colaboradores
