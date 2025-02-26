@@ -10,14 +10,15 @@
        <EstabelecimentoForm Id="Id" />        
     </MudTabPanel>
     <MudTabPanel Text="Direção Clínica">
-            <div class="d-grid gap-2">
-                <MudButton @onclick="AddDirecaoClinica" Class="btn btn-outline-dark" EndIcon="@Icons.Material.Filled.Add">Adicionar</MudButton>
-            </div>
             <MudDataGrid T="DirecaoClinicaDTO"
                   @ref="DirecoesClinicasGrid"
-                  Class="table table-hover table-bordered table-striped"
                   ServerData="DirecoesClinicasDataProvider">
-
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Adicionar</MudText>
+                <MudButton Color="Color.Primary" OnClick="@AddDirecaoClinica">
+                    <MudIcon Color="@Color.Primary" Icon="@Icons.Material.Filled.Add" />
+                </MudButton>
+            </ToolBarContent>
                 <Columns>
                     <TemplateColumn T="DirecaoClinicaDTO">
                         <CellTemplate>

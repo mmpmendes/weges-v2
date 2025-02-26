@@ -1,4 +1,4 @@
-﻿<MudGrid>
+﻿<MudGrid Class="py-3">
     <MudItem xs="6">
         <MudCard>
             <MudCardHeader>
@@ -29,7 +29,7 @@
                         <MudItem xs="12">
                             @if (CertificadoErs.FicheiroId > 0)
                             {
-                                <MudButton Variant="Variant.Outlined" Color="@Color.Dark" OnClick="DownloadCertificadoErs" EndIcon="@Icons.Material.Filled.Download">
+                                <MudButton Variant="Variant.Outlined" Color="@Color.Primary" OnClick="DownloadCertificadoErs" EndIcon="@Icons.Material.Filled.Download">
                                     Download Ficheiro
                                 </MudButton>
                             }
