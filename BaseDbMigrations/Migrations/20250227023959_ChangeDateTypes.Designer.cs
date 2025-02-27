@@ -3,6 +3,7 @@ using System;
 using ApiModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BaseDbMigrations.Migrations
 {
     [DbContext(typeof(WegesDbContext))]
-    partial class WegesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250227023959_ChangeDateTypes")]
+    partial class ChangeDateTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -723,8 +726,8 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("text")
                         .HasDefaultValue("system-usr");
 
-                    b.Property<DateTime?>("DataInicio")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateOnly?>("DataInicio")
+                        .HasColumnType("date");
 
                     b.Property<long>("EstabelecimentoId")
                         .HasColumnType("bigint");

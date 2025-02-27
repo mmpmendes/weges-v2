@@ -18,10 +18,10 @@
                             <MudTextField T="string" @bind-Text="CertificadoErs.Periodo" Label="Período" />
                         </MudItem>
                         <MudItem xs="12">
-                            <MudTextField T="DateOnly?" @bind-Value="CertificadoErs.DataExpiracao" Label="Data de expiração" />
+                            <MudDatePicker T="DateOnly?" @bind-Value="CertificadoErs.DataExpiracao" Label="Data de expiração" Placeholder="@DateTime.Now.ToShortDateString()" />
                         </MudItem>
                         <MudItem xs="12">
-                            <MudTextField T="DateOnly?" @bind-Value="CertificadoErs.DataExpiracaoTaxa" Label="Data de expiração taxa" />
+                            <MudDatePicker T="DateOnly?" @bind-Value="CertificadoErs.DataExpiracaoTaxa" Label="Data de expiração taxa" Placeholder="@DateTime.Now.ToShortDateString()" />
                         </MudItem>
                         <MudItem xs="12">
                             <MudTextField T="string" @bind-Text="CertificadoErs.Observacoes" Label="Observações" />

@@ -1,60 +1,49 @@
 ﻿@page "/Estabelecimentos/{EstabelecimentoId:long}/DirecaoClinica"
 @page "/Estabelecimentos/{EstabelecimentoId:long}/DirecaoClinica/{DirecaoClinicaId:long}"
-@attribute [Authorize]
+@* @attribute [Authorize] *@
 @using Microsoft.AspNetCore.Authorization
 @using SharedKernel.DTO
 
 <PageTitle>Direção Clínica </PageTitle>
-<h3>Diretor Clínico / Responsável Técnico</h3>
-<div class="mb-3">
+
+<MudGrid Class="py-3 px-3">
+    <MudItem xs="12">
+        <MudText Typo="Typo.h6">Diretor Clínico / Responsável Técnico</MudText>
+    </MudItem>
     @if (DirecaoClinica == null)
     {
-        <p>Carregando...</p>
+        <MudItem xs="6">
+            <MudText>Carregando...</MudText>
+        </MudItem>
     }
     else
     {
-        <div class="form-floating mb-3">
-            <input id="nome" class="form-control" type="text" @bind="DirecaoClinica.Nome" />
-            <label class="form-label" for="nome">Nome</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input id="identificacao" class="form-control" type="text" @bind="DirecaoClinica.Identificacao" />
-            <label class="form-label" for="identificacao">Identificação</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input type="date" @bind="DirecaoClinica.ValidadeIdentificacao" id="validade" class="form-control" />
-            <label class="form-label" for="validade">Validade Identificação</label>
-        </div>
-
-        <div class="form-floating mb-3">
-            <input id="cargo" class="form-control" type="text" @bind="DirecaoClinica.Cargo" />
-            <label class="form-label" for="cargo">Cargo</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input id="cedula" class="form-control" type="text" @bind="DirecaoClinica.Cedula" />
-            <label class="form-label" for="cedula">Cédula Profissional</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input id="ordem" class="form-control" type="text" @bind="DirecaoClinica.Ordem" />
-            <label class="form-label" for="ordem">Associação Profissional/Ordem</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input id="tipologia" class="form-control" type="text" @bind="DirecaoClinica.Tipologia" />
-            @* <AutoComplete @bind-Value="DirecaoClinica.Tipologia"
-                          TItem="TipologiaDTO"
-                          DataProvider="TipologiasDataProvider"
-                          PropertyName="Tipologia"
-                          Placeholder="Search a customer..."
-                          OnChanged="(TipologiaDTO tipologia) => OnAutoCompleteChanged(tipologia)" /> *@
-
-            <label class="form-label" for="tipologia">Tipologia</label>
-        </div>
-        <div class="form-floating mb-3">
-            <input id="observacoes" class="form-control" type="text" @bind="DirecaoClinica.Observacoes" />
-            <label class="form-label" for="observacoes">Observações</label>
-        </div>
+        <MudItem xs="12">
+            <MudTextField T="string" @bind-Text="DirecaoClinica.Nome" Label="Nome" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField T="string" @bind-Text="DirecaoClinica.Identificacao" Label="Identificação" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudDatePicker Date="@DirecaoClinica.ValidadeIdentificacao" Label="Validade Identificação" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField T="string" @bind-Text="DirecaoClinica.Cargo" Label="Cargo" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField T="string" @bind-Text="DirecaoClinica.Cedula" Label="Cédula Profissional" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField T="string" @bind-Text="DirecaoClinica.Ordem" Label="Associação Profissional/Ordem" />
+        </MudItem>
+        <MudItem xs="12">            
+            <MudTextField T="string" @bind-Text="DirecaoClinica.Tipologia" Label="Tipologia" />
+        </MudItem>
+        <MudItem xs="12">
+            <MudTextField T="string" @bind-Text="DirecaoClinica.Observacoes" Label="Observações" />
+        </MudItem>
     }
-    <div>
+    <MudItem xs="12">
         <SaveBackControl OnClickSaveEventHandler="SaveDirecaoClinica" OnClickBackEventHandler="GoBackToEstabelecimento" />
-    </div>
-</div>
+    </MudItem>
+</MudGrid>

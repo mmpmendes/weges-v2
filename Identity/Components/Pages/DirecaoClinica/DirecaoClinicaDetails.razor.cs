@@ -31,7 +31,7 @@ public partial class DirecaoClinicaDetails
             DirecaoClinica = new DirecaoClinicaDTO()
             {
                 EstabelecimentoId = EstabelecimentoId,
-                ValidadeIdentificacao = DateOnly.FromDateTime(DateTime.Now)
+                ValidadeIdentificacao = DateTime.Now
             };
         }
         else

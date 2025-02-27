@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 using MudBlazor.Services;
+using MudBlazor.Translations;
 
 using Services;
 
@@ -54,6 +55,7 @@ builder.Services.AddIdentityCore<WegesUser>(options => options.SignIn.RequireCon
 builder.Services.AddSingleton<IEmailSender<WegesUser>, IdentityNoOpEmailSender>();
 
 builder.Services.AddMudServices();
+builder.Services.AddMudTranslations();
 
 builder.Services.AddHttpClient<EntidadeApiService>(client =>
 {

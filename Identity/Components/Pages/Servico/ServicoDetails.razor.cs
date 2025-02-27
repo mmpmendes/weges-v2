@@ -25,7 +25,7 @@ public partial class ServicoDetails
             Servico = new ServicoDTO()
             {
                 EstabelecimentoId = EstabelecimentoId,
-                DataInicio = DateOnly.FromDateTime(DateTime.Now)
+                DataInicio = DateTime.Now
             };
         }
         else

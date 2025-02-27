@@ -1,5 +1,4 @@
 ﻿@page "/estabelecimentos"
-@using WebApp.Components.Shared
 @using Microsoft.AspNetCore.Authorization
 @using SharedKernel.DTO
 @* @attribute [Authorize] *@
@@ -10,6 +9,8 @@
     @ref="EstabelecimentosGrid" 
     T="EstabelecimentoDTO"
     ServerData="EstabelecimentosDataProvider"
+    FilterMode="DataGridFilterMode.ColumnFilterRow"
+    FilterCaseSensitivity="DataGridFilterCaseSensitivity.CaseInsensitive"
     Filterable="true"
     Groupable="false">
    <ToolBarContent>
@@ -30,7 +31,7 @@
        <PropertyColumn Property="x => x.Morada" Title="Morada" />
        <PropertyColumn Property="x => x.Email" Title="Email" />
        <PropertyColumn Property="x => x.Telefone" Title="Telefone" />
-       <PropertyColumn Property="x => x.TipoPrestador" Title="Tipo Prestador" />
+       <PropertyColumn Property="x => x.TipoPrestador" Title="Tipo Prestador"/>
    </Columns>
    <PagerContent>
         <MudDataGridPager T="EstabelecimentoDTO" />

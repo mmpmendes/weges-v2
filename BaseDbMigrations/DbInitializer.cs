@@ -613,7 +613,7 @@ public class DbInitializer(
                 {
                     Id = 1,
                     Nome = "Medicina Dentária",
-                    DataInicio = new DateOnly(2023, 02, 20),
+                    DataInicio = new DateTime(2023, 02, 20),
                     Responsavel = "João A.",
                     Horario = "Horario 1",
                     Observacoes = "Observacoes 1",
@@ -623,7 +623,7 @@ public class DbInitializer(
                 {
                     Id = 2,
                     Nome = "Endocrinologia",
-                    DataInicio = new DateOnly(2023, 02, 20),
+                    DataInicio = new DateTime(2023, 02, 20),
                     Responsavel = "Joana B.",
                     Horario = "Horario 2",
                     Observacoes = "Observacoes 2",
@@ -633,7 +633,7 @@ public class DbInitializer(
                 {
                     Id = 3,
                     Nome = "Pediatria",
-                    DataInicio = new DateOnly(2022, 06, 15),
+                    DataInicio = new DateTime(2022, 06, 15),
                     Responsavel = "Carlos D.",
                     Horario = "09:00 - 17:00",
                     Observacoes = "Atendimento de crianças",
@@ -643,7 +643,7 @@ public class DbInitializer(
                 {
                     Id = 4,
                     Nome = "Cardiologia",
-                    DataInicio = new DateOnly(2021, 11, 10),
+                    DataInicio = new DateTime(2021, 11, 10),
                     Responsavel = "Maria C.",
                     Horario = "08:00 - 16:00",
                     Observacoes = "Especialista em doenças cardíacas",
@@ -653,7 +653,7 @@ public class DbInitializer(
                 {
                     Id = 5,
                     Nome = "Neurologia",
-                    DataInicio = new DateOnly(2020, 05, 18),
+                    DataInicio = new DateTime(2020, 05, 18),
                     Responsavel = "Ricardo F.",
                     Horario = "10:00 - 18:00",
                     Observacoes = "Consultas para doenças neurológicas",
@@ -663,7 +663,7 @@ public class DbInitializer(
                 {
                     Id = 6,
                     Nome = "Dermatologia",
-                    DataInicio = new DateOnly(2021, 03, 25),
+                    DataInicio = new DateTime(2021, 03, 25),
                     Responsavel = "Fernanda L.",
                     Horario = "08:30 - 16:30",
                     Observacoes = "Tratamento de doenças de pele",
@@ -673,7 +673,7 @@ public class DbInitializer(
                 {
                     Id = 7,
                     Nome = "Ortopedia",
-                    DataInicio = new DateOnly(2020, 08, 12),
+                    DataInicio = new DateTime(2020, 08, 12),
                     Responsavel = "João P.",
                     Horario = "09:00 - 17:00",
                     Observacoes = "Tratamento de fraturas e lesões ósseas",
@@ -683,7 +683,7 @@ public class DbInitializer(
                 {
                     Id = 8,
                     Nome = "Gastroenterologia",
-                    DataInicio = new DateOnly(2019, 02, 02),
+                    DataInicio = new DateTime(2019, 02, 02),
                     Responsavel = "Pedro R.",
                     Horario = "08:00 - 16:00",
                     Observacoes = "Consultas de doenças digestivas",
@@ -693,7 +693,7 @@ public class DbInitializer(
                 {
                     Id = 9,
                     Nome = "Oftalmologia",
-                    DataInicio = new DateOnly(2022, 01, 10),
+                    DataInicio = new DateTime(2022, 01, 10),
                     Responsavel = "Luciana S.",
                     Horario = "10:00 - 18:00",
                     Observacoes = "Exames oftalmológicos e cirurgias",
@@ -703,7 +703,7 @@ public class DbInitializer(
                 {
                     Id = 10,
                     Nome = "Fisioterapia",
-                    DataInicio = new DateOnly(2021, 07, 30),
+                    DataInicio = new DateTime(2021, 07, 30),
                     Responsavel = "Ana T.",
                     Horario = "08:00 - 14:00",
                     Observacoes = "Reabilitação física e motora",
@@ -713,7 +713,7 @@ public class DbInitializer(
                 {
                     Id = 11,
                     Nome = "Urologia",
-                    DataInicio = new DateOnly(2023, 03, 05),
+                    DataInicio = new DateTime(2023, 03, 05),
                     Responsavel = "Carlos M.",
                     Horario = "09:00 - 17:00",
                     Observacoes = "Tratamento de problemas urológicos",
@@ -723,7 +723,7 @@ public class DbInitializer(
                 {
                     Id = 12,
                     Nome = "Ginecologia",
-                    DataInicio = new DateOnly(2022, 08, 20),
+                    DataInicio = new DateTime(2022, 08, 20),
                     Responsavel = "Joana P.",
                     Horario = "08:30 - 16:30",
                     Observacoes = "Consultas ginecológicas e obstétricas",
@@ -790,7 +790,7 @@ public class DbInitializer(
                     Nome = "Nome 1",
                     Cargo = "Cargo 1",
                     Identificacao = "Identificacao 1",
-                    ValidadeIdentificacao = new DateOnly(2023, 02, 20),
+                    ValidadeIdentificacao = new DateTime(2023, 02, 20),
                     Cedula = "Cedula 1",
                     Ordem = "Ordem 1",
                     Especialidade = "Especialidade 1",
@@ -804,7 +804,7 @@ public class DbInitializer(
                     Nome = "Nome 2",
                     Cargo = "Cargo 2",
                     Identificacao = "Identificacao 2",
-                    ValidadeIdentificacao = new DateOnly(2023, 02, 20),
+                    ValidadeIdentificacao = new DateTime(2023, 02, 20),
                     Cedula = "Cedula 2",
                     Ordem = "Ordem 2",
                     Especialidade = "Especialidade 2",
