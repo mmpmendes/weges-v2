@@ -205,13 +205,13 @@ public class EstabelecimentoApiService(HttpClient httpClient)
 
     public async Task<LicencaErsDTO?> CreateLicencaErsAsync(long EstabelecimentoId, LicencaErsDTO licencaErs, CancellationToken cancellationToken = default)
     {
-        var response = await httpClient.PostAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/CertificadoErs", licencaErs, cancellationToken);
+        var response = await httpClient.PostAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/LicencaErs", licencaErs, cancellationToken);
         return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<LicencaErsDTO?>() : null;
     }
 
     public async Task<LicencaErsDTO?> UpdateLicencaDataAsync(long EstabelecimentoId, LicencaErsDTO licencaErs, CancellationToken cancellationToken = default)
     {
-        var response = await httpClient.PutAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/UpdateCertificadoErs", licencaErs, cancellationToken);
+        var response = await httpClient.PutAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/LicencaErs", licencaErs, cancellationToken);
         return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<LicencaErsDTO?>() : null;
     }
     #endregion

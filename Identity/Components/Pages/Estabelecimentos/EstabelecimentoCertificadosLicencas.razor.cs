@@ -30,6 +30,8 @@ public partial class EstabelecimentoCertificadosLicencas
     private CertificadoErsDTO? CertificadoErs { get; set; }
     private LicencaErsDTO? LicencaErs { get; set; }
 
+    private static List<string> periodosCertificados = ["Anual", "Bianual", "Semestral", "Trimestral", "Mensal"];
+
     protected override async Task OnInitializedAsync()
     {
         CertificadoErs = await EstabelecimentoApiService.GetEstabelecimentoCertificadoErsAsync(Id);
@@ -74,6 +76,7 @@ public partial class EstabelecimentoCertificadosLicencas
         {
             await EstabelecimentoApiService.UpdateCertificadoDataAsync(Id, CertificadoErs);
         }
+        SetEditModeCertificado();
     }
 
     private void OnCertificadoFileSelected(IBrowserFile? file)
@@ -94,26 +97,25 @@ public partial class EstabelecimentoCertificadosLicencas
     #region Licenca
     private async Task UploadLicenca()
     {
-        // TODO: Output mensagem de erro tentar de novo
-        if (selectedLicencaFile is null) return;
-
-        using var formData = new MultipartFormDataContent();
-
-        var stream = FileManagementClientSide.SetupFileForUpload(selectedLicencaFile);
-
-        // TODO: Output mensagem de erro tentar de novo
-        if (stream is null) return;
-
-        formData.Add(stream, "file", selectedLicencaFile.Name);
-
-        FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadLicencaFileAsync(formData);
-
-        IsLicencaFileSelected = false;
-
-        if (ficheiro is not null)
+        if (selectedLicencaFile is not null)
         {
-            LicencaErs!.FicheiroId = ficheiro.Id;
-            LicencaErs!.EstabelecimentoId = Id;
+            using var formData = new MultipartFormDataContent();
+
+            var stream = FileManagementClientSide.SetupFileForUpload(selectedLicencaFile);
+
+            if (stream is null) return;
+
+            formData.Add(stream, "file", selectedLicencaFile.Name);
+
+            FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadLicencaFileAsync(formData);
+
+            IsLicencaFileSelected = false;
+
+            if (ficheiro is not null)
+            {
+                LicencaErs!.FicheiroId = ficheiro.Id;
+                LicencaErs!.EstabelecimentoId = Id;
+            }
         }
         if (LicencaErs!.Id <= 0)
         {
@@ -123,6 +125,7 @@ public partial class EstabelecimentoCertificadosLicencas
         {
             await EstabelecimentoApiService.UpdateLicencaDataAsync(Id, LicencaErs);
         }
+        SetEditModeLicenca();
     }
 
     private void OnLicencaFileSelected(IBrowserFile? file)
@@ -163,11 +166,11 @@ public partial class EstabelecimentoCertificadosLicencas
 
         await FileManagementClientSide.DownloadFile(jSRuntime, fileData);
     }
-    private void SetEditModeCertificado(MouseEventArgs args)
+    private void SetEditModeCertificado(MouseEventArgs? args = null)
     {
         _editModeCertificado = !_editModeCertificado;
     }
-    private void SetEditModeLicenca(MouseEventArgs args)
+    private void SetEditModeLicenca(MouseEventArgs? args = null)
     {
         _editModeLicenca = !_editModeLicenca;
     }

@@ -352,7 +352,7 @@ public class EstabelecimentoController(
     {
         string fileLocationAndName = await _fileService.SaveFileToFileSystem(file, _config[UPLOADPATH]);
 
-        return Results.Ok(fileLocationAndName);
+        return await SaveFicheiro(file.Name, fileLocationAndName);
     }
 
     /// <summary>

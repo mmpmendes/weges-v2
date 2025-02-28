@@ -13,22 +13,32 @@
                 @if (CertificadoErs is not null)
                 {
                     <MudGrid>
-                        <MudItem xs="12">
+                        <MudItem xs="6">
                             <MudTextField T="string" @bind-Text="CertificadoErs.NrCertificado" Label="Nº do certificado" Disabled="!_editModeCertificado" />
                         </MudItem>
-                        <MudItem xs="12">
-                            <MudTextField T="string" @bind-Text="CertificadoErs.Periodo" Label="Período" Disabled="!_editModeCertificado" />
+                        <MudItem xs="6">
+                            <MudSelect @bind-Value="CertificadoErs.Periodo"
+                                       Disabled="!_editModeCertificado"
+                                       Variant="Variant.Text"
+                                       Label="Periodo"
+                                       Dense="true"
+                                       Margin="Margin.None"
+                                       ReadOnly="false"
+                                       Clearable="true">
+                                @foreach (var periodo in periodosCertificados)
+                                {
+                                    <MudSelectItem Value="periodo">@periodo</MudSelectItem>
+                                }
+                            </MudSelect>
                         </MudItem>
-                        <MudItem xs="12">
-                            <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataExpiracao" Label="Data de expiração" Disabled="!_editModeCertificado" />
+                        <MudItem xs="6">
+                            <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataExpiracao" DateFormat="dd/mm/yyyy" Label="Data de expiração" Disabled="!_editModeCertificado" />
                         </MudItem>
-                        <MudItem xs="12">
-                            <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataExpiracaoTaxa" Label="Data de expiração taxa" Disabled="!_editModeCertificado" />
-                            <MudText>@CertificadoErs.DataExpiracaoTaxa</MudText>
+                        <MudItem xs="6">
+                            <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataExpiracaoTaxa" DateFormat="dd/mm/yyyy" Label="Data de expiração taxa" Disabled="!_editModeCertificado" />
                         </MudItem>
-                        <MudItem xs="12">
-                            <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataPagamentoTaxa" Label="Data de pagamento taxa" Disabled="!_editModeCertificado" />
-                            <MudText>@CertificadoErs.DataExpiracaoTaxa</MudText>
+                        <MudItem xs="6">
+                            <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataPagamentoTaxa" DateFormat="dd/mm/yyyy" Label="Data de pagamento taxa" Disabled="!_editModeCertificado" />
                         </MudItem>
                         <MudItem xs="12">
                             @if (CertificadoErs.FicheiroId > 0)
@@ -69,7 +79,7 @@
                         <MudItem xs="12">
                             @if (LicencaErs.FicheiroId > 0)
                             {
-                                <MudButton Color="@Color.Dark" Variant="Variant.Outlined" OnClick="DownloadLicencaErs" EndIcon="@Icons.Material.Filled.Download">
+                                <MudButton Color="@Color.Primary" Variant="Variant.Outlined" OnClick="DownloadLicencaErs" EndIcon="@Icons.Material.Filled.Download">
                                     Download Ficheiro
                                 </MudButton>
                             }
