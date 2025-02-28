@@ -3,11 +3,11 @@ public class CertificadoERS : Entity<long>
 {
     public string? Periodo { get; set; }
     public string? NrCertificado { get; set; }
-    public DateOnly? DataSubmissao { get; set; }
-    public DateOnly? DataExpiracao { get; set; }
+    public DateTime? DataSubmissao { get; set; }
+    public DateTime? DataExpiracao { get; set; }
     public string? Observacoes { get; set; }
-    public DateOnly? DataExpiracaoTaxa { get; set; }
-    public DateOnly? DataPagamentoTaxa { get; set; }
+    public DateTime? DataExpiracaoTaxa { get; set; }
+    public DateTime? DataPagamentoTaxa { get; set; }
 
     // One-to-One relationship with Estabelecimento
     public long EstabelecimentoId { get; set; }

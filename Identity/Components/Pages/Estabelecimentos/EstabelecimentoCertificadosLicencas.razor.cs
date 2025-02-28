@@ -24,6 +24,9 @@ public partial class EstabelecimentoCertificadosLicencas
     private bool IsCertificadoFileSelected { get; set; }
     private bool IsLicencaFileSelected { get; set; }
 
+    private bool _editModeCertificado { get; set; } = false;
+    private bool _editModeLicenca { get; set; } = false;
+
     private CertificadoErsDTO? CertificadoErs { get; set; }
     private LicencaErsDTO? LicencaErs { get; set; }
 
@@ -41,27 +44,28 @@ public partial class EstabelecimentoCertificadosLicencas
     #region Certificado
     private async Task UploadCertificado()
     {
-        // TODO: Output mensagem de erro tentar de novo
-        if (selectedCertificadoFile is null) return;
-
-        using var formData = new MultipartFormDataContent();
-
-        var stream = FileManagementClientSide.SetupFileForUpload(selectedCertificadoFile);
-
-        // TODO: Output mensagem de erro tentar de novo
-        if (stream is null) return;
-
-        formData.Add(stream, "file", selectedCertificadoFile.Name);
-
-        FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadCertificadoFileAsync(formData);
-
-        IsCertificadoFileSelected = false;
-
-        if (ficheiro is not null)
+        if (selectedCertificadoFile is not null)
         {
-            CertificadoErs!.FicheiroId = ficheiro.Id;
-            CertificadoErs!.EstabelecimentoId = Id;
+
+            using var formData = new MultipartFormDataContent();
+
+            var stream = FileManagementClientSide.SetupFileForUpload(selectedCertificadoFile);
+
+            if (stream is null) return;
+
+            formData.Add(stream, "file", selectedCertificadoFile.Name);
+
+            FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadCertificadoFileAsync(formData);
+
+            IsCertificadoFileSelected = false;
+
+            if (ficheiro is not null)
+            {
+                CertificadoErs!.FicheiroId = ficheiro.Id;
+                CertificadoErs!.EstabelecimentoId = Id;
+            }
         }
+
         if (CertificadoErs!.Id <= 0)
         {
             await EstabelecimentoApiService.CreateCertificadoErsAsync(Id, CertificadoErs);
@@ -159,4 +163,13 @@ public partial class EstabelecimentoCertificadosLicencas
 
         await FileManagementClientSide.DownloadFile(jSRuntime, fileData);
     }
+    private void SetEditModeCertificado(MouseEventArgs args)
+    {
+        _editModeCertificado = !_editModeCertificado;
+    }
+    private void SetEditModeLicenca(MouseEventArgs args)
+    {
+        _editModeLicenca = !_editModeLicenca;
+    }
+
 }

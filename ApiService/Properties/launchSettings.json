@@ -13,7 +13,7 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "Paths__uploadpath": "C:\\app\\uploads\\"
+        "Paths__uploadpath": "C:\\app\\uploads"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7423;http://localhost:5364"

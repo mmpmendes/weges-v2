@@ -3,28 +3,32 @@
         <MudCard>
             <MudCardHeader>
                 <CardHeaderContent>
-                    <MudText>Certificado de Registo ERS</MudText>
+                    <MudText>
+                        Certificado de Registo ERS
+                        <MudButton OnClick="SetEditModeCertificado" StartIcon="@(_editModeCertificado ? Icons.Material.Filled.Block : Icons.Material.Filled.Edit)" />
+                    </MudText>
                 </CardHeaderContent>
             </MudCardHeader>
             <MudCardContent>
-
                 @if (CertificadoErs is not null)
                 {
                     <MudGrid>
                         <MudItem xs="12">
-                            <MudTextField T="string" @bind-Text="CertificadoErs.NrCertificado" Label="Nº do certificado" />
+                            <MudTextField T="string" @bind-Text="CertificadoErs.NrCertificado" Label="Nº do certificado" Disabled="!_editModeCertificado" />
                         </MudItem>
                         <MudItem xs="12">
-                            <MudTextField T="string" @bind-Text="CertificadoErs.Periodo" Label="Período" />
+                            <MudTextField T="string" @bind-Text="CertificadoErs.Periodo" Label="Período" Disabled="!_editModeCertificado" />
                         </MudItem>
                         <MudItem xs="12">
-                            <MudDatePicker T="DateOnly?" @bind-Value="CertificadoErs.DataExpiracao" Label="Data de expiração" Placeholder="@DateTime.Now.ToShortDateString()" />
+                            <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataExpiracao" Label="Data de expiração" Disabled="!_editModeCertificado" />
                         </MudItem>
                         <MudItem xs="12">
-                            <MudDatePicker T="DateOnly?" @bind-Value="CertificadoErs.DataExpiracaoTaxa" Label="Data de expiração taxa" Placeholder="@DateTime.Now.ToShortDateString()" />
+                            <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataExpiracaoTaxa" Label="Data de expiração taxa" Disabled="!_editModeCertificado" />
+                            <MudText>@CertificadoErs.DataExpiracaoTaxa</MudText>
                         </MudItem>
                         <MudItem xs="12">
-                            <MudTextField T="string" @bind-Text="CertificadoErs.Observacoes" Label="Observações" />
+                            <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataPagamentoTaxa" Label="Data de pagamento taxa" Disabled="!_editModeCertificado" />
+                            <MudText>@CertificadoErs.DataExpiracaoTaxa</MudText>
                         </MudItem>
                         <MudItem xs="12">
                             @if (CertificadoErs.FicheiroId > 0)
@@ -35,11 +39,11 @@
                             }
                             else
                             {
-                                <FileUploadButton SelectedFileChanged="OnCertificadoFileSelected" Label="Carregar Ficheiro" />
+                                <FileUploadButton SelectedFileChanged="OnCertificadoFileSelected" Label="Carregar Ficheiro" Disabled="!_editModeCertificado" />
                             }
                         </MudItem>
                         <MudItem xs="12">
-                            <MudButton OnClick="UploadCertificado" Disabled="@(!IsCertificadoFileSelected)" Color="@Color.Dark" Variant="Variant.Filled">Guardar Certificado</MudButton>
+                            <MudButton OnClick="UploadCertificado" Disabled="@(!(IsCertificadoFileSelected || _editModeCertificado))" Color="@Color.Dark" Variant="Variant.Filled">Guardar Certificado</MudButton>
                         </MudItem>
                     </MudGrid>
                 }
@@ -49,7 +53,7 @@
     <MudItem xs="6">
         <MudCard>
             <MudCardHeader>
-                <MudText>Licença de Funcionamento ERS</MudText>
+                <MudText>Licença de Funcionamento ERS<MudButton OnClick="SetEditModeLicenca" StartIcon="@(_editModeLicenca ? Icons.Material.Filled.Block  : Icons.Material.Filled.Edit)" /></MudText>
             </MudCardHeader>
             <MudCardContent>
 
@@ -57,10 +61,10 @@
                 {
                     <MudGrid>
                         <MudItem xs="12">
-                            <MudTextField T="string" @bind-Text="LicencaErs.NrLicenca" Label="Nº de Licença" />
+                            <MudTextField T="string" @bind-Text="LicencaErs.NrLicenca" Label="Nº de Licença" Disabled="!_editModeLicenca"/>
                         </MudItem>
                         <MudItem xs="12">
-                            <MudTextField T="string" @bind-Text="LicencaErs.Observacoes" Label="Observações" />
+                            <MudTextField T="string" @bind-Text="LicencaErs.Observacoes" Label="Observações" Disabled="!_editModeLicenca" />
                         </MudItem>
                         <MudItem xs="12">
                             @if (LicencaErs.FicheiroId > 0)
@@ -71,11 +75,11 @@
                             }
                             else
                             {
-                                <FileUploadButton SelectedFileChanged="OnLicencaFileSelected" Label="Carregar Ficheiro" />
+                                <FileUploadButton SelectedFileChanged="OnLicencaFileSelected" Label="Carregar Ficheiro" Disabled="!_editModeLicenca" />
                             }
                         </MudItem>
                         <MudItem xs="12">
-                            <MudButton OnClick="UploadLicenca" Disabled="@(!IsLicencaFileSelected)" Color="@Color.Dark" Variant="Variant.Filled">Guardar Licença</MudButton>
+                            <MudButton OnClick="UploadLicenca" Disabled="@(!IsLicencaFileSelected && !_editModeLicenca)" Color="@Color.Dark" Variant="Variant.Filled">Guardar Licença</MudButton>
                         </MudItem>
                     </MudGrid>
                 }

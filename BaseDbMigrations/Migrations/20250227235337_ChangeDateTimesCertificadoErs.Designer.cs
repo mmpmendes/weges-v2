@@ -3,6 +3,7 @@ using System;
 using ApiModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace BaseDbMigrations.Migrations
 {
     [DbContext(typeof(WegesDbContext))]
-    partial class WegesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250227235337_ChangeDateTimesCertificadoErs")]
+    partial class ChangeDateTimesCertificadoErs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +35,7 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
@@ -41,7 +44,7 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
@@ -77,7 +80,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("CreatedBy")
@@ -87,7 +90,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("ModifiedBy")
@@ -115,7 +118,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("CreatedBy")
@@ -124,16 +127,16 @@ namespace BaseDbMigrations.Migrations
                         .HasDefaultValue("system-usr");
 
                     b.Property<DateTime?>("DataExpiracao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DataExpiracaoTaxa")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DataPagamentoTaxa")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DataSubmissao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<long>("EstabelecimentoId")
                         .HasColumnType("bigint");
@@ -143,7 +146,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("ModifiedBy")
@@ -183,7 +186,7 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
@@ -193,7 +196,7 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");
@@ -220,7 +223,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("CreatedBy")
@@ -246,7 +249,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("ModifiedBy")
@@ -293,7 +296,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("CreatedBy")
@@ -303,7 +306,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("ModifiedBy")
@@ -336,7 +339,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("CreatedBy")
@@ -358,7 +361,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("ModifiedBy")
@@ -379,7 +382,7 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("ValidadeIdentificacao")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -398,7 +401,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("CreatedBy")
@@ -424,7 +427,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("ModifiedBy")
@@ -473,7 +476,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("CreatedBy")
@@ -510,7 +513,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("ModifiedBy")
@@ -566,7 +569,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("CreatedBy")
@@ -580,7 +583,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("ModifiedBy")
@@ -614,7 +617,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("CreatedBy")
@@ -630,7 +633,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("ModifiedBy")
@@ -662,7 +665,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("CreatedBy")
@@ -681,7 +684,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("ModifiedBy")
@@ -715,7 +718,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("CreatedBy")
@@ -724,7 +727,7 @@ namespace BaseDbMigrations.Migrations
                         .HasDefaultValue("system-usr");
 
                     b.Property<DateTime?>("DataInicio")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<long>("EstabelecimentoId")
                         .HasColumnType("bigint");
@@ -734,7 +737,7 @@ namespace BaseDbMigrations.Migrations
 
                     b.Property<DateTime>("Modified")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp without time zone")
+                        .HasColumnType("timestamp with time zone")
                         .HasDefaultValueSql("NOW()");
 
                     b.Property<string>("ModifiedBy")
@@ -770,13 +773,13 @@ namespace BaseDbMigrations.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("text");

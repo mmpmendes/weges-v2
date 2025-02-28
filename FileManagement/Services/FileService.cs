@@ -45,13 +45,13 @@ public class FileService : IFileService
             Directory.CreateDirectory(configFolder);
         }
 
-        string path = Path.Combine(configFolder);
+        string path = Path.Combine(configFolder, newFileName);
 
         // Save the file to the specified path
         using var stream = new FileStream(path, FileMode.Create);
         await file.CopyToAsync(stream);
 
         // Return the new file name
-        return Path.Combine(configFolder, newFileName);
+        return newFileName;
     }
 }

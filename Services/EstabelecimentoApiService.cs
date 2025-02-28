@@ -226,7 +226,7 @@ public class EstabelecimentoApiService(HttpClient httpClient)
 
     public async Task<CertificadoErsDTO?> UpdateCertificadoDataAsync(long EstabelecimentoId, CertificadoErsDTO certificado, CancellationToken cancellationToken = default)
     {
-        var response = await httpClient.PutAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/UpdateCertificadoErs", certificado, cancellationToken);
+        var response = await httpClient.PutAsJsonAsync($"/api/Estabelecimento/{EstabelecimentoId}/CertificadoErs", certificado, cancellationToken);
         return response.IsSuccessStatusCode ? await response.Content.ReadFromJsonAsync<CertificadoErsDTO?>() : null;
     }
 
