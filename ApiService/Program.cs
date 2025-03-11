@@ -1,7 +1,8 @@
 using ApiModel;
 using ApiModel.Models;
 
-using ApiService.Data;
+using ApiService.Contracts.Repositories;
+using ApiService.Repositories;
 using ApiService.Services;
 
 using FileManagement.Services;
@@ -57,7 +58,7 @@ builder.Services.AddScoped<ISimpleRepository<Servico>, SimpleRepository<Servico>
 builder.Services.AddScoped<ISimpleRepository<CertificadoERS>, SimpleRepository<CertificadoERS>>();
 builder.Services.AddScoped<ISimpleRepository<LicencaERS>, SimpleRepository<LicencaERS>>();
 builder.Services.AddScoped<ISimpleRepository<Ficheiro>, SimpleRepository<Ficheiro>>();
-builder.Services.AddScoped<ISimpleRepository<Tipologia>, SimpleRepository<Tipologia>>();
+builder.Services.AddScoped<ITipologiaRepository, TipologiaRepository>();
 builder.Services.AddScoped<ISimpleRepository<Colaborador>, SimpleRepository<Colaborador>>();
 builder.Services.AddScoped<IFileService, FileService>();
 

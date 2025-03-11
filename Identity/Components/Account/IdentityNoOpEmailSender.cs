@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace WebApp.Components.Account;
 
-// Remove the "else if (EmailSender is IdentityNoOpEmailSender)" block from RegisterConfirmation.razor after updating with a real implementation.
+//TODO: Remove the "else if (EmailSender is IdentityNoOpEmailSender)" block from RegisterConfirmation.razor after updating with a real implementation.
 internal sealed class IdentityNoOpEmailSender : IEmailSender<WegesUser>
 {
     private readonly IEmailSender emailSender = new NoOpEmailSender();

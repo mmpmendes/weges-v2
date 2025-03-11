@@ -1,6 +1,6 @@
 ﻿using ApiModel.Models;
 
-using ApiService.Data;
+using ApiService.Contracts.Repositories;
 using ApiService.Services;
 
 using AutoMapper;

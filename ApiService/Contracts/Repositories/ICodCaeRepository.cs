@@ -1,6 +1,6 @@
 ﻿using ApiModel.Models;
 
-namespace ApiService.Data;
+namespace ApiService.Contracts.Repositories;
 
 public interface ICodCaeRepository
 {

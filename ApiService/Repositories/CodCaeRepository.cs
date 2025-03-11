@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 using ApiModel;
 using ApiModel.Models;
+using ApiService.Contracts.Repositories;
 
-namespace ApiService.Data;
+namespace ApiService.Repositories;
 
 public class CodCaeRepository(WegesDbContext dbContext) : SimpleRepository<CodCae>(dbContext), ICodCaeRepository
 {

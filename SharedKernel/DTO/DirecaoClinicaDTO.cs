@@ -13,5 +13,5 @@ public class DirecaoClinicaDTO
     public string? Observacoes { get; set; }
     public long EstabelecimentoId { get; set; }
     public long TipologiaId { get; set; }
-    public string? Tipologia { get; set; }
+    public string? TipologiaNome { get; set; }
 }

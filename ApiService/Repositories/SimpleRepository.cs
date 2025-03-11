@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using ApiModel;
+﻿using ApiModel;
 using ApiModel.Models;
 
+using ApiService.Contracts.Repositories;
 
-namespace ApiService.Data;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace ApiService.Repositories;
 
 public class SimpleRepository<T>(WegesDbContext dbContext) : ISimpleRepository<T> where T : class, IEntity<long>
 {

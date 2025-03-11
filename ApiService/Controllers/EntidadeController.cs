@@ -3,8 +3,8 @@
 using Microsoft.AspNetCore.Mvc;
 
 using ApiModel.Models;
-using ApiService.Data;
 using SharedKernel.DTO;
+using ApiService.Contracts.Repositories;
 
 namespace ApiService.Controllers;
 

@@ -21,26 +21,33 @@
         <MudItem xs="12">
             <MudTextField T="string" @bind-Text="DirecaoClinica.Nome" Label="Nome" />
         </MudItem>
-        <MudItem xs="12">
+        <MudItem xs="6">
             <MudTextField T="string" @bind-Text="DirecaoClinica.Identificacao" Label="Identificação" />
         </MudItem>
-        <MudItem xs="12">
+        <MudItem xs="6">
             <MudDatePicker Date="@DirecaoClinica.ValidadeIdentificacao" Label="Validade Identificação" />
         </MudItem>
-        <MudItem xs="12">
+        <MudItem xs="6">
             <MudTextField T="string" @bind-Text="DirecaoClinica.Cargo" Label="Cargo" />
         </MudItem>
-        <MudItem xs="12">
+        <MudItem xs="6">
             <MudTextField T="string" @bind-Text="DirecaoClinica.Cedula" Label="Cédula Profissional" />
         </MudItem>
-        <MudItem xs="12">
+        <MudItem xs="6">
             <MudTextField T="string" @bind-Text="DirecaoClinica.Ordem" Label="Associação Profissional/Ordem" />
         </MudItem>
-        <MudItem xs="12">            
-            <MudTextField T="string" @bind-Text="DirecaoClinica.Tipologia" Label="Tipologia" />
+        <MudItem xs="6">
+            <MudAutocomplete @bind-Value="DirecaoClinica.TipologiaNome"
+                             SearchFunc="Search"
+                             Variant="Variant.Text"
+                             Label="Tipologia"
+                             Margin="Margin.None"
+                             Dense="true"
+                             ReadOnly="false"
+                             Clearable="true" />
         </MudItem>
         <MudItem xs="12">
-            <MudTextField T="string" @bind-Text="DirecaoClinica.Observacoes" Label="Observações" />
+            <MudTextField T="string" @bind-Text="DirecaoClinica.Observacoes" Label="Observações" Lines="2" AutoGrow="true" />
         </MudItem>
     }
     <MudItem xs="12">

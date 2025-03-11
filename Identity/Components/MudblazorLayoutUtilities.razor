@@ -1,0 +1,114 @@
+﻿@using SharedKernel.DTO
+@using WebApp.Components.Layout
+@using WebApp.InMemory
+@rendermode InteractiveServer
+@* @implements IDisposable *@
+@* Required *@
+<MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="@_theme" />
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+<MudAppBar Color="Color.Secondary" Elevation="0">
+    <MudSpacer />
+    @if (SelectedEstabelecimento is not null)
+    {
+        <MudItem><MudText Color="@(_isDarkMode ? Color.Primary : Color.Dark)">@SelectedEstabelecimento.Denominacao</MudText></MudItem>
+    }
+    @if (_isDarkMode)
+    {
+        <MudIconButton Color="Color.Primary" Icon="@Icons.Material.Filled.LightMode" aria-label="light" OnClick="updateThemeMode" />
+    }
+    else
+    {
+        <MudIconButton Color="Color.Dark" Icon="@Icons.Material.Filled.DarkMode" aria-label="dark" OnClick="updateThemeMode" />
+    }
+</MudAppBar>
+<MudDrawer Color="Color.Primary" Open="true">
+    <MudDrawerHeader Style=@(_isDarkMode ? "background: none;background-color:#1E1E1E" : "background: none;background-color:#EFE6DA")>
+        <MudImage Src="images/weges_cor_logo_simb.png" Height="40"></MudImage>
+    </MudDrawerHeader>
+    <NavMenu />
+</MudDrawer>
+@code {
+
+    private bool _isDarkMode = false;
+    private MudTheme _theme = default!;
+    private MudThemeProvider _mudThemeProvider = default!;
+    private EstabelecimentoDTO SelectedEstabelecimento { get; set; } = default!;
+    [Inject] EstabelecimentoService EstabelecimentoService { get; set; } = default!;
+    [Inject] AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
+    [Inject] NavigationManager NavigationManager { get; set; } = default!;
+    private AuthenticationState? authState;
+
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        _theme = new MudTheme()
+            {
+                PaletteLight = new PaletteLight()
+                {
+                    Primary = "#C6893F",
+                    Secondary = "#EFE6DA",
+                    Tertiary = "#A6A6A6",
+                    Background = "#F5F5F5",
+                    Surface = "#EFE6DA",
+                    TextPrimary = "#212121"
+                },
+                PaletteDark = new PaletteDark()
+                {
+                    Primary = "#C6893F",
+                    Secondary = "#1E1E1E",
+                    Tertiary = "#9E9E9E",
+                    Background = "#121212",
+                    Surface = "#1E1E1E",
+                    TextPrimary = "#E0E0E0"
+                }
+            };
+
+        SelectedEstabelecimento = EstabelecimentoService.SelectedEstabelecimento;
+        // Subscribe to the event
+        EstabelecimentoService.OnEstabelecimentoChanged += async () => await HandleEstabelecimentoChanged();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _isDarkMode = await _mudThemeProvider.GetSystemPreference();
+            await _mudThemeProvider.WatchSystemPreference(OnSystemPreferenceChanged);
+            StateHasChanged();
+        }
+    }
+
+    private Task OnSystemPreferenceChanged(bool newValue)
+    {
+        _isDarkMode = newValue;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private async Task HandleEstabelecimentoChanged()
+    {
+        await InvokeAsync(StateHasChanged); // Refresh UI
+        SelectedEstabelecimento = EstabelecimentoService.SelectedEstabelecimento;
+    }
+
+    // public void Dispose()
+    // {
+    //     EstabelecimentoService.OnEstabelecimentoChanged -= async () => await HandleEstabelecimentoChanged();
+    // }
+
+    private Task updateThemeMode(MouseEventArgs args)
+    {
+        _isDarkMode = !_isDarkMode;
+        return Task.CompletedTask;
+    }
+}

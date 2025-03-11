@@ -1,6 +1,6 @@
 ﻿using ApiModel.Models;
 
-using ApiService.Data;
+using ApiService.Contracts.Repositories;
 
 using AutoMapper;
 
@@ -13,11 +13,11 @@ namespace ApiService.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class TipologiasController(
-        ISimpleRepository<Tipologia> tipologiaRepo
+        ITipologiaRepository tipologiaRepo
         , IMapper mapper
         ) : ControllerBase
 {
-    private readonly ISimpleRepository<Tipologia> _tipologiaRepo = tipologiaRepo;
+    private readonly ITipologiaRepository _tipologiaRepo = tipologiaRepo;
     private readonly IMapper _mapper = mapper;
     /// <summary>
     /// Retorna a lista de todas as tipologias

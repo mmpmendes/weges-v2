@@ -1,115 +1,21 @@
-﻿<MudNavMenu Color="Color.Inherit">
+﻿@* @rendermode InteractiveServer *@
+<MudNavMenu Color="Color.Inherit">
     <MudNavLink IconColor="Color.Inherit" Href="/" Icon="@Icons.Material.Filled.House">Início</MudNavLink>
-    @* <MudNavLink Href="/entidades" Icon="@Icons.Material.Filled.Store">Entidades</MudNavLink> *@
-    <MudNavLink IconColor="Color.Inherit" Href="/estabelecimentos" Icon="@Icons.Material.Filled.Store">Estabelecimentos</MudNavLink>
-     
 
-        @* @if (authState?.User.Identity is not null && authState.User.Identity.IsAuthenticated)
-        {
-            <div class="profile-name">
-                <form action="/Account/Logout" method="post">
-                    <AntiforgeryToken />
-                    <button type="submit" class="btn btn-light">
-                        Terminar Sessão
-                    </button>
-                </form>
-            </div>
-        }
-        else
-        {
-            <div class="profile-name">
-                <a class="btn btn-light" href="/Account/Login">Inicar sessão</a>
-            </div>
-        } *@
+
+    <AuthorizeView>
+        <Authorized>
+            <MudNavLink IconColor="Color.Inherit" Href="/estabelecimentos" Icon="@Icons.Material.Filled.Store">Estabelecimentos</MudNavLink>
+            <MudNavLink class="list-group-item list-group-item-action bg-light" href="Account/Manage">@context.User.Identity?.Name</MudNavLink>
+            <form action="Account/Logout" method="post">
+                <AntiforgeryToken />
+                <input type="hidden" name="ReturnUrl" value="@currentUrl" />
+                <MudButton ButtonType="ButtonType.Submit">Logout</MudButton>
+            </form>
+        </Authorized>
+        <NotAuthorized>
+            <MudNavLink href="Account/Login" Icon="@Icons.Material.Filled.Login" IconColor="Color.Inherit">Entrar</MudNavLink>
+            <MudNavLink href="Account/Register" Icon="@Icons.Material.Filled.PersonAdd" IconColor="Color.Inherit">Registar</MudNavLink>
+        </NotAuthorized>
+    </AuthorizeView>
 </MudNavMenu>
-
-@code {
-    // [Inject] AuthenticationStateProvider authStateProvider { get; set; } = default!;
-    // [Inject] EstabelecimentoService EstabelecimentoService { get; set; } = default!;
-    // private AuthenticationState authState;
-    // private List<NavItem>? navItems;
-
-    // private EstabelecimentoDTO SelectedEstabelecimento { get; set; } = default!;
-
-    // protected override void OnInitialized()
-    // {
-    //     SelectedEstabelecimento = EstabelecimentoService.SelectedEstabelecimento;
-    //     // Subscribe to the event
-    //     EstabelecimentoService.OnEstabelecimentoChanged += async () => await HandleEstabelecimentoChanged();
-    // }
-
-    // private async Task HandleEstabelecimentoChanged()
-    // {
-    //     await InvokeAsync(StateHasChanged); // Refresh UI
-    //     SelectedEstabelecimento = EstabelecimentoService.SelectedEstabelecimento;
-    //     // navItems = await GetNavItems();
-    // }
-
-    // public void Dispose()
-    // {
-    //     EstabelecimentoService.OnEstabelecimentoChanged -= async () => await HandleEstabelecimentoChanged();
-    // }
-    // private async Task<Sidebar2DataProviderResult> SidebarDataProvider(Sidebar2DataProviderRequest request)
-    // {
-    //     authState = await authStateProvider.GetAuthenticationStateAsync();
-    //     navItems = await GetNavItems();
-
-    //     return await Task.FromResult(request.ApplyTo(navItems));
-    // }
-
-    // private async Task<List<NavItem>> GetNavItems()
-    // {
-        // var authState = await authStateProvider.GetAuthenticationStateAsync();
-        // if (authState.User.Identity is not null && authState.User.Identity.IsAuthenticated)
-        // {
-        //     navItems = new List<NavItem>
-        //     {
-        //         // new NavItem { Id = "10" ,Href = "/", IconName = IconName.House, Text = "Início" },
-        //         new NavItem { Id = "20" , IconName = IconName.Shop, Text = "Estabelecimentos" },
-        //         new NavItem { Id = "24", ParentId="20", Href = "/estabelecimentos", IconName = IconName.Shop, Text = "Lista"},
-
-        //         new NavItem { Id = "28", ParentId="20", Href = "/equipamentomedicogeral", IconName = IconName.Tools, Text = "Equipamento médico e geral" },
-        //         new NavItem { Id = "29", ParentId="20", Href = "/colaboradores", IconName = IconName.Book, Text = "Colaboradores" },
-        //         new NavItem { Id = "30" ,Href = "/clinicaboaspraticas", IconName = IconName.ShopWindow, Text = "Clínica e Boas Práticas" },
-        //         new NavItem { Id = "37", ParentId="30", Href = "/dossierqualidade", IconName = IconName.ShopWindow, Text = "Dossier de Qualidade" },
-        //         new NavItem { Id = "38", ParentId="30", Href = "/medicamentos", IconName = IconName.ShopWindow, Text = "Medicamentos" },
-        //         new NavItem { Id = "39", ParentId="30", Href = "/residuoshospitalares", IconName = IconName.ShopWindow, Text = "Resíduos hospitalares" },
-        //         new NavItem { Id = "40", Href = "/protecaoradiologica", IconName = IconName.ShopWindow, Text = "Proteção Radiológica" },
-        //         new NavItem { Id = "41", ParentId="40", Href = "/protecaoradiologicageral", IconName = IconName.ShopWindow, Text = "Visão Geral" },
-        //         new NavItem { Id = "42", ParentId="40", Href = "/caracteristicasinstalacao", IconName = IconName.ShopWindow, Text = "Características da Instalação" },
-        //         new NavItem { Id = "43", ParentId="40", Href = "/equipamentosrx", IconName = IconName.ShopWindow, Text = "Equipamentos RX" },
-        //         new NavItem { Id = "44", ParentId="40", Href = "/manutencaorx", IconName = IconName.ShopWindow, Text = "Manutenção RX" },
-        //         new NavItem { Id = "45", ParentId="40", Href = "/legalizacao", IconName = IconName.ShopWindow, Text = "Legalização - Testes e Processo" },
-        //         new NavItem { Id = "46", ParentId="40", Href = "/controloqualidade", IconName = IconName.ShopWindow, Text = "Controlo de Qualidade" },
-        //         new NavItem { Id = "47", ParentId="40", Href = "/trabalhadoresexpostos", IconName = IconName.ShopWindow, Text = "Trabalhadores Expostos" },
-        //         new NavItem { Id = "48", ParentId="40", Href = "/certificados", IconName = IconName.ShopWindow, Text = "Certificados" },
-        //         new NavItem { Id = "49", ParentId="40", Href = "/procedimentosemergencia", IconName = IconName.ShopWindow, Text = "Procedimentos de Emergência" },
-        //         new NavItem { Id = "50", ParentId="40", Href = "/dossiergarantiaqualidade", IconName = IconName.ShopWindow, Text = "Dossier de Garantia de qualidade" },
-        //         new NavItem { Id = "60", Href = "/auditoriaanual", IconName = IconName.ShopWindow, Text = "Auditoria anual" },
-        //         new NavItem { Id = "70", Href = "/faturacao", IconName = IconName.ShopWindow, Text = "Faturação" },
-        //         new NavItem { Id = "80", Href = "/mensagens", IconName = IconName.ShopWindow, Text = "Centro de mensagens" }
-
-        //         // new NavItem { Id = "400" , IconName = IconName.Gear, Text = "Back-Office" },
-        //         // new NavItem { Id = "500" ,Href = "/tipologias", IconName = IconName.ShopWindow, Text = "Tipologias", ParentId = "40" },
-        //         // new NavItem { Href = "/Logout", IconName = IconName.Person, Text = "Sair" }
-        //     };
-        // }
-
-        // if(SelectedEstabelecimento is not null && navItems is not null){
-        //     navItems.Add(
-        //         new NavItem { 
-        //         Id = "26", ParentId = "20", Href = $"/dossierlicenciamento/{SelectedEstabelecimento.Id}", IconName = IconName.FolderCheck, Text = "Dossier Licenciamento" }
-        //     );
-        //     navItems.Add(
-        //         new NavItem { 
-        //             Id = "25", ParentId = "20", Href = "/recursoshumanos", IconName = IconName.People, Text = "Recursos Humanos" }
-        //     );
-        //     navItems.Add(
-        //         new NavItem { 
-        //             Id = "27", ParentId = "20", Href = "/documentosafixar", IconName = IconName.Files, Text = "Documentos a Afixar" }
-        //     );
-        // }
-
-        // return navItems;
-    // }
-}

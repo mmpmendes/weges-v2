@@ -1,6 +1,6 @@
 ﻿using ApiModel.Models;
 
-using ApiService.Data;
+using ApiService.Contracts.Repositories;
 
 using AutoMapper;
 
@@ -13,11 +13,13 @@ namespace ApiService.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class DirecaoClinicaController(
-        ISimpleRepository<DirecaoClinica> direcaoRepo
+        ISimpleRepository<DirecaoClinica> direcaoRepo,
+        ITipologiaRepository tipologiaRepo
         , IMapper mapper
         ) : ControllerBase
 {
     private readonly ISimpleRepository<DirecaoClinica> _direcaoRepo = direcaoRepo;
+    private readonly ITipologiaRepository _tipologiaRepo = tipologiaRepo;
     private readonly IMapper _mapper = mapper;
 
     /// <summary>
@@ -55,8 +57,19 @@ public class DirecaoClinicaController(
         if (direcaoClinicaModel == null) return Results.BadRequest("Direção clínica inválida.");
         try
         {
-            await _direcaoRepo.Create(_mapper.Map<DirecaoClinica>(direcaoClinicaModel));
-            return Results.Created();
+            if (!string.IsNullOrEmpty(direcaoClinicaModel.TipologiaNome))
+            {
+                var tipologia = await _tipologiaRepo.GetByNome(direcaoClinicaModel.TipologiaNome);
+                var newDir = _mapper.Map<DirecaoClinica>(direcaoClinicaModel);
+                newDir.Tipologia = tipologia;
+                await _direcaoRepo.Create(newDir);
+                return Results.Created();
+            }
+            else
+            {
+                await _direcaoRepo.Create(_mapper.Map<DirecaoClinica>(direcaoClinicaModel));
+                return Results.Created();
+            }
         }
         catch (Exception ex)
         {

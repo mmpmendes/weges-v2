@@ -1,17 +1,17 @@
 ﻿@page "/Account/ConfirmEmailChange"
 
 @using System.Text
+@using ApiModel.Models
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
-@using ApiModel.Models
 
 @inject UserManager<WegesUser> UserManager
 @inject SignInManager<WegesUser> SignInManager
 @inject IdentityRedirectManager RedirectManager
 
-<PageTitle>Confirmar alteração de email</PageTitle>
+<PageTitle>Confirm email change</PageTitle>
 
-<h1>Confirmar alteração de email</h1>
+<h1>Confirm email change</h1>
 
 <StatusMessage Message="@message" />
 

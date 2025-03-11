@@ -8,7 +8,7 @@ var postgres = builder.AddPostgres("pgserver")
 
 var db = postgres.AddDatabase("weges");
 
-var apiService = builder.AddProject<Projects.ApiService>("apiservice")
+var apiService = builder.AddProject<Projects.WebApi>("apiservice")
                     .WithReference(db)
                     .WaitFor(postgres)
                     .WaitFor(db)

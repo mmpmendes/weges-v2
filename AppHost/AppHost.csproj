@@ -9,7 +9,7 @@
     <UserSecretsId>e9dd4888-65c9-4786-a44a-29e8691e9018</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ApiService\ApiService.csproj" />
+    <ProjectReference Include="..\ApiService\WebApi.csproj" />
     <ProjectReference Include="..\BaseDbMigrations\BaseDbMigrations.csproj" />
     <ProjectReference Include="..\IdentityMigrations\IdentityMigrations.csproj" />
     <ProjectReference Include="..\Identity\WebApp.csproj" />

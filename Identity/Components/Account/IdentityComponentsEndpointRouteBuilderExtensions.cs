@@ -13,7 +13,7 @@ using System.Text.Json;
 using WebApp.Components.Account.Pages;
 using WebApp.Components.Account.Pages.Manage;
 
-namespace Microsoft.AspNetCore.Routing;
+namespace WebApp.Components.Account;
 
 internal static class IdentityComponentsEndpointRouteBuilderExtensions
 {
@@ -46,13 +46,9 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
         accountGroup.MapPost("/Logout", async (
             ClaimsPrincipal user,
             [FromServices] SignInManager<WegesUser> signInManager,
-            [FromForm] string? returnUrl) =>
+            [FromForm] string returnUrl) =>
         {
             await signInManager.SignOutAsync();
-            if (string.IsNullOrEmpty(returnUrl))
-            {
-                return TypedResults.LocalRedirect("~/");
-            }
             return TypedResults.LocalRedirect($"~/{returnUrl}");
         });
 

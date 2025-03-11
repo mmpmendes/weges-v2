@@ -34,23 +34,6 @@ internal sealed class IdentityRedirectManager(NavigationManager navigationManage
     }
 
     [DoesNotReturn]
-    public void RedirectToWithForceLoad(string? uri, bool forceLoad)
-    {
-        uri ??= "";
-
-        // Prevent open redirects.
-        if (!Uri.IsWellFormedUriString(uri, UriKind.Relative))
-        {
-            uri = navigationManager.ToBaseRelativePath(uri);
-        }
-
-        // During static rendering, NavigateTo throws a NavigationException which is handled by the framework as a redirect.
-        // So as long as this is called from a statically rendered Identity component, the InvalidOperationException is never thrown.
-        navigationManager.NavigateTo(uri, forceLoad);
-        throw new InvalidOperationException($"{nameof(IdentityRedirectManager)} can only be used during static rendering.");
-    }
-
-    [DoesNotReturn]
     public void RedirectTo(string uri, Dictionary<string, object?> queryParameters)
     {
         var uriWithoutQuery = navigationManager.ToAbsoluteUri(uri).GetLeftPart(UriPartial.Path);

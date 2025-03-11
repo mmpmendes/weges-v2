@@ -1,3 +1,4 @@
+
 using ApiModel;
 using ApiModel.Models;
 
@@ -21,39 +22,33 @@ builder.AddRedisOutputCache("cache");
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-//builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
-builder.Services.AddAuthorization();
 
+var connectionString = builder.Configuration.GetConnectionString("weges") ?? throw new InvalidOperationException("Connection string 'weges' not found.");
+builder.Services.AddDbContext<UtilizadoresDbContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+builder.Services.AddScoped<SignInManager<WegesUser>>();
+builder.Services.AddScoped<UserManager<WegesUser>>();
 
 builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultScheme = IdentityConstants.ApplicationScheme;
-        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-    })
-    .AddGoogle(authenticationScheme: "Google", displayName: "Google", options =>
-    {
-        options.ClientId = builder.Configuration["Google:ClientId"];
-        options.ClientSecret = builder.Configuration["Google:ClientSecret"];
-    })
-    .AddIdentityCookies();
-
-var connectionString = builder.Configuration.GetConnectionString("weges") ?? throw new InvalidOperationException("Connection string 'weges' not found.");
-builder.Services.AddDbContext<UtilizadoresDbContext>(options =>
-    options.UseNpgsql(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+{
+    options.DefaultScheme = IdentityConstants.ApplicationScheme;
+    options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+})
+.AddIdentityCookies();
 
 builder.Services.AddIdentityCore<WegesUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<UtilizadoresDbContext>()
-    .AddSignInManager()
+    .AddSignInManager<SignInManager<WegesUser>>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<WegesUser>, IdentityNoOpEmailSender>();
-
+builder.Services.AddAuthorizationCore();
 builder.Services.AddMudServices();
 builder.Services.AddMudTranslations();
 
@@ -87,10 +82,9 @@ builder.Services.AddHttpClient<FicheiroApiService>(client =>
 });
 builder.Services.AddSingleton<EstabelecimentoService>();
 
-builder.Services.AddAntiforgery();
 var app = builder.Build();
 
-app.MapDefaultEndpoints();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -106,19 +100,17 @@ else
 
 app.UseHttpsRedirection();
 
-
-
-app.UseOutputCache();
-
+app.UseAntiforgery();
 
 app.UseAuthentication();
-app.UseAuthorization();
-app.UseAntiforgery();
+
 
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
+
+app.MapDefaultEndpoints();
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
 

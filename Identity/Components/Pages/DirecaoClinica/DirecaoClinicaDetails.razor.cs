@@ -45,8 +45,6 @@ public partial class DirecaoClinicaDetails
         }
     }
 
-
-
     private async Task SaveDirecaoClinica(MouseEventArgs e)
     {
         if (DirecaoClinica is not null)
@@ -78,22 +76,27 @@ public partial class DirecaoClinicaDetails
         NavigationManager.NavigateTo($"/estabelecimentos/{EstabelecimentoId}?return=dircli");
     }
 
-    //private async Task<AutoCompleteDataProviderResult<TipologiaDTO>> TipologiasDataProvider(AutoCompleteDataProviderRequest<TipologiaDTO> request)
-    //{
-    //    if (Tipologias is null)
-    //    {
-    //        Tipologias = await TipologiaApiService.GetTipologiasAsync();
-    //    }
-
-    //    if (Tipologias is not null)
-    //    {
-    //        return await Task.FromResult(request.ApplyTo(Tipologias.OrderBy(tipologia => tipologia.Nome)));
-    //    }
-    //    return new AutoCompleteDataProviderResult<TipologiaDTO>();
-    //}
-
-    private void OnAutoCompleteChanged(TipologiaDto tipologia)
+    private async Task<IEnumerable<string?>> Search(string value, CancellationToken token)
     {
-        Console.WriteLine($"'{tipologia?.Nome}' selected.");
+        await Task.Delay(5);
+
+        if (Tipologias is not null && Tipologias.Any())
+        {
+            var results = string.IsNullOrEmpty(value)
+                ? Tipologias.Select(x => x.Nome).ToList()
+                : Tipologias.Where(x => x.Nome.Contains(value, StringComparison.InvariantCultureIgnoreCase))
+                            .Select(x => x.Nome)
+                            .ToList();
+
+            // If there are no matches and value is not null or empty, add it to the results
+            if (!results.Any() && !string.IsNullOrEmpty(value))
+            {
+                results.Add(value);
+            }
+
+            return results;
+        }
+
+        return new List<string> { value };
     }
 }
