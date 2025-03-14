@@ -1,5 +1,4 @@
 ﻿@page "/Account/Register"
-
 @using System.ComponentModel.DataAnnotations
 @using System.Text
 @using System.Text.Encodings.Web
@@ -20,34 +19,46 @@
 <MudText Typo="Typo.h5">Registo</MudText>
 
 <MudGrid>
-    <MudItem xs="6">
+    <MudItem xs="8">
         <StatusMessage Message="@Message" />
         <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
-            <MudText Typo="Typo.h6">Criar nova conta.</MudText>
-            <MudSpacer />
+            <h2>Create a new account.</h2>
+            <hr /> 
             <ValidationSummary class="text-danger" role="alert" />
-            <MudItem xs="6">
-                <MudTextField @bind-Value="Input.Email" Label="Email" />
-                <ValidationMessage For="() => Input.Email" class="text-danger" />
-            </MudItem>
-            <MudItem xs="6">
-                <MudTextField InputType="InputType.Password" @bind-Value="Input.Password" Label="Palavra passe" />
-                <ValidationMessage For="() => Input.Password" class="text-danger" />
-            </MudItem>
-            <MudItem xs="6">
-                <MudTextField InputType="InputType.Password" @bind-Value="Input.ConfirmPassword"  Label="Confirmar palavra passe"/>
-                <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
-            </MudItem>
-            <MudItem Class="py-3">
-                <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary" Variant="Variant.Filled">Registar</MudButton>
-            </MudItem>
+            <MudGrid>
+                <MudItem xs="12">
+                    <div class="mud-input-control-input-container">
+                        <div class="mud-input mud-input-text mud-input-text-with-label mud-input-underline mud-ltr mud-typography-subtitle1">
+                            <InputText @bind-Value="Input.Email" id="Input.Email" class="mud-input-slot mud-input-root mud-input-root-text" aria-required="true" placeholder="Email" />
+                            <ValidationMessage For="() => Input.Email" class="text-danger" />
+                        </div>
+                    </div>
+                </MudItem>
+                <MudItem xs="12">
+                    <div class="mud-input-control-input-container">
+                        <div class="mud-input mud-input-text mud-input-text-with-label mud-input-underline mud-ltr mud-typography-subtitle1">
+                            <InputText type="password"  autocomplete="new-password" @bind-Value="Input.Password" id="Input.Password" class="mud-input-slot mud-input-root mud-input-root-text" aria-required="true" placeholder="palavra passe" />
+                            <ValidationMessage For="() => Input.Password" class="text-danger" />
+                        </div>
+                    </div>
+                </MudItem>
+                <MudItem xs="12">
+                    <div class="mud-input-control-input-container">
+                        <div class="mud-input mud-input-text mud-input-text-with-label mud-input-underline mud-ltr mud-typography-subtitle1">
+                            <InputText type="password" @bind-Value="Input.ConfirmPassword" id="Input.ConfirmPassword" class="mud-input-slot mud-input-root mud-input-root-text" autocomplete="new-password" aria-required="true" placeholder="password" />
+                            <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
+                        </div>
+                    </div>
+                </MudItem>
+            </MudGrid>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </EditForm>
     </MudItem>
-    <MudItem xs="6">
-            <MudText Typo="Typo.h5">Use uma conta externa para se registar.</MudText>
-            <MudSpacer />
-            <ExternalLoginPicker />
+    <MudItem xs="4">
+        <MudText Typo="Typo.h5">Use uma conta externa para se registar.</MudText>
+        <MudSpacer />
+        <ExternalLoginPicker />
     </MudItem>
 </MudGrid>
 
