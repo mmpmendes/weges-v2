@@ -1,7 +1,6 @@
 ﻿using ApiModel.Models;
 using ApiService.Contracts.Repositories;
 using AutoMapper;
-
 using Microsoft.AspNetCore.Mvc;
 
 using SharedKernel.DTO;
