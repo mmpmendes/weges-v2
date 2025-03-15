@@ -54,10 +54,10 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           
     - name: Build the Docker image
-      run: docker build -t weges-api:$VERSION . -f ApiService/Dockerfile 
+      run: docker build -t ghcr.io/mmpmendes/weges-api:$VERSION . -f ApiService/Dockerfile 
 
     - name: Push Docker Image to Docker Hub
-      run: docker push mmpmendes/weges-api:$VERSION
+      run: docker push ghcr.io/mmpmendes//weges-api:$VERSION
       
     - name: Remove Existing Container (if running)
       run: |
