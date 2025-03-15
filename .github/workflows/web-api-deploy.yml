@@ -56,10 +56,13 @@ jobs:
     - name: Build the Docker image
       run: docker build -t weges-api:$VERSION . -f ApiService/Dockerfile 
 
+    - name: Push Docker Image to Docker Hub
+      run: docker push mmpmendes/weges-api:$VERSION
+      
     - name: Remove Existing Container (if running)
       run: |
-          docker stop webapi-container || true
-          docker rm webapi-container || true
+          docker stop weges-api-service || true
+          docker rm weges-api-service || true
           
     - name: Run Docker Container
       run: |
