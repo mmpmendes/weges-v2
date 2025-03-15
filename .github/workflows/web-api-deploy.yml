@@ -21,13 +21,40 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Define Image Tags
+    - name: Set up Node.js (for versioning tool)
+      uses: actions/setup-node@v4
+
+    - name: Install Standard Version
+      run: npm install -g standard-version
+      
+    - name: Determine New Version
+      id: versioning
       run: |
-        echo "IMAGE_VERSION=${{ github.sha }}" >> $GITHUB_ENV
-        echo "IMAGE_LATEST=${{ github.ref_name }}" >> $GITHUB_ENV
-    
+        git config --global user.email "github-actions@github.com"
+        git config --global user.name "GitHub Actions"
+
+        # Run standard-version to generate the next version
+        standard-version --dry-run | tee version-output.txt
+
+        # Extract the version number
+        VERSION=$(grep -oE "v[0-9]+\.[0-9]+\.[0-9]+" version-output.txt | head -1)
+
+        if [ -z "$VERSION" ]; then
+          VERSION="v1.0.0"
+        fi
+
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "New version: $VERSION"
+        
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
     - name: Build the Docker image
-      run: docker build . --file Identity/Dockerfile --tag weges-api:$(date +%s)
+      run: docker build -t weges-api:$VERSION . -f Identity/Dockerfile 
 
     - name: Remove Existing Container (if running)
       run: |
@@ -43,7 +70,7 @@ jobs:
         -l "traefik.http.routers.webapi.rule=Host(`marciomendes.ddns.net`)" \
         -l "traefik.http.services.webapi.loadbalancer.server.port=8082" \
         -l "traefik.http.routers.wegesapi.tls.certresolver=letsencrypt" \
-        -l "traefik.http.routers.wegesapi.tls=true" weges-api:$IMAGE_VERSION
+        -l "traefik.http.routers.wegesapi.tls=true" weges-api:$VERSION
     
     - name: Verify Running Containers
       run: docker ps -a
