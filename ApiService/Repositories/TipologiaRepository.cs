@@ -1,6 +1,5 @@
 ﻿using ApiModel;
 using ApiModel.Models;
-
 using ApiService.Contracts.Repositories;
 
 using Microsoft.EntityFrameworkCore;
