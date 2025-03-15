@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-Identity-f62fc657-cfb1-41be-beb1-23bb5ab826b6</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +17,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="MudBlazor" Version="8.3.0" />
     <PackageReference Include="MudBlazor.FontIcons.MaterialIcons" Version="1.2.0" />
     <PackageReference Include="MudBlazor.FontIcons.MaterialSymbols" Version="1.2.0" />

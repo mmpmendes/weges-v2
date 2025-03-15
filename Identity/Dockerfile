@@ -12,23 +12,23 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["ApiService/WebApi.csproj", "ApiService/"]
-COPY ["FileManagement/FileManagement.csproj", "FileManagement/"]
-COPY ["SharedKernel/SharedKernel.csproj", "SharedKernel/"]
+COPY ["Identity/WebApp.csproj", "Identity/"]
 COPY ["ApiModel/ApiModel.csproj", "ApiModel/"]
 COPY ["ServiceDefaults/ServiceDefaults.csproj", "ServiceDefaults/"]
-RUN dotnet restore "./ApiService/WebApi.csproj"
+COPY ["Services/Services.csproj", "Services/"]
+COPY ["SharedKernel/SharedKernel.csproj", "SharedKernel/"]
+RUN dotnet restore "./Identity/WebApp.csproj"
 COPY . .
-WORKDIR "/src/ApiService"
-RUN dotnet build "./WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/build
+WORKDIR "/src/Identity"
+RUN dotnet build "./WebApp.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./WebApi.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./WebApp.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "WebApi.dll"]
+ENTRYPOINT ["dotnet", "WebApp.dll"]
