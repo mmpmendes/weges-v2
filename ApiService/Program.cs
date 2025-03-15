@@ -29,7 +29,6 @@ builder.Services.AddCors(options =>
         });
 });
 
-
 builder.Services.AddDbContextPool<WegesDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("weges")));
