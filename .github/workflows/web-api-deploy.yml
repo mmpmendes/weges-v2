@@ -57,7 +57,7 @@ jobs:
       run: docker build -t ghcr.io/mmpmendes/weges-api:$VERSION . -f ApiService/Dockerfile 
 
     - name: Push Docker Image to Docker Hub
-      run: docker push ghcr.io/mmpmendes//weges-api:$VERSION
+      run: docker push ghcr.io/mmpmendes/weges-api:$VERSION
       
     - name: Remove Existing Container (if running)
       run: |
