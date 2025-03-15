@@ -85,7 +85,6 @@ builder.Services.AddSingleton<EstabelecimentoService>();
 var app = builder.Build();
 
 
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
