@@ -3,10 +3,10 @@ name: weges-api-image
 on:
   push:
     branches: [ "main" ]
-    paths: [ "Identity/**" ]
+    paths: [ "ApiService/**" ]
   pull_request:
     branches: [ "main" ]
-    paths: [ "Identity/**" ]
+    paths: [ "ApiService/**" ]
 
 jobs:
 
@@ -54,7 +54,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           
     - name: Build the Docker image
-      run: docker build -t weges-api:$VERSION . -f Identity/Dockerfile 
+      run: docker build -t weges-api:$VERSION . -f ApiService/Dockerfile 
 
     - name: Remove Existing Container (if running)
       run: |
