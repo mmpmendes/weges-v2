@@ -1,0 +1,49 @@
+name: weges-api-image
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "Identity/**" ]
+  pull_request:
+    branches: [ "main" ]
+    paths: [ "Identity/**" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Define Image Tags
+      run: |
+        echo "IMAGE_VERSION=${{ github.sha }}" >> $GITHUB_ENV
+        echo "IMAGE_LATEST=${{ github.ref_name }}" >> $GITHUB_ENV
+    
+    - name: Build the Docker image
+      run: docker build . --file Identity/Dockerfile --tag weges-api:$(date +%s)
+
+    - name: Remove Existing Container (if running)
+      run: |
+          docker stop webapi-container || true
+          docker rm webapi-container || true
+          
+    - name: Run Docker Container
+      run: |
+        docker run -d --name weges-api-service --network traefik-net |
+        --restart unless-stopped |
+        -l "traefik.enable=true" |
+        -l "traefik.http.routers.wegesapi.middlewares=corsheader@file" |
+        -l "traefik.http.routers.webapi.rule=Host(`marciomendes.ddns.net`)" |
+        -l "traefik.http.services.webapi.loadbalancer.server.port=8082" |
+        -l "traefik.http.routers.wegesapi.tls.certresolver=letsencrypt" |
+        -l "traefik.http.routers.wegesapi.tls=true" weges-api:$IMAGE_VERSION
+    
+    - name: Verify Running Containers
+      run: docker ps -a
