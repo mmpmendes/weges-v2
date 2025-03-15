@@ -61,13 +61,7 @@ builder.Services.AddScoped<ITipologiaRepository, TipologiaRepository>();
 builder.Services.AddScoped<ISimpleRepository<Colaborador>, SimpleRepository<Colaborador>>();
 builder.Services.AddScoped<IFileService, FileService>();
 
-
 builder.Services.AddAuthorization();
-//builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
-//                .AddCookie(IdentityConstants.ApplicationScheme)
-//                .AddBearerToken(IdentityConstants.BearerScheme);
-
-
 
 builder.Services.AddProblemDetails();
 
