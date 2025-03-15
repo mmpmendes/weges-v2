@@ -9,7 +9,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-     - 'Web/**'
+     - 'Identity/**'
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
 
