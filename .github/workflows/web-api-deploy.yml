@@ -33,16 +33,15 @@ jobs:
       run: npm install -g standard-version
       
     - name: Determine New Version
-      id: versioning
       run: |
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
 
         # Run standard-version to generate the next version
-        standard-version --dry-run | tee version-output.txt
+        standard-version --no-verify --commit-all
 
-        # Extract the version number
-        VERSION=$(grep -oE "v[0-9]+\.[0-9]+\.[0-9]+" version-output.txt | head -1)
+        # Extract the new version from package.json or CHANGELOG.md
+        VERSION=$(git describe --tags --abbrev=0)
 
         if [ -z "$VERSION" ]; then
           VERSION="v1.0.0"
@@ -50,6 +49,9 @@ jobs:
 
         echo "VERSION=$VERSION" >> $GITHUB_ENV
         echo "New version: $VERSION"
+
+        # Push changes (version bump and tags)
+        git push --follow-tags origin main
         
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
