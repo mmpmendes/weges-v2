@@ -1,0 +1,101 @@
+name: weges-api-image
+
+on:
+  push:
+    branches: [ "main" ]
+    paths: [ "ApiService/**" ]
+  pull_request:
+    branches: [ "main" ]
+    paths: [ "ApiService/**" ]
+
+jobs:
+
+  build:
+    
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      actions: read
+    env:
+      VERSION: v1.0.0  # Define the VERSION here or dynamically in a step
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Set up Node.js (for versioning tool)
+      uses: actions/setup-node@v4
+
+    - name: Install Standard Version
+      run: npm install -g standard-version
+      
+    - name: Determine New Version
+      id: versioning
+      run: |
+        git config --global user.email "github-actions@github.com"
+        git config --global user.name "GitHub Actions"
+        # Run standard-version to generate the next version
+        standard-version --dry-run | tee version-output.txt
+        # Extract the version number
+        VERSION=$(grep -oE "v[0-9]+\.[0-9]+\.[0-9]+" version-output.txt | head -1)
+        if [ -z "$VERSION" ]; then
+          VERSION="v1.0.0"
+        fi
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "New version: $VERSION"
+        
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
+    - name: Build the Docker image
+      run: docker build -t ghcr.io/mmpmendes/weges-v2/weges-api:$VERSION -f ApiService/Dockerfile . 
+
+    - name: Tag the Docker image
+      run: docker tag ghcr.io/mmpmendes/weges-v2/weges-api:$VERSION ghcr.io/mmpmendes/weges-v2/weges-api:latest
+
+      
+    - name: Push Docker Image to Github
+      run: |
+        docker push ghcr.io/mmpmendes/weges-v2/weges-api:$VERSION
+        docker push ghcr.io/mmpmendes/weges-v2/weges-api:latest
+      
+    - name: Deploy to Private Server via SSH
+      uses: appleboy/ssh-action@master
+      with:
+        host: "${{ secrets.SERVER_IP }}"
+        username: "${{ secrets.SERVER_USER }}"
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          echo "Pulling latest Docker image..."
+          docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+          docker pull ghcr.io/mmpmendes/weges-v2/weges-api:$VERSION
+          docker stop weges-api-service || true
+          docker rm weges-api-service || true
+          
+          echo "Starting new container..."
+          docker run -d --name weges-api-service --restart unless-stopped \
+            -l "traefik.enable=true" \
+            -l "traefik.http.routers.wegesapi.middlewares=corsheader@file" \
+            -l "traefik.http.routers.webapi.rule=Host(`marciomendes.ddns.net`)" \
+            -l "traefik.http.services.webapi.loadbalancer.server.port=8082" \
+            -l "traefik.http.routers.wegesapi.tls.certresolver=letsencrypt" \
+            -l "traefik.http.routers.wegesapi.tls=true" \
+            ghcr.io/mmpmendes/weges-v2/weges-api:$VERSION
+          echo "Deployment completed!"
+    #     run: |
+    #       docker stop weges-api-service || true
+    #       docker rm weges-api-service || true
+          
+    # - name: Run Docker Container
+    #   run: |
+    #     docker run -d --name weges-api-service --restart unless-stopped -l "traefik.enable=true" -l "traefik.http.routers.wegesapi.middlewares=corsheader@file" -l "traefik.http.routers.webapi.rule=Host(`marciomendes.ddns.net`)" -l "traefik.http.services.webapi.loadbalancer.server.port=8082" -l "traefik.http.routers.wegesapi.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesapi.tls=true" ghcr.io/mmpmendes/weges-v2/weges-api:$VERSION
+    
+    # - name: Verify Running Containers
+    #   run: docker ps -a
