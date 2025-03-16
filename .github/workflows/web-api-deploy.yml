@@ -12,7 +12,7 @@ jobs:
 
   build:
     
-    runs-on: ubuntu-latest
+    runs-on: home-runner
     permissions:
       contents: read
       packages: write
