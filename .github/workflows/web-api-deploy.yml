@@ -71,5 +71,7 @@ jobs:
         docker push ghcr.io/mmpmendes/weges-v2/weges-api:latest
       
     - name: Deploy WebApi
+      env: # Or as an environment variable
+        api_address: ${{ secrets.API_ADDRESS }}
       run: |
-        docker run -d --name weges-api-service --restart unless-stopped --network traefik-net -l "traefik.enable=true" -l "traefik.http.routers.wegesapi.middlewares=corsheader@file" -l "traefik.http.routers.webapi.rule=Host(`marciomendes.ddns.net`)" -l "traefik.http.services.webapi.loadbalancer.server.port=8082" -l "traefik.http.routers.wegesapi.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesapi.tls=true" ghcr.io/mmpmendes/weges-v2/weges-api:latest   
+        docker run -d --name weges-api-service --restart unless-stopped --network traefik-net -l "traefik.enable=true" -l "traefik.http.routers.wegesapi.middlewares=corsheader@file" -l "traefik.http.routers.webapi.rule=Host('$api_address')" -l "traefik.http.services.webapi.loadbalancer.server.port=8082" -l "traefik.http.routers.wegesapi.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesapi.tls=true" ghcr.io/mmpmendes/weges-v2/weges-api:latest   
