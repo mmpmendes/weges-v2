@@ -1,4 +1,3 @@
-
 using ApiModel;
 using ApiModel.Models;
 
@@ -10,7 +9,6 @@ using MudBlazor.Services;
 using MudBlazor.Translations;
 
 using Services;
-
 using WebApp.Components;
 using WebApp.Components.Account;
 using WebApp.InMemory;
@@ -83,7 +81,6 @@ builder.Services.AddHttpClient<FicheiroApiService>(client =>
 builder.Services.AddSingleton<EstabelecimentoService>();
 
 var app = builder.Build();
-
 
 
 // Configure the HTTP request pipeline.

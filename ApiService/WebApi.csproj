@@ -23,14 +23,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.2" />
   </ItemGroup>
   
-
   <ItemGroup>
     <ProjectReference Include="..\FileManagement\FileManagement.csproj" />
     <ProjectReference Include="..\SharedKernel\SharedKernel.csproj" />
     <ProjectReference Include="..\ApiModel\ApiModel.csproj" />
     <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
-  </ItemGroup>
-  
+  </ItemGroup>  
 
   <ItemGroup>
     <Folder Include="Contracts\Services\" />

@@ -1,6 +1,5 @@
 using ApiModel;
 using ApiModel.Models;
-
 using ApiService.Contracts.Repositories;
 using ApiService.Repositories;
 using ApiService.Services;
@@ -28,7 +27,6 @@ builder.Services.AddCors(options =>
             policy.AllowAnyHeader();
         });
 });
-
 
 builder.Services.AddDbContextPool<WegesDbContext>(options =>
     options.UseNpgsql(
@@ -62,13 +60,7 @@ builder.Services.AddScoped<ITipologiaRepository, TipologiaRepository>();
 builder.Services.AddScoped<ISimpleRepository<Colaborador>, SimpleRepository<Colaborador>>();
 builder.Services.AddScoped<IFileService, FileService>();
 
-
 builder.Services.AddAuthorization();
-//builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
-//                .AddCookie(IdentityConstants.ApplicationScheme)
-//                .AddBearerToken(IdentityConstants.BearerScheme);
-
-
 
 builder.Services.AddProblemDetails();
 
@@ -80,7 +72,6 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "weges.api", Version = "v1" });
 });
-
 
 var app = builder.Build();
 

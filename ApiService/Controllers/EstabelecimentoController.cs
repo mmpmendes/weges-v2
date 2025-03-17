@@ -170,7 +170,6 @@ public class EstabelecimentoController(
     }
 
     ///FICHEIROS
-
     /// <summary>
     /// Retorna o certificado do estabelecimento com o <param name="id"></param>
     /// </summary>

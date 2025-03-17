@@ -11,7 +11,6 @@ public class WegesProfile : Profile
     {
         //CODCAES
         CreateMap<CodCae, CodCaeDTO>().ReverseMap();
-        //ENTIDADE
         CreateMap<Entidade, EntidadeDTO>().ReverseMap();
 
         CreateMap<Estabelecimento, EstabelecimentoDTO>().ReverseMap();
