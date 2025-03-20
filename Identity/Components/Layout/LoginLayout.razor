@@ -1,0 +1,41 @@
+﻿@inherits LayoutComponentBase
+
+
+@using Microsoft.AspNetCore.Components.Authorization
+
+<MudLayout Class="login-layout">
+    <MudMainContent>
+        <MudThemeProvider Theme="_theme" />
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="px-5 py-5 centered-container">
+            <MudGrid Class="top-row">
+                <MudItem xs="4"></MudItem>
+                <MudItem xs="4" Class="login-form">@Body</MudItem>
+                <MudItem xs="4"></MudItem>
+            </MudGrid>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+
+    //TODO: CORRIGIR ISTO
+    MudTheme _theme = new MudTheme()
+        {
+            PaletteLight = new PaletteLight()
+            {
+                Primary = "#C6893F",
+                Secondary = "#C6893F",
+                AppbarBackground = Colors.Red.Default,
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = Colors.Blue.Lighten1
+            },
+
+            LayoutProperties = new LayoutProperties()
+            {
+                DrawerWidthLeft = "260px",
+                DrawerWidthRight = "300px"
+            }
+        };
+}

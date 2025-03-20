@@ -9,6 +9,7 @@ using MudBlazor.Services;
 using MudBlazor.Translations;
 
 using Services;
+
 using WebApp.Components;
 using WebApp.Components.Account;
 using WebApp.InMemory;
@@ -38,6 +39,11 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = IdentityConstants.ApplicationScheme;
     options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
 })
+.AddGoogle(authenticationScheme: "Google", displayName: "Google", options =>
+{
+    options.ClientId = builder.Configuration["Google:ClientId"];
+    options.ClientSecret = builder.Configuration["Google:ClientSecret"];
+})
 .AddIdentityCookies();
 
 builder.Services.AddIdentityCore<WegesUser>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -45,10 +51,13 @@ builder.Services.AddIdentityCore<WegesUser>(options => options.SignIn.RequireCon
     .AddSignInManager<SignInManager<WegesUser>>()
     .AddDefaultTokenProviders();
 
+
 builder.Services.AddSingleton<IEmailSender<WegesUser>, IdentityNoOpEmailSender>();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddMudServices();
 builder.Services.AddMudTranslations();
+
+
 
 builder.Services.AddHttpClient<EntidadeApiService>(client =>
 {

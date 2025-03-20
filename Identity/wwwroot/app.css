@@ -151,3 +151,21 @@ h1:focus {
 .mud-drawer.mud-drawer-responsive, .mud-drawer.mud-drawer-persistent {
     height: 100vh !important;
 }
+
+.login-layout {
+    background-color: #EFE6DA;
+    height: 100vh;
+}
+
+.login-form {
+    background-color: white;
+    border-radius: 16px;
+    padding: 40px !important;
+}
+
+.centered-container {
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
