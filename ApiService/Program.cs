@@ -14,7 +14,6 @@ using Microsoft.OpenApi.Models;
 using SharedKernel.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
 var AllowSpecificOrigins = "AllowSpecificOrigins";
 
 builder.Services.AddCors(options =>
