@@ -17,11 +17,11 @@ jobs:
       contents: read
       packages: write
       actions: read
-    env:
-      VERSION: v1.0.0  # Define the VERSION here or dynamically in a step
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
+      with:
+          fetch-depth: 0
       
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3

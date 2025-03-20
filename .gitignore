@@ -400,3 +400,4 @@ FodyWeavers.xsd
 **/obj/
 
 /Identity/appsettings.json
+/Identity/appsettings.Development.json
