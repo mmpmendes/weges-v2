@@ -1,5 +1,6 @@
 using ApiModel;
 using ApiModel.Models;
+
 using ApiService.Contracts.Repositories;
 using ApiService.Repositories;
 using ApiService.Services;
@@ -27,7 +28,6 @@ builder.Services.AddCors(options =>
             policy.AllowAnyHeader();
         });
 });
-
 builder.Services.AddDbContextPool<WegesDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("weges")));
