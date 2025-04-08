@@ -1,4 +1,5 @@
 using ApiModel.Models;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -44,10 +45,13 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
 
         accountGroup.MapPost("/Logout", async (
             ClaimsPrincipal user,
-            [FromServices] SignInManager<WegesUser> signInManager,
-            [FromForm] string returnUrl) =>
+            [FromServices] SignInManager<WegesUser> signInManager
+            // TODO: FIX later
+            //,[FromForm] string returnUrl
+            ) =>
         {
             await signInManager.SignOutAsync();
+            var returnUrl = string.Empty;
             return TypedResults.LocalRedirect($"~/{returnUrl}");
         });
 

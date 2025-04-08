@@ -33,7 +33,7 @@
                     </MudItem>
                     <MudItem xs="12">
                         <div class="color-primary mud-input mud-input-text mud-input-text-with-label mud-input-underline mud-ltr mud-typography-subtitle1 mud-grid-item mud-grid-item-xs-12">
-                            <InputText @bind-Value="Input.Password" id="Input.Password" class="color-primary mud-input-slot mud-input-root mud-input-root-text mud-grid-item mud-grid-item-xs-12 full-width" aria-required="true" placeholder="Palavra passe" />
+                            <InputText type="password" @bind-Value="Input.Password" id="Input.Password" class="color-primary mud-input-slot mud-input-root mud-input-root-text mud-grid-item mud-grid-item-xs-12 full-width" aria-required="true" placeholder="Palavra passe" />
                             <ValidationMessage For="() => Input.Password" class="text-danger" />
                         </div>
                     </MudItem>
@@ -64,6 +64,9 @@
 
         </MudGrid>
     </NotAuthorized>
+    <Authorized>
+        <h2>Olá, @context.User.Identity.Name!</h2>
+    </Authorized>
 </AuthorizeView>
 
 @code {
@@ -137,7 +140,7 @@
         [DataType(DataType.Password)]
         public string Password { get; set; } = "";
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Lembrar-me?")]
         public bool RememberMe { get; set; }
     }
 }
