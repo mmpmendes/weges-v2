@@ -6,7 +6,10 @@ var builder = DistributedApplication.CreateBuilder(args);
 var postgres = builder.AddPostgres("pgserver")
                       .WithContainerName("pgserver")
                       .WithLifetime(ContainerLifetime.Persistent)
-                      .WithPgAdmin();
+                      .WithPgAdmin(options =>
+                      {
+                          options.WithImageTag("latest");
+                      });
 
 var db = postgres.AddDatabase("weges");
 
