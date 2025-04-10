@@ -1,6 +1,5 @@
-﻿@page "/"
-@page "/Account/Login"
-
+﻿@page "/Account/Login"
+@page "/"
 @layout Layout.LoginLayout
 
 @using System.ComponentModel.DataAnnotations
@@ -16,54 +15,57 @@
 <PageTitle>Autenticação</PageTitle>
 
 <AuthorizeView>
-    <NotAuthorized Context="NotAuth">
-        <MudGrid>
+<NotAuthorized Context="NotAuth">
+<MudGrid>
+    <MudItem xs="12">
+        <StatusMessage Message="@errorMessage" />
+        <EditForm Model="Input" method="post" OnValidSubmit="@LoginUser" FormName="login">
+            <MudText Typo="Typo.h5" Color="Color.Primary">Autenticação</MudText>
+            <DataAnnotationsValidator />
+            <MudSpacer />
+            <ValidationSummary class="text-danger" role="alert" />
             <MudItem xs="12">
-                <StatusMessage Message="@errorMessage" />
-                <EditForm Model="Input" method="post" OnValidSubmit="@LoginUser" FormName="login">
-                    <MudText Typo="Typo.h5" Color="Color.Primary">Autenticação</MudText>
-                    <DataAnnotationsValidator />
-                    <MudSpacer />
-                    <ValidationSummary class="text-danger" role="alert" />
-                    <MudItem xs="12">
-                        <div class="color-primary mud-input mud-input-text mud-input-text-with-label mud-input-underline mud-ltr mud-typography-subtitle1 mud-grid-item mud-grid-item-xs-12">
-                            <InputText @bind-Value="Input.Email" id="Input.Email" class="color-primary mud-input-slot mud-input-root mud-input-root-text mud-grid-item mud-grid-item-xs-12 full-width" aria-required="true" placeholder="Email" />
-                            <ValidationMessage For="() => Input.Email" class="text-danger" />
-                        </div>
-                    </MudItem>
-                    <MudItem xs="12">
-                        <div class="color-primary mud-input mud-input-text mud-input-text-with-label mud-input-underline mud-ltr mud-typography-subtitle1 mud-grid-item mud-grid-item-xs-12">
-                            <InputText @bind-Value="Input.Password" id="Input.Password" class="color-primary mud-input-slot mud-input-root mud-input-root-text mud-grid-item mud-grid-item-xs-12 full-width" aria-required="true" placeholder="Palavra passe" />
-                            <ValidationMessage For="() => Input.Password" class="text-danger" />
-                        </div>
-                    </MudItem>
-                    <MudItem xs="12">
-                        <MudCheckBox @bind-Value="Input.RememberMe" Label="Lembrar-me" Color="Color.Primary" Class="color-primary" />
-                    </MudItem>
-                    <MudItem xs="12" Class="mt-1">
-                        <button type="submit" class="mud-button-root mud-button mud-button-filled mud-button-filled-primary mud-button-filled-size-medium mud-ripple">Entrar</button>
-                    </MudItem>
-                    <MudItem Class="py-3">
-                        <MudItem xs="12" Class="mt-0">
-                            <MudLink Href="Account/ForgotPassword">Esqueceu a sua palavra passe?</MudLink>
-                        </MudItem>
-                        <MudItem xs="12" Class="mt-0">
-                            <MudLink Href="/Account/Register">Registe uma nova conta</MudLink>
-                        </MudItem>
-                        <MudItem xs="12" Class="mt-0">
-                            <MudLink Href="Account/ResendEmailConfirmation">Reenviar email de confirmação</MudLink>
-                        </MudItem>
-                    </MudItem>
-                </EditForm>
+                <div class="color-primary mud-input mud-input-text mud-input-text-with-label mud-input-underline mud-ltr mud-typography-subtitle1 mud-grid-item mud-grid-item-xs-12">
+                    <InputText @bind-Value="Input.Email" id="Input.Email" class="color-primary mud-input-slot mud-input-root mud-input-root-text mud-grid-item mud-grid-item-xs-12 full-width" aria-required="true" placeholder="Email" />
+                    <ValidationMessage For="() => Input.Email" class="text-danger" />
+                </div>
             </MudItem>
             <MudItem xs="12">
-                <MudText Typo="Typo.h5" Color="Color.Primary">Entre com uma conta externa.</MudText>
-                <MudSpacer />
-                <ExternalLoginPicker />
+                <div class="color-primary mud-input mud-input-text mud-input-text-with-label mud-input-underline mud-ltr mud-typography-subtitle1 mud-grid-item mud-grid-item-xs-12">
+                    <InputText type="password" @bind-Value="Input.Password" id="Input.Password" class="color-primary mud-input-slot mud-input-root mud-input-root-text mud-grid-item mud-grid-item-xs-12 full-width" aria-required="true" placeholder="Palavra passe" />
+                    <ValidationMessage For="() => Input.Password" class="text-danger" />
+                </div>
             </MudItem>
+            <MudItem xs="12">
+                <MudCheckBox @bind-Value="Input.RememberMe" Label="Lembrar-me" Color="Color.Primary" Class="color-primary" />
+            </MudItem>
+            <MudItem xs="12" Class="mt-1">
+                <button type="submit" class="mud-button-root mud-button mud-button-filled mud-button-filled-primary mud-button-filled-size-medium mud-ripple">Entrar</button>
+            </MudItem>
+            <MudItem Class="py-3">
+                <MudItem xs="12" Class="mt-0">
+                    <MudLink Href="Account/ForgotPassword">Esqueceu a sua palavra passe?</MudLink>
+                </MudItem>
+                <MudItem xs="12" Class="mt-0">
+                    <MudLink Href="/Account/Register">Registe uma nova conta</MudLink>
+                </MudItem>
+                <MudItem xs="12" Class="mt-0">
+                    <MudLink Href="Account/ResendEmailConfirmation">Reenviar email de confirmação</MudLink>
+                </MudItem>
+            </MudItem>
+        </EditForm>
+    </MudItem>
+    <MudItem xs="12">
+        <MudText Typo="Typo.h5" Color="Color.Primary">Entre com uma conta externa.</MudText>
+        <MudSpacer />
+        <ExternalLoginPicker />
+    </MudItem>
 
-        </MudGrid>
+</MudGrid>
     </NotAuthorized>
+    <Authorized>
+        <h2>Olá, @context.User.Identity.Name!</h2>
+    </Authorized>
 </AuthorizeView>
 
 @code {
@@ -97,7 +99,7 @@
     public async Task LoginUser()
     {
         var configEmail = Configuration["Admin:Email"];
-        if(Input.Email != configEmail)
+        if (Input.Email != configEmail)
         {
             return;
         }
@@ -137,7 +139,7 @@
         [DataType(DataType.Password)]
         public string Password { get; set; } = "";
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Lembrar-me?")]
         public bool RememberMe { get; set; }
     }
 }

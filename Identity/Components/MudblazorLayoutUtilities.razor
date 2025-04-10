@@ -2,15 +2,12 @@
 @using WebApp.Components.Layout
 @using WebApp.InMemory
 @rendermode InteractiveServer
-@* @implements IDisposable *@
-@* Required *@
+
 <MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="@_theme" />
 <MudPopoverProvider />
 
-@* Needed for dialogs *@
 <MudDialogProvider />
 
-@* Needed for snackbars *@
 <MudSnackbarProvider />
 <MudAppBar Color="Color.Secondary" Elevation="0">
     <MudSpacer />

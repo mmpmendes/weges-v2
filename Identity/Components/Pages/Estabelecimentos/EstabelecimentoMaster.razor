@@ -1,39 +1,41 @@
 ﻿@page "/estabelecimentos"
 @using Microsoft.AspNetCore.Authorization
 @using SharedKernel.DTO
+@using SharedKernel.Globals
 @attribute [Authorize]
+@rendermode InteractiveServer
+@* @layout Layout.MainLayout *@
 
 <PageTitle>Estabelecimentos</PageTitle>
 
-<MudDataGrid 
-    @ref="EstabelecimentosGrid" 
-    T="EstabelecimentoDTO"
-    ServerData="EstabelecimentosDataProvider"
-    FilterMode="DataGridFilterMode.ColumnFilterRow"
-    FilterCaseSensitivity="DataGridFilterCaseSensitivity.CaseInsensitive"
-    Filterable="true"
-    Groupable="false">
-   <ToolBarContent>
-       <MudText Typo="Typo.h6">Estabelecimentos</MudText>
-       <MudButton Color="Color.Primary" onclick="@AddEstabelecimento">
-            <MudIcon Color="@Color.Primary" Icon="@Icons.Material.Filled.Add" /> 
-       </MudButton>
+<MudDataGrid @ref="EstabelecimentosGrid"
+             T="EstabelecimentoDTO"
+             ServerData="EstabelecimentosDataProvider"
+             FilterMode="DataGridFilterMode.ColumnFilterRow"
+             FilterCaseSensitivity="DataGridFilterCaseSensitivity.CaseInsensitive"
+             Filterable="true"
+             Groupable="false">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Estabelecimentos</MudText>
+        <MudButton Color="Color.Primary" onclick="@AddEstabelecimento">
+            <MudIcon Color="@Color.Primary" Icon="@Icons.Material.Filled.Add" />
+        </MudButton>
         <MudSpacer />
-   </ToolBarContent>
-   <Columns>
-       <TemplateColumn T="EstabelecimentoDTO">
-         <CellTemplate>
-            <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary" OnClick="@(()=>NavigateToDetails(context.Item))" >Selecionar</MudButton>
-         </CellTemplate>
-       </TemplateColumn>
-       <PropertyColumn Property="x => x.Sigla" Title="Sigla" />
-       <PropertyColumn Property="x => x.Denominacao" Title="Denominação" />
-       <PropertyColumn Property="x => x.Morada" Title="Morada" />
-       <PropertyColumn Property="x => x.Email" Title="Email" />
-       <PropertyColumn Property="x => x.Telefone" Title="Telefone" />
-       <PropertyColumn Property="x => x.TipoPrestador" Title="Tipo Prestador"/>
-   </Columns>
-   <PagerContent>
+    </ToolBarContent>
+    <Columns>
+        <TemplateColumn T="EstabelecimentoDTO">
+            <CellTemplate>
+                <MudButton Size="@Size.Small" Variant="@Variant.Filled" Color="@Color.Primary" OnClick="@(()=>NavigateToDetails(context.Item))">Selecionar</MudButton>
+            </CellTemplate>
+        </TemplateColumn>
+        <PropertyColumn Property="x => x.Sigla" Title="Sigla" />
+        <PropertyColumn Property="x => x.Denominacao" Title="Denominação" />
+        <PropertyColumn Property="x => x.Morada" Title="Morada" />
+        <PropertyColumn Property="x => x.Email" Title="Email" />
+        <PropertyColumn Property="x => x.Telefone" Title="Telefone" />
+        <PropertyColumn Property="x => x.TipoPrestador" Title="Tipo Prestador" />
+    </Columns>
+    <PagerContent>
         <MudDataGridPager T="EstabelecimentoDTO" />
     </PagerContent>
 </MudDataGrid>

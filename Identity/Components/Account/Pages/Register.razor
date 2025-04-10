@@ -21,7 +21,7 @@
 <MudText Typo="Typo.h5">Registo</MudText>
 
 <MudGrid>
-    <MudItem xs="6">
+    <MudItem xs="12">
         <StatusMessage Message="@Message" />
         <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
@@ -59,7 +59,7 @@
             </MudItem>
         </EditForm>
     </MudItem>
-    <MudItem xs="6">
+    <MudItem xs="12">
         <MudText Typo="Typo.h5">Use uma conta externa para se registar.</MudText>
         <MudSpacer />
         <ExternalLoginPicker />
@@ -73,7 +73,7 @@
     private InputModel Input { get; set; } = new();
 
     [SupplyParameterFromQuery]
-    private string? ReturnUrl { get; set; } = "Home";
+    private string? ReturnUrl { get; set; }
 
     private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
 
@@ -83,7 +83,9 @@
 
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
-        await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+        string fakeEmail = "mendez.marcio@gmail.com";
+        // await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+        await emailStore.SetEmailAsync(user, fakeEmail, CancellationToken.None);
         var result = await UserManager.CreateAsync(user, Input.Password);
 
         if (!result.Succeeded)
@@ -101,13 +103,13 @@
             NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
             new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code, ["returnUrl"] = ReturnUrl });
 
-        await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
+        await EmailSender.SendConfirmationLinkAsync(user, fakeEmail, HtmlEncoder.Default.Encode(callbackUrl));
 
         if (UserManager.Options.SignIn.RequireConfirmedAccount)
         {
             RedirectManager.RedirectTo(
                 "Account/RegisterConfirmation",
-                new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+                new() { ["email"] = fakeEmail, ["returnUrl"] = ReturnUrl });
         }
 
         await SignInManager.SignInAsync(user, isPersistent: false);
@@ -146,11 +148,11 @@
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Palavra passe")]
         public string Password { get; set; } = "";
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
+        [Display(Name = "Confirmar palavra passe")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; } = "";
     }

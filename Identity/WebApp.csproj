@@ -21,7 +21,7 @@
     <PackageReference Include="MudBlazor" Version="8.4.0" />
     <PackageReference Include="MudBlazor.FontIcons.MaterialIcons" Version="1.2.0" />
     <PackageReference Include="MudBlazor.FontIcons.MaterialSymbols" Version="1.2.0" />
-    <PackageReference Include="MudBlazor.Translations" Version="2.2.0" />
+    <PackageReference Include="MudBlazor.Translations" Version="2.3.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
   </ItemGroup>
 

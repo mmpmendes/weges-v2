@@ -1,17 +1,17 @@
-﻿@* @rendermode InteractiveServer *@
-<MudNavMenu Color="Color.Inherit">
+﻿<MudNavMenu Color="Color.Inherit">
     <MudNavLink IconColor="Color.Inherit" Href="/" Icon="@Icons.Material.Filled.House">Início</MudNavLink>
 
 
     <AuthorizeView>
         <Authorized>
-            <MudNavLink IconColor="Color.Inherit" Href="/estabelecimentos" Icon="@Icons.Material.Filled.Store">Estabelecimentos</MudNavLink>
+            <MudNavLink IconColor="Color.Inherit" Href="estabelecimentos" Icon="@Icons.Material.Filled.Store">Estabelecimentos</MudNavLink>
             <MudNavLink class="list-group-item list-group-item-action bg-light" href="Account/Manage">@context.User.Identity?.Name</MudNavLink>
-            <form action="Account/Logout" method="post">
+            <form action="/Account/Logout" method="post">
                 <AntiforgeryToken />
-                <input type="hidden" name="ReturnUrl" value="@currentUrl" />
-                <MudButton ButtonType="ButtonType.Submit">Logout</MudButton>
+                <input type="hidden" name="returnUrl" value="@currentUrl" />
+                <button type="submit">Sair</button>
             </form>
+            @* <MudNavLink IconColor="Color.Inherit" OnClick="@LogoutUser" Icon="@Icons.Material.Filled.Logout">Sair</MudNavLink> *@
         </Authorized>
         <NotAuthorized>
             <MudNavLink href="Account/Login" Icon="@Icons.Material.Filled.Login" IconColor="Color.Inherit">Entrar</MudNavLink>
