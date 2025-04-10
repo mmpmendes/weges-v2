@@ -14,8 +14,8 @@
 
 <PageTitle>Autenticação</PageTitle>
 
-@* <AuthorizeView> *@
-@* <NotAuthorized Context="NotAuth"> *@
+<AuthorizeView>
+<NotAuthorized Context="NotAuth">
 <MudGrid>
     <MudItem xs="12">
         <StatusMessage Message="@errorMessage" />
@@ -62,11 +62,11 @@
     </MudItem>
 
 </MudGrid>
-@*     </NotAuthorized>
+    </NotAuthorized>
     <Authorized>
         <h2>Olá, @context.User.Identity.Name!</h2>
     </Authorized>
-</AuthorizeView> *@
+</AuthorizeView>
 
 @code {
     private string? errorMessage;
