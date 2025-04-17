@@ -17,8 +17,6 @@ jobs:
       contents: write
       packages: write
       actions: read
-    # env:
-    #  VERSION: v1.0.0  # Define the VERSION here or dynamically in a step
     steps:
     - name: Checkout Code
       uses: actions/checkout@v4
@@ -82,5 +80,7 @@ jobs:
       env: # Or as an environment variable
         web_address: ${{ secrets.DEV_PAGE_ADDRESS }}
         connString: ${{ secrets.CONNECTIONSTRING }}
+        gClientId: ${{ secrets.GOOGLE_CLIENTID }}
+        gClientSecret: ${{ secrets.GOOGLE_CLIENTSECRET }}
       run: |
-        docker run -d --name weges-app -e "ConnectionStrings:weges=$connString"  --restart unless-stopped --network traefik-net -l "traefik.enable=true" -l "traefik.http.routers.wegesapp.tls=true" -l "traefik.http.routers.wegesweb.rule=Host($web_address)" -l "traefik.http.routers.wegesweb.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesweb.tls=true" ghcr.io/mmpmendes/weges-v2/weges-app:latest   
+          docker run -d --name weges-app -e "ConnectionStrings:weges=$connString" -e "GoogleClientId=$gClientId" -e "GoogleClientSecret=$gClientSecret"  --restart unless-stopped --network traefik-net -l "traefik.enable=true" -l "traefik.http.routers.wegesapp.tls=true" -l "traefik.http.routers.wegesweb.rule=Host($web_address)" -l "traefik.http.routers.wegesweb.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesweb.tls=true" ghcr.io/mmpmendes/weges-v2/weges-app:latest

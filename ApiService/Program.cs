@@ -1,5 +1,6 @@
 using ApiModel;
 using ApiModel.Models;
+
 using ApiService.Contracts.Repositories;
 using ApiService.Repositories;
 using ApiService.Services;
@@ -13,7 +14,6 @@ using Microsoft.OpenApi.Models;
 using SharedKernel.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
 var AllowSpecificOrigins = "AllowSpecificOrigins";
 
 builder.Services.AddCors(options =>
@@ -27,7 +27,6 @@ builder.Services.AddCors(options =>
             policy.AllowAnyHeader();
         });
 });
-
 builder.Services.AddDbContextPool<WegesDbContext>(options =>
     options.UseNpgsql(
         builder.Configuration.GetConnectionString("weges")));
