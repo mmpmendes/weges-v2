@@ -98,7 +98,7 @@
 
     public async Task LoginUser()
     {
-        var configEmail = Configuration["Admin:Email"];
+        var configEmail = Configuration["adminEmail"];
         if (Input.Email != configEmail)
         {
             return;
