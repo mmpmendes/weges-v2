@@ -15,17 +15,18 @@
 @inject ILogger<Register> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
+@inject IConfiguration Configuration
 
 <PageTitle>Registo</PageTitle>
 
-<MudText Typo="Typo.h5">Registo</MudText>
+<MudText Typo="Typo.h5" Color="Color.Primary">Registo</MudText>
 
 <MudGrid>
     <MudItem xs="12">
         <StatusMessage Message="@Message" />
         <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
             <DataAnnotationsValidator />
-            <MudText Typo="Typo.h6">Crie nova conta.</MudText>
+            <MudText Typo="Typo.h6" Color="Color.Secondary">Crie nova conta.</MudText>
             <hr /> 
             <ValidationSummary class="text-danger" role="alert" />
             <MudGrid>
@@ -59,11 +60,11 @@
             </MudItem>
         </EditForm>
     </MudItem>
-    <MudItem xs="12">
+    @* <MudItem xs="12">
         <MudText Typo="Typo.h5">Use uma conta externa para se registar.</MudText>
         <MudSpacer />
         <ExternalLoginPicker />
-    </MudItem>
+    </MudItem> *@
 </MudGrid>
 
 @code {
@@ -75,7 +76,7 @@
     [SupplyParameterFromQuery]
     private string? ReturnUrl { get; set; }
 
-    private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
+    private string? Message => identityErrors is null ? null : $"Erro: {string.Join(", ", identityErrors.Select(error => error.Description))}";
 
     public async Task RegisterUser(EditContext editContext)
     {
@@ -83,7 +84,9 @@
 
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
-        string fakeEmail = "mendez.marcio@gmail.com";
+        // martela o email para efeitos de teste
+        string fakeEmail = Configuration["adminEmail"]!;
+        // descomentar esta linha quando for para configurar a sério
         // await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
         await emailStore.SetEmailAsync(user, fakeEmail, CancellationToken.None);
         var result = await UserManager.CreateAsync(user, Input.Password);
@@ -94,7 +97,7 @@
             return;
         }
 
-        Logger.LogInformation("User created a new account with password.");
+        Logger.LogInformation("Utilizador criou nova conta com palavra passe.");
 
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);

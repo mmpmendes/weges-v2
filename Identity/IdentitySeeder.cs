@@ -25,7 +25,7 @@ public static class IdentitySeeder
 
         // Create default admin user
         var adminEmail = configuration["adminEmail"];
-        var adminUser = await userManager.FindByEmailAsync(adminEmail!);
+        var adminUser = await userManager.FindByNameAsync(adminEmail!);
         if (adminUser == null)
         {
             adminUser = new WegesUser

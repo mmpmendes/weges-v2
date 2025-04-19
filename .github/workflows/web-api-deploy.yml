@@ -47,7 +47,7 @@ jobs:
           VERSION="v1.0.0"
         fi
 
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
+        echo "VERSION=api-$VERSION" >> $GITHUB_ENV
         echo "New version: $VERSION"
 
         # Push changes (version bump and tags)
@@ -80,5 +80,7 @@ jobs:
       env: # Or as an environment variable
         api_address: ${{ secrets.API_ADDRESS }}
         connString: ${{ secrets.CONNECTIONSTRING }}
+        port: ${{ secrets.PORT }}
+
       run: |
-        docker run -d --name weges-api-service -e "ConnectionStrings:connectionString=$connString"  --restart unless-stopped --network traefik-net -l "traefik.enable=true" -l "traefik.http.routers.wegesapi.middlewares=corsheader@file" -l "traefik.http.routers.wegesapi.rule=Host($api_address)" -l "traefik.http.services.wegesapi.loadbalancer.server.port=8082" -l "traefik.http.routers.wegesapi.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesapi.tls=true" ghcr.io/mmpmendes/weges-v2/weges-api:latest   
+        docker run -d --name weges-api-service -e "ConnectionStrings:connectionString=$connString"  --restart unless-stopped --network traefik-net -l "traefik.enable=true" -l "traefik.http.routers.wegesapi.middlewares=corsheader@file" -l "traefik.http.routers.wegesapi.rule=Host($api_address)" -l "traefik.http.services.wegesapi.loadbalancer.server.port=$port" -l "traefik.http.routers.wegesapi.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesapi.tls=true" ghcr.io/mmpmendes/weges-v2/weges-api:latest   

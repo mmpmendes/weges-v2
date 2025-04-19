@@ -49,7 +49,7 @@ else
             RedirectManager.RedirectTo("");
         }
 
-        var user = await UserManager.FindByEmailAsync(Email);
+        var user = await UserManager.FindByNameAsync(Email);
         if (user is null)
         {
             HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
