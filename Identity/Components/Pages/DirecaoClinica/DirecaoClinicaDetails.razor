@@ -1,5 +1,6 @@
 ﻿@page "/Estabelecimentos/{EstabelecimentoId:long}/DirecaoClinica"
 @page "/Estabelecimentos/{EstabelecimentoId:long}/DirecaoClinica/{DirecaoClinicaId:long}"
+@rendermode InteractiveServer
 @attribute [Authorize]
 @using Microsoft.AspNetCore.Authorization
 @using SharedKernel.DTO
@@ -25,7 +26,7 @@
             <MudTextField T="string" @bind-Text="DirecaoClinica.Identificacao" Label="Identificação" />
         </MudItem>
         <MudItem xs="6">
-            <MudDatePicker Date="@DirecaoClinica.ValidadeIdentificacao" Label="Validade Identificação" />
+            <MudDatePicker @bind-Date="@DirecaoClinica.ValidadeIdentificacao" Label="Validade Identificação" />
         </MudItem>
         <MudItem xs="6">
             <MudTextField T="string" @bind-Text="DirecaoClinica.Cargo" Label="Cargo" />

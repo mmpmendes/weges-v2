@@ -2,6 +2,7 @@
 @page "/Estabelecimentos/{EstabelecimentoId:long}/Servico/{ServicoId:long}"
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize]
+@rendermode InteractiveServer
 
 <PageTitle>Serviço</PageTitle>
 <MudGrid Class="py-3 px-3">
@@ -21,7 +22,7 @@
             <MudTextField T="string" @bind-Text="Servico.Nome" Label="Nome" />
         </MudItem>
         <MudItem xs="12">
-            <MudDatePicker T="string" Date="Servico.DataInicio" Label="Nome" />
+            <MudDatePicker @bind-Date="Servico.DataInicio" Label="Nome" />
         </MudItem>
         <MudItem xs="12">
             <MudTextField T="string" @bind-Text="Servico.Responsavel" Label="Diretor de Serviço" />
