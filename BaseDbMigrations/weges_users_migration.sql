@@ -105,7 +105,7 @@ CREATE INDEX "EmailIndex" ON weges_users."AspNetUsers" ("NormalizedEmail");
 CREATE UNIQUE INDEX "UserNameIndex" ON weges_users."AspNetUsers" ("NormalizedUserName");
 
 INSERT INTO weges_users."__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20250118221644_InitWegesUser', '9.0.2');
+VALUES ('20250118221644_InitWegesUser', '9.0.4');
 
 COMMIT;
 

@@ -79,6 +79,7 @@ jobs:
     - name: Deploy WebApp
       env: # Or as an environment variable
         web_address: ${{ secrets.DEV_PAGE_ADDRESS }}
+        api_address: ${{ secrets.API_ADDRESS }}
         connString: ${{ secrets.CONNECTIONSTRING }}
         gClientId: ${{ secrets.GOOGLE_CLIENTID }}
         gClientSecret: ${{ secrets.GOOGLE_CLIENTSECRET }}
@@ -86,5 +87,7 @@ jobs:
         emailUser: ${{ secrets.EMAILUSER }}
         emailPassword: ${{ secrets.EMAILPASSWORD }}
         emailPort: ${{ secrets.EMAILPORT }}
+        adminEmail: ${{ secrets.ADMINEMAIL }}
+        adminPassword: ${{ secrets.ADMINPASSWORD }}
       run: |
-          docker run -d --name weges-app -e "ConnectionStrings:weges=$connString" -e "GoogleClientId=$gClientId" -e "GoogleClientSecret=$gClientSecret" -e "EmailConfiguracoes=$emailUser" -e "EmailConfiguracoes:Name=WEGES" -e "EmailConfiguracoes:Host=$emailHost" -e "EmailConfiguracoes:UserName=$emailUser" -e "EmailConfiguracoes:Password=$emailPassword" --restart unless-stopped --network traefik-net -l "traefik.enable=true" -l "traefik.http.routers.wegesapp.tls=true" -l "traefik.http.routers.wegesweb.rule=Host($web_address)" -l "traefik.http.routers.wegesweb.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesweb.tls=true" ghcr.io/mmpmendes/weges-v2/weges-app:latest
+          docker run -d --name weges-app -e "ConnectionStrings:weges=$connString" -e "GoogleClientId=$gClientId" -e "GoogleClientSecret=$gClientSecret" -e "EmailConfiguracoes=$emailUser" -e "EmailConfiguracoes:Name=WEGES" -e "EmailConfiguracoes:Host=$emailHost" -e "EmailConfiguracoes:UserName=$emailUser" -e "EmailConfiguracoes:Password=$emailPassword" -e "adminEmail=$adminEmail" -e "adminPassword=$adminPassword" --restart unless-stopped --network traefik-net -l "traefik.enable=true" -l "traefik.http.routers.wegesapp.tls=true" -l "traefik.http.routers.wegesapp.rule=Host($web_address)" -l "traefik.http.routers.wegesapp.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesapp.tls=true" ghcr.io/mmpmendes/weges-v2/weges-app:latest
