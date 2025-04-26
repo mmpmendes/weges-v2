@@ -16,7 +16,7 @@ else
         </MudItem>
 
         <MudItem xs="6">
-            <MudTextField @bind-value="Estabelecimento.InicioAtividade" T="DateOnly" Label="Início de Atividade" />
+            <MudDatePicker @bind-Date="Estabelecimento.InicioAtividade" Label="Início de Atividade" />
         </MudItem>
         <MudItem xs="6">
             <MudTextField @bind-Text="Estabelecimento.Email" T="string" Label="Email" />

@@ -13,7 +13,10 @@ public class WegesProfile : Profile
         CreateMap<CodCae, CodCaeDTO>().ReverseMap();
         CreateMap<Entidade, EntidadeDTO>().ReverseMap();
 
-        CreateMap<Estabelecimento, EstabelecimentoDTO>().ReverseMap();
+        CreateMap<Estabelecimento, EstabelecimentoDTO>()
+            .ForMember(dest => dest.InicioAtividade, opt => opt.MapFrom(src => (DateTime?)src.InicioAtividade.ToDateTime(TimeOnly.MinValue)));
+        CreateMap<EstabelecimentoDTO, Estabelecimento>()
+            .ForMember(dest => dest.InicioAtividade, opt => opt.MapFrom(src => src.InicioAtividade.HasValue ? DateOnly.FromDateTime(src.InicioAtividade.Value) : default));
         CreateMap<DirecaoClinica, DirecaoClinicaDTO>().ReverseMap();
         CreateMap<Servico, ServicoDTO>().ReverseMap();
         CreateMap<CertificadoERS, CertificadoErsDTO>()
