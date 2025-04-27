@@ -19,7 +19,6 @@ public class DirecaoClinicaController(
         ) : ControllerBase
 {
     private readonly ISimpleRepository<DirecaoClinica> _direcaoRepo = direcaoRepo;
-
     private readonly ITipologiaRepository _tipologiaRepo = tipologiaRepo;
     private readonly IMapper _mapper = mapper;
 
