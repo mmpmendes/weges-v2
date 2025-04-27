@@ -39,6 +39,9 @@ jobs:
 
         COMPONENT=api # or frontend
 
+        # Fetch all tags from remote first
+        git fetch --tags
+
         # Configure standard-version to use the prefix
         echo "{\"tagPrefix\":\"$COMPONENT-v\"}" > .versionrc
 
