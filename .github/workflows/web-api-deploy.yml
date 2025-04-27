@@ -63,8 +63,7 @@ jobs:
         # Detect current branch
         CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-        # Push commits + tags
-        git push origin HEAD --follow-tags
+        git push origin $CURRENT_BRANCH --follow-tags
         
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
