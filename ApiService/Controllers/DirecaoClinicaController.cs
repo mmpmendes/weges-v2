@@ -1,6 +1,9 @@
 ﻿using ApiModel.Models;
+
 using ApiService.Contracts.Repositories;
+
 using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
 
 using SharedKernel.DTO;
@@ -16,6 +19,7 @@ public class DirecaoClinicaController(
         ) : ControllerBase
 {
     private readonly ISimpleRepository<DirecaoClinica> _direcaoRepo = direcaoRepo;
+
     private readonly ITipologiaRepository _tipologiaRepo = tipologiaRepo;
     private readonly IMapper _mapper = mapper;
 
