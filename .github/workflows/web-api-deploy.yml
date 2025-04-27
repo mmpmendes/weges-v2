@@ -60,19 +60,23 @@ jobs:
         echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
         echo "New version: $NEW_VERSION"
 
-        # Get the current branch name from GitHub context
-        if [ -n "$GITHUB_REF" ]; then
-          # Extract branch name from GITHUB_REF (format: refs/heads/branch-name)
-          CURRENT_BRANCH=${GITHUB_REF#refs/heads/}
+        # Determine where to push based on GitHub environment
+        if [[ "$GITHUB_REF" == refs/pull/* ]]; then
+          echo "Running in pull request context. Will push to the base branch."
+          # For pull requests, we need to push to the base branch
+          # Extract PR number from GITHUB_REF
+          PR_NUMBER=$(echo $GITHUB_REF | cut -d/ -f3)
+          # Get the base branch from GITHUB_BASE_REF
+          TARGET_BRANCH=$GITHUB_BASE_REF
         else
-          # Fallback to git command
-          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          # For direct pushes to branches
+          TARGET_BRANCH=${GITHUB_REF#refs/heads/}
         fi
 
-        echo "Pushing to branch: $CURRENT_BRANCH"
+        echo "Pushing to branch: $TARGET_BRANCH"
 
-        # Try pushing with explicit branch name
-        git push origin "$CURRENT_BRANCH":"$CURRENT_BRANCH" --follow-tags
+        # Try the push with the correct branch
+        git push origin HEAD:$TARGET_BRANCH --follow-tags
         
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
