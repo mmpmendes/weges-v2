@@ -25,7 +25,7 @@ public class ColaboradorController(
     [HttpGet()]
     public IResult Get()
     {
-        var badjouras = "coisas";
+        var badjouras = "só para testar";
         return Results.Ok(_mapper.Map<IEnumerable<ColaboradorDTO>>(_colaboradorRepo.GetAll()));
     }
     /// <summary>
