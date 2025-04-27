@@ -1,3 +1,15 @@
+# Status
+
+CodeQL:     
+[![CodeQL Advanced](https://github.com/mmpmendes/weges-v2/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/mmpmendes/weges-v2/actions/workflows/codeql.yml)
+
+API:    
+[![weges-api-image](https://github.com/mmpmendes/weges-v2/actions/workflows/web-api-deploy.yml/badge.svg?branch=main)](https://github.com/mmpmendes/weges-v2/actions/workflows/web-api-deploy.yml)
+
+Web:    
+[![weges-web-image](https://github.com/mmpmendes/weges-v2/actions/workflows/web-app-deploy.yml/badge.svg?branch=main)](https://github.com/mmpmendes/weges-v2/actions/workflows/web-app-deploy.yml)
+
+
 # Initial Setup
 
 ### Define default admin user in the appsettings for the web app

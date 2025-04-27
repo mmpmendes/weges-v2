@@ -1,8 +1,11 @@
 ﻿using ApiModel.Models;
+
 using ApiService.Contracts.Repositories;
+
 using AutoMapper;
 
 using Microsoft.AspNetCore.Mvc;
+
 using SharedKernel.DTO;
 namespace ApiService.Controllers;
 
@@ -22,6 +25,7 @@ public class ColaboradorController(
     [HttpGet()]
     public IResult Get()
     {
+        var badjouras = "coisas";
         return Results.Ok(_mapper.Map<IEnumerable<ColaboradorDTO>>(_colaboradorRepo.GetAll()));
     }
     /// <summary>
