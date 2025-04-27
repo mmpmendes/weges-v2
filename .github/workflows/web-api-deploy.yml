@@ -37,21 +37,28 @@ jobs:
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
 
-        # Run standard-version to generate the next version
-        standard-version --no-verify --commit-all
+        COMPONENT=api # or frontend
 
-        # Extract the new version from package.json or CHANGELOG.md
-        VERSION=$(git describe --tags --abbrev=0)
+        # Configure standard-version to use the prefix
+        echo "{\"tagPrefix\":\"$COMPONENT-v\"}" > .versionrc
 
-        if [ -z "$VERSION" ]; then
-          VERSION="v1.0.0"
+        # Run standard-version to bump version, commit and tag
+        npx standard-version --no-verify --commit-all
+
+        # Find the latest tag for this component
+        LATEST_TAG=$(git tag --list "$COMPONENT-v*" --sort=-v:refname | head -n 1)
+
+        if [ -z "$LATEST_TAG" ]; then
+          NEW_VERSION="$COMPONENT-v1.0.0"
+        else
+          NEW_VERSION="$LATEST_TAG"
         fi
 
-        echo "VERSION=api-$VERSION" >> $GITHUB_ENV
-        echo "New version: $VERSION"
+        echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
+        echo "New version: $NEW_VERSION"
 
-        # Push changes (version bump and tags)
-        git push --follow-tags origin main
+        # Push commits + tags
+        git push origin main --follow-tags
         
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
