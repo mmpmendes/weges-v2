@@ -108,4 +108,4 @@ jobs:
         port: ${{ secrets.PORT }}
 
       run: |
-        docker run -d --name weges-api-service -e "ConnectionStrings:connectionString=$connString"  --restart unless-stopped --network traefik-net -l "traefik.enable=true" -l "traefik.http.routers.wegesapi.middlewares=corsheader@file" -l "traefik.http.routers.wegesapi.rule=Host($api_address)" -l "traefik.http.services.wegesapi.loadbalancer.server.port=$port" -l "traefik.http.routers.wegesapi.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesapi.tls=true" ghcr.io/mmpmendes/weges-v2/weges-api:latest   
+        docker run -d --name weges-api-service -e "ConnectionStrings:weges=$connString"  --restart unless-stopped --network traefik-net -l "traefik.enable=true" -l "traefik.http.routers.wegesapi.middlewares=corsheader@file" -l "traefik.http.routers.wegesapi.rule=Host($api_address)" -l "traefik.http.services.wegesapi.loadbalancer.server.port=$port" -l "traefik.http.routers.wegesapi.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesapi.tls=true" ghcr.io/mmpmendes/weges-v2/weges-api:latest   
