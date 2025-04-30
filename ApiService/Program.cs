@@ -14,7 +14,6 @@ using Microsoft.OpenApi.Models;
 using SharedKernel.Models;
 
 //TESTE DEPLOY
-
 var builder = WebApplication.CreateBuilder(args);
 var AllowSpecificOrigins = "AllowSpecificOrigins";
 

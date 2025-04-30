@@ -58,17 +58,7 @@ jobs:
     
         echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
         echo "New version: $NEW_VERSION"
-    
-        # Get the current branch name from GitHub context
-        if [[ "$GITHUB_REF" == refs/pull/* ]]; then
-          echo "Running in pull request context. Will push to the base branch."
-          TARGET_BRANCH=$GITHUB_BASE_REF
-        else
-          TARGET_BRANCH=${GITHUB_REF#refs/heads/}
-        fi
-    
-        echo "Pushing to branch: $TARGET_BRANCH"
-    
+        
         # Reset to match remote but keep the changes as uncommitted
         git fetch origin $TARGET_BRANCH
         git reset --soft origin/$TARGET_BRANCH

@@ -41,13 +41,13 @@ jobs:
         
         # Fetch all tags from remote first
         git fetch --tags
-    
+
         # Configure standard-version to use the prefix
         echo "{\"tagPrefix\":\"$COMPONENT-v\"}" > .versionrc
-    
+
         # Run standard-version to bump version, commit and tag
         npx standard-version --no-verify --commit-all
-    
+
         # Find the latest tag for this component
         LATEST_TAG=$(git tag --list "$COMPONENT-v*" --sort=-v:refname | head -n 1)
         if [ -z "$LATEST_TAG" ]; then
@@ -55,10 +55,10 @@ jobs:
         else
           NEW_VERSION="$LATEST_TAG"
         fi
-    
+
         echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
         echo "New version: $NEW_VERSION"
-    
+
         # Get the current branch name from GitHub context
         if [[ "$GITHUB_REF" == refs/pull/* ]]; then
           echo "Running in pull request context. Will push to the base branch."
@@ -66,19 +66,26 @@ jobs:
         else
           TARGET_BRANCH=${GITHUB_REF#refs/heads/}
         fi
-    
+
         echo "Pushing to branch: $TARGET_BRANCH"
-    
+
         # Reset to match remote but keep the changes as uncommitted
         git fetch origin $TARGET_BRANCH
         git reset --soft origin/$TARGET_BRANCH
-    
+
         # Re-add all changes
         git add .
-    
+
         # Commit again with the same message
         CURRENT_VERSION=$(node -p "require('./package.json').version" || echo "1.0.0")
         git commit -m "chore(release): $COMPONENT-v$CURRENT_VERSION"
+
+        # Re-tag
+        git tag -d $NEW_VERSION  # Delete the existing tag
+        git tag $NEW_VERSION     # Re-create it at the new position
+
+        # Now push
+        git push origin HEAD:$TARGET_BRANCH --follow-tags
         
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
