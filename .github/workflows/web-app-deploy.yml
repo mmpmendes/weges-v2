@@ -50,7 +50,6 @@ jobs:
 
         # Find the latest tag for this component
         LATEST_TAG=$(git tag --list "$COMPONENT-v*" --sort=-v:refname | head -n 1)
-
         if [ -z "$LATEST_TAG" ]; then
           NEW_VERSION="$COMPONENT-v1.0.0"
         else
@@ -70,9 +69,22 @@ jobs:
 
         echo "Pushing to branch: $TARGET_BRANCH"
 
-        git pull --rebase origin $TARGET_BRANCH
+        # Reset to match remote but keep the changes as uncommitted
+        git fetch origin $TARGET_BRANCH
+        git reset --soft origin/$TARGET_BRANCH
 
-        # Try the push with the correct branch
+        # Re-add all changes
+        git add .
+
+        # Commit again with the same message
+        CURRENT_VERSION=$(node -p "require('./package.json').version" || echo "1.0.0")
+        git commit -m "chore(release): $COMPONENT-v$CURRENT_VERSION"
+
+        # Re-tag
+        git tag -d $NEW_VERSION  # Delete the existing tag
+        git tag $NEW_VERSION     # Re-create it at the new position
+
+        # Now push
         git push origin HEAD:$TARGET_BRANCH --follow-tags
         
     - name: Login to GitHub Container Registry

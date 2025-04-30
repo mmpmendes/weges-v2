@@ -15,7 +15,7 @@ using WebApp.Components;
 using WebApp.Components.Account;
 using WebApp.InMemory;
 
-// FDS ULTIMA TENTATIVA
+//TESTE DEPLOY
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
