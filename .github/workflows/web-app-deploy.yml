@@ -38,7 +38,7 @@ jobs:
         git config --global user.name "GitHub Actions"
 
         COMPONENT=webapp # or frontend
-
+        # será que funciona
         # Fetch all tags from remote first
         git fetch --tags
 
