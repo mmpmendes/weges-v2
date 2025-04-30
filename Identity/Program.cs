@@ -15,7 +15,7 @@ using WebApp.Components;
 using WebApp.Components.Account;
 using WebApp.InMemory;
 
-// TESTE DEPLOY
+//TESTE DEPLOY
 
 var builder = WebApplication.CreateBuilder(args);
 
