@@ -401,3 +401,4 @@ FodyWeavers.xsd
 
 /Identity/appsettings.json
 /Identity/appsettings.Development.json
+/Identity/wwwroot/uploads

@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 
 using Services;
-using Services.Models;
 
 using SharedKernel.DTO;
-
-using WebApp.InMemory;
 
 namespace WebApp.Components.Pages.Estabelecimentos;
 
@@ -17,7 +13,7 @@ public partial class EstabelecimentoCertificadosLicencas
     [Parameter] public long Id { get; set; }
     [Inject] private EstabelecimentoApiService EstabelecimentoApiService { get; set; } = default!;
     [Inject] private FicheiroApiService FicheiroApiService { get; set; } = default!;
-    [Inject] private IJSRuntime jSRuntime { get; set; } = default!;
+    [Inject] private UploadService UploadService { get; set; } = default!;
 
     public IBrowserFile? selectedCertificadoFile = default!;
     public IBrowserFile? selectedLicencaFile = default!;
@@ -41,29 +37,60 @@ public partial class EstabelecimentoCertificadosLicencas
         await base.OnInitializedAsync();
     }
 
+    /// <summary>
+    /// Uploads the selected file to the server and returns the file name.
+    /// </summary>
+    /// <returns></returns>
+    private async Task<FicheiroDTO?> UploadFicheiro(string folder, IBrowserFile browserFile)
+    {
+        if (browserFile is not null)
+        {
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(browserFile.Name);
+            var file = browserFile;
+            Stream stream = file.OpenReadStream();
+            MemoryStream ms = new();
+            await stream.CopyToAsync(ms);
+            stream.Close();
 
+            var path = UploadService.UploadFileToFolder(folder, fileName, ms.ToArray());
+            return new FicheiroDTO()
+            {
+                Nome = fileName,
+                NomeOriginal = file.Name,
+                Tipo = file.ContentType,
+                Url = path
+            };
+        }
+        return null;
+    }
 
     #region Certificado
+
+    /// <summary>
+    /// Uploads the selected file to the server and creates or updates the CertificadoErs.
+    /// </summary>
+    /// <returns></returns>
     private async Task UploadCertificado()
     {
         if (selectedCertificadoFile is not null)
         {
+            var ficheiroUploaded = await UploadFicheiro("Certificados", selectedCertificadoFile);
 
-            using var formData = new MultipartFormDataContent();
+            if (ficheiroUploaded is null) return;
 
-            var stream = FileManagementClientSide.SetupFileForUpload(selectedCertificadoFile);
-
-            if (stream is null) return;
-
-            formData.Add(stream, "file", selectedCertificadoFile.Name);
-
-            FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadCertificadoFileAsync(formData);
+            var ficheiroCriado = await FicheiroApiService.CriarFicheiro(new FicheiroDTO
+            {
+                NomeOriginal = ficheiroUploaded.NomeOriginal,
+                Nome = ficheiroUploaded.Nome,
+                Tipo = selectedCertificadoFile.ContentType,
+                Url = ficheiroUploaded.Url
+            });
 
             IsCertificadoFileSelected = false;
 
-            if (ficheiro is not null)
+            if (ficheiroCriado is not null)
             {
-                CertificadoErs!.FicheiroId = ficheiro.Id;
+                CertificadoErs!.FicheiroId = ficheiroCriado.Id;
                 CertificadoErs!.EstabelecimentoId = Id;
             }
         }
@@ -99,24 +126,27 @@ public partial class EstabelecimentoCertificadosLicencas
     {
         if (selectedLicencaFile is not null)
         {
-            using var formData = new MultipartFormDataContent();
+            var ficheiroUploaded = await UploadFicheiro("licencas", selectedLicencaFile);
 
-            var stream = FileManagementClientSide.SetupFileForUpload(selectedLicencaFile);
+            if (ficheiroUploaded is null) return;
 
-            if (stream is null) return;
-
-            formData.Add(stream, "file", selectedLicencaFile.Name);
-
-            FicheiroDTO? ficheiro = await EstabelecimentoApiService.UploadLicencaFileAsync(formData);
+            var ficheiroCriado = await FicheiroApiService.CriarFicheiro(new FicheiroDTO
+            {
+                NomeOriginal = ficheiroUploaded.NomeOriginal,
+                Nome = ficheiroUploaded.Nome,
+                Tipo = selectedLicencaFile.ContentType,
+                Url = ficheiroUploaded.Url
+            });
 
             IsLicencaFileSelected = false;
 
-            if (ficheiro is not null)
+            if (ficheiroCriado is not null)
             {
-                LicencaErs!.FicheiroId = ficheiro.Id;
+                LicencaErs!.FicheiroId = ficheiroCriado.Id;
                 LicencaErs!.EstabelecimentoId = Id;
             }
         }
+
         if (LicencaErs!.Id <= 0)
         {
             await EstabelecimentoApiService.CreateLicencaErsAsync(Id, LicencaErs);
@@ -144,27 +174,26 @@ public partial class EstabelecimentoCertificadosLicencas
 
     #endregion
 
-    private async Task DownloadCertificadoErs(MouseEventArgs e)
+    private string DownloadCertificadoErs()
     {
         if (CertificadoErs?.FicheiroId > 0)
         {
-            await DownloadFile(CertificadoErs.FicheiroId);
+            return DownloadFile("certificados", CertificadoErs.Ficheiro.Nome);
         }
+        return string.Empty;
     }
-    private async Task DownloadLicencaErs(MouseEventArgs e)
+    private string DownloadLicencaErs()
     {
         if (LicencaErs?.FicheiroId > 0)
         {
-            await DownloadFile(LicencaErs.FicheiroId);
+            return DownloadFile("licencas", LicencaErs.Ficheiro.Nome);
         }
+        return string.Empty;
     }
 
-    private async Task DownloadFile(long ficheiroId)
+    private string DownloadFile(string folderName, string fileName)
     {
-        FileData fileData = await FicheiroApiService.DownloadFicheiro(ficheiroId);
-        if (fileData is null) return;
-
-        await FileManagementClientSide.DownloadFile(jSRuntime, fileData);
+        return UploadService.CalcularUrl(folderName, fileName);
     }
     private void SetEditModeCertificado(MouseEventArgs? args = null)
     {

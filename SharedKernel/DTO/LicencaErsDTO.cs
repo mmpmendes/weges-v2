@@ -10,4 +10,5 @@ public class LicencaErsDTO
     public long FicheiroId { get; set; }
     public string? Localizacao { get; set; }
     public string? NomeFicheiro { get; set; }
+    public FicheiroDTO? Ficheiro { get; set; }
 }
