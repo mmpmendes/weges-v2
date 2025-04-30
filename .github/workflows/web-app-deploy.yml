@@ -37,8 +37,8 @@ jobs:
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
 
-        COMPONENT=api # or frontend
-
+        COMPONENT=webapp # or frontend
+        
         # Fetch all tags from remote first
         git fetch --tags
 
