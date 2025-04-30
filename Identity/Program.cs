@@ -19,7 +19,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 builder.AddRedisOutputCache("cache");
-// Add services to the container.
+// TESTE
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 

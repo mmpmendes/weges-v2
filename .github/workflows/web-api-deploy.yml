@@ -67,7 +67,7 @@ jobs:
         git add .
     
         # Commit again with the same message
-        CURRENT_VERSION=$(node -p "require('./package.json').version" || echo "1.0.0")
+        CURRENT_VERSION=${NEW_VERSION#$COMPONENT-v}
         git commit -m "chore(release): $COMPONENT-v$CURRENT_VERSION"
     
         # Re-tag
