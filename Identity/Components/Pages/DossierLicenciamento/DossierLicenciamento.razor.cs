@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 using Services;
-using Services.Models;
 
 using SharedKernel.DTO;
 
@@ -81,9 +80,9 @@ public partial class DossierLicenciamento
 
     private async Task DownloadFile(long ficheiroId)
     {
-        FileData fileData = await FicheiroApiService.DownloadFicheiro(ficheiroId);
-        if (fileData is null) return;
+        //FileData fileData = await FicheiroApiService.DownloadFicheiro(ficheiroId);
+        //if (fileData is null) return;
 
-        await FileManagementClientSide.DownloadFile(jSRuntime, fileData);
+        //await FileManagementClientSide.DownloadFile(jSRuntime, fileData);
     }
 }

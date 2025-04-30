@@ -11,4 +11,5 @@ public class CertificadoErsDTO
     public DateTime? DataPagamentoTaxa { get; set; }
     public long EstabelecimentoId { get; set; }
     public long FicheiroId { get; set; }
+    public FicheiroDTO? Ficheiro { get; set; }
 }

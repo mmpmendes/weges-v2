@@ -1,7 +1,6 @@
 ﻿using ApiModel.Models;
 
 using ApiService.Contracts.Repositories;
-using ApiService.Services;
 
 using AutoMapper;
 
@@ -21,10 +20,8 @@ public class EstabelecimentoController(
         ISimpleRepository<Servico> servicoRepo,
         ISimpleRepository<DirecaoClinica> direcaoClinicaRepo,
         ISimpleRepository<Colaborador> colaboradorRepo,
-        ISimpleRepository<Ficheiro> ficheiroRepo
-        , IConfiguration config
-        , IFileService fileService
-        , IMapper mapper
+        ISimpleRepository<Ficheiro> ficheiroRepo,
+        IMapper mapper
         ) : ControllerBase
 {
     private readonly ISimpleRepository<Estabelecimento> _estabelecimentoRepo = estabelecimentoRepo;
@@ -35,9 +32,6 @@ public class EstabelecimentoController(
     private readonly ISimpleRepository<Colaborador> _colaboradorRepo = colaboradorRepo;
     private readonly ISimpleRepository<Ficheiro> _ficheiroRepo = ficheiroRepo;
     private readonly IMapper _mapper = mapper;
-    private const string UPLOADPATH = "Paths:uploadpath";
-    private readonly IFileService _fileService = fileService;
-    private readonly IConfiguration _config = config;
 
     /// <summary>
     /// Retorna a lista de todos os estabelecimentos
@@ -193,7 +187,7 @@ public class EstabelecimentoController(
     [HttpGet("{id}/LicencaErs")]
     public IResult GetLicencaErsByEstabelecimentoId(long id)
     {
-        var licencas = _licencaRepo.GetAll().Where(c => c.EstabelecimentoId == id).FirstOrDefault();
+        var licencas = _licencaRepo.GetAll().Where(c => c.EstabelecimentoId == id).Include(c => c.Ficheiro).FirstOrDefault();
         if (licencas == null) return Results.Ok(new LicencaErsDTO());
 
         var licencasDto = _mapper.Map<LicencaErsDTO>(licencas);
@@ -302,56 +296,6 @@ public class EstabelecimentoController(
         {
             return Results.InternalServerError("Erro ao atualizar Licença.");
         }
-    }
-
-    /// <summary>
-    /// Faz o upload de um ficheiro para o sistema de ficheiros
-    /// </summary>
-    /// <param name="file"></param>
-    /// <param name="folder"></param>
-    /// <returns></returns>
-    [HttpPost("UploadCertificado")]
-    public async Task<IResult> UploadCertificado(IFormFile file)
-    {
-        // first - save the file to the file system
-        string fileLocationAndName = await _fileService.SaveFileToFileSystem(file, _config[UPLOADPATH]);
-
-        return await SaveFicheiro(file.Name, fileLocationAndName);
-    }
-
-    private async Task<IResult> SaveFicheiro(string fileName, string fileLocationAndName)
-    {
-        // second - save the file to the ficheiros table
-        Ficheiro ficheiro = new Ficheiro()
-        {
-            Nome = fileName,
-            Localizacao = fileLocationAndName
-        };
-
-        try
-        {
-            await _ficheiroRepo.Create(ficheiro);
-
-            return Results.Ok(_mapper.Map<FicheiroDTO>(ficheiro));
-        }
-        catch (Exception)
-        {
-            return Results.InternalServerError("Erro a gravar o ficheiro");
-        }
-    }
-
-    /// <summary>
-    /// Grava o ficheiro de licença
-    /// </summary>
-    /// <param name="file"></param>
-    /// <param name="folder"></param>
-    /// <returns></returns>
-    [HttpPost("UploadLicenca")]
-    public async Task<IResult> UploadLicenca(IFormFile file)
-    {
-        string fileLocationAndName = await _fileService.SaveFileToFileSystem(file, _config[UPLOADPATH]);
-
-        return await SaveFicheiro(file.Name, fileLocationAndName);
     }
 
     /// <summary>

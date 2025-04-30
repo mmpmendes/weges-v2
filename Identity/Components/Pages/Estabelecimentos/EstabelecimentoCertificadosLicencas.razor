@@ -41,9 +41,9 @@
                             <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataPagamentoTaxa" DateFormat="dd/mm/yyyy" Label="Data de pagamento taxa" Disabled="!_editModeCertificado" />
                         </MudItem>
                         <MudItem xs="12">
-                            @if (CertificadoErs.FicheiroId > 0)
+                            @if (CertificadoErs.FicheiroId > 0 && CertificadoErs.Ficheiro != null)
                             {
-                                <MudButton Variant="Variant.Outlined" Color="@Color.Primary" OnClick="DownloadCertificadoErs" EndIcon="@Icons.Material.Filled.Download">
+                                <MudButton Variant="Variant.Outlined" Color="@Color.Primary" Href="@DownloadCertificadoErs()" EndIcon="@Icons.Material.Filled.Download">
                                     Download Ficheiro
                                 </MudButton>
                             }
@@ -77,9 +77,13 @@
                             <MudTextField T="string" @bind-Text="LicencaErs.Observacoes" Label="Observações" Disabled="!_editModeLicenca" />
                         </MudItem>
                         <MudItem xs="12">
-                            @if (LicencaErs.FicheiroId > 0)
+                            @if (LicencaErs.FicheiroId > 0 && LicencaErs.Ficheiro != null)
                             {
-                                <MudButton Color="@Color.Primary" Variant="Variant.Outlined" OnClick="DownloadLicencaErs" EndIcon="@Icons.Material.Filled.Download">
+                                <MudButton 
+                                    Href="@DownloadLicencaErs()"
+                                    Color="@Color.Primary" 
+                                    Variant="Variant.Outlined"
+                                    EndIcon="@Icons.Material.Filled.Download">
                                     Download Ficheiro
                                 </MudButton>
                             }

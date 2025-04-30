@@ -189,7 +189,6 @@ public class WegesDbContext(DbContextOptions<WegesDbContext> options) : DbContex
             entity.Property(e => e.Created).HasDefaultValueSql("NOW()");
 
             entity.Property(f => f.Nome).HasMaxLength(255);
-            entity.Property(f => f.Localizacao).HasMaxLength(512);
             entity.Property(f => f.Tipo).HasMaxLength(100);
         });
 

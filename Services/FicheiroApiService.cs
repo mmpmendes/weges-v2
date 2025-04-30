@@ -1,24 +1,18 @@
-﻿
-using Services.Models;
+﻿using SharedKernel.DTO;
+
+using System.Net.Http.Json;
 
 namespace Services;
 public class FicheiroApiService(HttpClient httpClient)
 {
-    public async Task<FileData> DownloadFicheiro(long ficheiroId, CancellationToken cancellationToken = default)
+    public async Task<FicheiroDTO?> CriarFicheiro(FicheiroDTO ficheiro, CancellationToken cancellationToken = default)
     {
-        var response = await httpClient.GetAsync($"/api/Ficheiro/DownloadFicheiro/{ficheiroId}", cancellationToken);
+        var response = await httpClient.PostAsJsonAsync("/api/Ficheiro/CriarFicheiro", ficheiro, cancellationToken);
 
         if (response.IsSuccessStatusCode)
         {
-            var fileBytes = await response.Content.ReadAsByteArrayAsync();
-            var contentType = response.Content.Headers.ContentType?.ToString();
-            var fileName = response.Content.Headers.ContentDisposition?.FileName?.Trim('"') ?? "ficheiro.pdf";
-
-            return new FileData(fileBytes, fileName, contentType);
+            return await response.Content.ReadFromJsonAsync<FicheiroDTO>(cancellationToken: cancellationToken);
         }
-
         return null;
     }
-
-
 }
