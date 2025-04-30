@@ -73,7 +73,7 @@ jobs:
         # Re-tag
         git tag -d $NEW_VERSION  # Delete the existing tag
         git tag $NEW_VERSION     # Re-create it at the new position
-    
+
         # Now push
         git push origin HEAD:$TARGET_BRANCH --follow-tags
         

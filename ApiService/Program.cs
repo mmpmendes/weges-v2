@@ -17,8 +17,6 @@ using SharedKernel.Models;
 var builder = WebApplication.CreateBuilder(args);
 var AllowSpecificOrigins = "AllowSpecificOrigins";
 
-// TESTE DEPLOY
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: AllowSpecificOrigins,
