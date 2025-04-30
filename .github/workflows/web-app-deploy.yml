@@ -38,7 +38,7 @@ jobs:
         git config --global user.name "GitHub Actions"
 
         COMPONENT=webapp # or frontend
-        # será que funciona
+        
         # Fetch all tags from remote first
         git fetch --tags
 
@@ -60,11 +60,23 @@ jobs:
         echo "VERSION=$NEW_VERSION" >> $GITHUB_ENV
         echo "New version: $NEW_VERSION"
 
-        # Detect current branch
-        CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+        # Determine where to push based on GitHub environment
+        if [[ "$GITHUB_REF" == refs/pull/* ]]; then
+          echo "Running in pull request context. Will push to the base branch."
+          # For pull requests, we need to push to the base branch
+          # Extract PR number from GITHUB_REF
+          PR_NUMBER=$(echo $GITHUB_REF | cut -d/ -f3)
+          # Get the base branch from GITHUB_BASE_REF
+          TARGET_BRANCH=$GITHUB_BASE_REF
+        else
+          # For direct pushes to branches
+          TARGET_BRANCH=${GITHUB_REF#refs/heads/}
+        fi
 
-        # Push commits + tags
-        git push origin "$CURRENT_BRANCH" --follow-tags
+        echo "Pushing to branch: $TARGET_BRANCH"
+
+        # Try the push with the correct branch
+        git push origin HEAD:$TARGET_BRANCH --follow-tags
         
     - name: Login to GitHub Container Registry
       uses: docker/login-action@v3
@@ -103,4 +115,4 @@ jobs:
         adminEmail: ${{ secrets.ADMINEMAIL }}
         adminPassword: ${{ secrets.ADMINPASSWORD }}
       run: |
-          docker run -d --name weges-app -e "ConnectionStrings:weges=$connString" -e "GoogleClientId=$gClientId" -e "GoogleClientSecret=$gClientSecret" -e "EmailConfiguracoes=$emailUser" -e "EmailConfiguracoes:Name=WEGES" -e "EmailConfiguracoes:Host=$emailHost" -e "EmailConfiguracoes:UserName=$emailUser" -e "EmailConfiguracoes:Password=$emailPassword" -e "adminEmail=$adminEmail" -e "adminPassword=$adminPassword" --restart unless-stopped --network traefik-net -l "traefik.enable=true" -l "traefik.http.routers.wegesapp.tls=true" -l "traefik.http.routers.wegesapp.rule=Host($web_address)" -l "traefik.http.routers.wegesapp.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesapp.tls=true" ghcr.io/mmpmendes/weges-v2/weges-app:latest
+          docker run -d --name weges-app -e "ConnectionStrings:weges=$connString" -e "GoogleClientId=$gClientId" -e "GoogleClientSecret=$gClientSecret" -e "EmailConfiguracoes=$emailUser" -e "EmailConfiguracoes:Name=WEGES" -e "EmailConfiguracoes:Host=$emailHost" -e "EmailConfiguracoes:UserName=$emailUser" -e "EmailConfiguracoes:Password=$emailPassword" -e "adminEmail=$adminEmail" -e "adminPassword=$adminPassword" -e "services__apiservice__https__0=$api_address" --restart unless-stopped --network traefik-net -l "traefik.enable=true" -l "traefik.http.routers.wegesapp.tls=true" -l "traefik.http.routers.wegesapp.rule=Host($web_address)" -l "traefik.http.routers.wegesapp.tls.certresolver=letsencrypt" -l "traefik.http.routers.wegesapp.tls=true" ghcr.io/mmpmendes/weges-v2/weges-app:latest
