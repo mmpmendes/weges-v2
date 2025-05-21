@@ -1,5 +1,6 @@
 using ApiModel;
-using ApiModel.Models;
+using ApiModel.NeoModels;
+
 //TESTE
 using ApiService.Contracts.Repositories;
 using ApiService.Repositories;
@@ -55,9 +56,6 @@ builder.Services.AddScoped<ISimpleRepository<DirecaoClinica>, SimpleRepository<D
 builder.Services.AddScoped<ISimpleRepository<Servico>, SimpleRepository<Servico>>();
 builder.Services.AddScoped<ISimpleRepository<CertificadoERS>, SimpleRepository<CertificadoERS>>();
 builder.Services.AddScoped<ISimpleRepository<LicencaERS>, SimpleRepository<LicencaERS>>();
-builder.Services.AddScoped<ISimpleRepository<Ficheiro>, SimpleRepository<Ficheiro>>();
-builder.Services.AddScoped<ITipologiaRepository, TipologiaRepository>();
-builder.Services.AddScoped<ISimpleRepository<Colaborador>, SimpleRepository<Colaborador>>();
 builder.Services.AddScoped<IFileService, FileService>();
 
 builder.Services.AddAuthorization();

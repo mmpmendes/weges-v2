@@ -1,4 +1,4 @@
-﻿using ApiModel.Models;
+﻿using ApiModel.NeoModels;
 
 using ApiService.Contracts.Repositories;
 
@@ -36,7 +36,7 @@ public class ServicosController(
     [HttpGet("{Id}")]
     public async Task<IResult> GetById(long Id)
     {
-        var servico = await _servicoRepo.GetById(Id);
+        var servico = await _servicoRepo.GetByIdAsync(Id);
         if (servico == null) return Results.BadRequest("Servico não encontrado.");
         ServicoDTO toReturn = _mapper.Map<ServicoDTO>(servico);
         return Results.Ok(toReturn);
@@ -52,7 +52,7 @@ public class ServicosController(
         if (servicoModel == null) return Results.BadRequest("Servico inválido.");
         try
         {
-            await _servicoRepo.Create(_mapper.Map<Servico>(servicoModel));
+            await _servicoRepo.AddAsync(_mapper.Map<Servico>(servicoModel));
             return Results.Created();
         }
         catch (Exception ex)
@@ -73,7 +73,7 @@ public class ServicosController(
             return Results.BadRequest("Serviço inválida.");
 
         // Ensure the record exists
-        var existingEntity = await _servicoRepo.GetById(Id);
+        var existingEntity = await _servicoRepo.GetByIdAsync(Id);
         if (existingEntity == null)
             return Results.NotFound($"No record found with ID {Id}");
 
@@ -81,7 +81,7 @@ public class ServicosController(
         {
             // Perform the update
             var updatedEntity = _mapper.Map(servicoModel, existingEntity);
-            await _servicoRepo.Update(Id, updatedEntity);
+            await _servicoRepo.UpdateAsync(updatedEntity);
 
             return Results.Ok();
         }

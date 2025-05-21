@@ -1,5 +1,5 @@
 ﻿using ApiModel;
-using ApiModel.Models;
+
 using ApiService.Contracts.Repositories;
 
 using Microsoft.EntityFrameworkCore;
@@ -7,27 +7,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiService.Repositories;
 
-public class SimpleRepository<T>(WegesDbContext dbContext) : ISimpleRepository<T> where T : class, IEntity<long>
+public class SimpleRepository<T>(WegesDbContext dbContext) : ISimpleRepository<T> where T : class
 {
     private readonly WegesDbContext _dbContext = dbContext;
 
-    public async Task Create(T entity)
+    public async Task<T> AddAsync(T entity)
     {
         await _dbContext.Set<T>().AddAsync(entity);
         await _dbContext.SaveChangesAsync();
+
+        return entity;
     }
 
-    public async Task Delete(long id)
+    public async Task<int> DeleteAsync(T entity)
     {
-        var entity = await _dbContext.Set<T>().FindAsync(id);
-
-        if (entity == null)
-        {
-            return;
-        }
-
         _dbContext.Set<T>().Remove(entity);
-        await _dbContext.SaveChangesAsync();
+        return await _dbContext.SaveChangesAsync();
     }
 
     public IQueryable<T> GetAll()
@@ -35,22 +30,14 @@ public class SimpleRepository<T>(WegesDbContext dbContext) : ISimpleRepository<T
         return _dbContext.Set<T>().AsNoTracking();
     }
 
-    public async Task<T> GetById(long id)
+    public async Task<T?> GetByIdAsync(long id)
     {
-        var entity = await _dbContext.Set<T>()
-        .AsNoTracking()
-        .FirstOrDefaultAsync(e => e.Id.Equals(id));
-
-        if (entity == null)
-        {
-            throw new KeyNotFoundException($"Entidade com o id {id} não foi encontrada.");
-        }
-        return entity;
+        return await _dbContext.Set<T>().FindAsync(id);
     }
 
-    public async Task Update(long id, T entity)
+    public async Task<int> UpdateAsync(T entity)
     {
-        _dbContext.Set<T>().Update(entity);
-        await _dbContext.SaveChangesAsync();
+        _dbContext.Entry(entity).State = EntityState.Modified;
+        return await _dbContext.SaveChangesAsync();
     }
 }

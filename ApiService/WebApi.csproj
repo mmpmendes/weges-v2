@@ -10,24 +10,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Contracts\Services\**" />
     <Compile Remove="Services\**" />
+    <Content Remove="Contracts\Services\**" />
     <Content Remove="Services\**" />
+    <EmbeddedResource Remove="Contracts\Services\**" />
     <EmbeddedResource Remove="Services\**" />
+    <None Remove="Contracts\Services\**" />
     <None Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
     <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.4" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="8.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.1" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.5" />
   </ItemGroup>
   
   <ItemGroup>
@@ -35,10 +39,6 @@
     <ProjectReference Include="..\SharedKernel\SharedKernel.csproj" />
     <ProjectReference Include="..\ApiModel\ApiModel.csproj" />
     <ProjectReference Include="..\ServiceDefaults\ServiceDefaults.csproj" />
-  </ItemGroup>  
-
-  <ItemGroup>
-    <Folder Include="Contracts\Services\" />
   </ItemGroup>
 
 </Project>

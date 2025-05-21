@@ -1,4 +1,4 @@
-﻿using ApiModel.Models;
+﻿using ApiModel.NeoModels;
 
 using ApiService.Contracts.Repositories;
 
@@ -13,13 +13,11 @@ namespace ApiService.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class DirecaoClinicaController(
-        ISimpleRepository<DirecaoClinica> direcaoRepo,
-        ITipologiaRepository tipologiaRepo
+        ISimpleRepository<DirecaoClinica> direcaoRepo
         , IMapper mapper
         ) : ControllerBase
 {
     private readonly ISimpleRepository<DirecaoClinica> _direcaoRepo = direcaoRepo;
-    private readonly ITipologiaRepository _tipologiaRepo = tipologiaRepo;
     private readonly IMapper _mapper = mapper;
 
     /// <summary>
@@ -40,7 +38,7 @@ public class DirecaoClinicaController(
     [HttpGet("{Id}")]
     public async Task<IResult> GetById(long Id)
     {
-        var direcao = await _direcaoRepo.GetById(Id);
+        var direcao = await _direcaoRepo.GetByIdAsync(Id);
         if (direcao == null) return Results.BadRequest("Direção Clínica não encontrada.");
         DirecaoClinicaDTO toReturn = _mapper.Map<DirecaoClinicaDTO>(direcao);
 
@@ -57,19 +55,8 @@ public class DirecaoClinicaController(
         if (direcaoClinicaModel == null) return Results.BadRequest("Direção clínica inválida.");
         try
         {
-            if (!string.IsNullOrEmpty(direcaoClinicaModel.TipologiaNome))
-            {
-                var tipologia = await _tipologiaRepo.GetByNome(direcaoClinicaModel.TipologiaNome);
-                var newDir = _mapper.Map<DirecaoClinica>(direcaoClinicaModel);
-                newDir.Tipologia = tipologia;
-                await _direcaoRepo.Create(newDir);
-                return Results.Created();
-            }
-            else
-            {
-                await _direcaoRepo.Create(_mapper.Map<DirecaoClinica>(direcaoClinicaModel));
-                return Results.Created();
-            }
+            await _direcaoRepo.AddAsync(_mapper.Map<DirecaoClinica>(direcaoClinicaModel));
+            return Results.Created();
         }
         catch (Exception ex)
         {
@@ -89,7 +76,7 @@ public class DirecaoClinicaController(
             return Results.BadRequest("Direção clínica inválida.");
 
         // Ensure the record exists
-        var existingEntity = await _direcaoRepo.GetById(Id);
+        var existingEntity = await _direcaoRepo.GetByIdAsync(Id);
         if (existingEntity == null)
             return Results.NotFound($"No record found with ID {Id}");
 
@@ -97,7 +84,7 @@ public class DirecaoClinicaController(
         {
             // Perform the update
             var updatedEntity = _mapper.Map(direcaoClinicaModel, existingEntity);
-            await _direcaoRepo.Update(Id, updatedEntity);
+            await _direcaoRepo.UpdateAsync(updatedEntity);
 
             return Results.Ok();
         }

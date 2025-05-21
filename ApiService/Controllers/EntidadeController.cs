@@ -1,9 +1,12 @@
-﻿using AutoMapper;
+﻿using ApiModel.NeoModels;
+
+using ApiService.Contracts.Repositories;
+
+using AutoMapper;
+
 using Microsoft.AspNetCore.Mvc;
 
-using ApiModel.Models;
 using SharedKernel.DTO;
-using ApiService.Contracts.Repositories;
 
 namespace ApiService.Controllers;
 
@@ -35,7 +38,7 @@ public class EntidadeController(
     [HttpGet("{Id}")]
     public async Task<IResult> GetById(long Id)
     {
-        var entidade = await _entidadeRepo.GetById(Id);
+        var entidade = await _entidadeRepo.GetByIdAsync(Id);
         if (entidade == null) return Results.BadRequest("Entidade não encontrada.");
         EntidadeDTO toReturn = _mapper.Map<EntidadeDTO>(entidade);
 
@@ -54,7 +57,7 @@ public class EntidadeController(
 
         try
         {
-            await _entidadeRepo.Create(_mapper.Map<Entidade>(entidadeModel));
+            await _entidadeRepo.AddAsync(_mapper.Map<Entidade>(entidadeModel));
             return Results.Created();
         }
         catch (Exception)
@@ -68,14 +71,14 @@ public class EntidadeController(
     {
         if (entidadeModel == null) return Results.BadRequest("Entidade inválida.");
 
-        var existingEntidade = await _entidadeRepo.GetById(entidadeModel.Id);
+        var existingEntidade = await _entidadeRepo.GetByIdAsync(entidadeModel.Id);
 
         _mapper.Map(entidadeModel, existingEntidade);
 
         try
         {
-            await _entidadeRepo.Update(entidadeModel.Id, existingEntidade);
-            return Results.Created();
+            await _entidadeRepo.UpdateAsync(existingEntidade);
+            return Results.Ok();
         }
         catch (Exception)
         {

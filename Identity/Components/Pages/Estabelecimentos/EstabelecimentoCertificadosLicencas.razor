@@ -32,13 +32,13 @@
                             </MudSelect>
                         </MudItem>
                         <MudItem xs="6">
-                            <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataExpiracao" DateFormat="dd/mm/yyyy" Label="Data de expiração" Disabled="!_editModeCertificado" />
+                            <MudDatePicker @bind-Date="CertificadoErs.DataExpiracao" Label="Data de expiração" Disabled="!_editModeCertificado" />
                         </MudItem>
                         <MudItem xs="6">
-                            <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataExpiracaoTaxa" DateFormat="dd/mm/yyyy" Label="Data de expiração taxa" Disabled="!_editModeCertificado" />
+                            <MudDatePicker @bind-Date="CertificadoErs.DataExpiracaoTaxa" Label="Data de expiração taxa" Disabled="!_editModeCertificado" />
                         </MudItem>
                         <MudItem xs="6">
-                            <MudDatePicker T="DateTime?" @bind-Date="CertificadoErs.DataPagamentoTaxa" DateFormat="dd/mm/yyyy" Label="Data de pagamento taxa" Disabled="!_editModeCertificado" />
+                            <MudDatePicker @bind-Date="CertificadoErs.DataPagamentoTaxa" Label="Pagamento taxa" Disabled="!_editModeCertificado" />
                         </MudItem>
                         <MudItem xs="12">
                             @if (CertificadoErs.FicheiroId > 0 && CertificadoErs.Ficheiro != null)

@@ -1,4 +1,4 @@
-﻿using ApiModel.Models;
+﻿using ApiModel.NeoModels;
 
 using ApiService.Contracts.Repositories;
 
@@ -19,8 +19,6 @@ public class EstabelecimentoController(
         ISimpleRepository<LicencaERS> licencaRepo,
         ISimpleRepository<Servico> servicoRepo,
         ISimpleRepository<DirecaoClinica> direcaoClinicaRepo,
-        ISimpleRepository<Colaborador> colaboradorRepo,
-        ISimpleRepository<Ficheiro> ficheiroRepo,
         IMapper mapper
         ) : ControllerBase
 {
@@ -29,8 +27,6 @@ public class EstabelecimentoController(
     private readonly ISimpleRepository<LicencaERS> _licencaRepo = licencaRepo;
     private readonly ISimpleRepository<Servico> _servicoRepo = servicoRepo;
     private readonly ISimpleRepository<DirecaoClinica> _direcaoClinicaRepo = direcaoClinicaRepo;
-    private readonly ISimpleRepository<Colaborador> _colaboradorRepo = colaboradorRepo;
-    private readonly ISimpleRepository<Ficheiro> _ficheiroRepo = ficheiroRepo;
     private readonly IMapper _mapper = mapper;
 
     /// <summary>
@@ -110,7 +106,7 @@ public class EstabelecimentoController(
     [HttpGet("{Id}")]
     public async Task<IResult> GetById(long Id)
     {
-        var estabelecimento = await _estabelecimentoRepo.GetById(Id);
+        var estabelecimento = await _estabelecimentoRepo.GetByIdAsync(Id);
         if (estabelecimento == null) return Results.BadRequest("Estabelecimento não encontrado.");
         EstabelecimentoDTO toReturn = _mapper.Map<EstabelecimentoDTO>(estabelecimento);
 
@@ -129,7 +125,8 @@ public class EstabelecimentoController(
 
         try
         {
-            await _estabelecimentoRepo.Create(_mapper.Map<Estabelecimento>(estabelecimentoModel));
+            var toCreate = _mapper.Map<Estabelecimento>(estabelecimentoModel);
+            await _estabelecimentoRepo.AddAsync(toCreate);
             return Results.Created();
         }
         catch (Exception)
@@ -148,14 +145,14 @@ public class EstabelecimentoController(
     {
         if (estabelecimentoModel == null) return Results.BadRequest("Estabelecimento inválido.");
 
-        var estabelecimentoExistente = await _estabelecimentoRepo.GetById(estabelecimentoModel.Id);
+        var estabelecimentoExistente = await _estabelecimentoRepo.GetByIdAsync(estabelecimentoModel.Id);
 
         _mapper.Map(estabelecimentoModel, estabelecimentoExistente);
 
         try
         {
-            await _estabelecimentoRepo.Update(estabelecimentoModel.Id, estabelecimentoExistente);
-            return Results.Created();
+            await _estabelecimentoRepo.UpdateAsync(estabelecimentoExistente);
+            return Results.Ok();
         }
         catch (Exception)
         {
@@ -209,7 +206,7 @@ public class EstabelecimentoController(
         {
             var certificado = _mapper.Map<CertificadoERS>(certificadoModel);
             certificado.EstabelecimentoId = id;
-            await _certificadoRepo.Create(certificado);
+            await _certificadoRepo.AddAsync(certificado);
             return Results.Created($"/api/Estabelecimento/{id}/CertificadoErs/{certificado.Id}", certificado);
         }
         catch (Exception)
@@ -233,7 +230,7 @@ public class EstabelecimentoController(
         {
             var licenca = _mapper.Map<LicencaERS>(licencaModel);
             licenca.EstabelecimentoId = id;
-            await _licencaRepo.Create(licenca);
+            await _licencaRepo.AddAsync(licenca);
             return Results.Created($"/api/Estabelecimento/{id}/LicencaErs/{licenca.Id}", licenca);
         }
         catch (Exception)
@@ -253,7 +250,7 @@ public class EstabelecimentoController(
     {
         if (certificadoModel == null) return Results.BadRequest("Certificado inválido.");
 
-        var certificadoExistente = await _certificadoRepo.GetById(certificadoModel.Id);
+        var certificadoExistente = await _certificadoRepo.GetByIdAsync(certificadoModel.Id);
         if (certificadoExistente == null || certificadoExistente.EstabelecimentoId != id)
             return Results.NotFound("Certificado não encontrado para o estabelecimento.");
 
@@ -261,7 +258,7 @@ public class EstabelecimentoController(
 
         try
         {
-            await _certificadoRepo.Update(certificadoModel.Id, certificadoExistente);
+            await _certificadoRepo.UpdateAsync(certificadoExistente);
             return Results.Ok(certificadoExistente);
         }
         catch (Exception)
@@ -281,7 +278,7 @@ public class EstabelecimentoController(
     {
         if (licencaModel == null) return Results.BadRequest("Licença inválida.");
 
-        var licencaExistente = await _licencaRepo.GetById(licencaModel.Id);
+        var licencaExistente = await _licencaRepo.GetByIdAsync(licencaModel.Id);
         if (licencaExistente == null || licencaExistente.EstabelecimentoId != id)
             return Results.NotFound("Licença não encontrada para o estabelecimento.");
 
@@ -289,7 +286,7 @@ public class EstabelecimentoController(
 
         try
         {
-            await _licencaRepo.Update(licencaModel.Id, licencaExistente);
+            await _licencaRepo.UpdateAsync(licencaExistente);
             return Results.Ok(licencaExistente);
         }
         catch (Exception)
@@ -312,48 +309,48 @@ public class EstabelecimentoController(
         return Results.Ok(servicosDto);
     }
 
-    // Get api/Estabelecimento/{id}/DirecoesClinicas
-    [HttpGet("{id}/DirecoesClinicas")]
-    public IResult GetDirecoesClinicasByEstabelecimentoId(long id)
-    {
-        var direcoesClinicas = _direcaoClinicaRepo.GetAll().Where(c => c.EstabelecimentoId == id);
-        if (!direcoesClinicas.Any()) return Results.Ok(direcoesClinicas);
-        var direcoesClinicasDto = _mapper.Map<IEnumerable<DirecaoClinicaDTO>>(direcoesClinicas);
-        return Results.Ok(direcoesClinicasDto);
-    }
+    //// Get api/Estabelecimento/{id}/DirecoesClinicas
+    //[HttpGet("{id}/DirecoesClinicas")]
+    //public IResult GetDirecoesClinicasByEstabelecimentoId(long id)
+    //{
+    //    var direcoesClinicas = _direcaoClinicaRepo.GetAll().Where(c => c.EstabelecimentoId == id);
+    //    if (!direcoesClinicas.Any()) return Results.Ok(direcoesClinicas);
+    //    var direcoesClinicasDto = _mapper.Map<IEnumerable<DirecaoClinicaDTO>>(direcoesClinicas);
+    //    return Results.Ok(direcoesClinicasDto);
+    //}
 
-    [HttpGet("{id}/CorpoClinico")]
-    public IResult GetCorpoClinicoByEstabelecimentoId(long id)
-    {
-        var colaborador = _colaboradorRepo.GetAll().Where(c => c.EstabelecimentoId == id && c.ColaboradorTipoId == 1);
-        if (!colaborador.Any()) return Results.Ok(colaborador);
-        var colaboradoresDto = _mapper.Map<IEnumerable<CorpoClinicoDTO>>(colaborador);
-        return Results.Ok(colaboradoresDto);
-    }
+    //[HttpGet("{id}/CorpoClinico")]
+    //public IResult GetCorpoClinicoByEstabelecimentoId(long id)
+    //{
+    //    var colaborador = _colaboradorRepo.GetAll().Where(c => c.EstabelecimentoId == id && c.ColaboradorTipoId == 1);
+    //    if (!colaborador.Any()) return Results.Ok(colaborador);
+    //    var colaboradoresDto = _mapper.Map<IEnumerable<CorpoClinicoDTO>>(colaborador);
+    //    return Results.Ok(colaboradoresDto);
+    //}
 
-    [HttpPost("{id}/CartaoNipc")]
-    public async Task<IResult> CreateCartaoNipc(long id, [FromBody] AnexoDTO CartaoNipc)
-    {
-        if (CartaoNipc == null) return Results.BadRequest("CartaoNipc inválido.");
+    //[HttpPost("{id}/CartaoNipc")]
+    //public async Task<IResult> CreateCartaoNipc(long id, [FromBody] AnexoDTO CartaoNipc)
+    //{
+    //    if (CartaoNipc == null) return Results.BadRequest("CartaoNipc inválido.");
 
-        try
-        {
-            var estabelecimento = await _estabelecimentoRepo.GetById(CartaoNipc.EstabelecimentoId);
-            if (estabelecimento is null)
-            {
-                return Results.NotFound();
-            }
+    //    try
+    //    {
+    //        var estabelecimento = await _estabelecimentoRepo.GetByIdAsync(CartaoNipc.EstabelecimentoId);
+    //        if (estabelecimento is null)
+    //        {
+    //            return Results.NotFound();
+    //        }
 
-            estabelecimento.CartaoNipc = _mapper.Map<Anexo>(CartaoNipc);
+    //        estabelecimento.CartaoNipc = _mapper.Map<Anexo>(CartaoNipc);
 
-            await _estabelecimentoRepo.Update(estabelecimento.Id, estabelecimento);
+    //        await _estabelecimentoRepo.UpdateAsync(estabelecimento);
 
-            return Results.Created($"/api/Estabelecimento/{id}/CartaoNipc/{estabelecimento.CartaoNipc.Id}", estabelecimento.CartaoNipc);
-        }
-        catch (Exception)
-        {
-            return Results.InternalServerError("Erro ao gravar o Cartão.");
-        }
-    }
+    //        return Results.Created($"/api/Estabelecimento/{id}/CartaoNipc/{estabelecimento.CartaoNipc.Id}", estabelecimento.CartaoNipc);
+    //    }
+    //    catch (Exception)
+    //    {
+    //        return Results.InternalServerError("Erro ao gravar o Cartão.");
+    //    }
+    //}
 
 }

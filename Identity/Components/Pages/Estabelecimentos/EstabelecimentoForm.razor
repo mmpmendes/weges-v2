@@ -22,7 +22,7 @@ else
             <MudTextField @bind-Text="Estabelecimento.Email" T="string" Label="Email" />
         </MudItem>
         <MudItem xs="6">
-            <MudTextField @bind-Text="Estabelecimento.Telefone" T="string" Label="Telefone" />
+            <MudTextField @bind-Text="Estabelecimento.Telefone" T="string" Label="Telefone" Mask="@(new PatternMask("000 000 000"))" />
         </MudItem>
         <MudItem xs="6">
             <MudTextField @bind-Text="Estabelecimento.TipoPrestador" T="string" Label="Tipo de Prestador" />

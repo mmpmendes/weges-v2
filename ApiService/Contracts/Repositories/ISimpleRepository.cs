@@ -1,17 +1,15 @@
-﻿using ApiModel.Models;
-
-namespace ApiService.Contracts.Repositories;
+﻿namespace ApiService.Contracts.Repositories;
 
 public interface ISimpleRepository<T>
-    where T : class, IEntity<long>
+    where T : class
 {
     IQueryable<T> GetAll();
 
-    Task<T> GetById(long id);
+    Task<T?> GetByIdAsync(long id);
 
-    Task Create(T entity);
+    Task<T> AddAsync(T entity);
 
-    Task Update(long id, T entity);
+    Task<int> UpdateAsync(T entity);
 
-    Task Delete(long id);
+    Task<int> DeleteAsync(T entity);
 }

@@ -1,5 +1,5 @@
 using ApiModel;
-using ApiModel.Models;
+using ApiModel.NeoModels;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -62,368 +62,13 @@ public class DbInitializer(
         {
             SeedServicos(dbContext);
         }
-        if (!dbContext.Set<Ficheiro>().Any())
-        {
-            SeedFicheiros(dbContext);
-        }
         if (!dbContext.Set<Estabelecimento>().Any())
         {
             SeedEstabelecimentos(dbContext);
         }
-        if (!dbContext.Set<CertificadoERS>().Any())
-        {
-            SeedCertificados(dbContext);
-        }
-        if (!dbContext.Set<LicencaERS>().Any())
-        {
-            SeedLicencas(dbContext);
-        }
-        if (!dbContext.Set<AnexoTipo>().Any())
-        {
-            SeedAnexoTipo(dbContext);
-        }
-        if (!dbContext.Set<ColaboradorTipo>().Any())
-        {
-            SeedColaboradorTipo(dbContext);
-        }
-        if (!dbContext.Set<Colaborador>().Any())
-        {
-            SeedColaboradores(dbContext);
-        }
-    }
-    /// <summary>
-    /// Seed Colaboradores
-    /// </summary>
-    /// <param name="dbContext"></param>
-    private static void SeedColaboradores(WegesDbContext dbContext)
-    {
-
-        dbContext.Set<Colaborador>().AddRange(new[]
-        {
-           new Colaborador
-        {
-            Id = 1,
-            Nome = "Ana Silva",
-            NrIdentificacao = "123456789",
-            DataNascimento = new DateOnly(1985, 6, 15),
-            InicioAtividade = new DateOnly(2020, 1, 10),
-            Cedula = "C-12345",
-            Especialidade = "Cardiologia",
-            Estado = true,
-            TotalHoras = 40,
-            Observacoes = "Colaboradora exemplar.",
-            ServicoId = 1,
-            EstabelecimentoId = 1,
-            ColaboradorTipoId = 1
-        },
-        new Colaborador
-        {
-            Id = 2,
-            Nome = "João Pereira",
-            NrIdentificacao = "987654321",
-            DataNascimento = new DateOnly(1990, 3, 10),
-            InicioAtividade = new DateOnly(2021, 5, 15),
-            Cedula = "C-67890",
-            Especialidade = "Pediatria",
-            Estado = true,
-            TotalHoras = 35,
-            Observacoes = "Trabalha bem com crianças.",
-            ServicoId = 2,
-            EstabelecimentoId = 1,
-            ColaboradorTipoId = 2
-        },
-        new Colaborador
-        {
-            Id = 3,
-            Nome = "Maria Fernandes",
-            NrIdentificacao = "456123789",
-            DataNascimento = new DateOnly(1978, 12, 22),
-            InicioAtividade = new DateOnly(2015, 9, 1),
-            Cedula = "C-11223",
-            Especialidade = "Neurologia",
-            Estado = false,
-            TotalHoras = 20,
-            Observacoes = "Atualmente em licença médica.",
-            ServicoId = 3,
-            EstabelecimentoId = 2,
-            ColaboradorTipoId = 1
-        },
-        new Colaborador
-        {
-            Id = 4,
-            Nome = "Carlos Oliveira",
-            NrIdentificacao = "789456123",
-            DataNascimento = new DateOnly(1980, 8, 14),
-            InicioAtividade = new DateOnly(2018, 3, 12),
-            Cedula = "C-33456",
-            Especialidade = "Ortopedia",
-            Estado = true,
-            TotalHoras = 45,
-            Observacoes = "Experiente em casos complexos.",
-            ServicoId = 4,
-            EstabelecimentoId = 3,
-            ColaboradorTipoId = 2
-        },
-        new Colaborador
-        {
-            Id = 5,
-            Nome = "Patrícia Gomes",
-            NrIdentificacao = "852741963",
-            DataNascimento = new DateOnly(1992, 11, 5),
-            InicioAtividade = new DateOnly(2019, 7, 20),
-            Cedula = "C-98765",
-            Especialidade = "Gastroenterologia",
-            Estado = true,
-            TotalHoras = 38,
-            Observacoes = "Muito atenciosa com os pacientes.",
-            ServicoId = 1,
-            EstabelecimentoId = 1,
-            ColaboradorTipoId = 1
-        },
-        new Colaborador
-        {
-            Id = 6,
-            Nome = "Rafael Costa",
-            NrIdentificacao = "951753852",
-            DataNascimento = new DateOnly(1987, 4, 19),
-            InicioAtividade = new DateOnly(2016, 6, 8),
-            Cedula = "C-65432",
-            Especialidade = "Pediatria",
-            Estado = true,
-            TotalHoras = 40,
-            Observacoes = "Bom com consultas de crianças.",
-            ServicoId = 2,
-            EstabelecimentoId = 2,
-            ColaboradorTipoId = 1
-        },
-        new Colaborador
-        {
-            Id = 7,
-            Nome = "Sandra Rodrigues",
-            NrIdentificacao = "753159852",
-            DataNascimento = new DateOnly(1990, 2, 28),
-            InicioAtividade = new DateOnly(2020, 9, 15),
-            Cedula = "C-99887",
-            Especialidade = "Cardiologia",
-            Estado = true,
-            TotalHoras = 42,
-            Observacoes = "Dedicada e profissional.",
-            ServicoId = 1,
-            EstabelecimentoId = 3,
-            ColaboradorTipoId = 2
-        },
-        new Colaborador
-        {
-            Id = 8,
-            Nome = "Fernando Mendes",
-            NrIdentificacao = "789123456",
-            DataNascimento = new DateOnly(1984, 7, 7),
-            InicioAtividade = new DateOnly(2017, 10, 25),
-            Cedula = "C-55432",
-            Especialidade = "Neurologia",
-            Estado = false,
-            TotalHoras = 25,
-            Observacoes = "Em licença temporária.",
-            ServicoId = 3,
-            EstabelecimentoId = 1,
-            ColaboradorTipoId = 1
-        },
-        new Colaborador
-        {
-            Id = 9,
-            Nome = "Clara Vieira",
-            NrIdentificacao = "951357852",
-            DataNascimento = new DateOnly(1991, 6, 18),
-            InicioAtividade = new DateOnly(2021, 3, 1),
-            Cedula = "C-87654",
-            Especialidade = "Gastroenterologia",
-            Estado = true,
-            TotalHoras = 37,
-            Observacoes = "Atenta aos detalhes.",
-            ServicoId = 4,
-            EstabelecimentoId = 2,
-            ColaboradorTipoId = 2
-        },
-        new Colaborador
-        {
-            Id = 10,
-            Nome = "Bruno Nunes",
-            NrIdentificacao = "852963741",
-            DataNascimento = new DateOnly(1983, 3, 15),
-            InicioAtividade = new DateOnly(2014, 5, 25),
-            Cedula = "C-22345",
-            Especialidade = "Ortopedia",
-            Estado = true,
-            TotalHoras = 45,
-            Observacoes = "Com experiência em trauma.",
-            ServicoId = 2,
-            EstabelecimentoId = 3,
-            ColaboradorTipoId = 1
-        }
-        });
-        dbContext.SaveChanges();
     }
 
-    /// <summary>
-    /// Seed ColaboradorTipo
-    /// </summary>
-    /// <param name="dbContext"></param>
-    private static void SeedColaboradorTipo(WegesDbContext dbContext)
-    {
-        if (!dbContext.Set<ColaboradorTipo>().Any())
-        {
-            int id = 1;
-            dbContext.Set<ColaboradorTipo>().AddRange(new[]
-            {
-            new ColaboradorTipo
-            {
-                Id = id++,
-                Tipo = "Corpo Clínico"
-            },
-            new ColaboradorTipo
-            {
-                Id = id++,
-                Tipo = "Administrativo"
-            },
-            new ColaboradorTipo
-            {
-                Id = id++,
-                Tipo = "Auxiliar"
-            }
-        });
-            dbContext.SaveChanges();
-        }
-    }
 
-    /// <summary>
-    /// Seed AnexoTipo
-    /// </summary>
-    /// <param name="dbContext"></param>
-    private static void SeedAnexoTipo(WegesDbContext dbContext)
-    {
-        int id = 1;
-        dbContext.Set<AnexoTipo>().AddRange(new[]
-        {
-            new AnexoTipo
-            {
-                Id = id++,
-                Tipo = "Nipc"
-            },
-            new AnexoTipo
-            {
-                Id = id++,
-                Tipo = "AlvaraCM"
-            },
-            new AnexoTipo
-            {
-                Id = id++,
-                Tipo = "MedidasANPC"
-            },
-            new AnexoTipo
-            {
-                Id = id++,
-                Tipo = "ParecerANPC"
-            },
-            new AnexoTipo
-            {
-                Id = id++,
-                Tipo = "Lista de Verificacao"
-            },
-            new AnexoTipo
-            {
-                Id = id++,
-                Tipo = "Ficheiros a Anexar"
-            },
-            new AnexoTipo
-            {
-                Id = id++,
-                Tipo = "Direitos e Deveres dos Pacientes"
-            },
-            new AnexoTipo
-            {
-                Id = id++,
-                Tipo = "Licenciamento e Registo Legal"
-            }
-        });
-    }
-    /// <summary>
-    /// Seed Licencas
-    /// </summary>
-    /// <param name="dbContext"></param>
-    private static void SeedLicencas(WegesDbContext dbContext)
-    {
-        //if (!dbContext.Set<LicencaERS>().Any())
-        //{
-        //    dbContext.Set<LicencaERS>().AddRange(new[]
-        //    {
-        //        new LicencaERS
-        //        {
-        //            Id = 1,
-        //            DataSubmissao = new DateOnly(2023, 02, 20),
-        //            Estabelecimento = dbContext.Set<Estabelecimento>().Find(1L),
-        //            EstabelecimentoId = 1L,
-        //            FicheiroId = 1L,
-        //            NrLicenca = "NrLicenca 1",
-        //            Ficheiro = dbContext.Set<Ficheiro>().Find(1L),
-        //            Periodo = "Periodo 1",
-        //            Observacoes = "Observacoes 1"
-        //        },
-        //        new LicencaERS
-        //        {
-        //            Id = 2,
-        //            DataSubmissao = new DateOnly(2023, 02, 20),
-        //            Estabelecimento = dbContext.Set<Estabelecimento>().Find(2L),
-        //            EstabelecimentoId = 2L,
-        //            FicheiroId = 2L,
-        //            NrLicenca = "NrLicenca 2",
-        //            Ficheiro = dbContext.Set<Ficheiro>().Find(2L),
-        //            Periodo = "Periodo 2",
-        //            Observacoes = "Observacoes 2"
-        //        }
-        //    });
-        //    dbContext.SaveChanges();
-        //}
-    }
-    /// <summary>
-    /// Seed Certificados
-    /// </summary>
-    /// <param name="dbContext"></param>
-    private static void SeedCertificados(WegesDbContext dbContext)
-    {
-        //if (!dbContext.Set<CertificadoERS>().Any())
-        //{
-        //    dbContext.Set<CertificadoERS>().AddRange(new[]
-        //    {
-        //        new CertificadoERS
-        //        {
-        //            Id = 1,
-        //            DataExpiracao = new DateOnly(2023, 02, 20),
-        //            DataPagamentoTaxa = new DateOnly(2023, 02, 20),
-        //            EstabelecimentoId = 1,
-        //            FicheiroId = 1,
-        //            Periodo = "Periodo 1",
-        //            NrCertificado = "Nr Certificado 1",
-        //            DataSubmissao = new DateOnly(2023, 02, 20),
-        //            Observacoes = "Observacoes 1",
-        //            DataExpiracaoTaxa = new DateOnly(2023, 02, 20)
-        //        },
-        //        new CertificadoERS
-        //        {
-        //            Id = 2,
-        //            DataExpiracao = new DateOnly(2023, 02, 20),
-        //            DataPagamentoTaxa = new DateOnly(2023, 02, 20),
-        //            EstabelecimentoId = 2,
-        //            FicheiroId = 2,
-        //            Periodo = "Periodo 1",
-        //            NrCertificado = "Nr Certificado 1",
-        //            DataSubmissao = new DateOnly(2023, 02, 20),
-        //            Observacoes = "Observacoes 1",
-        //            DataExpiracaoTaxa = new DateOnly(2023, 02, 20)
-        //        }
-        //    });
-        //    dbContext.SaveChanges();
-        //}
-    }
     /// <summary>
     /// Seed Estabelecimentos
     /// </summary>
@@ -436,10 +81,9 @@ public class DbInitializer(
             {
                 new Estabelecimento
                 {
-                    Id = 1,
                     Denominacao = "Clínica A",
                     Email = "email@email.email",
-                    InicioAtividade = new DateOnly(2020, 02, 20),
+                    DataInicioAtividade = new DateOnly(2020, 02, 20),
                     Morada = "estab 1 morada",
                     Sigla = "estab1",
                     Telefone = "291111111",
@@ -447,10 +91,9 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Id = 2,
                     Denominacao = "Centro Hospitalar B",
                     Email = "email@email.email",
-                    InicioAtividade = new DateOnly(2023, 02, 20),
+                    DataInicioAtividade = new DateOnly(2023, 02, 20),
                     Morada = "estab 2 morada",
                     Sigla = "estab2",
                     Telefone = "291111112",
@@ -458,10 +101,9 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Id = 3,
                     Denominacao = "Hospital C",
                     Email = "hospitalc@email.com",
-                    InicioAtividade = new DateOnly(2019, 05, 15),
+                    DataInicioAtividade = new DateOnly(2019, 05, 15),
                     Morada = "Rua do Hospital C, 123",
                     Sigla = "HOSP-C",
                     Telefone = "291111113",
@@ -469,10 +111,9 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Id = 4,
                     Denominacao = "Clínica D",
                     Email = "clinicad@email.com",
-                    InicioAtividade = new DateOnly(2021, 07, 10),
+                    DataInicioAtividade = new DateOnly(2021, 07, 10),
                     Morada = "Av. Clínica D, 456",
                     Sigla = "CLIN-D",
                     Telefone = "291111114",
@@ -480,10 +121,9 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Id = 5,
                     Denominacao = "Centro Médico E",
                     Email = "centromedicoe@email.com",
-                    InicioAtividade = new DateOnly(2022, 09, 25),
+                    DataInicioAtividade = new DateOnly(2022, 09, 25),
                     Morada = "Rua Centro Médico E, 789",
                     Sigla = "MED-E",
                     Telefone = "291111115",
@@ -491,10 +131,9 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Id = 6,
                     Denominacao = "Hospital Universitário F",
                     Email = "hospitalf@email.com",
-                    InicioAtividade = new DateOnly(2018, 11, 05),
+                    DataInicioAtividade = new DateOnly(2018, 11, 05),
                     Morada = "Av. Universitária F, 321",
                     Sigla = "UNIV-F",
                     Telefone = "291111116",
@@ -502,10 +141,9 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Id = 7,
                     Denominacao = "Policlínica G",
                     Email = "policlinicag@email.com",
-                    InicioAtividade = new DateOnly(2020, 03, 15),
+                    DataInicioAtividade = new DateOnly(2020, 03, 15),
                     Morada = "Rua Policlínica G, 654",
                     Sigla = "POLI-G",
                     Telefone = "291111117",
@@ -513,10 +151,9 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Id = 8,
                     Denominacao = "Centro de Saúde H",
                     Email = "centrosaudelh@email.com",
-                    InicioAtividade = new DateOnly(2019, 06, 20),
+                    DataInicioAtividade = new DateOnly(2019, 06, 20),
                     Morada = "Rua Centro Saúde H, 987",
                     Sigla = "SAUDE-H",
                     Telefone = "291111118",
@@ -524,10 +161,9 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Id = 9,
                     Denominacao = "Clínica Especializada I",
                     Email = "clinicai@email.com",
-                    InicioAtividade = new DateOnly(2021, 01, 10),
+                    DataInicioAtividade = new DateOnly(2021, 01, 10),
                     Morada = "Av. Clínica I, 567",
                     Sigla = "CLIN-I",
                     Telefone = "291111119",
@@ -535,10 +171,9 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Id = 10,
                     Denominacao = "Hospital Municipal J",
                     Email = "hospitalj@email.com",
-                    InicioAtividade = new DateOnly(2020, 12, 01),
+                    DataInicioAtividade = new DateOnly(2020, 12, 01),
                     Morada = "Rua Municipal J, 234",
                     Sigla = "MUNI-J",
                     Telefone = "291111120",
@@ -546,10 +181,9 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Id = 11,
                     Denominacao = "Centro Clínico K",
                     Email = "centroclinicok@email.com",
-                    InicioAtividade = new DateOnly(2017, 08, 22),
+                    DataInicioAtividade = new DateOnly(2017, 08, 22),
                     Morada = "Av. Centro Clínico K, 890",
                     Sigla = "CLIN-K",
                     Telefone = "291111121",
@@ -557,10 +191,9 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Id = 12,
                     Denominacao = "Unidade de Saúde L",
                     Email = "unidadel@email.com",
-                    InicioAtividade = new DateOnly(2023, 04, 05),
+                    DataInicioAtividade = new DateOnly(2023, 04, 05),
                     Morada = "Rua Unidade L, 123",
                     Sigla = "US-L",
                     Telefone = "291111122",
@@ -570,34 +203,6 @@ public class DbInitializer(
             });
             dbContext.SaveChanges();
         }
-    }
-    /// <summary>
-    /// Seed Ficheiros
-    /// </summary>
-    /// <param name="dbContext"></param>
-    private static void SeedFicheiros(WegesDbContext dbContext)
-    {
-        //if (!dbContext.Set<Ficheiro>().Any())
-        //{
-        //    dbContext.Set<Ficheiro>().AddRange(new[]
-        //    {
-        //        new Ficheiro
-        //        {
-        //            Id = 1,
-        //            Nome = "Ficheiro 1",
-        //            Localizacao = "/shift/exemplo1.txt",
-        //            Tipo = "Tipo 1"
-        //        },
-        //        new Ficheiro
-        //        {
-        //            Id = 2,
-        //            Nome = "Ficheiro 2",
-        //            Localizacao = "/shift/exemplo100.txt",
-        //            Tipo = "Tipo 2"
-        //        }
-        //    });
-        //    dbContext.SaveChanges();
-        //}
     }
     /// <summary>
     /// Seed Servicos
@@ -611,123 +216,135 @@ public class DbInitializer(
             {
                 new Servico
                 {
-                    Id = 1,
-                    Nome = "Medicina Dentária",
-                    DataInicio = new DateTime(2023, 02, 20),
-                    Responsavel = "João A.",
-                    Horario = "Horario 1",
-                    Observacoes = "Observacoes 1",
-                    EstabelecimentoId = 1
+                    Denominacao = "Medicina Dentária",
+                    Diretor = "João A.",
+                    DiretorCC = "CC 12345678",
+                    DiretorCcDataValidade = new DateOnly(2023, 12, 31),
+                    DiretorCedulaProfissional = "Cedula 123456",
+                    DiretorOrdem = "Ordem 123456",
+                    DeclaracaoAceitacao = "Aceito as condições",
+                    Especialidade = "Dentária",
+                    Horario = "08:00 - 17:00"
                 },
                 new Servico
                 {
-                    Id = 2,
-                    Nome = "Endocrinologia",
-                    DataInicio = new DateTime(2023, 02, 20),
-                    Responsavel = "Joana B.",
-                    Horario = "Horario 2",
-                    Observacoes = "Observacoes 2",
-                    EstabelecimentoId = 2
+                    Denominacao = "Cardiologia",
+                    Diretor = "Maria T.",
+                    DiretorCC = "CC 23456789",
+                    DiretorCcDataValidade = new DateOnly(2025, 06, 15),
+                    DiretorCedulaProfissional = "Cedula 234567",
+                    DiretorOrdem = "Ordem 234567",
+                    DeclaracaoAceitacao = "Aceito os termos",
+                    Especialidade = "Cardiovascular",
+                    Horario = "09:00 - 18:00"
                 },
                 new Servico
                 {
-                    Id = 3,
-                    Nome = "Pediatria",
-                    DataInicio = new DateTime(2022, 06, 15),
-                    Responsavel = "Carlos D.",
-                    Horario = "09:00 - 17:00",
-                    Observacoes = "Atendimento de crianças",
-                    EstabelecimentoId = 1
+                    Denominacao = "Pediatria",
+                    Diretor = "Carlos M.",
+                    DiretorCC = "CC 34567890",
+                    DiretorCcDataValidade = new DateOnly(2024, 11, 30),
+                    DiretorCedulaProfissional = "Cedula 345678",
+                    DiretorOrdem = "Ordem 345678",
+                    DeclaracaoAceitacao = "Declaro estar de acordo",
+                    Especialidade = "Pediátrica",
+                    Horario = "07:30 - 16:30"
                 },
                 new Servico
                 {
-                    Id = 4,
-                    Nome = "Cardiologia",
-                    DataInicio = new DateTime(2021, 11, 10),
-                    Responsavel = "Maria C.",
-                    Horario = "08:00 - 16:00",
-                    Observacoes = "Especialista em doenças cardíacas",
-                    EstabelecimentoId = 3
+                    Denominacao = "Dermatologia",
+                    Diretor = "Ana L.",
+                    DiretorCC = "CC 45678901",
+                    DiretorCcDataValidade = new DateOnly(2026, 03, 10),
+                    DiretorCedulaProfissional = "Cedula 456789",
+                    DiretorOrdem = "Ordem 456789",
+                    DeclaracaoAceitacao = "Confirmo a aceitação",
+                    Especialidade = "Dermatológica",
+                    Horario = "10:00 - 19:00"
                 },
                 new Servico
                 {
-                    Id = 5,
-                    Nome = "Neurologia",
-                    DataInicio = new DateTime(2020, 05, 18),
-                    Responsavel = "Ricardo F.",
-                    Horario = "10:00 - 18:00",
-                    Observacoes = "Consultas para doenças neurológicas",
-                    EstabelecimentoId = 2
+                    Denominacao = "Ortopedia",
+                    Diretor = "Bruno S.",
+                    DiretorCC = "CC 56789012",
+                    DiretorCcDataValidade = new DateOnly(2025, 09, 25),
+                    DiretorCedulaProfissional = "Cedula 567890",
+                    DiretorOrdem = "Ordem 567890",
+                    DeclaracaoAceitacao = "Aceito os regulamentos",
+                    Especialidade = "Ortopédica",
+                    Horario = "08:00 - 17:00"
                 },
                 new Servico
                 {
-                    Id = 6,
-                    Nome = "Dermatologia",
-                    DataInicio = new DateTime(2021, 03, 25),
-                    Responsavel = "Fernanda L.",
-                    Horario = "08:30 - 16:30",
-                    Observacoes = "Tratamento de doenças de pele",
-                    EstabelecimentoId = 1
+                    Denominacao = "Ginecologia",
+                    Diretor = "Sara P.",
+                    DiretorCC = "CC 67890123",
+                    DiretorCcDataValidade = new DateOnly(2027, 01, 20),
+                    DiretorCedulaProfissional = "Cedula 678901",
+                    DiretorOrdem = "Ordem 678901",
+                    DeclaracaoAceitacao = "Li e aceito as condições",
+                    Especialidade = "Ginecológica",
+                    Horario = "09:00 - 18:00"
                 },
                 new Servico
                 {
-                    Id = 7,
-                    Nome = "Ortopedia",
-                    DataInicio = new DateTime(2020, 08, 12),
-                    Responsavel = "João P.",
-                    Horario = "09:00 - 17:00",
-                    Observacoes = "Tratamento de fraturas e lesões ósseas",
-                    EstabelecimentoId = 3
+                    Denominacao = "Oftalmologia",
+                    Diretor = "Miguel F.",
+                    DiretorCC = "CC 78901234",
+                    DiretorCcDataValidade = new DateOnly(2024, 07, 05),
+                    DiretorCedulaProfissional = "Cedula 789012",
+                    DiretorOrdem = "Ordem 789012",
+                    DeclaracaoAceitacao = "Declaro estar de acordo",
+                    Especialidade = "Ocular",
+                    Horario = "08:30 - 17:30"
                 },
                 new Servico
                 {
-                    Id = 8,
-                    Nome = "Gastroenterologia",
-                    DataInicio = new DateTime(2019, 02, 02),
-                    Responsavel = "Pedro R.",
-                    Horario = "08:00 - 16:00",
-                    Observacoes = "Consultas de doenças digestivas",
-                    EstabelecimentoId = 2
+                    Denominacao = "Neurologia",
+                    Diretor = "Helena R.",
+                    DiretorCC = "CC 89012345",
+                    DiretorCcDataValidade = new DateOnly(2025, 10, 01),
+                    DiretorCedulaProfissional = "Cedula 890123",
+                    DiretorOrdem = "Ordem 890123",
+                    DeclaracaoAceitacao = "Aceito integralmente",
+                    Especialidade = "Neurológica",
+                    Horario = "10:00 - 19:00"
                 },
                 new Servico
                 {
-                    Id = 9,
-                    Nome = "Oftalmologia",
-                    DataInicio = new DateTime(2022, 01, 10),
-                    Responsavel = "Luciana S.",
-                    Horario = "10:00 - 18:00",
-                    Observacoes = "Exames oftalmológicos e cirurgias",
-                    EstabelecimentoId = 1
+                    Denominacao = "Psiquiatria",
+                    Diretor = "Ricardo N.",
+                    DiretorCC = "CC 90123456",
+                    DiretorCcDataValidade = new DateOnly(2023, 12, 31),
+                    DiretorCedulaProfissional = "Cedula 901234",
+                    DiretorOrdem = "Ordem 901234",
+                    DeclaracaoAceitacao = "Confirmo a aceitação",
+                    Especialidade = "Psiquiátrica",
+                    Horario = "08:00 - 16:00"
                 },
                 new Servico
                 {
-                    Id = 10,
-                    Nome = "Fisioterapia",
-                    DataInicio = new DateTime(2021, 07, 30),
-                    Responsavel = "Ana T.",
-                    Horario = "08:00 - 14:00",
-                    Observacoes = "Reabilitação física e motora",
-                    EstabelecimentoId = 3
+                    Denominacao = "Otorrinolaringologia",
+                    Diretor = "Patrícia G.",
+                    DiretorCC = "CC 01234567",
+                    DiretorCcDataValidade = new DateOnly(2026, 04, 12),
+                    DiretorCedulaProfissional = "Cedula 012345",
+                    DiretorOrdem = "Ordem 012345",
+                    DeclaracaoAceitacao = "Aceito as condições definidas",
+                    Especialidade = "Otorrino",
+                    Horario = "09:30 - 18:30"
                 },
                 new Servico
                 {
-                    Id = 11,
-                    Nome = "Urologia",
-                    DataInicio = new DateTime(2023, 03, 05),
-                    Responsavel = "Carlos M.",
-                    Horario = "09:00 - 17:00",
-                    Observacoes = "Tratamento de problemas urológicos",
-                    EstabelecimentoId = 2
-                },
-                new Servico
-                {
-                    Id = 12,
-                    Nome = "Ginecologia",
-                    DataInicio = new DateTime(2022, 08, 20),
-                    Responsavel = "Joana P.",
-                    Horario = "08:30 - 16:30",
-                    Observacoes = "Consultas ginecológicas e obstétricas",
-                    EstabelecimentoId = 3
+                    Denominacao = "Endocrinologia",
+                    Diretor = "Tiago V.",
+                    DiretorCC = "CC 13243546",
+                    DiretorCcDataValidade = new DateOnly(2028, 02, 18),
+                    DiretorCedulaProfissional = "Cedula 132435",
+                    DiretorOrdem = "Ordem 132435",
+                    DeclaracaoAceitacao = "Li e aceito",
+                    Especialidade = "Endócrina",
+                    Horario = "07:00 - 15:00"
                 }
             });
             dbContext.SaveChanges();
@@ -745,29 +362,12 @@ public class DbInitializer(
             {
                 new Entidade
                 {
-                    Id = 1,
-                    Denominacao = "Entidade 1",
-                    Morada = "Rua do Teste 1",
-                    NifNipc = "123123123",
-                    Telefone = "921111111",
-                    Email = "emailteste@email.email",
-                    Sigla = "ent1",
-                    NrERS = "A-1234",
-                    EmailNotificacoesERS = "emailnotificacoes@email.email",
-                    EmailNotificacoesGerais = "emailnotificacoes@email.email"
+                    Nome = "Entidade 1"
+
                 },
                 new Entidade
                 {
-                    Id = 2,
-                    Denominacao = "Entidade 2",
-                    Morada = "Rua do Teste 2",
-                    NifNipc = "123123123",
-                    Telefone = "921111111",
-                    Email = "emailteste@email.email",
-                    Sigla = "ent2",
-                    NrERS = "A-1234",
-                    EmailNotificacoesERS = "emailnotificacoes@email.email",
-                    EmailNotificacoesGerais = "emailnotificacoes@email.email"
+                    Nome = "Entidade 2"
                 }
             });
 
@@ -786,31 +386,190 @@ public class DbInitializer(
             {
                 new DirecaoClinica
                 {
-                    Id = 1,
                     Nome = "Nome 1",
-                    Cargo = "Cargo 1",
-                    Identificacao = "Identificacao 1",
-                    ValidadeIdentificacao = new DateTime(2023, 02, 20),
-                    Cedula = "Cedula 1",
+                    CC = "CC 1",
+                    CcDataValidade = new DateOnly(2023, 12, 31),
+                    CedulaProfissional = "Cedula 1",
                     Ordem = "Ordem 1",
+                    CedulaDataValidade = new DateOnly(2023, 12, 31),
+                    DeclaracaoAceitacao = true,
                     Especialidade = "Especialidade 1",
-                    EspecialidadeId = 1,
-                    Observacoes = "Observacoes 1",
-                    EstabelecimentoId = 1
+                    SubDiretor = "Alberto Jerónimo",
+                    SubDiretorCC = "CC 2",
+                    SubDiretorCcDataValidade = new DateOnly(2023, 12, 31),
+                    SubDiretorCedulaProfissional = "Cedula 2",
+                    SubDiretorOrdem = "Ordem 2",
+                    SubDiretorCedulaDataValidade = new DateOnly(2023, 12, 31)
                 },
                 new DirecaoClinica
                 {
-                    Id = 2,
-                    Nome = "Nome 2",
-                    Cargo = "Cargo 2",
-                    Identificacao = "Identificacao 2",
-                    ValidadeIdentificacao = new DateTime(2023, 02, 20),
-                    Cedula = "Cedula 2",
-                    Ordem = "Ordem 2",
-                    Especialidade = "Especialidade 2",
-                    EspecialidadeId = 2,
-                    Observacoes = "Observacoes 2",
-                    EstabelecimentoId = 2
+                    Nome = "Dra. Mariana Silva",
+                    CC = "CC 1001",
+                    CcDataValidade = new DateOnly(2025, 05, 20),
+                    CedulaProfissional = "Cedula 1001",
+                    Ordem = "Ordem 1001",
+                    CedulaDataValidade = new DateOnly(2027, 10, 15),
+                    DeclaracaoAceitacao = true,
+                    Especialidade = "Cardiologia",
+                    SubDiretor = "Dr. Pedro Ramos",
+                    SubDiretorCC = "CC 2001",
+                    SubDiretorCcDataValidade = new DateOnly(2026, 03, 12),
+                    SubDiretorCedulaProfissional = "Cedula 2001",
+                    SubDiretorOrdem = "Ordem 2001",
+                    SubDiretorCedulaDataValidade = new DateOnly(2027, 09, 20)
+                },
+                new DirecaoClinica
+                {
+                    Nome = "Dr. António Lopes",
+                    CC = "CC 1002",
+                    CcDataValidade = new DateOnly(2024, 08, 31),
+                    CedulaProfissional = "Cedula 1002",
+                    Ordem = "Ordem 1002",
+                    CedulaDataValidade = new DateOnly(2026, 12, 01),
+                    DeclaracaoAceitacao = true,
+                    Especialidade = "Ortopedia",
+                    SubDiretor = "Dra. Joana Matos",
+                    SubDiretorCC = "CC 2002",
+                    SubDiretorCcDataValidade = new DateOnly(2025, 06, 30),
+                    SubDiretorCedulaProfissional = "Cedula 2002",
+                    SubDiretorOrdem = "Ordem 2002",
+                    SubDiretorCedulaDataValidade = new DateOnly(2026, 11, 10)
+                },
+                new DirecaoClinica
+                {
+                    Nome = "Dra. Inês Ferreira",
+                    CC = "CC 1003",
+                    CcDataValidade = new DateOnly(2026, 01, 14),
+                    CedulaProfissional = "Cedula 1003",
+                    Ordem = "Ordem 1003",
+                    CedulaDataValidade = new DateOnly(2028, 04, 07),
+                    DeclaracaoAceitacao = true,
+                    Especialidade = "Ginecologia",
+                    SubDiretor = "Dr. Ricardo Esteves",
+                    SubDiretorCC = "CC 2003",
+                    SubDiretorCcDataValidade = new DateOnly(2025, 07, 21),
+                    SubDiretorCedulaProfissional = "Cedula 2003",
+                    SubDiretorOrdem = "Ordem 2003",
+                    SubDiretorCedulaDataValidade = new DateOnly(2027, 05, 30)
+                },
+                new DirecaoClinica
+                {
+                    Nome = "Dr. Manuel Costa",
+                    CC = "CC 1004",
+                    CcDataValidade = new DateOnly(2025, 12, 31),
+                    CedulaProfissional = "Cedula 1004",
+                    Ordem = "Ordem 1004",
+                    CedulaDataValidade = new DateOnly(2027, 09, 15),
+                    DeclaracaoAceitacao = true,
+                    Especialidade = "Neurologia",
+                    SubDiretor = "Dra. Beatriz Pires",
+                    SubDiretorCC = "CC 2004",
+                    SubDiretorCcDataValidade = new DateOnly(2026, 08, 19),
+                    SubDiretorCedulaProfissional = "Cedula 2004",
+                    SubDiretorOrdem = "Ordem 2004",
+                    SubDiretorCedulaDataValidade = new DateOnly(2027, 12, 05)
+                },
+                new DirecaoClinica
+                {
+                    Nome = "Dra. Filipa Marques",
+                    CC = "CC 1005",
+                    CcDataValidade = new DateOnly(2024, 04, 10),
+                    CedulaProfissional = "Cedula 1005",
+                    Ordem = "Ordem 1005",
+                    CedulaDataValidade = new DateOnly(2026, 06, 01),
+                    DeclaracaoAceitacao = true,
+                    Especialidade = "Pediatria",
+                    SubDiretor = "Dr. André Nogueira",
+                    SubDiretorCC = "CC 2005",
+                    SubDiretorCcDataValidade = new DateOnly(2025, 03, 15),
+                    SubDiretorCedulaProfissional = "Cedula 2005",
+                    SubDiretorOrdem = "Ordem 2005",
+                    SubDiretorCedulaDataValidade = new DateOnly(2026, 11, 17)
+                },
+                new DirecaoClinica
+                {
+                    Nome = "Dr. Tiago Gonçalves",
+                    CC = "CC 1006",
+                    CcDataValidade = new DateOnly(2026, 09, 25),
+                    CedulaProfissional = "Cedula 1006",
+                    Ordem = "Ordem 1006",
+                    CedulaDataValidade = new DateOnly(2027, 08, 11),
+                    DeclaracaoAceitacao = true,
+                    Especialidade = "Dermatologia",
+                    SubDiretor = "Dra. Carolina Reis",
+                    SubDiretorCC = "CC 2006",
+                    SubDiretorCcDataValidade = new DateOnly(2026, 12, 24),
+                    SubDiretorCedulaProfissional = "Cedula 2006",
+                    SubDiretorOrdem = "Ordem 2006",
+                    SubDiretorCedulaDataValidade = new DateOnly(2027, 07, 01)
+                },
+                new DirecaoClinica
+                {
+                    Nome = "Dra. Helena Matias",
+                    CC = "CC 1007",
+                    CcDataValidade = new DateOnly(2025, 11, 03),
+                    CedulaProfissional = "Cedula 1007",
+                    Ordem = "Ordem 1007",
+                    CedulaDataValidade = new DateOnly(2028, 02, 14),
+                    DeclaracaoAceitacao = true,
+                    Especialidade = "Endocrinologia",
+                    SubDiretor = "Dr. Nuno Barros",
+                    SubDiretorCC = "CC 2007",
+                    SubDiretorCcDataValidade = new DateOnly(2026, 04, 09),
+                    SubDiretorCedulaProfissional = "Cedula 2007",
+                    SubDiretorOrdem = "Ordem 2007",
+                    SubDiretorCedulaDataValidade = new DateOnly(2027, 10, 22)
+                },
+                new DirecaoClinica
+                {
+                    Nome = "Dr. Jorge Neves",
+                    CC = "CC 1008",
+                    CcDataValidade = new DateOnly(2027, 01, 30),
+                    CedulaProfissional = "Cedula 1008",
+                    Ordem = "Ordem 1008",
+                    CedulaDataValidade = new DateOnly(2028, 06, 06),
+                    DeclaracaoAceitacao = true,
+                    Especialidade = "Oncologia",
+                    SubDiretor = "Dra. Isabel Sousa",
+                    SubDiretorCC = "CC 2008",
+                    SubDiretorCcDataValidade = new DateOnly(2026, 02, 28),
+                    SubDiretorCedulaProfissional = "Cedula 2008",
+                    SubDiretorOrdem = "Ordem 2008",
+                    SubDiretorCedulaDataValidade = new DateOnly(2027, 08, 19)
+                },
+                new DirecaoClinica
+                {
+                    Nome = "Dra. Cláudia Rocha",
+                    CC = "CC 1009",
+                    CcDataValidade = new DateOnly(2025, 07, 07),
+                    CedulaProfissional = "Cedula 1009",
+                    Ordem = "Ordem 1009",
+                    CedulaDataValidade = new DateOnly(2027, 05, 05),
+                    DeclaracaoAceitacao = true,
+                    Especialidade = "Reumatologia",
+                    SubDiretor = "Dr. Luís Ventura",
+                    SubDiretorCC = "CC 2009",
+                    SubDiretorCcDataValidade = new DateOnly(2026, 11, 11),
+                    SubDiretorCedulaProfissional = "Cedula 2009",
+                    SubDiretorOrdem = "Ordem 2009",
+                    SubDiretorCedulaDataValidade = new DateOnly(2028, 03, 03)
+                },
+                new DirecaoClinica
+                {
+                    Nome = "Dr. Paulo Almeida",
+                    CC = "CC 1010",
+                    CcDataValidade = new DateOnly(2024, 10, 12),
+                    CedulaProfissional = "Cedula 1010",
+                    Ordem = "Ordem 1010",
+                    CedulaDataValidade = new DateOnly(2026, 01, 27),
+                    DeclaracaoAceitacao = true,
+                    Especialidade = "Psiquiatria",
+                    SubDiretor = "Dra. Sílvia Figueiredo",
+                    SubDiretorCC = "CC 2010",
+                    SubDiretorCcDataValidade = new DateOnly(2025, 12, 22),
+                    SubDiretorCedulaProfissional = "Cedula 2010",
+                    SubDiretorOrdem = "Ordem 2010",
+                    SubDiretorCedulaDataValidade = new DateOnly(2026, 09, 09)
                 }
             });
             dbContext.SaveChanges();
