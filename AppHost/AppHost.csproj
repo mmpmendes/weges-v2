@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <Sdk Name="Aspire.AppHost.Sdk" Version="9.3.0" />
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -11,13 +11,15 @@
   <ItemGroup>
     <ProjectReference Include="..\ApiService\WebApi.csproj" />
     <ProjectReference Include="..\BaseDbMigrations\BaseDbMigrations.csproj" />
-    <ProjectReference Include="..\IdentityMigrations\IdentityMigrations.csproj" />
+    <ProjectReference Include="..\IdentityMigrations\IdentityMigrations.csproj">
+      <IsAspireProjectResource>false</IsAspireProjectResource>
+    </ProjectReference>
     <ProjectReference Include="..\Identity\WebApp.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.0" />
-    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.3.0" />
-    <PackageReference Include="Aspire.Hosting.Redis" Version="9.3.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.5" />
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.1" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="9.3.1" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="9.3.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="9.0.6" />
   </ItemGroup>
 </Project>
