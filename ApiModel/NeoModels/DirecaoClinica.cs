@@ -1,4 +1,5 @@
 ﻿namespace ApiModel.NeoModels;
+
 public class DirecaoClinica
 {
     public long Id { get; set; }
@@ -16,4 +17,7 @@ public class DirecaoClinica
     public string SubDiretorCedulaProfissional { get; set; } = string.Empty;
     public string SubDiretorOrdem { get; set; } = string.Empty;
     public DateOnly SubDiretorCedulaDataValidade { get; set; }
+
+    public long EstabelecimentoId { get; set; }
+    public Estabelecimento? Estabelecimento { get; set; }
 }

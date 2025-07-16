@@ -310,14 +310,14 @@ public class EstabelecimentoController(
     }
 
     //// Get api/Estabelecimento/{id}/DirecoesClinicas
-    //[HttpGet("{id}/DirecoesClinicas")]
-    //public IResult GetDirecoesClinicasByEstabelecimentoId(long id)
-    //{
-    //    var direcoesClinicas = _direcaoClinicaRepo.GetAll().Where(c => c.EstabelecimentoId == id);
-    //    if (!direcoesClinicas.Any()) return Results.Ok(direcoesClinicas);
-    //    var direcoesClinicasDto = _mapper.Map<IEnumerable<DirecaoClinicaDTO>>(direcoesClinicas);
-    //    return Results.Ok(direcoesClinicasDto);
-    //}
+    [HttpGet("{id}/DirecoesClinicas")]
+    public IResult GetDirecoesClinicasByEstabelecimentoId(long id)
+    {
+        var direcoesClinicas = _direcaoClinicaRepo.GetAll().Where(c => c.EstabelecimentoId == id);
+        if (!direcoesClinicas.Any()) return Results.Ok(direcoesClinicas);
+        var direcoesClinicasDto = _mapper.Map<IEnumerable<DirecaoClinicaDTO>>(direcoesClinicas);
+        return Results.Ok(direcoesClinicasDto);
+    }
 
     //[HttpGet("{id}/CorpoClinico")]
     //public IResult GetCorpoClinicoByEstabelecimentoId(long id)

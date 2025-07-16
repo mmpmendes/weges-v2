@@ -81,7 +81,7 @@ public class DbInitializer(
             {
                 new Estabelecimento
                 {
-                    Denominacao = "Clínica A",
+                    Denominacao = "ClÃ­nica A",
                     Email = "email@email.email",
                     DataInicioAtividade = new DateOnly(2020, 02, 20),
                     Morada = "estab 1 morada",
@@ -111,63 +111,63 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Denominacao = "Clínica D",
+                    Denominacao = "ClÃ­nica D",
                     Email = "clinicad@email.com",
                     DataInicioAtividade = new DateOnly(2021, 07, 10),
-                    Morada = "Av. Clínica D, 456",
+                    Morada = "Av. ClÃ­nica D, 456",
                     Sigla = "CLIN-D",
                     Telefone = "291111114",
-                    TipoPrestador = "Clínica Especializada"
+                    TipoPrestador = "ClÃ­nica Especializada"
                 },
                 new Estabelecimento
                 {
-                    Denominacao = "Centro Médico E",
+                    Denominacao = "Centro MÃ©dico E",
                     Email = "centromedicoe@email.com",
                     DataInicioAtividade = new DateOnly(2022, 09, 25),
-                    Morada = "Rua Centro Médico E, 789",
+                    Morada = "Rua Centro MÃ©dico E, 789",
                     Sigla = "MED-E",
                     Telefone = "291111115",
-                    TipoPrestador = "Centro Médico"
+                    TipoPrestador = "Centro MÃ©dico"
                 },
                 new Estabelecimento
                 {
-                    Denominacao = "Hospital Universitário F",
+                    Denominacao = "Hospital UniversitÃ¡rio F",
                     Email = "hospitalf@email.com",
                     DataInicioAtividade = new DateOnly(2018, 11, 05),
-                    Morada = "Av. Universitária F, 321",
+                    Morada = "Av. UniversitÃ¡ria F, 321",
                     Sigla = "UNIV-F",
                     Telefone = "291111116",
-                    TipoPrestador = "Hospital Universitário"
+                    TipoPrestador = "Hospital UniversitÃ¡rio"
                 },
                 new Estabelecimento
                 {
-                    Denominacao = "Policlínica G",
+                    Denominacao = "PoliclÃ­nica G",
                     Email = "policlinicag@email.com",
                     DataInicioAtividade = new DateOnly(2020, 03, 15),
-                    Morada = "Rua Policlínica G, 654",
+                    Morada = "Rua PoliclÃ­nica G, 654",
                     Sigla = "POLI-G",
                     Telefone = "291111117",
-                    TipoPrestador = "Policlínica"
+                    TipoPrestador = "PoliclÃ­nica"
                 },
                 new Estabelecimento
                 {
-                    Denominacao = "Centro de Saúde H",
+                    Denominacao = "Centro de SaÃºde H",
                     Email = "centrosaudelh@email.com",
                     DataInicioAtividade = new DateOnly(2019, 06, 20),
-                    Morada = "Rua Centro Saúde H, 987",
+                    Morada = "Rua Centro SaÃºde H, 987",
                     Sigla = "SAUDE-H",
                     Telefone = "291111118",
-                    TipoPrestador = "Centro de Saúde"
+                    TipoPrestador = "Centro de SaÃºde"
                 },
                 new Estabelecimento
                 {
-                    Denominacao = "Clínica Especializada I",
+                    Denominacao = "ClÃ­nica Especializada I",
                     Email = "clinicai@email.com",
                     DataInicioAtividade = new DateOnly(2021, 01, 10),
-                    Morada = "Av. Clínica I, 567",
+                    Morada = "Av. ClÃ­nica I, 567",
                     Sigla = "CLIN-I",
                     Telefone = "291111119",
-                    TipoPrestador = "Clínica Especializada"
+                    TipoPrestador = "ClÃ­nica Especializada"
                 },
                 new Estabelecimento
                 {
@@ -181,23 +181,23 @@ public class DbInitializer(
                 },
                 new Estabelecimento
                 {
-                    Denominacao = "Centro Clínico K",
+                    Denominacao = "Centro ClÃ­nico K",
                     Email = "centroclinicok@email.com",
                     DataInicioAtividade = new DateOnly(2017, 08, 22),
-                    Morada = "Av. Centro Clínico K, 890",
+                    Morada = "Av. Centro ClÃ­nico K, 890",
                     Sigla = "CLIN-K",
                     Telefone = "291111121",
-                    TipoPrestador = "Centro Clínico"
+                    TipoPrestador = "Centro ClÃ­nico"
                 },
                 new Estabelecimento
                 {
-                    Denominacao = "Unidade de Saúde L",
+                    Denominacao = "Unidade de SaÃºde L",
                     Email = "unidadel@email.com",
                     DataInicioAtividade = new DateOnly(2023, 04, 05),
                     Morada = "Rua Unidade L, 123",
                     Sigla = "US-L",
                     Telefone = "291111122",
-                    TipoPrestador = "Unidade Básica de Saúde"
+                    TipoPrestador = "Unidade BÃ¡sica de SaÃºde"
                 }
 
             });
@@ -216,14 +216,14 @@ public class DbInitializer(
             {
                 new Servico
                 {
-                    Denominacao = "Medicina Dentária",
-                    Diretor = "João A.",
+                    Denominacao = "Medicina DentÃ¡ria",
+                    Diretor = "JoÃ£o A.",
                     DiretorCC = "CC 12345678",
                     DiretorCcDataValidade = new DateOnly(2023, 12, 31),
                     DiretorCedulaProfissional = "Cedula 123456",
                     DiretorOrdem = "Ordem 123456",
-                    DeclaracaoAceitacao = "Aceito as condições",
-                    Especialidade = "Dentária",
+                    DeclaracaoAceitacao = "Aceito as condiÃ§Ãµes",
+                    Especialidade = "DentÃ¡ria",
                     Horario = "08:00 - 17:00"
                 },
                 new Servico
@@ -247,7 +247,7 @@ public class DbInitializer(
                     DiretorCedulaProfissional = "Cedula 345678",
                     DiretorOrdem = "Ordem 345678",
                     DeclaracaoAceitacao = "Declaro estar de acordo",
-                    Especialidade = "Pediátrica",
+                    Especialidade = "PediÃ¡trica",
                     Horario = "07:30 - 16:30"
                 },
                 new Servico
@@ -258,8 +258,8 @@ public class DbInitializer(
                     DiretorCcDataValidade = new DateOnly(2026, 03, 10),
                     DiretorCedulaProfissional = "Cedula 456789",
                     DiretorOrdem = "Ordem 456789",
-                    DeclaracaoAceitacao = "Confirmo a aceitação",
-                    Especialidade = "Dermatológica",
+                    DeclaracaoAceitacao = "Confirmo a aceitaÃ§Ã£o",
+                    Especialidade = "DermatolÃ³gica",
                     Horario = "10:00 - 19:00"
                 },
                 new Servico
@@ -271,7 +271,7 @@ public class DbInitializer(
                     DiretorCedulaProfissional = "Cedula 567890",
                     DiretorOrdem = "Ordem 567890",
                     DeclaracaoAceitacao = "Aceito os regulamentos",
-                    Especialidade = "Ortopédica",
+                    Especialidade = "OrtopÃ©dica",
                     Horario = "08:00 - 17:00"
                 },
                 new Servico
@@ -282,8 +282,8 @@ public class DbInitializer(
                     DiretorCcDataValidade = new DateOnly(2027, 01, 20),
                     DiretorCedulaProfissional = "Cedula 678901",
                     DiretorOrdem = "Ordem 678901",
-                    DeclaracaoAceitacao = "Li e aceito as condições",
-                    Especialidade = "Ginecológica",
+                    DeclaracaoAceitacao = "Li e aceito as condiÃ§Ãµes",
+                    Especialidade = "GinecolÃ³gica",
                     Horario = "09:00 - 18:00"
                 },
                 new Servico
@@ -307,7 +307,7 @@ public class DbInitializer(
                     DiretorCedulaProfissional = "Cedula 890123",
                     DiretorOrdem = "Ordem 890123",
                     DeclaracaoAceitacao = "Aceito integralmente",
-                    Especialidade = "Neurológica",
+                    Especialidade = "NeurolÃ³gica",
                     Horario = "10:00 - 19:00"
                 },
                 new Servico
@@ -318,19 +318,19 @@ public class DbInitializer(
                     DiretorCcDataValidade = new DateOnly(2023, 12, 31),
                     DiretorCedulaProfissional = "Cedula 901234",
                     DiretorOrdem = "Ordem 901234",
-                    DeclaracaoAceitacao = "Confirmo a aceitação",
-                    Especialidade = "Psiquiátrica",
+                    DeclaracaoAceitacao = "Confirmo a aceitaÃ§Ã£o",
+                    Especialidade = "PsiquiÃ¡trica",
                     Horario = "08:00 - 16:00"
                 },
                 new Servico
                 {
                     Denominacao = "Otorrinolaringologia",
-                    Diretor = "Patrícia G.",
+                    Diretor = "PatrÃ­cia G.",
                     DiretorCC = "CC 01234567",
                     DiretorCcDataValidade = new DateOnly(2026, 04, 12),
                     DiretorCedulaProfissional = "Cedula 012345",
                     DiretorOrdem = "Ordem 012345",
-                    DeclaracaoAceitacao = "Aceito as condições definidas",
+                    DeclaracaoAceitacao = "Aceito as condiÃ§Ãµes definidas",
                     Especialidade = "Otorrino",
                     Horario = "09:30 - 18:30"
                 },
@@ -343,7 +343,7 @@ public class DbInitializer(
                     DiretorCedulaProfissional = "Cedula 132435",
                     DiretorOrdem = "Ordem 132435",
                     DeclaracaoAceitacao = "Li e aceito",
-                    Especialidade = "Endócrina",
+                    Especialidade = "EndÃ³crina",
                     Horario = "07:00 - 15:00"
                 }
             });
@@ -394,12 +394,13 @@ public class DbInitializer(
                     CedulaDataValidade = new DateOnly(2023, 12, 31),
                     DeclaracaoAceitacao = true,
                     Especialidade = "Especialidade 1",
-                    SubDiretor = "Alberto Jerónimo",
+                    SubDiretor = "Alberto JerÃ³nimo",
                     SubDiretorCC = "CC 2",
                     SubDiretorCcDataValidade = new DateOnly(2023, 12, 31),
                     SubDiretorCedulaProfissional = "Cedula 2",
                     SubDiretorOrdem = "Ordem 2",
-                    SubDiretorCedulaDataValidade = new DateOnly(2023, 12, 31)
+                    SubDiretorCedulaDataValidade = new DateOnly(2023, 12, 31),
+                    EstabelecimentoId = 1
                 },
                 new DirecaoClinica
                 {
@@ -416,11 +417,12 @@ public class DbInitializer(
                     SubDiretorCcDataValidade = new DateOnly(2026, 03, 12),
                     SubDiretorCedulaProfissional = "Cedula 2001",
                     SubDiretorOrdem = "Ordem 2001",
-                    SubDiretorCedulaDataValidade = new DateOnly(2027, 09, 20)
+                    SubDiretorCedulaDataValidade = new DateOnly(2027, 09, 20),
+                    EstabelecimentoId = 1
                 },
                 new DirecaoClinica
                 {
-                    Nome = "Dr. António Lopes",
+                    Nome = "Dr. AntÃ³nio Lopes",
                     CC = "CC 1002",
                     CcDataValidade = new DateOnly(2024, 08, 31),
                     CedulaProfissional = "Cedula 1002",
@@ -433,11 +435,12 @@ public class DbInitializer(
                     SubDiretorCcDataValidade = new DateOnly(2025, 06, 30),
                     SubDiretorCedulaProfissional = "Cedula 2002",
                     SubDiretorOrdem = "Ordem 2002",
-                    SubDiretorCedulaDataValidade = new DateOnly(2026, 11, 10)
+                    SubDiretorCedulaDataValidade = new DateOnly(2026, 11, 10),
+                    EstabelecimentoId = 2
                 },
                 new DirecaoClinica
                 {
-                    Nome = "Dra. Inês Ferreira",
+                    Nome = "Dra. InÃªs Ferreira",
                     CC = "CC 1003",
                     CcDataValidade = new DateOnly(2026, 01, 14),
                     CedulaProfissional = "Cedula 1003",
@@ -450,7 +453,8 @@ public class DbInitializer(
                     SubDiretorCcDataValidade = new DateOnly(2025, 07, 21),
                     SubDiretorCedulaProfissional = "Cedula 2003",
                     SubDiretorOrdem = "Ordem 2003",
-                    SubDiretorCedulaDataValidade = new DateOnly(2027, 05, 30)
+                    SubDiretorCedulaDataValidade = new DateOnly(2027, 05, 30),
+                    EstabelecimentoId = 2
                 },
                 new DirecaoClinica
                 {
@@ -467,7 +471,8 @@ public class DbInitializer(
                     SubDiretorCcDataValidade = new DateOnly(2026, 08, 19),
                     SubDiretorCedulaProfissional = "Cedula 2004",
                     SubDiretorOrdem = "Ordem 2004",
-                    SubDiretorCedulaDataValidade = new DateOnly(2027, 12, 05)
+                    SubDiretorCedulaDataValidade = new DateOnly(2027, 12, 05),
+                    EstabelecimentoId = 3
                 },
                 new DirecaoClinica
                 {
@@ -479,16 +484,17 @@ public class DbInitializer(
                     CedulaDataValidade = new DateOnly(2026, 06, 01),
                     DeclaracaoAceitacao = true,
                     Especialidade = "Pediatria",
-                    SubDiretor = "Dr. André Nogueira",
+                    SubDiretor = "Dr. AndrÃ© Nogueira",
                     SubDiretorCC = "CC 2005",
                     SubDiretorCcDataValidade = new DateOnly(2025, 03, 15),
                     SubDiretorCedulaProfissional = "Cedula 2005",
                     SubDiretorOrdem = "Ordem 2005",
-                    SubDiretorCedulaDataValidade = new DateOnly(2026, 11, 17)
+                    SubDiretorCedulaDataValidade = new DateOnly(2026, 11, 17),
+                    EstabelecimentoId = 1
                 },
                 new DirecaoClinica
                 {
-                    Nome = "Dr. Tiago Gonçalves",
+                    Nome = "Dr. Tiago GonÃ§alves",
                     CC = "CC 1006",
                     CcDataValidade = new DateOnly(2026, 09, 25),
                     CedulaProfissional = "Cedula 1006",
@@ -501,7 +507,8 @@ public class DbInitializer(
                     SubDiretorCcDataValidade = new DateOnly(2026, 12, 24),
                     SubDiretorCedulaProfissional = "Cedula 2006",
                     SubDiretorOrdem = "Ordem 2006",
-                    SubDiretorCedulaDataValidade = new DateOnly(2027, 07, 01)
+                    SubDiretorCedulaDataValidade = new DateOnly(2027, 07, 01),
+                    EstabelecimentoId = 1
                 },
                 new DirecaoClinica
                 {
@@ -518,7 +525,8 @@ public class DbInitializer(
                     SubDiretorCcDataValidade = new DateOnly(2026, 04, 09),
                     SubDiretorCedulaProfissional = "Cedula 2007",
                     SubDiretorOrdem = "Ordem 2007",
-                    SubDiretorCedulaDataValidade = new DateOnly(2027, 10, 22)
+                    SubDiretorCedulaDataValidade = new DateOnly(2027, 10, 22),
+                    EstabelecimentoId = 2
                 },
                 new DirecaoClinica
                 {
@@ -535,11 +543,12 @@ public class DbInitializer(
                     SubDiretorCcDataValidade = new DateOnly(2026, 02, 28),
                     SubDiretorCedulaProfissional = "Cedula 2008",
                     SubDiretorOrdem = "Ordem 2008",
-                    SubDiretorCedulaDataValidade = new DateOnly(2027, 08, 19)
+                    SubDiretorCedulaDataValidade = new DateOnly(2027, 08, 19),
+                    EstabelecimentoId = 3
                 },
                 new DirecaoClinica
                 {
-                    Nome = "Dra. Cláudia Rocha",
+                    Nome = "Dra. ClÃ¡udia Rocha",
                     CC = "CC 1009",
                     CcDataValidade = new DateOnly(2025, 07, 07),
                     CedulaProfissional = "Cedula 1009",
@@ -547,12 +556,13 @@ public class DbInitializer(
                     CedulaDataValidade = new DateOnly(2027, 05, 05),
                     DeclaracaoAceitacao = true,
                     Especialidade = "Reumatologia",
-                    SubDiretor = "Dr. Luís Ventura",
+                    SubDiretor = "Dr. LuÃ­s Ventura",
                     SubDiretorCC = "CC 2009",
                     SubDiretorCcDataValidade = new DateOnly(2026, 11, 11),
                     SubDiretorCedulaProfissional = "Cedula 2009",
                     SubDiretorOrdem = "Ordem 2009",
-                    SubDiretorCedulaDataValidade = new DateOnly(2028, 03, 03)
+                    SubDiretorCedulaDataValidade = new DateOnly(2028, 03, 03),
+                    EstabelecimentoId = 3
                 },
                 new DirecaoClinica
                 {
@@ -564,12 +574,13 @@ public class DbInitializer(
                     CedulaDataValidade = new DateOnly(2026, 01, 27),
                     DeclaracaoAceitacao = true,
                     Especialidade = "Psiquiatria",
-                    SubDiretor = "Dra. Sílvia Figueiredo",
+                    SubDiretor = "Dra. SÃ­lvia Figueiredo",
                     SubDiretorCC = "CC 2010",
                     SubDiretorCcDataValidade = new DateOnly(2025, 12, 22),
                     SubDiretorCedulaProfissional = "Cedula 2010",
                     SubDiretorOrdem = "Ordem 2010",
-                    SubDiretorCedulaDataValidade = new DateOnly(2026, 09, 09)
+                    SubDiretorCedulaDataValidade = new DateOnly(2026, 09, 09),
+                    EstabelecimentoId = 3
                 }
             });
             dbContext.SaveChanges();

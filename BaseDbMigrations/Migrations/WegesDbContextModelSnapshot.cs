@@ -18,7 +18,7 @@ namespace BaseDbMigrations.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("weges")
-                .HasAnnotation("ProductVersion", "9.0.5")
+                .HasAnnotation("ProductVersion", "9.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -108,6 +108,9 @@ namespace BaseDbMigrations.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long>("EstabelecimentoId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("text");
@@ -139,6 +142,9 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EstabelecimentoId")
+                        .IsUnique();
 
                     b.ToTable("DirecoesClinicas", "weges");
                 });
@@ -183,9 +189,6 @@ namespace BaseDbMigrations.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long?>("DirecaoClinicaId")
-                        .HasColumnType("bigint");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text");
@@ -211,8 +214,6 @@ namespace BaseDbMigrations.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DirecaoClinicaId");
 
                     b.ToTable("Estabelecimentos", "weges");
                 });
@@ -334,13 +335,15 @@ namespace BaseDbMigrations.Migrations
                         .HasForeignKey("EntidadeId");
                 });
 
-            modelBuilder.Entity("ApiModel.NeoModels.Estabelecimento", b =>
+            modelBuilder.Entity("ApiModel.NeoModels.DirecaoClinica", b =>
                 {
-                    b.HasOne("ApiModel.NeoModels.DirecaoClinica", "DirecaoClinica")
-                        .WithMany()
-                        .HasForeignKey("DirecaoClinicaId");
+                    b.HasOne("ApiModel.NeoModels.Estabelecimento", "Estabelecimento")
+                        .WithOne("DirecaoClinica")
+                        .HasForeignKey("ApiModel.NeoModels.DirecaoClinica", "EstabelecimentoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("DirecaoClinica");
+                    b.Navigation("Estabelecimento");
                 });
 
             modelBuilder.Entity("ApiModel.NeoModels.Mensagem", b =>
@@ -370,6 +373,11 @@ namespace BaseDbMigrations.Migrations
                     b.Navigation("Acessos");
 
                     b.Navigation("Mensagens");
+                });
+
+            modelBuilder.Entity("ApiModel.NeoModels.Estabelecimento", b =>
+                {
+                    b.Navigation("DirecaoClinica");
                 });
 #pragma warning restore 612, 618
         }
